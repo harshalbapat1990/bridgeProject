@@ -1,3 +1,4 @@
+from bda.contracts.speckle_contracts.speckle_enums import SpeckleTypes
 from typing import Annotated, ClassVar, Literal, Union
 
 from pydantic import BaseModel, Field, model_validator
@@ -129,8 +130,8 @@ class GeometryGroupParametersGirder(
     ] = "Geometry Group Properties"
 
     bda_speckle_type: Literal[
-        "Objects.Data.DataObject:BDA_Geometry_Group_Properties_Girder"
-    ] = "Objects.Data.DataObject:BDA_Geometry_Group_Properties_Girder"
+        SpeckleTypes.DATA_OBJECT_BDA_GEOMETRY_GROUP_PROPERTIES_GIRDER
+    ] = Field(SpeckleTypes.DATA_OBJECT_BDA_GEOMETRY_GROUP_PROPERTIES_GIRDER.value, frozen=True)
 
     APPLICATION_ID_PATTERN: ClassVar[str] = r"^GEOMGROUP-PROPS-\d{4}-GIRDER$"
     applicationId: str = Field(pattern=APPLICATION_ID_PATTERN)
@@ -156,8 +157,8 @@ class GeometryGroupGirder(
     GeometryGroupBase
 ):
     bda_speckle_type: Literal[
-        "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_Girder"
-    ] = "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_Girder"
+        SpeckleTypes.COLLECTION_BDA_GEOMETRY_GROUP_GIRDER
+    ] = Field(SpeckleTypes.COLLECTION_BDA_GEOMETRY_GROUP_GIRDER.value, frozen=True)
 
     APPLICATION_ID_PATTERN: ClassVar[str] = r"^COL-GEOMGROUP-\d{4}-GIRDER$"
     applicationId: str = Field(pattern=APPLICATION_ID_PATTERN)

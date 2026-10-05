@@ -1,3 +1,4 @@
+from bda.contracts.speckle_contracts.speckle_enums import SpeckleTypes
 from typing import Annotated, ClassVar, Literal, Union
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
@@ -692,8 +693,8 @@ class GeometryGroupParametersSpan(
     ] = "Geometry Group Properties"
 
     bda_speckle_type: Literal[
-        "Objects.Data.DataObject:BDA_Geometry_Group_Properties_Span"
-    ] = "Objects.Data.DataObject:BDA_Geometry_Group_Properties_Span"
+        SpeckleTypes.DATA_OBJECT_BDA_GEOMETRY_GROUP_PROPERTIES_SPAN
+    ] = Field(SpeckleTypes.DATA_OBJECT_BDA_GEOMETRY_GROUP_PROPERTIES_SPAN.value, frozen=True)
 
     APPLICATION_ID_PATTERN: ClassVar[str] = r"^GEOMGROUP-PROPS-\d{4}-SPAN$"
     applicationId: str = Field(pattern=APPLICATION_ID_PATTERN)
@@ -719,8 +720,8 @@ class GeometryGroupSpan(
     GeometryGroupBase
 ):
     bda_speckle_type: Literal[
-        "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_Span"
-    ] = "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_Span"
+        SpeckleTypes.COLLECTION_BDA_GEOMETRY_GROUP_SPAN
+    ] = Field(SpeckleTypes.COLLECTION_BDA_GEOMETRY_GROUP_SPAN.value, frozen=True)
 
     APPLICATION_ID_PATTERN: ClassVar[str] = r"^COL-GEOMGROUP-\d{4}-SPAN$"
     applicationId: str = Field(pattern=APPLICATION_ID_PATTERN)

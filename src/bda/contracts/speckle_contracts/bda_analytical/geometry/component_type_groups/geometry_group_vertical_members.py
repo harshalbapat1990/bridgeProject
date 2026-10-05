@@ -1,3 +1,4 @@
+from bda.contracts.speckle_contracts.speckle_enums import SpeckleTypes
 from typing import Annotated, ClassVar, Literal, Union
 
 from pydantic import BaseModel, Field, model_validator
@@ -65,8 +66,8 @@ class GeometryGroupParametersVerticalMembers(GeometryGroupParameters):
     name: Literal["Geometry Group Properties"] = "Geometry Group Properties"
 
     bda_speckle_type: Literal[
-        "Objects.Data.DataObject:BDA_Geometry_Group_Properties_Vertical_Members"
-    ] = "Objects.Data.DataObject:BDA_Geometry_Group_Properties_Vertical_Members"
+        SpeckleTypes.DATA_OBJECT_BDA_GEOMETRY_GROUP_PROPERTIES_VERTICAL_MEMBERS
+    ] = Field(SpeckleTypes.DATA_OBJECT_BDA_GEOMETRY_GROUP_PROPERTIES_VERTICAL_MEMBERS.value, frozen=True)
 
     APPLICATION_ID_PATTERN: ClassVar[str] = (
         r"^GEOMGROUP-PROPS-\d{4}-VERTICAL-MEMBERS$"
@@ -80,8 +81,8 @@ class GeometryGroupVerticalMembers(GeometryGroupBase):
     """Shared metadata for above-ground and below-ground vertical members."""
 
     bda_speckle_type: Literal[
-        "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_Vertical_Members"
-    ] = "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_Vertical_Members"
+        SpeckleTypes.COLLECTION_BDA_GEOMETRY_GROUP_VERTICAL_MEMBERS
+    ] = Field(SpeckleTypes.COLLECTION_BDA_GEOMETRY_GROUP_VERTICAL_MEMBERS.value, frozen=True)
 
     APPLICATION_ID_PATTERN: ClassVar[str] = (
         r"^COL-GEOMGROUP-\d{4}-VERTICAL-MEMBERS$"

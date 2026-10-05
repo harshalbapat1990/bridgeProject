@@ -1,3 +1,4 @@
+from bda.contracts.speckle_contracts.speckle_enums import SpeckleTypes
 from typing import Annotated, ClassVar, Literal, Union
 
 from pydantic import BaseModel, Field, model_validator
@@ -100,8 +101,8 @@ class GeometryGroupParametersLinkage(
     ] = "Geometry Group Properties"
 
     bda_speckle_type: Literal[
-        "Objects.Data.DataObject:BDA_Geometry_Group_Properties_Linkage"
-    ] = "Objects.Data.DataObject:BDA_Geometry_Group_Properties_Linkage"
+        SpeckleTypes.DATA_OBJECT_BDA_GEOMETRY_GROUP_PROPERTIES_LINKAGE
+    ] = Field(SpeckleTypes.DATA_OBJECT_BDA_GEOMETRY_GROUP_PROPERTIES_LINKAGE.value, frozen=True)
 
     APPLICATION_ID_PATTERN: ClassVar[str] = r"^GEOMGROUP-PROPS-\d{4}-LINKAGE$"
     applicationId: str = Field(pattern=APPLICATION_ID_PATTERN)
@@ -128,8 +129,8 @@ class GeometryGroupLinkage(
     GeometryGroupBase
 ):
     bda_speckle_type: Literal[
-        "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_Linkage"
-    ] = "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_Linkage"
+        SpeckleTypes.COLLECTION_BDA_GEOMETRY_GROUP_LINKAGE
+    ] = Field(SpeckleTypes.COLLECTION_BDA_GEOMETRY_GROUP_LINKAGE.value, frozen=True)
 
     APPLICATION_ID_PATTERN: ClassVar[str] = r"^COL-GEOMGROUP-\d{4}-LINKAGE$"
     applicationId: str = Field(pattern=APPLICATION_ID_PATTERN)

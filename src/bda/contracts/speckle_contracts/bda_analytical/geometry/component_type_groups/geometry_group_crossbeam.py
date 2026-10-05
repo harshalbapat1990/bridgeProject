@@ -1,3 +1,4 @@
+from bda.contracts.speckle_contracts.speckle_enums import SpeckleTypes
 from typing import Annotated, ClassVar, Literal
 
 from pydantic import BaseModel, Field, model_validator
@@ -176,8 +177,8 @@ class GeometryGroupParametersCrossbeam(
     ] = "Geometry Group Properties"
 
     bda_speckle_type: Literal[
-        "Objects.Data.DataObject:BDA_Geometry_Group_Properties_Crossbeam"
-    ] = "Objects.Data.DataObject:BDA_Geometry_Group_Properties_Crossbeam"
+        SpeckleTypes.DATA_OBJECT_BDA_GEOMETRY_GROUP_PROPERTIES_CROSSBEAM
+    ] = Field(SpeckleTypes.DATA_OBJECT_BDA_GEOMETRY_GROUP_PROPERTIES_CROSSBEAM.value, frozen=True)
 
     APPLICATION_ID_PATTERN: ClassVar[str] = r"^GEOMGROUP-PROPS-\d{4}-CROSSBEAM$"
     applicationId: str = Field(pattern=APPLICATION_ID_PATTERN)
@@ -204,8 +205,8 @@ class GeometryGroupCrossbeam(
     GeometryGroupBase
 ):
     bda_speckle_type: Literal[
-        "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_Crossbeam"
-    ] = "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_Crossbeam"
+        SpeckleTypes.COLLECTION_BDA_GEOMETRY_GROUP_CROSSBEAM
+    ] = Field(SpeckleTypes.COLLECTION_BDA_GEOMETRY_GROUP_CROSSBEAM.value, frozen=True)
 
     APPLICATION_ID_PATTERN: ClassVar[str] = r"^COL-GEOMGROUP-\d{4}-CROSSBEAM$"
     applicationId: str = Field(pattern=APPLICATION_ID_PATTERN)

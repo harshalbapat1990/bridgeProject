@@ -1,3 +1,4 @@
+from bda.contracts.speckle_contracts.speckle_enums import SpeckleTypes
 from typing import Annotated, ClassVar, Literal, Union
 
 from pydantic import Field, BaseModel, model_validator
@@ -259,8 +260,8 @@ class GeometryGroupParametersAboveGround(
     ] = "Geometry Group Properties"
 
     bda_speckle_type: Literal[
-        "Objects.Data.DataObject:BDA_Geometry_Group_Properties_AboveGround"
-    ] = "Objects.Data.DataObject:BDA_Geometry_Group_Properties_AboveGround"
+        SpeckleTypes.DATA_OBJECT_BDA_GEOMETRY_GROUP_PROPERTIES_ABOVEGROUND
+    ] = Field(SpeckleTypes.DATA_OBJECT_BDA_GEOMETRY_GROUP_PROPERTIES_ABOVEGROUND.value, frozen=True)
 
     APPLICATION_ID_PATTERN: ClassVar[str] = r"^GEOMGROUP-PROPS-\d{4}-ABOVE-GROUND$"
     applicationId: str = Field(pattern=APPLICATION_ID_PATTERN)
@@ -287,8 +288,8 @@ class GeometryGroupAboveGround(
     GeometryGroupBase
 ):
     bda_speckle_type: Literal[
-        "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_AboveGround"
-    ] = "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_AboveGround"
+        SpeckleTypes.COLLECTION_BDA_GEOMETRY_GROUP_ABOVEGROUND
+    ] = Field(SpeckleTypes.COLLECTION_BDA_GEOMETRY_GROUP_ABOVEGROUND.value, frozen=True)
 
     APPLICATION_ID_PATTERN: ClassVar[str] = r"^COL-GEOMGROUP-\d{4}-ABOVE-GROUND$"
     applicationId: str = Field(pattern=APPLICATION_ID_PATTERN)

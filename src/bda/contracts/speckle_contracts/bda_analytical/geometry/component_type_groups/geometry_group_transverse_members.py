@@ -1,3 +1,4 @@
+from bda.contracts.speckle_contracts.speckle_enums import SpeckleTypes
 from typing import Annotated, ClassVar, Literal, Union
 
 from pydantic import BaseModel, Field, model_validator
@@ -76,8 +77,8 @@ class GeometryGroupParametersTransverseMembers(
     ] = "Geometry Group Properties"
 
     bda_speckle_type: Literal[
-        "Objects.Data.DataObject:BDA_Geometry_Group_Properties_Transverse_Members"
-    ] = "Objects.Data.DataObject:BDA_Geometry_Group_Properties_Transverse_Members"
+        SpeckleTypes.DATA_OBJECT_BDA_GEOMETRY_GROUP_PROPERTIES_TRANSVERSE_MEMBERS
+    ] = Field(SpeckleTypes.DATA_OBJECT_BDA_GEOMETRY_GROUP_PROPERTIES_TRANSVERSE_MEMBERS.value, frozen=True)
 
     APPLICATION_ID_PATTERN: ClassVar[str] = r"^GEOMGROUP-PROPS-\d{4}-TRANSVERSE-MEMBERS$"
     applicationId: str = Field(pattern=APPLICATION_ID_PATTERN)
@@ -106,8 +107,8 @@ class GeometryGroupTransverseMembers(
     GeometryGroupBase
 ):
     bda_speckle_type: Literal[
-        "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_Transverse_Members"
-    ] = "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_Transverse_Members"
+        SpeckleTypes.COLLECTION_BDA_GEOMETRY_GROUP_TRANSVERSE_MEMBERS
+    ] = Field(SpeckleTypes.COLLECTION_BDA_GEOMETRY_GROUP_TRANSVERSE_MEMBERS.value, frozen=True)
 
     APPLICATION_ID_PATTERN: ClassVar[str] = r"^COL-GEOMGROUP-\d{4}-TRANSVERSE-MEMBERS$"
     applicationId: str = Field(pattern=APPLICATION_ID_PATTERN)

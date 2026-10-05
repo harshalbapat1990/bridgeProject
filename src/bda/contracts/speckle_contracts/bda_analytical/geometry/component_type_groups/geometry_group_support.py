@@ -1,3 +1,4 @@
+from bda.contracts.speckle_contracts.speckle_enums import SpeckleTypes
 from enum import Enum
 from typing import Annotated, ClassVar, Literal, Union
 
@@ -209,8 +210,8 @@ class GeometryGroupParametersSupport(
     ] = "Geometry Group Properties"
 
     bda_speckle_type: Literal[
-        "Objects.Data.DataObject:BDA_Geometry_Group_Properties_Support"
-    ] = "Objects.Data.DataObject:BDA_Geometry_Group_Properties_Support"
+        SpeckleTypes.DATA_OBJECT_BDA_GEOMETRY_GROUP_PROPERTIES_SUPPORT
+    ] = Field(SpeckleTypes.DATA_OBJECT_BDA_GEOMETRY_GROUP_PROPERTIES_SUPPORT.value, frozen=True)
 
     APPLICATION_ID_PATTERN: ClassVar[str] = r"^GEOMGROUP-PROPS-\d{4}-SUPPORT$"
     applicationId: str = Field(pattern=APPLICATION_ID_PATTERN)
@@ -237,8 +238,8 @@ class GeometryGroupSupport(
     GeometryGroupBase
 ):
     bda_speckle_type: Literal[
-        "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_Support"
-    ] = "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_Support"
+        SpeckleTypes.COLLECTION_BDA_GEOMETRY_GROUP_SUPPORT
+    ] = Field(SpeckleTypes.COLLECTION_BDA_GEOMETRY_GROUP_SUPPORT.value, frozen=True)
 
     APPLICATION_ID_PATTERN: ClassVar[str] = r"^COL-GEOMGROUP-\d{4}-SUPPORT$"
     applicationId: str = Field(pattern=APPLICATION_ID_PATTERN)

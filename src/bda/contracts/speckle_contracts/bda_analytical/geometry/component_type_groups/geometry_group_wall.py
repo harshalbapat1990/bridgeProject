@@ -1,3 +1,4 @@
+from bda.contracts.speckle_contracts.speckle_enums import SpeckleTypes
 from typing import Annotated, ClassVar, Literal
 
 from pydantic import BaseModel, Field, model_validator
@@ -156,8 +157,8 @@ class GeometryGroupParametersWall(
     ] = "Geometry Group Properties"
 
     bda_speckle_type: Literal[
-        "Objects.Data.DataObject:BDA_Geometry_Group_Properties_Wall"
-    ] = "Objects.Data.DataObject:BDA_Geometry_Group_Properties_Wall"
+        SpeckleTypes.DATA_OBJECT_BDA_GEOMETRY_GROUP_PROPERTIES_WALL
+    ] = Field(SpeckleTypes.DATA_OBJECT_BDA_GEOMETRY_GROUP_PROPERTIES_WALL.value, frozen=True)
 
     APPLICATION_ID_PATTERN: ClassVar[str] = r"^GEOMGROUP-PROPS-\d{4}-WALL$"
     applicationId: str = Field(pattern=APPLICATION_ID_PATTERN)
@@ -182,8 +183,8 @@ class GeometryGroupWall(
     GeometryGroupBase
 ):
     bda_speckle_type: Literal[
-        "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_Wall"
-    ] = "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_Wall"
+        SpeckleTypes.COLLECTION_BDA_GEOMETRY_GROUP_WALL
+    ] = Field(SpeckleTypes.COLLECTION_BDA_GEOMETRY_GROUP_WALL.value, frozen=True)
 
     APPLICATION_ID_PATTERN: ClassVar[str] = r"^COL-GEOMGROUP-\d{4}-WALL$"
     applicationId: str = Field(pattern=APPLICATION_ID_PATTERN)

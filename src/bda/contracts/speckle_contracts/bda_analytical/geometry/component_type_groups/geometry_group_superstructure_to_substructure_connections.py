@@ -1,3 +1,4 @@
+from bda.contracts.speckle_contracts.speckle_enums import SpeckleTypes
 from typing import Annotated, ClassVar, Literal, Union
 
 from pydantic import BaseModel, Field
@@ -421,8 +422,8 @@ class GeometryGroupParametersSuperstructureToSubstructureConnections(
     ] = "Geometry Group Properties"
 
     bda_speckle_type: Literal[
-        "Objects.Data.DataObject:BDA_Geometry_Group_Properties_Superstructure_To_Substructure_Connections"
-    ] = "Objects.Data.DataObject:BDA_Geometry_Group_Properties_Superstructure_To_Substructure_Connections"
+        SpeckleTypes.DATA_OBJECT_BDA_GEOMETRY_GROUP_PROPERTIES_SUPERSTRUCTURE_TO_SUBSTRUCTURE_CONNECTIONS
+    ] = Field(SpeckleTypes.DATA_OBJECT_BDA_GEOMETRY_GROUP_PROPERTIES_SUPERSTRUCTURE_TO_SUBSTRUCTURE_CONNECTIONS.value, frozen=True)
 
     APPLICATION_ID_PATTERN: ClassVar[str] = r"^GEOMGROUP-PROPS-\d{4}-SUPERSTRUCTURE-TO-SUBSTRUCTURE-CONNECTIONS$"
     applicationId: str = Field(pattern=APPLICATION_ID_PATTERN)
@@ -449,8 +450,8 @@ class GeometryGroupSuperstructureToSubstructureConnections(
     GeometryGroupBase
 ):
     bda_speckle_type: Literal[
-        "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_Superstructure_To_Substructure_Connections"
-    ] = "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_Superstructure_To_Substructure_Connections"
+        SpeckleTypes.COLLECTION_BDA_GEOMETRY_GROUP_SUPERSTRUCTURE_TO_SUBSTRUCTURE_CONNECTIONS
+    ] = Field(SpeckleTypes.COLLECTION_BDA_GEOMETRY_GROUP_SUPERSTRUCTURE_TO_SUBSTRUCTURE_CONNECTIONS.value, frozen=True)
 
     APPLICATION_ID_PATTERN: ClassVar[str] = r"^COL-GEOMGROUP-\d{4}-SUPERSTRUCTURE-TO-SUBSTRUCTURE-CONNECTIONS$"
     applicationId: str = Field(pattern=APPLICATION_ID_PATTERN)

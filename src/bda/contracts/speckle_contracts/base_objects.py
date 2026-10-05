@@ -404,6 +404,7 @@ class BridgeDataObject(BridgesBase):
 
     bda_speckle_type: str = Field(
         ...,
+        frozen=True,
         pattern=DATA_OBJECT_PATTERN.pattern,
         description="Entity speckle type used for creation. This is used for round tripping of objects and persistance of custom speckle object variants that are not persisted in deserialisation of objects",
     )
@@ -431,6 +432,7 @@ class BridgeCollection(BridgesBase):
 
     bda_speckle_type: str = Field(
         ...,
+        frozen=True,
         pattern=COLLECTION_PATTERN.pattern,
         description="Entity speckle type used for creation. This is used for round tripping of objects and persistance of custom speckle object variants that are not persisted in deserialisation of objects",
     )

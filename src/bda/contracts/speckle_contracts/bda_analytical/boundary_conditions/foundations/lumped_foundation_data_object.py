@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from bda.contracts.speckle_contracts.speckle_enums import SpeckleTypes
+
 from typing import (
     Literal,
     ClassVar,
@@ -141,8 +143,8 @@ class LumpedFoundationDataObject(
     name: str
 
     bda_speckle_type: Literal[
-        "Objects.Data.DataObject:BDA_Lumped_Foundation"
-    ] = "Objects.Data.DataObject:BDA_Lumped_Foundation"
+        SpeckleTypes.DATA_OBJECT_BDA_LUMPED_FOUNDATION
+    ] = Field(SpeckleTypes.DATA_OBJECT_BDA_LUMPED_FOUNDATION.value, frozen=True)
 
     properties: (
         LumpedFoundationDataObjectProperties

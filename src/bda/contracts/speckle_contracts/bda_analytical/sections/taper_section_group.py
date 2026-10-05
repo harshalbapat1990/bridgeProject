@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from bda.contracts.speckle_contracts.speckle_enums import SpeckleTypes
+
 from enum import Enum
 from typing import Literal, ClassVar
 
@@ -105,8 +107,8 @@ class SectionDataObject_Tapered(BridgeDataObject):
     )
 
     bda_speckle_type: Literal[
-        "Objects.Data.DataObject:BDA_Section:Tapered"
-    ] = "Objects.Data.DataObject:BDA_Section:Tapered"
+        SpeckleTypes.DATA_OBJECT_BDA_SECTION_TAPERED
+    ] = Field(SpeckleTypes.DATA_OBJECT_BDA_SECTION_TAPERED.value, frozen=True)
 
     properties: TaperedSectionDataObject_Properties
 

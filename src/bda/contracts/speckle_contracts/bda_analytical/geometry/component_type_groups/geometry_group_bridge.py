@@ -1,3 +1,4 @@
+from bda.contracts.speckle_contracts.speckle_enums import SpeckleTypes
 from bda.contracts.speckle_contracts.bda_analytical.geometry.geometry_group_base import (
     GeometryGroupBase,
     GeometryGroupParameters,
@@ -217,8 +218,8 @@ class GeometryGroupParametersBridge(GeometryGroupParameters):
     ] = "Geometry Group Properties"
 
     bda_speckle_type: Literal[
-        "Objects.Data.DataObject:BDA_Geometry_Group_Properties_Bridge"
-    ] = "Objects.Data.DataObject:BDA_Geometry_Group_Properties_Bridge"
+        SpeckleTypes.DATA_OBJECT_BDA_GEOMETRY_GROUP_PROPERTIES_BRIDGE
+    ] = Field(SpeckleTypes.DATA_OBJECT_BDA_GEOMETRY_GROUP_PROPERTIES_BRIDGE.value, frozen=True)
 
     APPLICATION_ID_PATTERN: ClassVar[str] = r"^GEOMGROUP-PROPS-\d{4}-BRIDGE$"
     applicationId: str = Field(pattern=APPLICATION_ID_PATTERN)
@@ -238,8 +239,8 @@ BridgeGroupElements = Annotated[
 
 class GeometryGroupBridge(GeometryGroupBase):
     bda_speckle_type: Literal[
-        "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_Bridge"
-    ] = "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_Bridge"
+        SpeckleTypes.COLLECTION_BDA_GEOMETRY_GROUP_BRIDGE
+    ] = Field(SpeckleTypes.COLLECTION_BDA_GEOMETRY_GROUP_BRIDGE.value, frozen=True)
 
     APPLICATION_ID_PATTERN: ClassVar[str] = r"^COL-GEOMGROUP-\d{4}-BRIDGE$"
     applicationId: str = Field(pattern=APPLICATION_ID_PATTERN)

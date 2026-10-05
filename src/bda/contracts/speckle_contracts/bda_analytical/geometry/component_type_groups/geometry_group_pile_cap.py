@@ -1,3 +1,4 @@
+from bda.contracts.speckle_contracts.speckle_enums import SpeckleTypes
 from typing import Annotated, ClassVar, Literal
 
 from pydantic import BaseModel, Field, model_validator
@@ -192,8 +193,8 @@ class GeometryGroupParametersPileCap(
     ] = "Geometry Group Properties"
 
     bda_speckle_type: Literal[
-        "Objects.Data.DataObject:BDA_Geometry_Group_Properties_Pile_Cap"
-    ] = "Objects.Data.DataObject:BDA_Geometry_Group_Properties_Pile_Cap"
+        SpeckleTypes.DATA_OBJECT_BDA_GEOMETRY_GROUP_PROPERTIES_PILE_CAP
+    ] = Field(SpeckleTypes.DATA_OBJECT_BDA_GEOMETRY_GROUP_PROPERTIES_PILE_CAP.value, frozen=True)
 
     APPLICATION_ID_PATTERN: ClassVar[str] = r"^GEOMGROUP-PROPS-\d{4}-PILE-CAP$"
     applicationId: str = Field(pattern=APPLICATION_ID_PATTERN)
@@ -218,8 +219,8 @@ class GeometryGroupPileCap(
     GeometryGroupBase
 ):
     bda_speckle_type: Literal[
-        "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_Pile_Cap"
-    ] = "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_Pile_Cap"
+        SpeckleTypes.COLLECTION_BDA_GEOMETRY_GROUP_PILE_CAP
+    ] = Field(SpeckleTypes.COLLECTION_BDA_GEOMETRY_GROUP_PILE_CAP.value, frozen=True)
 
     APPLICATION_ID_PATTERN: ClassVar[str] = r"^COL-GEOMGROUP-\d{4}-PILE-CAP$"
     applicationId: str = Field(pattern=APPLICATION_ID_PATTERN)

@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from bda.contracts.speckle_contracts.speckle_enums import SpeckleTypes
+
 from typing import Literal, ClassVar
 from pydantic import BaseModel, Field, StrictFloat
 
@@ -196,8 +198,8 @@ class SectionDataObject_CompositeIAsymmetric(CompositeDataObject):
         pattern=APPLICATION_ID_PATTERN,
     )
     bda_speckle_type: Literal[
-        "Objects.Data.DataObject:BDA_Section:Composite:Composite I Asymmetric"
-    ] = "Objects.Data.DataObject:BDA_Section:Composite:Composite I Asymmetric"
+        SpeckleTypes.DATA_OBJECT_BDA_SECTION_COMPOSITE_COMPOSITE_I_ASYMMETRIC
+    ] = Field(SpeckleTypes.DATA_OBJECT_BDA_SECTION_COMPOSITE_COMPOSITE_I_ASYMMETRIC.value, frozen=True)
 
     properties: CompositeIAsymmetricDataObject_Properties
 

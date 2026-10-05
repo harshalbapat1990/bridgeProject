@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from bda.contracts.speckle_contracts.speckle_enums import SpeckleTypes
+
 from typing import Literal, ClassVar
 from pydantic import Field, StrictFloat, BaseModel
 
@@ -159,8 +161,8 @@ class SectionDataObject_PSCValue(PSCDataObject):
     )
 
     bda_speckle_type: Literal[
-        "Objects.Data.DataObject:BDA_Section:PSC:PSC Value"
-    ] = "Objects.Data.DataObject:BDA_Section:PSC:PSC Value"
+        SpeckleTypes.DATA_OBJECT_BDA_SECTION_PSC_PSC_VALUE
+    ] = Field(SpeckleTypes.DATA_OBJECT_BDA_SECTION_PSC_PSC_VALUE.value, frozen=True)
 
     properties: PSCValueDataObject_Properties
 

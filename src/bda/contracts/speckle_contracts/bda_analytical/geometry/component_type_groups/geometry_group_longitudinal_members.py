@@ -1,3 +1,4 @@
+from bda.contracts.speckle_contracts.speckle_enums import SpeckleTypes
 from typing import Annotated, ClassVar, Literal, Union
 
 from pydantic import BaseModel, Field, model_validator
@@ -99,8 +100,8 @@ class GeometryGroupParametersLongitudinalMembers(
     ] = "Geometry Group Properties"
 
     bda_speckle_type: Literal[
-        "Objects.Data.DataObject:BDA_Geometry_Group_Properties_Longitudinal_Members"
-    ] = "Objects.Data.DataObject:BDA_Geometry_Group_Properties_Longitudinal_Members"
+        SpeckleTypes.DATA_OBJECT_BDA_GEOMETRY_GROUP_PROPERTIES_LONGITUDINAL_MEMBERS
+    ] = Field(SpeckleTypes.DATA_OBJECT_BDA_GEOMETRY_GROUP_PROPERTIES_LONGITUDINAL_MEMBERS.value, frozen=True)
 
     APPLICATION_ID_PATTERN: ClassVar[str] = r"^GEOMGROUP-PROPS-\d{4}-LONGITUDINAL-MEMBERS$"
     applicationId: str = Field(pattern=APPLICATION_ID_PATTERN)
@@ -126,8 +127,8 @@ class GeometryGroupLongitudinalMembers(
     GeometryGroupBase
 ):
     bda_speckle_type: Literal[
-        "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_Longitudinal_Members"
-    ] = "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_Longitudinal_Members"
+        SpeckleTypes.COLLECTION_BDA_GEOMETRY_GROUP_LONGITUDINAL_MEMBERS
+    ] = Field(SpeckleTypes.COLLECTION_BDA_GEOMETRY_GROUP_LONGITUDINAL_MEMBERS.value, frozen=True)
 
     APPLICATION_ID_PATTERN: ClassVar[str] = r"^COL-GEOMGROUP-\d{4}-LONGITUDINAL-MEMBERS$"
     applicationId: str = Field(pattern=APPLICATION_ID_PATTERN)

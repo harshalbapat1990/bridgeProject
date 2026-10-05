@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from bda.contracts.speckle_contracts.speckle_enums import SpeckleTypes
+
 from dataclasses import dataclass, field
 from typing import (
     Literal,
@@ -171,8 +173,8 @@ class PileInteractionFoundationDataObject(
     name: str
 
     bda_speckle_type: Literal[
-        "Objects.Data.DataObject:BDA_Pile_Interaction_Foundation"
-    ] = "Objects.Data.DataObject:BDA_Pile_Interaction_Foundation"
+        SpeckleTypes.DATA_OBJECT_BDA_PILE_INTERACTION_FOUNDATION
+    ] = Field(SpeckleTypes.DATA_OBJECT_BDA_PILE_INTERACTION_FOUNDATION.value, frozen=True)
 
     properties: (
         PileInteractionFoundationDataObjectProperties

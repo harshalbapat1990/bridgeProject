@@ -1,3 +1,4 @@
+from bda.contracts.speckle_contracts.speckle_enums import SpeckleTypes
 from typing import Annotated, ClassVar, Literal
 
 from pydantic import BaseModel, Field, model_validator
@@ -96,8 +97,8 @@ class GeometryGroupParametersTendonGroup(
     ] = "Geometry Group Properties"
 
     bda_speckle_type: Literal[
-        "Objects.Data.DataObject:BDA_Geometry_Group_Properties_Tendon_Group"
-    ] = "Objects.Data.DataObject:BDA_Geometry_Group_Properties_Tendon_Group"
+        SpeckleTypes.DATA_OBJECT_BDA_GEOMETRY_GROUP_PROPERTIES_TENDON_GROUP
+    ] = Field(SpeckleTypes.DATA_OBJECT_BDA_GEOMETRY_GROUP_PROPERTIES_TENDON_GROUP.value, frozen=True)
 
     APPLICATION_ID_PATTERN: ClassVar[str] = r"^GEOMGROUP-PROPS-\d{4}-TENDON-GROUP$"
     applicationId: str = Field(pattern=APPLICATION_ID_PATTERN)
@@ -120,8 +121,8 @@ class GeometryGroupTendonGroup(
     GeometryGroupBase
 ):
     bda_speckle_type: Literal[
-        "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_Tendon_Group"
-    ] = "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_Tendon_Group"
+        SpeckleTypes.COLLECTION_BDA_GEOMETRY_GROUP_TENDON_GROUP
+    ] = Field(SpeckleTypes.COLLECTION_BDA_GEOMETRY_GROUP_TENDON_GROUP.value, frozen=True)
 
     APPLICATION_ID_PATTERN: ClassVar[str] = r"^COL-GEOMGROUP-\d{4}-TENDON-GROUP$"
     applicationId: str = Field(pattern=APPLICATION_ID_PATTERN)

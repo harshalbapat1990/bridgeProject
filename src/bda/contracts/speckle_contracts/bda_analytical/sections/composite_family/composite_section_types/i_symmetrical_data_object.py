@@ -1,3 +1,4 @@
+from bda.contracts.speckle_contracts.speckle_enums import SpeckleTypes
 from __future__ import annotations
 
 from typing import Literal, ClassVar
@@ -155,7 +156,7 @@ class SectionDataObject_CompositeISymmetric(CompositeDataObject):
     ]
 
     bda_speckle_type: Literal[
-        "Objects.Data.DataObject:BDA_Section:Composite:Composite I Symmetric"
+        SpeckleTypes.DATA_OBJECT_BDA_SECTION_COMPOSITE_COMPOSITE_I_SYMMETRIC
     ] = Field(
         ...,
         frozen=True

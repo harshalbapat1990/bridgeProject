@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from bda.contracts.speckle_contracts.speckle_enums import SpeckleTypes
+
 from typing import Literal, ClassVar
 
 from pydantic import BaseModel, Field
@@ -213,8 +215,8 @@ class ReinforcementAASHTOMaterialDataObject(
     )
 
     bda_speckle_type: Literal[
-        "Objects.Data.DataObject:BDA_Reinforcement_Material_AASHTO"
-    ] = "Objects.Data.DataObject:BDA_Reinforcement_Material_AASHTO"
+        SpeckleTypes.DATA_OBJECT_BDA_REINFORCEMENT_MATERIAL_AASHTO
+    ] = Field(SpeckleTypes.DATA_OBJECT_BDA_REINFORCEMENT_MATERIAL_AASHTO.value, frozen=True)
 
     properties: (
         ReinforcementAASHTOMaterialDataObjectProperties

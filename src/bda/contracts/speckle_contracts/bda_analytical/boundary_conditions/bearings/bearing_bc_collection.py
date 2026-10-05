@@ -45,7 +45,7 @@ class BearingBCCollection(
 
     bda_speckle_type: Literal[
         "Speckle.Core.Models.Collections.Collection"
-    ] = "Speckle.Core.Models.Collections.Collection"
+    ] = Field("Speckle.Core.Models.Collections.Collection", frozen=True)
 
     elements: list[
         BearingBCDataObject

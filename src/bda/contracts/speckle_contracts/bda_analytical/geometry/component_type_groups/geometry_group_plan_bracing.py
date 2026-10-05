@@ -1,3 +1,4 @@
+from bda.contracts.speckle_contracts.speckle_enums import SpeckleTypes
 from typing import Annotated, ClassVar, Literal
 
 from pydantic import BaseModel, Field, model_validator
@@ -135,8 +136,8 @@ class GeometryGroupParametersPlanBracing(GeometryGroupParameters):
     ] = "Geometry Group Properties"
 
     bda_speckle_type: Literal[
-        "Objects.Data.DataObject:BDA_Geometry_Group_Properties_PlanBracing"
-    ] = "Objects.Data.DataObject:BDA_Geometry_Group_Properties_PlanBracing"
+        SpeckleTypes.DATA_OBJECT_BDA_GEOMETRY_GROUP_PROPERTIES_PLANBRACING
+    ] = Field(SpeckleTypes.DATA_OBJECT_BDA_GEOMETRY_GROUP_PROPERTIES_PLANBRACING.value, frozen=True)
 
     APPLICATION_ID_PATTERN: ClassVar[str] = r"^GEOMGROUP-PROPS-\d{4}-PLAN-BRACING$"
     applicationId: str = Field(pattern=APPLICATION_ID_PATTERN)
@@ -156,8 +157,8 @@ PlanBracingGroupElements = Annotated[
 
 class GeometryGroupPlanBracing(GeometryGroupBase):
     bda_speckle_type: Literal[
-        "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_PlanBracing"
-    ] = "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_PlanBracing"
+        SpeckleTypes.COLLECTION_BDA_GEOMETRY_GROUP_PLANBRACING
+    ] = Field(SpeckleTypes.COLLECTION_BDA_GEOMETRY_GROUP_PLANBRACING.value, frozen=True)
 
     APPLICATION_ID_PATTERN: ClassVar[str] = r"^COL-GEOMGROUP-\d{4}-PLAN-BRACING$"
     applicationId: str = Field(pattern=APPLICATION_ID_PATTERN)

@@ -1,3 +1,4 @@
+from bda.contracts.speckle_contracts.speckle_enums import SpeckleTypes
 from typing import Annotated, ClassVar, Literal, Union
 
 from pydantic import BaseModel, Field, model_validator
@@ -78,8 +79,8 @@ class GeometryGroupParametersSubstructure(
     ] = "Geometry Group Properties"
 
     bda_speckle_type: Literal[
-        "Objects.Data.DataObject:BDA_Geometry_Group_Properties_Substructure"
-    ] = "Objects.Data.DataObject:BDA_Geometry_Group_Properties_Substructure"
+        SpeckleTypes.DATA_OBJECT_BDA_GEOMETRY_GROUP_PROPERTIES_SUBSTRUCTURE
+    ] = Field(SpeckleTypes.DATA_OBJECT_BDA_GEOMETRY_GROUP_PROPERTIES_SUBSTRUCTURE.value, frozen=True)
 
     APPLICATION_ID_PATTERN: ClassVar[str] = r"^GEOMGROUP-PROPS-\d{4}-SUBSTRUCTURE$"
     applicationId: str = Field(pattern=APPLICATION_ID_PATTERN)
@@ -105,8 +106,8 @@ class GeometryGroupSubstructure(
     GeometryGroupBase
 ):
     bda_speckle_type: Literal[
-        "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_Substructure"
-    ] = "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_Substructure"
+        SpeckleTypes.COLLECTION_BDA_GEOMETRY_GROUP_SUBSTRUCTURE
+    ] = Field(SpeckleTypes.COLLECTION_BDA_GEOMETRY_GROUP_SUBSTRUCTURE.value, frozen=True)
 
     APPLICATION_ID_PATTERN: ClassVar[str] = r"^COL-GEOMGROUP-\d{4}-SUBSTRUCTURE$"
     applicationId: str = Field(pattern=APPLICATION_ID_PATTERN)
