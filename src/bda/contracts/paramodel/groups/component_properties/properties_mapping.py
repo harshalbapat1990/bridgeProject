@@ -32,6 +32,29 @@ from bda.contracts.paramodel.groups.component_properties.linkage_properties impo
 from bda.contracts.paramodel.groups.component_properties.bridge_properties import PropertiesBridgeParaModel
 
 _PROPERTIES_BY_GROUP_TYPE: Dict[StructuralComponentTypeParaModel, Type[PropertiesBaseParaModel]] = {
+    # These Speckle component groups carry common group metadata but do not
+    # define component-specific fields in the current ParaModel schema.
+    StructuralComponentTypeParaModel.LONGITUDINAL_MEMBERS: PropertiesBaseParaModel,
+    StructuralComponentTypeParaModel.REINFORCEMENT_GROUP: PropertiesBaseParaModel,
+    StructuralComponentTypeParaModel.PRIMARY_REINFORCEMENT: PropertiesBaseParaModel,
+    StructuralComponentTypeParaModel.SECONDARY_REINFORCEMENT: PropertiesBaseParaModel,
+    StructuralComponentTypeParaModel.SHEAR_REINFORCEMENT: PropertiesBaseParaModel,
+    StructuralComponentTypeParaModel.TENDON_GROUP: PropertiesBaseParaModel,
+    StructuralComponentTypeParaModel.EDGE_BEAM: PropertiesBaseParaModel,
+    StructuralComponentTypeParaModel.TRANSVERSE_MEMBERS: PropertiesBaseParaModel,
+    StructuralComponentTypeParaModel.DECK_SLAB: PropertiesBaseParaModel,
+    StructuralComponentTypeParaModel.SUBSTRUCTURE: PropertiesBaseParaModel,
+    StructuralComponentTypeParaModel.VERTICAL_MEMBERS: PropertiesBaseParaModel,
+    StructuralComponentTypeParaModel.HORIZONTAL_MEMBERS: PropertiesBaseParaModel,
+    StructuralComponentTypeParaModel.GROUND_BEAM: PropertiesBaseParaModel,
+    StructuralComponentTypeParaModel.SPREAD_FOOTING: PropertiesBaseParaModel,
+    StructuralComponentTypeParaModel.LINKAGE: PropertiesBaseParaModel,
+    StructuralComponentTypeParaModel.SUBSTRUCTURE_CONNECTIONS: PropertiesBaseParaModel,
+    StructuralComponentTypeParaModel.SUPERSTRUCTURE_CONNECTIONS: PropertiesBaseParaModel,
+    StructuralComponentTypeParaModel.DECK_SLAB_CONNECTIONS: PropertiesBaseParaModel,
+    StructuralComponentTypeParaModel.BRACING_CONNECTIONS: PropertiesBaseParaModel,
+    StructuralComponentTypeParaModel.PLAN_BRACING_CONNECTIONS: PropertiesBaseParaModel,
+    StructuralComponentTypeParaModel.TRANSVERSE_BRACING_CONNECTIONS: PropertiesBaseParaModel,
     StructuralComponentTypeParaModel.BRIDGE: PropertiesBridgeParaModel,
     StructuralComponentTypeParaModel.SUPERSTRUCTURE: PropertiesSuperstructureParaModel,
     StructuralComponentTypeParaModel.SPAN: PropertiesSpanParaModel,

@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import List
 
-from pydantic import BaseModel, Field, field_validator
+from pydantic import BaseModel, Field, field_validator, AliasChoices, AliasPath
 
 from .geometry_elements import ParaElement
 from .enums import StructuralComponentTypeParaModel
@@ -13,19 +13,19 @@ from .component_properties.properties_mapping import _PROPERTIES_BY_GROUP_TYPE
 # -------------------------
 
 class GeometryGroupParaModel(BaseModel):
-    group_id: str
-    structural_component_type: StructuralComponentTypeParaModel
+    group_id: str = Field(validation_alias=AliasChoices("group_id", "applicationId"))
+    structural_component_type: StructuralComponentTypeParaModel = Field(validation_alias=AliasChoices("structural_component_type", AliasPath("properties", "Structural Component Type", "provided_value")))
     name: str
 
-    material_id: str | None = Field(default=None) # material_id: str
-    section_id: str | None = Field(default=None) # section_id: str
+    material_id: str | None = Field(default=None, validation_alias=AliasChoices("material_id", AliasPath("properties", "Material ID", "provided_value"))) # material_id: str
+    section_id: str | None = Field(default=None, validation_alias=AliasChoices("section_id", AliasPath("properties", "Section ID", "provided_value"))) # section_id: str
 
     elements: List[ParaElement] = Field(default_factory=list) # empty
 
     nested_groups: List["GeometryGroupParaModel"] = Field(default_factory=list) # empty
     parent_group_id: str | None = Field(default=None)
 
-    properties: PropertiesBaseParaModel | None = Field(default=None)
+    properties: PropertiesBaseParaModel | None = Field(default=None, validation_alias=AliasChoices("properties", AliasPath("properties", "Geometry Group Properties", "group_parameters")))
 
     model_config = {
         "frozen": True,

@@ -6,11 +6,14 @@ from pydantic import BaseModel
 from bda.contracts.paramodel.bearings.bearing_bc_para_model import BearingBCsSupportParaModel
 from bda.contracts.paramodel.deck_appurtenances import BridgeDeckLayoutBaseParaModel
 from bda.contracts.paramodel.foundations.foundation_bc_para_model import FoundationBCsParaModel
+from bda.contracts.paramodel.foundations.adapter import FoundationBCsParaModelAdapter
+from bda.contracts.paramodel.bearings.adapter import BearingBCsParaModelAdapter
 from bda.contracts.paramodel.loadings.load_model_base_para_models import LoadModelBaseParaModel
 from bda.contracts.paramodel.materials.materials_para_model import MaterialBaseParaModel
 from bda.contracts.shared.bda_model_config import BdaModelConfig
 
 from bda.contracts.paramodel.groups import GeometryGroupParaModel
+from bda.contracts.paramodel.groups.adapter import GroupsParaModelAdapter
 from bda.contracts.paramodel.materials import MaterialParaModel
 from bda.contracts.paramodel.sections import SectionParaModel, SectionParaModelAdapter
 
@@ -19,6 +22,8 @@ from bda.contracts.speckle_contracts.bda_analytical.model_config_data.model_conf
     BDA_ModelDataDataObject
 from bda.contracts.speckle_contracts.bda_analytical.model_root import ModelRootCollection
 from bda.contracts.speckle_contracts.bda_analytical.sections.section_collection import SectionsCollection
+from bda.contracts.speckle_contracts.bda_analytical.boundary_conditions.bearings.bearing_bc_collection import BearingBCCollection
+from bda.contracts.speckle_contracts.bda_analytical.boundary_conditions.foundations.foundation_bc_collection import FoundationBCCollection
 
 from bda.application.interfaces.data_provider.i_data_store_provider import IDataStoreProvider
 
@@ -186,25 +191,20 @@ class DataSpeckleProvider(IDataStoreProvider):
         if geo_bridge is None:
             raise ValueError(f"No valid geometry groups found in {self.SpeckleModelUrl}.")
         
-        # Recursively extract all geometry groups (flattened)
+        # Validate the Speckle collection through the existing Paramodel
+        # adapter, which understands its grouped properties and child groups.
         all_geometry_groups = []
-        
-        def flatten_geometry_hierarchy(group):
-            """Recursively flatten geometry group hierarchy."""
-            # Convert current group to ParaModel
-            group_data = group.model_dump(mode="json", by_alias=True)
-            geometry_group = GeometryGroupParaModel.model_validate(group_data)
+
+        def flatten_geometry_hierarchy(geometry_group):
+            """Return each validated ParaModel group in hierarchy order."""
             all_geometry_groups.append(geometry_group)
-            
-            # Recursively process nested groups
-            for element in group.elements:
-                if hasattr(element, 'speckle_type'):
-                    # Check if it's a nested geometry group
-                    if 'Collection:BDA_Geometry_Group' in element.speckle_type:
-                        flatten_geometry_hierarchy(element)
-        
-        # Flatten from root bridge
-        flatten_geometry_hierarchy(geo_bridge)
+            for nested_group in geometry_group.nested_groups:
+                flatten_geometry_hierarchy(nested_group)
+
+        group_data = geo_bridge.model_dump(mode="json", by_alias=True)
+        parsed_groups = GroupsParaModelAdapter.parse_list([group_data])
+        for geometry_group in parsed_groups:
+            flatten_geometry_hierarchy(geometry_group)
         AppLogger().info(f"Successfully extracted {len(all_geometry_groups)} geometry groups.")
         return all_geometry_groups
 
@@ -219,8 +219,16 @@ class DataSpeckleProvider(IDataStoreProvider):
             FileNotFoundError: If foundation boundary conditions not found
             ValueError: If foundation boundary conditions data is invalid
         """
-        raise NotImplementedError("The method foundation_boundary_conditions_for_project "
-                                  "not yet implemented for data Speckle provider.")
+        collection = next(
+            (e for e in self.ModelDataValidated.elements if isinstance(e, FoundationBCCollection)),
+            None,
+        )
+        if collection is None:
+            raise ValueError(f"No valid foundation boundary conditions found in {self.SpeckleModelUrl}.")
+        raw_data = collection.model_dump(mode="json", by_alias=True)
+        results = FoundationBCsParaModelAdapter.parse_list(raw_data)
+        AppLogger().info(f"Successfully extracted {len(results)} foundation boundary conditions.")
+        return results
 
     def get_bearing_boundary_conditions_for_project(self) -> List[BearingBCsSupportParaModel]:
         """Load bearing boundary conditions for the project.
@@ -231,8 +239,16 @@ class DataSpeckleProvider(IDataStoreProvider):
         Raises:
             NotImplementedError: Not yet implemented for Speckle provider
         """
-        raise NotImplementedError("The method get_bearing_boundary_conditions_for_project "
-                                  "not yet implemented for data Speckle provider.")
+        collection = next(
+            (e for e in self.ModelDataValidated.elements if isinstance(e, BearingBCCollection)),
+            None,
+        )
+        if collection is None:
+            raise ValueError(f"No valid bearing boundary conditions found in {self.SpeckleModelUrl}.")
+        raw_data = collection.model_dump(mode="json", by_alias=True)
+        results = BearingBCsParaModelAdapter.parse_list(raw_data)
+        AppLogger().info(f"Successfully extracted {len(results)} bearing supports.")
+        return results
 
     def get_deck_appurtenances_for_project(self) -> List[BridgeDeckLayoutBaseParaModel]:
         """Load deck appurtenances for the project.

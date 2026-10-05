@@ -6,7 +6,6 @@ from pint.registry import Quantity
 
 from bda.domain.enums import UnitSystem
 from bda.domain.models.submodels.geometry_group import GeometryGroup
-from bda.domain.models.submodels.loads import Loads
 from bda.domain.models.analytical_typology import BearingKey, BearingNodes
 from bda.domain.models.submodels.boundary_conditions.beam_end_release import BeamEndRelease
 from bda.domain.models.submodels.boundary_conditions.supports import NodeBoundaryBase
@@ -120,7 +119,6 @@ class AnalyticalMultiModel:
     description: str|None
 
     geometry_group: GeometryGroup | None
-    loads: Loads
 
     _initial_materials: List[Material]
     _initial_sections: List[Section]
@@ -138,7 +136,6 @@ class AnalyticalMultiModel:
         self._initial_materials = []
         self._initial_sections = []
         self.geometry_group = None
-        self.loads = Loads()
 
         self._nodes_manager: NodesManager = NodesManager()
         self._elements_manager: ElementsManager = ElementsManager()

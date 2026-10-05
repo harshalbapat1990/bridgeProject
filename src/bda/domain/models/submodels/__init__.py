@@ -4,9 +4,6 @@ from bda.domain.models.submodels.node import Node
 from bda.domain.models.analytical_typology import AnalyticalTypology
 from bda.domain.models.submodels.element import Element1D, ElementBase
 from bda.domain.models.submodels.geometry_group import GeometryGroup, GroupProperties
-from bda.domain.models.submodels.loads import (BeamLineLoad, BeamPointLoad, LineLoadComponents,
-                                               LoadCase, LoadOffset, Loads, NodalPointLoad,
-                                               PointLoadComponents)
 from bda.domain.models.submodels.material import (MaterialBase, MaterialConcrete,
 												  MaterialSteel, MaterialTendon, MaterialReinforcement)
 from bda.domain.models.submodels.section_base import DimensionsBase, SectionBase
@@ -20,14 +17,6 @@ __all__ = [
 	"ElementBase",
     "GeometryGroup",
 	"GroupProperties",
-	"BeamLineLoad",
-	"BeamPointLoad",
-	"LineLoadComponents",
-	"LoadCase",
-	"LoadOffset",
-    "Loads",
-	"NodalPointLoad",
-	"PointLoadComponents",
 	"MaterialBase",
     "MaterialConcrete",
 	"MaterialSteel",
