@@ -98,20 +98,9 @@ class GeometryGroupParametersLongitudinalMembers(
         "Geometry Group Properties"
     ] = "Geometry Group Properties"
 
-    speckle_type: Literal[
-        "Objects.Data.DataObject:"
-        "BDA_Geometry_Group_Properties_Longitudinal_Members"
-    ] = Field(
-        "Objects.Data.DataObject:BDA_Geometry_Group_Properties_Longitudinal_Members",
-        frozen=True
-    )
-
     bda_speckle_type: Literal[
         "Objects.Data.DataObject:BDA_Geometry_Group_Properties_Longitudinal_Members"
-    ] = Field(
-        ...,
-        frozen=True
-    )
+    ] = "Objects.Data.DataObject:BDA_Geometry_Group_Properties_Longitudinal_Members"
 
     APPLICATION_ID_PATTERN: ClassVar[str] = r"^GEOMGROUP-PROPS-\d{4}-LONGITUDINAL-MEMBERS$"
     applicationId: str = Field(pattern=APPLICATION_ID_PATTERN)
@@ -136,20 +125,9 @@ LongitudinalMembersGroupElements = Annotated[
 class GeometryGroupLongitudinalMembers(
     GeometryGroupBase
 ):
-    speckle_type: Literal[
-        "Speckle.Core.Models.Collections.Collection:"
-        "BDA_Geometry_Group_Longitudinal_Members"
-    ] = Field(
-        "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_Longitudinal_Members",
-        frozen=True
-    )
-
     bda_speckle_type: Literal[
         "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_Longitudinal_Members"
-    ] = Field(
-        ...,
-        frozen=True
-    )
+    ] = "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_Longitudinal_Members"
 
     APPLICATION_ID_PATTERN: ClassVar[str] = r"^COL-GEOMGROUP-\d{4}-LONGITUDINAL-MEMBERS$"
     applicationId: str = Field(pattern=APPLICATION_ID_PATTERN)
@@ -168,7 +146,7 @@ class GeometryGroupLongitudinalMembers(
                     "contains": {
                         "type": "object",
                         "properties": {
-                            "speckle_type": {
+                            "bda_speckle_type": {
                                 "const": (
                                     "Objects.Data.DataObject:"
                                     "BDA_Geometry_Group_Properties_"
@@ -176,7 +154,7 @@ class GeometryGroupLongitudinalMembers(
                                 )
                             }
                         },
-                        "required": ["speckle_type"],
+                        "required": ["bda_speckle_type"],
                     },
                     "minContains": 1,
                     "maxContains": 1,
@@ -186,14 +164,14 @@ class GeometryGroupLongitudinalMembers(
                     "contains": {
                         "type": "object",
                         "properties": {
-                            "speckle_type": {
+                            "bda_speckle_type": {
                                 "const": (
                                     "Speckle.Core.Models.Collections.Collection:"
                                     "BDA_Geometry_Group_Girder"
                                 )
                             }
                         },
-                        "required": ["speckle_type"],
+                        "required": ["bda_speckle_type"],
                     },
                     "minContains": 0,
                 },
@@ -212,7 +190,7 @@ class GeometryGroupLongitudinalMembers(
         properties_count = sum(
             1
             for element in self.elements
-            if element.speckle_type == properties_speckle_type
+            if element.bda_speckle_type == properties_speckle_type
         )
 
         if properties_count != 1:
@@ -241,10 +219,6 @@ class GeometryGroupLongitudinalMembers(
                 applicationId=application_id.replace(
                     "COL-GEOMGROUP-", "GEOMGROUP-PROPS-", 1
                 ),
-                bda_speckle_type=(
-                    "Objects.Data.DataObject:"
-                    "BDA_Geometry_Group_Properties_Longitudinal_Members"
-                ),
                 properties=(
                     GeometryGroupPropertiesLongitudinalMembers(
                         **{
@@ -270,10 +244,6 @@ class GeometryGroupLongitudinalMembers(
         return cls(
             id=None,
             applicationId=application_id,
-            bda_speckle_type=(
-                "Speckle.Core.Models.Collections.Collection:"
-                "BDA_Geometry_Group_Longitudinal_Members"
-            ),
             elements=elements,
         )
 

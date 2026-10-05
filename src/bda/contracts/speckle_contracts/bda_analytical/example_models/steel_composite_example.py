@@ -1317,7 +1317,7 @@ ingest_ui_json_and_commit(
         mode="json"
     ),
     pydantic_model=ModelRootCollection,
-    speckle_url="https://design.jacobs.com/projects/8f0d636aa6/models/0ed6df7cda",
+    speckle_url="https://design.jacobs.com/projects/8f0d636aa6/models/128be5c16c",
     commit_message=(
             f"MVP Steel Composite Example Model - "
             f"{datetime.datetime.now():%Y-%m-%d %H:%M}"

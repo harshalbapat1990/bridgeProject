@@ -49,14 +49,10 @@ class ModelConfigDataObjectProperties(BridgeDataObjectProperties):
 
 class BDA_ModelDataDataObject(BridgeDataObject):
     name: Literal["BDA Analytical Model Data"] = "BDA Analytical Model Data"
-    speckle_type: Literal["Objects.Data.DataObject:BDA_Model_Config"]="Objects.Data.DataObject:BDA_Model_Config"
 
     bda_speckle_type: Literal[
         "Objects.Data.DataObject:BDA_Model_Config"
-    ] = Field(
-        ...,
-        frozen=True
-    )
+    ] = "Objects.Data.DataObject:BDA_Model_Config"
 
     properties: ModelConfigDataObjectProperties
 
@@ -98,9 +94,6 @@ class BDA_ModelDataDataObject(BridgeDataObject):
     ) -> "BDA_ModelDataDataObject":
         return cls(
             applicationId=application_id,
-            bda_speckle_type=(
-                "Objects.Data.DataObject:BDA_Model_Config"
-            ),
             properties=ModelConfigDataObjectProperties(
                 **{
                     "Model Unit System": BDA_ModelUnitSystem(

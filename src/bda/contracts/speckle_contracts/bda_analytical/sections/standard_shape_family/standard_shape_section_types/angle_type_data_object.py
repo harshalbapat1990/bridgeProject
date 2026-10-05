@@ -105,16 +105,10 @@ class SectionDataObject_Angle(StandardShapeDataObject):
     applicationId: str = Field(
         pattern=APPLICATION_ID_PATTERN,
     )
-    speckle_type: Literal[
-        "Objects.Data.DataObject:BDA_Section:Standard_Shape:Angle"
-    ] = "Objects.Data.DataObject:BDA_Section:Standard_Shape:Angle"
-
+    
     bda_speckle_type: Literal[
         "Objects.Data.DataObject:BDA_Section:Standard_Shape:Angle"
-    ] = Field(
-        ...,
-        frozen=True
-    )
+    ] = "Objects.Data.DataObject:BDA_Section:Standard_Shape:Angle"
 
     properties: AngleDataObject_Properties
 
@@ -136,14 +130,6 @@ class SectionDataObject_Angle(StandardShapeDataObject):
             id=None,
             name = name,
             applicationId=application_id,
-            speckle_type=(
-                "Objects.Data.DataObject:"
-                "BDA_Section:Standard_Shape:Angle"
-            ),
-            bda_speckle_type=(
-                "Objects.Data.DataObject:"
-                "BDA_Section:Standard_Shape:Angle"
-            ),
             properties=(
                 AngleDataObject_Properties(
                     **{

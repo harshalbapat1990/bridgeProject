@@ -64,16 +64,9 @@ class GeometryGroupPropertiesVerticalMembers(GeometryGroupProperties):
 class GeometryGroupParametersVerticalMembers(GeometryGroupParameters):
     name: Literal["Geometry Group Properties"] = "Geometry Group Properties"
 
-    speckle_type: Literal[
-        "Objects.Data.DataObject:BDA_Geometry_Group_Properties_Vertical_Members"
-    ] = Field(
-        "Objects.Data.DataObject:BDA_Geometry_Group_Properties_Vertical_Members",
-        frozen=True,
-    )
-
     bda_speckle_type: Literal[
         "Objects.Data.DataObject:BDA_Geometry_Group_Properties_Vertical_Members"
-    ] = Field(..., frozen=True)
+    ] = "Objects.Data.DataObject:BDA_Geometry_Group_Properties_Vertical_Members"
 
     APPLICATION_ID_PATTERN: ClassVar[str] = (
         r"^GEOMGROUP-PROPS-\d{4}-VERTICAL-MEMBERS$"
@@ -86,18 +79,9 @@ class GeometryGroupParametersVerticalMembers(GeometryGroupParameters):
 class GeometryGroupVerticalMembers(GeometryGroupBase):
     """Shared metadata for above-ground and below-ground vertical members."""
 
-    speckle_type: Literal[
-        "Speckle.Core.Models.Collections.Collection:"
-        "BDA_Geometry_Group_Vertical_Members"
-    ] = Field(
-        "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_Vertical_Members",
-        frozen=True,
-    )
-
     bda_speckle_type: Literal[
-        "Speckle.Core.Models.Collections.Collection:"
-        "BDA_Geometry_Group_Vertical_Members"
-    ] = Field(..., frozen=True)
+        "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_Vertical_Members"
+    ] = "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_Vertical_Members"
 
     APPLICATION_ID_PATTERN: ClassVar[str] = (
         r"^COL-GEOMGROUP-\d{4}-VERTICAL-MEMBERS$"
@@ -115,10 +99,6 @@ def _create_vertical_members_properties(
         id=None,
         applicationId=application_id.replace(
             "COL-GEOMGROUP-", "GEOMGROUP-PROPS-", 1
-        ),
-        bda_speckle_type=(
-            "Objects.Data.DataObject:"
-            "BDA_Geometry_Group_Properties_Vertical_Members"
         ),
         properties=GeometryGroupPropertiesVerticalMembers(
             **{
@@ -151,7 +131,7 @@ class GeometryGroupVerticalMembersAboveGround(GeometryGroupVerticalMembers):
                     "contains": {
                         "type": "object",
                         "properties": {
-                            "speckle_type": {
+                            "bda_speckle_type": {
                                 "const": (
                                     "Objects.Data.DataObject:"
                                     "BDA_Geometry_Group_Properties_"
@@ -159,7 +139,7 @@ class GeometryGroupVerticalMembersAboveGround(GeometryGroupVerticalMembers):
                                 )
                             }
                         },
-                        "required": ["speckle_type"],
+                        "required": ["bda_speckle_type"],
                     },
                     "minContains": 1,
                     "maxContains": 1,
@@ -177,7 +157,7 @@ class GeometryGroupVerticalMembersAboveGround(GeometryGroupVerticalMembers):
             "BDA_Geometry_Group_Properties_Vertical_Members"
         )
         properties_count = sum(
-            element.speckle_type == properties_type
+            element.bda_speckle_type == properties_type
             for element in self.elements
         )
         if properties_count != 1:
@@ -229,7 +209,7 @@ class GeometryGroupVerticalMembersBelowGround(GeometryGroupVerticalMembers):
                     "contains": {
                         "type": "object",
                         "properties": {
-                            "speckle_type": {
+                            "bda_speckle_type": {
                                 "const": (
                                     "Objects.Data.DataObject:"
                                     "BDA_Geometry_Group_Properties_"
@@ -237,7 +217,7 @@ class GeometryGroupVerticalMembersBelowGround(GeometryGroupVerticalMembers):
                                 )
                             }
                         },
-                        "required": ["speckle_type"],
+                        "required": ["bda_speckle_type"],
                     },
                     "minContains": 1,
                     "maxContains": 1,
@@ -255,7 +235,7 @@ class GeometryGroupVerticalMembersBelowGround(GeometryGroupVerticalMembers):
             "BDA_Geometry_Group_Properties_Vertical_Members"
         )
         properties_count = sum(
-            element.speckle_type == properties_type
+            element.bda_speckle_type == properties_type
             for element in self.elements
         )
         if properties_count != 1:

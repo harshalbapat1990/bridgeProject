@@ -95,19 +95,9 @@ class GeometryGroupParametersTendonGroup(
         "Geometry Group Properties"
     ] = "Geometry Group Properties"
 
-    speckle_type: Literal[
-        "Objects.Data.DataObject:BDA_Geometry_Group_Properties_Tendon_Group"
-    ] = Field(
-        "Objects.Data.DataObject:BDA_Geometry_Group_Properties_Tendon_Group",
-        frozen=True
-    )
-
     bda_speckle_type: Literal[
         "Objects.Data.DataObject:BDA_Geometry_Group_Properties_Tendon_Group"
-    ] = Field(
-        ...,
-        frozen=True
-    )
+    ] = "Objects.Data.DataObject:BDA_Geometry_Group_Properties_Tendon_Group"
 
     APPLICATION_ID_PATTERN: ClassVar[str] = r"^GEOMGROUP-PROPS-\d{4}-TENDON-GROUP$"
     applicationId: str = Field(pattern=APPLICATION_ID_PATTERN)
@@ -129,19 +119,9 @@ TendonGroupElements = Annotated[
 class GeometryGroupTendonGroup(
     GeometryGroupBase
 ):
-    speckle_type: Literal[
-        "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_Tendon_Group"
-    ] = Field(
-        "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_Tendon_Group",
-        frozen=True
-    )
-
     bda_speckle_type: Literal[
         "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_Tendon_Group"
-    ] = Field(
-        ...,
-        frozen=True
-    )
+    ] = "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_Tendon_Group"
 
     APPLICATION_ID_PATTERN: ClassVar[str] = r"^COL-GEOMGROUP-\d{4}-TENDON-GROUP$"
     applicationId: str = Field(pattern=APPLICATION_ID_PATTERN)
@@ -155,14 +135,14 @@ class GeometryGroupTendonGroup(
                     "contains": {
                         "type": "object",
                         "properties": {
-                            "speckle_type": {
+                            "bda_speckle_type": {
                                 "const": (
                                     "Objects.Data.DataObject:"
                                     "BDA_Geometry_Group_Properties_Tendon_Group"
                                 )
                             }
                         },
-                        "required": ["speckle_type"],
+                        "required": ["bda_speckle_type"],
                     },
                     "minContains": 1,
                     "maxContains": 1,
@@ -181,7 +161,7 @@ class GeometryGroupTendonGroup(
         properties_count = sum(
             1
             for element in self.elements
-            if element.speckle_type == properties_speckle_type
+            if element.bda_speckle_type == properties_speckle_type
         )
 
         if properties_count != 1:
@@ -208,20 +188,12 @@ class GeometryGroupTendonGroup(
             id=None,
             applicationId=application_id,
             name=name,
-            bda_speckle_type=(
-                "Speckle.Core.Models.Collections.Collection:"
-                "BDA_Geometry_Group_Tendon_Group"
-            ),
             elements=[
                 GeometryGroupParametersTendonGroup(
                     **{
                         "id": None,
                         "applicationId": application_id.replace(
                             "COL-GEOMGROUP-", "GEOMGROUP-PROPS-", 1
-                        ),
-                        "bda_speckle_type": (
-                            "Objects.Data.DataObject:"
-                            "BDA_Geometry_Group_Properties_Tendon_Group"
                         ),
                         "properties": GeometryGroupPropertiesTendonGroup(
                             **{

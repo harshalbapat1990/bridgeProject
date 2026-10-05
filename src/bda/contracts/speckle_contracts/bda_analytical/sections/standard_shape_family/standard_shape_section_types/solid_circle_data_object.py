@@ -78,16 +78,10 @@ class SectionDataObject_SolidCircle(StandardShapeDataObject):
     applicationId: str = Field(
         pattern=APPLICATION_ID_PATTERN,
     )
-    speckle_type: Literal[
-        "Objects.Data.DataObject:BDA_Section:Standard_Shape:Solid Circle"
-    ]
 
     bda_speckle_type: Literal[
         "Objects.Data.DataObject:BDA_Section:Standard_Shape:Solid Circle"
-    ] = Field(
-        ...,
-        frozen=True
-    )
+    ] = "Objects.Data.DataObject:BDA_Section:Standard_Shape:Solid Circle"
 
     properties: SolidCircleDataObject_Properties
 
@@ -106,14 +100,6 @@ class SectionDataObject_SolidCircle(StandardShapeDataObject):
             id=None,
             name=name,
             applicationId=application_id,
-            speckle_type=(
-                "Objects.Data.DataObject:"
-                "BDA_Section:Standard_Shape:Solid Circle"
-            ),
-            bda_speckle_type=(
-                "Objects.Data.DataObject:"
-                "BDA_Section:Standard_Shape:Solid Circle"
-            ),
             properties=(
                 SolidCircleDataObject_Properties(
                     **{

@@ -43,18 +43,9 @@ class BearingBCCollection(
         "Bearing Boundary Conditions"
     )
 
-    speckle_type: Literal[
-        "Speckle.Core.Models.Collections.Collection"
-    ] = (
-        "Speckle.Core.Models.Collections.Collection"
-    )
-
     bda_speckle_type: Literal[
         "Speckle.Core.Models.Collections.Collection"
-    ] = Field(
-        ...,
-        frozen=True
-    )
+    ] = "Speckle.Core.Models.Collections.Collection"
 
     elements: list[
         BearingBCDataObject
@@ -75,9 +66,6 @@ class BearingBCCollection(
 
         return cls(
             applicationId=application_id,
-            bda_speckle_type=(
-                "Speckle.Core.Models.Collections.Collection"
-            ),
             elements=(
                 bearing_conditions or []
             ),

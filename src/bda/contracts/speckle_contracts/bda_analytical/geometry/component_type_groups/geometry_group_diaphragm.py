@@ -343,19 +343,9 @@ class GeometryGroupParametersDiaphragm(
         "Geometry Group Properties"
     ] = "Geometry Group Properties"
 
-    speckle_type: Literal[
-        "Objects.Data.DataObject:BDA_Geometry_Group_Properties_Diaphragm"
-    ] = Field(
-        "Objects.Data.DataObject:BDA_Geometry_Group_Properties_Diaphragm",
-        frozen=True
-    )
-
     bda_speckle_type: Literal[
         "Objects.Data.DataObject:BDA_Geometry_Group_Properties_Diaphragm"
-    ] = Field(
-        ...,
-        frozen=True
-    )
+    ] = "Objects.Data.DataObject:BDA_Geometry_Group_Properties_Diaphragm"
 
     APPLICATION_ID_PATTERN: ClassVar[str] = r"^GEOMGROUP-PROPS-\d{4}-DIAPHRAGM$"
     applicationId: str = Field(pattern=APPLICATION_ID_PATTERN)
@@ -380,19 +370,9 @@ DiaphragmGroupElements = Annotated[
 class GeometryGroupDiaphragm(
     GeometryGroupBase
 ):
-    speckle_type: Literal[
-        "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_Diaphragm"
-    ] = Field(
-        "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_Diaphragm",
-        frozen=True
-    )
-
     bda_speckle_type: Literal[
         "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_Diaphragm"
-    ] = Field(
-        ...,
-        frozen=True
-    )
+    ] = "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_Diaphragm"
 
     APPLICATION_ID_PATTERN: ClassVar[str] = r"^COL-GEOMGROUP-\d{4}-DIAPHRAGM$"
     applicationId: str = Field(pattern=APPLICATION_ID_PATTERN)
@@ -407,14 +387,14 @@ class GeometryGroupDiaphragm(
                     "contains": {
                         "type": "object",
                         "properties": {
-                            "speckle_type": {
+                            "bda_speckle_type": {
                                 "const": (
                                     "Objects.Data.DataObject:"
                                     "BDA_Geometry_Group_Properties_Diaphragm"
                                 )
                             }
                         },
-                        "required": ["speckle_type"],
+                        "required": ["bda_speckle_type"],
                     },
                     "minContains": 1,
                     "maxContains": 1,
@@ -424,14 +404,14 @@ class GeometryGroupDiaphragm(
                     "contains": {
                         "type": "object",
                         "properties": {
-                            "speckle_type": {
+                            "bda_speckle_type": {
                                 "const": (
                                     "Speckle.Core.Models.Collections.Collection:"
                                     "BDA_Geometry_Group_Transverse_Bracing"
                                 )
                             }
                         },
-                        "required": ["speckle_type"],
+                        "required": ["bda_speckle_type"],
                     },
                     "minContains": 0,
                 },
@@ -449,7 +429,7 @@ class GeometryGroupDiaphragm(
         diaphragm_properties_count = sum(
             1
             for element in self.elements
-            if element.speckle_type
+            if element.bda_speckle_type
             == diaphragm_properties_speckle_type
         )
 
@@ -535,10 +515,6 @@ class GeometryGroupDiaphragm(
             id=None,
             applicationId=application_id,
             name=name if name is not None else f"Diaphragm_{support_index}", #TODO: Improve Autonaming
-            bda_speckle_type=(
-                "Speckle.Core.Models.Collections.Collection:"
-                "BDA_Geometry_Group_Diaphragm"
-            ),
             elements=elements,
         )
 

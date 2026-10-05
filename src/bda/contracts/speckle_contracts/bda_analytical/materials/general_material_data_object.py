@@ -21,19 +21,9 @@ class GeneralMaterialDataObject(BridgeDataObject):
         r"^MAT-\d+-[A-Z]+-[A-Z0-9]+$"
     )
 
-    speckle_type: Literal[
-        "Objects.Data.DataObject:BDA_General_Material"
-    ] = Field(
-        "Objects.Data.DataObject:BDA_General_Material",
-        frozen=True,
-    )
-
     bda_speckle_type: Literal[
         "Objects.Data.DataObject:BDA_General_Material"
-    ] = Field(
-        ...,
-        frozen=True
-    )
+    ] = "Objects.Data.DataObject:BDA_General_Material"
 
     properties: GeneralMaterialDataObject_Properties
     

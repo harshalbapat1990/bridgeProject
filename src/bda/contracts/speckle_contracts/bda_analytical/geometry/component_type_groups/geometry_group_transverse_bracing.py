@@ -410,19 +410,9 @@ class GeometryGroupParametersTransverseBracing(
         "Geometry Group Properties"
     ] = "Geometry Group Properties"
 
-    speckle_type: Literal[
-        "Objects.Data.DataObject:BDA_Geometry_Group_Properties_Transverse_Bracing"
-    ] = Field(
-        "Objects.Data.DataObject:BDA_Geometry_Group_Properties_Transverse_Bracing",
-        frozen=True
-    )
-
     bda_speckle_type: Literal[
         "Objects.Data.DataObject:BDA_Geometry_Group_Properties_Transverse_Bracing"
-    ] = Field(
-        ...,
-        frozen=True
-    )
+    ] = "Objects.Data.DataObject:BDA_Geometry_Group_Properties_Transverse_Bracing"
 
     APPLICATION_ID_PATTERN: ClassVar[str] = r"^GEOMGROUP-PROPS-\d{4}-TRANSVERSE-BRACING$"
     applicationId: str = Field(pattern=APPLICATION_ID_PATTERN)
@@ -448,19 +438,9 @@ TransverseBracingGroupElements = Annotated[
 class GeometryGroupTransverseBracing(
     GeometryGroupBase
 ):
-    speckle_type: Literal[
-        "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_Transverse_Bracing"
-    ] = Field(
-        "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_Transverse_Bracing",
-        frozen=True
-    )
-
     bda_speckle_type: Literal[
         "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_Transverse_Bracing"
-    ] = Field(
-        ...,
-        frozen=True
-    )
+    ] = "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_Transverse_Bracing"
 
     APPLICATION_ID_PATTERN: ClassVar[str] = r"^COL-GEOMGROUP-\d{4}-TRANSVERSE-BRACING$"
     applicationId: str = Field(pattern=APPLICATION_ID_PATTERN)
@@ -475,14 +455,14 @@ class GeometryGroupTransverseBracing(
                     "contains": {
                         "type": "object",
                         "properties": {
-                            "speckle_type": {
+                            "bda_speckle_type": {
                                 "const": (
                                     "Objects.Data.DataObject:"
                                     "BDA_Geometry_Group_Properties_Transverse_Bracing"
                                 )
                             }
                         },
-                        "required": ["speckle_type"],
+                        "required": ["bda_speckle_type"],
                     },
                     "minContains": 1,
                     "maxContains": 1,
@@ -502,7 +482,7 @@ class GeometryGroupTransverseBracing(
         transverse_bracing_properties_count = sum(
             1
             for element in self.elements
-            if element.speckle_type
+            if element.bda_speckle_type
             == transverse_bracing_properties_speckle_type
         )
 
@@ -545,10 +525,6 @@ class GeometryGroupTransverseBracing(
                     "id": None,
                     "applicationId": application_id.replace(
                         "COL-GEOMGROUP-", "GEOMGROUP-PROPS-", 1
-                    ),
-                    "bda_speckle_type": (
-                        "Objects.Data.DataObject:"
-                        "BDA_Geometry_Group_Properties_Transverse_Bracing"
                     ),
                     "properties": GeometryGroupPropertiesTransverseBracing(
                         **{
@@ -607,10 +583,6 @@ class GeometryGroupTransverseBracing(
             id=None,
             applicationId=application_id,
             name=name if name is not None else f"transverse_bracing_{left_girder_index}_{right_girder_index}",
-            bda_speckle_type=(
-                "Speckle.Core.Models.Collections.Collection:"
-                "BDA_Geometry_Group_Transverse_Bracing"
-            ),
             elements=elements,
         )
 

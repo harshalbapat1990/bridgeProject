@@ -140,20 +140,9 @@ class LumpedFoundationDataObject(
 
     name: str
 
-    speckle_type: Literal[
-        "Objects.Data.DataObject:"
-        "BDA_Lumped_Foundation"
-    ] = (
-        "Objects.Data.DataObject:"
-        "BDA_Lumped_Foundation"
-    )
-
     bda_speckle_type: Literal[
         "Objects.Data.DataObject:BDA_Lumped_Foundation"
-    ] = Field(
-        ...,
-        frozen=True
-    )
+    ] = "Objects.Data.DataObject:BDA_Lumped_Foundation"
 
     properties: (
         LumpedFoundationDataObjectProperties
@@ -250,9 +239,6 @@ class LumpedFoundationDataObject(
         return cls(
             applicationId=application_id,
             name=name,
-            bda_speckle_type=(
-                "Objects.Data.DataObject:BDA_Lumped_Foundation"
-            ),
             properties=LumpedFoundationDataObjectProperties(
                 **{
                     "Lumped Foundation Parameters": LumpedFoundationParameterGroup(

@@ -212,18 +212,9 @@ class ReinforcementAASHTOMaterialDataObject(
         pattern=APPLICATION_ID_PATTERN
     )
 
-    speckle_type: Literal[
-        "Objects.Data.DataObject:BDA_Reinforcement_Material_AASHTO"
-    ] = (
-        "Objects.Data.DataObject:BDA_Reinforcement_Material_AASHTO"
-    )
-
     bda_speckle_type: Literal[
         "Objects.Data.DataObject:BDA_Reinforcement_Material_AASHTO"
-    ] = Field(
-        ...,
-        frozen=True
-    )
+    ] = "Objects.Data.DataObject:BDA_Reinforcement_Material_AASHTO"
 
     properties: (
         ReinforcementAASHTOMaterialDataObjectProperties
@@ -262,14 +253,6 @@ class ReinforcementAASHTOMaterialDataObject(
             id=None,
             name=name,
             applicationId=application_id,
-            speckle_type=(
-                "Objects.Data.DataObject:"
-                "BDA_Reinforcement_Material_AASHTO"
-            ),
-            bda_speckle_type=(
-                "Objects.Data.DataObject:"
-                "BDA_Reinforcement_Material_AASHTO"
-            ),
             properties=(
                 ReinforcementAASHTOMaterialDataObjectProperties(
                     **{

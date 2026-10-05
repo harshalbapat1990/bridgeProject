@@ -263,7 +263,7 @@ class DataSpeckleProvider(IDataStoreProvider):
 
 if __name__ == "__main__":
     # Example usage
-    model = "https://design.jacobs.com/projects/8f0d636aa6/models/0ed6df7cda"
+    model = "https://design.jacobs.com/projects/8f0d636aa6/models/4799a9bc6e"
 
     # read authorization token from local settings
     from pathlib import Path

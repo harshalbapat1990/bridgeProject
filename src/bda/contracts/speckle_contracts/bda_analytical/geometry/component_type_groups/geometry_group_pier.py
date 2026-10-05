@@ -155,19 +155,9 @@ class GeometryGroupParametersPier(
         "Geometry Group Properties"
     ] = "Geometry Group Properties"
 
-    speckle_type: Literal[
-        "Objects.Data.DataObject:BDA_Geometry_Group_Properties_Pier"
-    ] = Field(
-        "Objects.Data.DataObject:BDA_Geometry_Group_Properties_Pier",
-        frozen=True
-    )
-
     bda_speckle_type: Literal[
         "Objects.Data.DataObject:BDA_Geometry_Group_Properties_Pier"
-    ] = Field(
-        ...,
-        frozen=True
-    )
+    ] = "Objects.Data.DataObject:BDA_Geometry_Group_Properties_Pier"
 
     APPLICATION_ID_PATTERN: ClassVar[str] = r"^GEOMGROUP-PROPS-\d{4}-PIER$"
     applicationId: str = Field(pattern=APPLICATION_ID_PATTERN)
@@ -191,19 +181,9 @@ PierGroupElements = Annotated[
 class GeometryGroupPier(
     GeometryGroupBase
 ):
-    speckle_type: Literal[
-        "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_Pier"
-    ] = Field(
-        "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_Pier",
-        frozen=True
-    )
-
     bda_speckle_type: Literal[
         "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_Pier"
-    ] = Field(
-        ...,
-        frozen=True
-    )
+    ] = "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_Pier"
 
     APPLICATION_ID_PATTERN: ClassVar[str] = r"^COL-GEOMGROUP-\d{4}-PIER$"
     applicationId: str = Field(pattern=APPLICATION_ID_PATTERN)
@@ -219,14 +199,14 @@ class GeometryGroupPier(
                     "contains": {
                         "type": "object",
                         "properties": {
-                            "speckle_type": {
+                            "bda_speckle_type": {
                                 "const": (
                                     "Objects.Data.DataObject:"
                                     "BDA_Geometry_Group_Properties_Pier"
                                 )
                             }
                         },
-                        "required": ["speckle_type"],
+                        "required": ["bda_speckle_type"],
                     },
                     "minContains": 1,
                     "maxContains": 1,
@@ -246,7 +226,7 @@ class GeometryGroupPier(
         pier_properties_count = sum(
             1
             for element in self.elements
-            if element.speckle_type
+            if element.bda_speckle_type
             == pier_properties_speckle_type
         )
 
@@ -279,20 +259,12 @@ class GeometryGroupPier(
             id=None,
             applicationId=application_id,
             name=name if name is not None else application_id,
-            bda_speckle_type=(
-                "Speckle.Core.Models.Collections.Collection:"
-                "BDA_Geometry_Group_Pier"
-            ),
             elements=[
                 GeometryGroupParametersPier(
                     **{
                         "id": None,
                         "applicationId": application_id.replace(
                             "COL-GEOMGROUP-", "GEOMGROUP-PROPS-", 1
-                        ),
-                        "bda_speckle_type": (
-                            "Objects.Data.DataObject:"
-                            "BDA_Geometry_Group_Properties_Pier"
                         ),
                         "properties":
                             GeometryGroupPropertiesPier(

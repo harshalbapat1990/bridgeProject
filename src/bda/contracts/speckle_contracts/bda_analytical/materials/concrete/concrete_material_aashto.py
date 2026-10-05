@@ -153,19 +153,9 @@ class ConcreteAASHTOMaterialDataObject(
         pattern=APPLICATION_ID_PATTERN
     )
 
-    speckle_type: Literal[
-        "Objects.Data.DataObject:BDA_Concrete_Material_AASHTO"
-    ] = (
-        "Objects.Data.DataObject:"
-        "BDA_Concrete_Material_AASHTO"
-    )
-
     bda_speckle_type: Literal[
         "Objects.Data.DataObject:BDA_Concrete_Material_AASHTO"
-    ] = Field(
-        ...,
-        frozen=True
-    )
+    ] = "Objects.Data.DataObject:BDA_Concrete_Material_AASHTO"
 
     properties: (
         ConcreteAASHTOMaterialDataObjectProperties
@@ -193,14 +183,6 @@ class ConcreteAASHTOMaterialDataObject(
             id=None,
             name=name,
             applicationId=application_id,
-            speckle_type=(
-                "Objects.Data.DataObject:"
-                "BDA_Concrete_Material_AASHTO"
-            ),
-            bda_speckle_type=(
-                "Objects.Data.DataObject:"
-                "BDA_Concrete_Material_AASHTO"
-            ),
             properties=(
                 ConcreteAASHTOMaterialDataObjectProperties(
                     **{

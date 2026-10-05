@@ -353,16 +353,9 @@ class GeometryGroupParameters(BridgeDataObject):
         "Geometry Group Properties"
     ] = "Geometry Group Properties"
 
-    speckle_type: Literal[
-        "Objects.Data.DataObject:BDA_Geometry_Group_Properties"
-    ] = "Objects.Data.DataObject:BDA_Geometry_Group_Properties"
-
     bda_speckle_type: Literal[
         "Objects.Data.DataObject:BDA_Geometry_Group_Properties"
-    ] = Field(
-        ...,
-        frozen=True
-    )
+    ] = "Objects.Data.DataObject:BDA_Geometry_Group_Properties"
 
     properties: GeometryGroupProperties
 
@@ -430,16 +423,9 @@ class GeometryGroupBase(BridgeCollection):
         r"^COL-GEOMGROUP-\d{4}-[A-Z0-9]+(?:-[A-Z0-9]+)*$"
     )
 
-    speckle_type: Literal[
-        "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group"
-    ] = "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group"
-
     bda_speckle_type: Literal[
         "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group"
-    ] = Field(
-        ...,
-        frozen=True
-    )
+    ] = "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group"
 
     name: str
     

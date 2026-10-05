@@ -105,16 +105,10 @@ class SectionDataObject_Box(StandardShapeDataObject):
     applicationId: str = Field(
         pattern=APPLICATION_ID_PATTERN,
     )
-    speckle_type: Literal[
-        "Objects.Data.DataObject:BDA_Section:Standard_Shape:Box"
-    ]
 
     bda_speckle_type: Literal[
         "Objects.Data.DataObject:BDA_Section:Standard_Shape:Box"
-    ] = Field(
-        ...,
-        frozen=True
-    )
+    ] = "Objects.Data.DataObject:BDA_Section:Standard_Shape:Box"
 
     properties: BoxDataObject_Properties
 
@@ -136,14 +130,6 @@ class SectionDataObject_Box(StandardShapeDataObject):
             id=None,
             name=name,
             applicationId=application_id,
-            speckle_type=(
-                "Objects.Data.DataObject:"
-                "BDA_Section:Standard_Shape:Box"
-            ),
-            bda_speckle_type=(
-                "Objects.Data.DataObject:"
-                "BDA_Section:Standard_Shape:Box"
-            ),
             properties=(
                 BoxDataObject_Properties(
                     **{

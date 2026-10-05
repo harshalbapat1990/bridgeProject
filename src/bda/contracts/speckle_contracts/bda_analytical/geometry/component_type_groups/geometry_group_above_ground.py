@@ -258,19 +258,9 @@ class GeometryGroupParametersAboveGround(
         "Geometry Group Properties"
     ] = "Geometry Group Properties"
 
-    speckle_type: Literal[
-        "Objects.Data.DataObject:BDA_Geometry_Group_Properties_AboveGround"
-    ] = Field(
-        "Objects.Data.DataObject:BDA_Geometry_Group_Properties_AboveGround",
-        frozen=True
-    )
-
     bda_speckle_type: Literal[
         "Objects.Data.DataObject:BDA_Geometry_Group_Properties_AboveGround"
-    ] = Field(
-        ...,
-        frozen=True
-    )
+    ] = "Objects.Data.DataObject:BDA_Geometry_Group_Properties_AboveGround"
 
     APPLICATION_ID_PATTERN: ClassVar[str] = r"^GEOMGROUP-PROPS-\d{4}-ABOVE-GROUND$"
     applicationId: str = Field(pattern=APPLICATION_ID_PATTERN)
@@ -296,19 +286,9 @@ AboveGroundGroupElements = Annotated[
 class GeometryGroupAboveGround(
     GeometryGroupBase
 ):
-    speckle_type: Literal[
-        "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_AboveGround"
-    ] = Field(
-        "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_AboveGround",
-        frozen=True
-    )
-
     bda_speckle_type: Literal[
         "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_AboveGround"
-    ] = Field(
-        ...,
-        frozen=True
-    )
+    ] = "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_AboveGround"
 
     APPLICATION_ID_PATTERN: ClassVar[str] = r"^COL-GEOMGROUP-\d{4}-ABOVE-GROUND$"
     applicationId: str = Field(pattern=APPLICATION_ID_PATTERN)
@@ -327,14 +307,14 @@ class GeometryGroupAboveGround(
                     "contains": {
                         "type": "object",
                         "properties": {
-                            "speckle_type": {
+                            "bda_speckle_type": {
                                 "const": (
                                     "Objects.Data.DataObject:"
                                     "BDA_Geometry_Group_Properties_AboveGround"
                                 )
                             }
                         },
-                        "required": ["speckle_type"],
+                        "required": ["bda_speckle_type"],
                     },
                     "minContains": 1,
                     "maxContains": 1,
@@ -344,14 +324,14 @@ class GeometryGroupAboveGround(
                     "contains": {
                         "type": "object",
                         "properties": {
-                            "speckle_type": {
+                            "bda_speckle_type": {
                                 "const": (
                                     "Speckle.Core.Models.Collections.Collection:"
                                     "BDA_Geometry_Group_Vertical_Members"
                                 )
                             }
                         },
-                        "required": ["speckle_type"],
+                        "required": ["bda_speckle_type"],
                     },
                     "minContains": 0,
                     "maxContains": 1,
@@ -361,14 +341,14 @@ class GeometryGroupAboveGround(
                     "contains": {
                         "type": "object",
                         "properties": {
-                            "speckle_type": {
+                            "bda_speckle_type": {
                                 "const": (
                                     "Speckle.Core.Models.Collections.Collection:"
                                     "BDA_Geometry_Group_Horizontal_Members"
                                 )
                             }
                         },
-                        "required": ["speckle_type"],
+                        "required": ["bda_speckle_type"],
                     },
                     "minContains": 0,
                     "maxContains": 1,
@@ -398,19 +378,19 @@ class GeometryGroupAboveGround(
         properties_count = sum(
             1
             for element in self.elements
-            if element.speckle_type == properties_type
+            if element.bda_speckle_type == properties_type
         )
 
         vertical_count = sum(
             1
             for element in self.elements
-            if element.speckle_type == vertical_type
+            if element.bda_speckle_type == vertical_type
         )
 
         horizontal_count = sum(
             1
             for element in self.elements
-            if element.speckle_type == horizontal_type
+            if element.bda_speckle_type == horizontal_type
         )
 
         if properties_count != 1:
@@ -464,10 +444,6 @@ class GeometryGroupAboveGround(
                 applicationId=application_id.replace(
                     "COL-GEOMGROUP-", "GEOMGROUP-PROPS-", 1
                 ),
-                bda_speckle_type=(
-                    "Objects.Data.DataObject:"
-                    "BDA_Geometry_Group_Properties_AboveGround"
-                ),
                 properties=(
                     GeometryGroupPropertiesAboveGround(
                         **{
@@ -503,10 +479,6 @@ class GeometryGroupAboveGround(
 
         return cls(
             applicationId=application_id,
-            bda_speckle_type=(
-                "Speckle.Core.Models.Collections.Collection:"
-                "BDA_Geometry_Group_AboveGround"
-            ),
             elements=elements,
         )
 

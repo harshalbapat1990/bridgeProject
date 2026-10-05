@@ -143,16 +143,10 @@ class SectionDataObject_ISection(StandardShapeDataObject):
     applicationId: str = Field(
         pattern=APPLICATION_ID_PATTERN,
     )
-    speckle_type: Literal[
-        "Objects.Data.DataObject:BDA_Section:Standard_Shape:I-Section"
-    ]
-
+    
     bda_speckle_type: Literal[
         "Objects.Data.DataObject:BDA_Section:Standard_Shape:I-Section"
-    ] = Field(
-        ...,
-        frozen=True
-    )
+    ] = "Objects.Data.DataObject:BDA_Section:Standard_Shape:I-Section"
 
     properties: ISectionDataObject_Properties
 
@@ -178,14 +172,6 @@ class SectionDataObject_ISection(StandardShapeDataObject):
             id=None,
             name=name,
             applicationId=application_id,
-            speckle_type=(
-                "Objects.Data.DataObject:"
-                "BDA_Section:Standard_Shape:I-Section"
-            ),
-            bda_speckle_type=(
-                "Objects.Data.DataObject:"
-                "BDA_Section:Standard_Shape:I-Section"
-            ),
             properties=(
                 ISectionDataObject_Properties(
                     **{

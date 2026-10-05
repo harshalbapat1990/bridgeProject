@@ -435,19 +435,9 @@ class GeometryGroupParametersBrace(GeometryGroupParameters):
         "Geometry Group Properties"
     ] = "Geometry Group Properties"
 
-    speckle_type: Literal[
-        "Objects.Data.DataObject:BDA_Geometry_Group_Properties_Brace"
-    ] = Field(
-        "Objects.Data.DataObject:BDA_Geometry_Group_Properties_Brace",
-        frozen=True
-    )
-
     bda_speckle_type: Literal[
         "Objects.Data.DataObject:BDA_Geometry_Group_Properties_Brace"
-    ] = Field(
-        ...,
-        frozen=True
-    )
+    ] = "Objects.Data.DataObject:BDA_Geometry_Group_Properties_Brace"
 
     APPLICATION_ID_PATTERN: ClassVar[str] = r"^GEOMGROUP-PROPS-\d{4}-BRACE$"
     applicationId: str = Field(pattern=APPLICATION_ID_PATTERN)
@@ -466,19 +456,9 @@ BraceGroupElements = Annotated[
 
 
 class GeometryGroupBrace(GeometryGroupBase):
-    speckle_type: Literal[
-        "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_Brace"
-    ] = Field(
-        "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_Brace",
-        frozen=True
-    )
-
     bda_speckle_type: Literal[
         "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_Brace"
-    ] = Field(
-        ...,
-        frozen=True
-    )
+    ] = "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_Brace"
 
     APPLICATION_ID_PATTERN: ClassVar[str] = r"^COL-GEOMGROUP-\d{4}-BRACE$"
     applicationId: str = Field(pattern=APPLICATION_ID_PATTERN)
@@ -492,14 +472,14 @@ class GeometryGroupBrace(GeometryGroupBase):
                     "contains": {
                         "type": "object",
                         "properties": {
-                            "speckle_type": {
+                            "bda_speckle_type": {
                                 "const": (
                                     "Objects.Data.DataObject:"
                                     "BDA_Geometry_Group_Properties_Brace"
                                 )
                             }
                         },
-                        "required": ["speckle_type"],
+                        "required": ["bda_speckle_type"],
                     },
                     "minContains": 1,
                     "maxContains": 1,
@@ -518,7 +498,7 @@ class GeometryGroupBrace(GeometryGroupBase):
         brace_properties_count = sum(
             1
             for element in self.elements
-            if element.speckle_type == brace_properties_speckle_type
+            if element.bda_speckle_type == brace_properties_speckle_type
         )
 
         if brace_properties_count != 1:
@@ -557,20 +537,12 @@ class GeometryGroupBrace(GeometryGroupBase):
             id=None,
             applicationId=application_id,
             name=name if name is not None else f"Brace", #TODO: Improve Autonaming
-            bda_speckle_type=(
-                "Speckle.Core.Models.Collections.Collection:"
-                "BDA_Geometry_Group_Brace"
-            ),
             elements=[
                 GeometryGroupParametersBrace(
                     **{
                         "id": None,
                         "applicationId": application_id.replace(
                             "COL-GEOMGROUP-", "GEOMGROUP-PROPS-", 1
-                        ),
-                        "bda_speckle_type": (
-                            "Objects.Data.DataObject:"
-                            "BDA_Geometry_Group_Properties_Brace"
                         ),
                         "properties": GeometryGroupPropertiesBrace(
                             **{

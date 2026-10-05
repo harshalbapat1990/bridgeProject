@@ -167,19 +167,9 @@ class BearingBCDataObject(
     )
     name: str
 
-    speckle_type: Literal[
-        "Objects.Data.DataObject:BDA_Bearing_Boundary_Condition"
-    ] = (
-        "Objects.Data.DataObject:"
-        "BDA_Bearing_Boundary_Condition"
-    )
-
     bda_speckle_type: Literal[
         "Objects.Data.DataObject:BDA_Bearing_Boundary_Condition"
-    ] = Field(
-        ...,
-        frozen=True
-    )
+    ] = "Objects.Data.DataObject:BDA_Bearing_Boundary_Condition"
 
     properties: (
         BearingBCDataObjectProperties
@@ -414,9 +404,6 @@ class BearingBCDataObject(
         return cls(
             applicationId=application_id,
             name=name,
-            bda_speckle_type=(
-                "Objects.Data.DataObject:BDA_Bearing_Boundary_Condition"
-            ),
             properties=(
                 BearingBCDataObjectProperties(
                     **{

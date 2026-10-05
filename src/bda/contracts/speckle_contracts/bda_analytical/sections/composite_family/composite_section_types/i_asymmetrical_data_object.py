@@ -195,16 +195,9 @@ class SectionDataObject_CompositeIAsymmetric(CompositeDataObject):
     applicationId: str = Field(
         pattern=APPLICATION_ID_PATTERN,
     )
-    speckle_type: Literal[
-        "Objects.Data.DataObject:BDA_Section:Composite:Composite I Asymmetric"
-    ]
-
     bda_speckle_type: Literal[
         "Objects.Data.DataObject:BDA_Section:Composite:Composite I Asymmetric"
-    ] = Field(
-        ...,
-        frozen=True
-    )
+    ] = "Objects.Data.DataObject:BDA_Section:Composite:Composite I Asymmetric"
 
     properties: CompositeIAsymmetricDataObject_Properties
 
@@ -236,14 +229,6 @@ class SectionDataObject_CompositeIAsymmetric(CompositeDataObject):
             id=None,
             name=name,
             applicationId=application_id,
-            speckle_type=(
-                "Objects.Data.DataObject:"
-                "BDA_Section:Composite:Composite I Asymmetric"
-            ),
-            bda_speckle_type=(
-                "Objects.Data.DataObject:"
-                "BDA_Section:Composite:Composite I Asymmetric"
-            ),
             properties=(
                 CompositeIAsymmetricDataObject_Properties(
                     **{

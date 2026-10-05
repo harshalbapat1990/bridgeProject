@@ -81,20 +81,9 @@ class GeometryGroupParametersDeckSlab(
         "Geometry Group Properties"
     ] = "Geometry Group Properties"
 
-    speckle_type: Literal[
-        "Objects.Data.DataObject:"
-        "BDA_Geometry_Group_Properties_Deck_Slab"
-    ] = Field(
-        "Objects.Data.DataObject:BDA_Geometry_Group_Properties_Deck_Slab",
-        frozen=True
-    )
-
     bda_speckle_type: Literal[
         "Objects.Data.DataObject:BDA_Geometry_Group_Properties_Deck_Slab"
-    ] = Field(
-        ...,
-        frozen=True
-    )
+    ] = "Objects.Data.DataObject:BDA_Geometry_Group_Properties_Deck_Slab"
 
     APPLICATION_ID_PATTERN: ClassVar[str] = r"^GEOMGROUP-PROPS-\d{4}-DECK-SLAB$"
     applicationId: str = Field(pattern=APPLICATION_ID_PATTERN)
@@ -118,20 +107,9 @@ DeckSlabGroupElements = Annotated[
 class GeometryGroupDeckSlab(
     GeometryGroupBase
 ):
-    speckle_type: Literal[
-        "Speckle.Core.Models.Collections.Collection:"
-        "BDA_Geometry_Group_Deck_Slab"
-    ] = Field(
-        "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_Deck_Slab",
-        frozen=True
-    )
-
     bda_speckle_type: Literal[
         "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_Deck_Slab"
-    ] = Field(
-        ...,
-        frozen=True
-    )
+    ] = "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_Deck_Slab"
 
     APPLICATION_ID_PATTERN: ClassVar[str] = r"^COL-GEOMGROUP-\d{4}-DECK-SLAB$"
     applicationId: str = Field(pattern=APPLICATION_ID_PATTERN)
@@ -146,7 +124,7 @@ class GeometryGroupDeckSlab(
                     "contains": {
                         "type": "object",
                         "properties": {
-                            "speckle_type": {
+                            "bda_speckle_type": {
                                 "const": (
                                     "Objects.Data.DataObject:"
                                     "BDA_Geometry_Group_Properties_"
@@ -154,7 +132,7 @@ class GeometryGroupDeckSlab(
                                 )
                             }
                         },
-                        "required": ["speckle_type"],
+                        "required": ["bda_speckle_type"],
                     },
                     "minContains": 1,
                     "maxContains": 1,
@@ -173,7 +151,7 @@ class GeometryGroupDeckSlab(
         properties_count = sum(
             1
             for element in self.elements
-            if element.speckle_type == properties_speckle_type
+            if element.bda_speckle_type == properties_speckle_type
         )
 
         if properties_count != 1:
@@ -200,20 +178,12 @@ class GeometryGroupDeckSlab(
             id=None,
             name=name if name is not None else "Deck Slab",  # TODO: Improve Autonaming
             applicationId=application_id,
-            bda_speckle_type=(
-                "Speckle.Core.Models.Collections.Collection:"
-                "BDA_Geometry_Group_Deck_Slab"
-            ),
             elements=[
                 GeometryGroupParametersDeckSlab(
                     **{
                         "id": None,
                         "applicationId": application_id.replace(
                             "COL-GEOMGROUP-", "GEOMGROUP-PROPS-", 1
-                        ),
-                        "bda_speckle_type": (
-                            "Objects.Data.DataObject:"
-                            "BDA_Geometry_Group_Properties_Deck_Slab"
                         ),
                         "properties": GeometryGroupPropertiesDeckSlab(
                             **{

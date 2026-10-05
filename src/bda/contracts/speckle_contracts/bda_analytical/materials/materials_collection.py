@@ -37,16 +37,9 @@ class MaterialsCollection(BridgeCollection):
     )
     name: Literal["Materials"] = "Materials"
 
-    speckle_type: Literal[
-        "Speckle.Core.Models.Collections.Collection"
-    ] = "Speckle.Core.Models.Collections.Collection"
-
     bda_speckle_type: Literal[
         "Speckle.Core.Models.Collections.Collection"
-    ] = Field(
-        ...,
-        frozen=True
-    )
+    ] = "Speckle.Core.Models.Collections.Collection"
 
     elements: list[Material_AASHTO] = Field(
         default_factory=list
@@ -60,9 +53,6 @@ class MaterialsCollection(BridgeCollection):
     ) -> "MaterialsCollection":
         return cls(
             applicationId=application_id,
-            bda_speckle_type=(
-                "Speckle.Core.Models.Collections.Collection"
-            ),
             elements=materials or [],
         )
 
