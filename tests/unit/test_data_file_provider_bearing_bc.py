@@ -12,12 +12,12 @@ from bda.contracts.paramodel.bearings.bearing_bc_para_model import (
     MultipleBearingsBCsParaModel,
     SingleBearingBCsParaModel,
 )
-from bda.contracts.paramodel.foundation.foundation_bc_para_model import (
+from bda.contracts.paramodel.foundations.foundation_bc_para_model import (
     NodeSpringStiffnessParaModel,
     RotationalStiffnessParaModel,
     TranslationalStiffnessParaModel,
 )
-from bda.contracts.paramodel.foundation.enums import DofTypeEnumParaModel
+from bda.contracts.paramodel.foundations.enums import DofTypeEnumParaModel
 from bda.contracts.paramodel.groups.enums import (
     BearingConfigurationTypeParaModel,
     ElementOrientationParaModel,

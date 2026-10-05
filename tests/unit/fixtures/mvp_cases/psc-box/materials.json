@@ -5,7 +5,7 @@
       "material_type": "concrete",
       "material_model_type": "isotropic",
       "standard_code": "AASHTO",
-      "name": "Concrete_C5000",
+      "name": "C5000",
       "general_properties": {
         "modulus_of_elasticity": {
           "value": 2.05e10,
@@ -49,7 +49,7 @@
       "material_type": "concrete",
       "material_model_type": "isotropic",
       "standard_code": "AASHTO",
-      "name": "Concrete_C5000_substructure",
+      "name": "C5000_substructure",
       "general_properties": {
         "modulus_of_elasticity": {
           "value": 2.05e10,
@@ -93,7 +93,7 @@
       "material_type": "concrete",
       "material_model_type": "isotropic",
       "standard_code": "AASHTO",
-      "name": "Concrete_C5000_piles",
+      "name": "C5000_piles",
       "general_properties": {
         "modulus_of_elasticity": {
           "value": 2.05e10,

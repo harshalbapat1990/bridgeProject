@@ -1,0 +1,134 @@
+{
+    "id": "5a0f55b7-87cd-4a4b-911a-b31427b3b6c8",
+    "applicationId": "MAT-0001-STEEL-AASHTO",
+    "name": "Steel",
+    "speckle_type": "Objects.Data.DataObject:BDA_Steel_Material_AASHTO",
+    "bda_speckle_type": "Objects.Data.DataObject:BDA_Steel_Material_AASHTO",
+    "properties": {
+        "General Material Properties": {
+            "name": "General Material Properties",
+            "isUser": true,
+            "description": "General material properties",
+            "group_parameters": {
+                "Material Type": {
+                    "name": "Material Type",
+                    "isUser": false,
+                    "provided_value": "steel",
+                    "description": "Type of material (e.g., Concrete, Steel, Timber)",
+                    "symbol": "MatType",
+                    "provided_unit": null,
+                    "base_unit": null,
+                    "base_value": null
+                },
+                "Material Design Code": {
+                    "name": "Material Design Code",
+                    "isUser": false,
+                    "provided_value": "AASHTO",
+                    "description": "Associated design code of material",
+                    "symbol": null,
+                    "provided_unit": null,
+                    "base_unit": null,
+                    "base_value": null
+                },
+                "Isotropy": {
+                    "name": "Isotropy",
+                    "isUser": true,
+                    "provided_value": "isotropic",
+                    "description": "Whether the material is isotropic or orthotropic",
+                    "symbol": null,
+                    "provided_unit": null,
+                    "base_unit": null,
+                    "base_value": null
+                },
+                "Unit Weight": {
+                    "name": "Unit Weight",
+                    "isUser": true,
+                    "provided_value": 77.0,
+                    "description": "Weight per unit volume of a material",
+                    "symbol": "\u03b3",
+                    "provided_unit": "kN/m\u00b3",
+                    "base_unit": "kN/m\u00b3",
+                    "base_value": 77.0
+                },
+                "Modulus of Elasticity": {
+                    "name": "Modulus of Elasticity",
+                    "isUser": true,
+                    "provided_value": 200.0,
+                    "description": "Ratio of stress to strain in a material",
+                    "symbol": "E",
+                    "provided_unit": "GPa",
+                    "base_unit": "Pa",
+                    "base_value": 200000000000.0
+                },
+                "Poisson's Ratio": {
+                    "name": "Poisson's Ratio",
+                    "isUser": true,
+                    "provided_value": 0.3,
+                    "description": "Ratio of transverse strain to axial strain in a material",
+                    "symbol": "\u03bd",
+                    "provided_unit": null,
+                    "base_unit": null,
+                    "base_value": null
+                },
+                "Coefficient of Thermal Expansion": {
+                    "name": "Coefficient of Thermal Expansion",
+                    "isUser": true,
+                    "provided_value": 1.2e-05,
+                    "description": "Change in length per unit length per degree of temperature change",
+                    "symbol": "\u03b1",
+                    "provided_unit": "1/\u0394\u00b0C",
+                    "base_unit": "1/\u0394\u00b0C",
+                    "base_value": 1.2e-05
+                }
+            }
+        },
+        "Design Material Properties": {
+            "name": "Steel Material Properties",
+            "isUser": true,
+            "description": "Steel material properties",
+            "group_parameters": {
+                "Expected Steel Yield Strength": {
+                    "name": "Expected Steel Yield Strength",
+                    "isUser": true,
+                    "provided_value": 380000000.0,
+                    "description": "Expected yield strength of steel",
+                    "symbol": "fy,exp",
+                    "provided_unit": "kN/m\u00b2",
+                    "base_unit": "Pa",
+                    "base_value": 380000000000.0
+                },
+                "Minimum Steel Yield Strength": {
+                    "name": "Specified Minimum Steel Yield Strength",
+                    "isUser": true,
+                    "provided_value": 345000000.0,
+                    "description": "Specified Minimum yield strength of steel",
+                    "symbol": "fy,min",
+                    "provided_unit": "kN/m\u00b2",
+                    "base_unit": "Pa",
+                    "base_value": 345000000000.0
+                },
+                "Expected Steel Tensile Strength": {
+                    "name": "Expected Steel Tensile Strength",
+                    "isUser": true,
+                    "provided_value": 520000000.0,
+                    "description": "Expected tensile strength of steel",
+                    "symbol": "fu,exp",
+                    "provided_unit": "kN/m\u00b2",
+                    "base_unit": "Pa",
+                    "base_value": 520000000000.0
+                },
+                "Minimum Steel Tensile Strength": {
+                    "name": "Specified Minimum Steel Tensile Strength",
+                    "isUser": true,
+                    "provided_value": 450000000.0,
+                    "description": "Specified minimum tensile strength of steel",
+                    "symbol": "fu,min",
+                    "provided_unit": "kN/m\u00b2",
+                    "base_unit": "Pa",
+                    "base_value": 450000000000.0
+                }
+            }
+        }
+    },
+    "displayValue": []
+}

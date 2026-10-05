@@ -1,0 +1,235 @@
+{
+  "foundation_bc": [
+
+    {
+      "support_index": 0,
+      "foundation_model_type": "lumped_foundation_model",
+      "stiffness_definition": {
+        "sdx": {
+          "dof_type": "free",
+          "stiffness": {
+            "value": 1000000,
+            "unit": "N/m"
+          }
+        },
+        "sdy": {
+          "dof_type": "fixed",
+          "stiffness": {
+            "value": 2000000,
+            "unit": "N/m"
+          }
+        },
+        "sdz": {
+          "dof_type": "custom",
+          "stiffness": {
+            "value": 13000000,
+            "unit": "N/m"
+          }
+        },
+        "srx": {
+          "dof_type": "free",
+          "stiffness": {
+            "value": 4000000,
+            "unit": "N*m/rad"
+          }
+        },
+        "sry": {
+          "dof_type": "fixed",
+          "stiffness": {
+            "value": 5000000,
+            "unit": "N*m/rad"
+          }
+        },
+        "srz": {
+          "dof_type": "custom",
+          "stiffness": {
+            "value": 16000000,
+            "unit": "N*m/rad"
+          }
+      }
+    },
+      "orientation": "orthogonal",
+      "application": {
+        "application_type": "bearing_based",
+        "vertical_offset": {
+          "value": 0.5,
+          "unit": "m"
+        }
+      }
+    },
+
+    {
+      "support_index": 1,
+      "foundation_model_type": "lumped_foundation_model",
+      "stiffness_definition": {
+        "sdx": {
+          "dof_type": "free",
+          "stiffness": {
+            "value": 1000000,
+            "unit": "N/m"
+          }
+        },
+        "sdy": {
+          "dof_type": "fixed",
+          "stiffness": {
+            "value": 2000000,
+            "unit": "N/m"
+          }
+        },
+        "sdz": {
+          "dof_type": "custom",
+          "stiffness": {
+            "value": 23000000,
+            "unit": "N/m"
+          }
+        },
+        "srx": {
+          "dof_type": "free",
+          "stiffness": {
+            "value": 4000000,
+            "unit": "N*m/rad"
+          }
+        },
+        "sry": {
+          "dof_type": "fixed",
+          "stiffness": {
+            "value": 5000000,
+            "unit": "N*m/rad"
+          }
+        },
+        "srz": {
+          "dof_type": "custom",
+          "stiffness": {
+            "value": 26000000,
+            "unit": "N*m/rad"
+          }
+      }
+    },
+      "orientation": "skewed",
+      "application": {
+        "application_type": "bearing_based",
+        "vertical_offset": {
+          "value": 0.5,
+          "unit": "m"
+        }
+      }
+    },
+
+    {
+      "support_index": 2,
+      "foundation_model_type": "lumped_foundation_model",
+      "stiffness_definition": {
+        "sdx": {
+          "dof_type": "free",
+          "stiffness": {
+            "value": 1000000,
+            "unit": "N/m"
+          }
+        },
+        "sdy": {
+          "dof_type": "fixed",
+          "stiffness": {
+            "value": 2000000,
+            "unit": "N/m"
+          }
+        },
+        "sdz": {
+          "dof_type": "custom",
+          "stiffness": {
+            "value": 33000000,
+            "unit": "N/m"
+          }
+        },
+        "srx": {
+          "dof_type": "free",
+          "stiffness": {
+            "value": 4000000,
+            "unit": "N*m/rad"
+          }
+        },
+        "sry": {
+          "dof_type": "fixed",
+          "stiffness": {
+            "value": 5000000,
+            "unit": "N*m/rad"
+          }
+        },
+        "srz": {
+          "dof_type": "custom",
+          "stiffness": {
+            "value": 36000000,
+            "unit": "N*m/rad"
+          }
+      }
+    },
+      "orientation": "orthogonal",
+      "application": {
+        "application_type": "bearing_based",
+        "vertical_offset": {
+          "value": 0.5,
+          "unit": "m"
+        }
+      }
+    },
+
+
+
+    {
+      "support_index": 3,
+      "foundation_model_type": "lumped_foundation_model",
+      "stiffness_definition": {
+        "sdx": {
+          "dof_type": "free",
+          "stiffness": {
+            "value": 1000000,
+            "unit": "N/m"
+          }
+        },
+        "sdy": {
+          "dof_type": "fixed",
+          "stiffness": {
+            "value": 2000000,
+            "unit": "N/m"
+          }
+        },
+        "sdz": {
+          "dof_type": "custom",
+          "stiffness": {
+            "value": 43000000,
+            "unit": "N/m"
+          }
+        },
+        "srx": {
+          "dof_type": "free",
+          "stiffness": {
+            "value": 4000000,
+            "unit": "N*m/rad"
+          }
+        },
+        "sry": {
+          "dof_type": "fixed",
+          "stiffness": {
+            "value": 5000000,
+            "unit": "N*m/rad"
+          }
+        },
+        "srz": {
+          "dof_type": "custom",
+          "stiffness": {
+            "value": 46000000,
+            "unit": "N*m/rad"
+          }
+      }
+    },
+      "orientation": "skewed",
+      "application": {
+        "application_type": "bearing_based",
+        "vertical_offset": {
+          "value": 0.5,
+          "unit": "m"
+        }
+      }
+    }
+
+  ]
+}

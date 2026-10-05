@@ -2,6 +2,7 @@
   "model_config": {
     "unit_system": "Metric",
     "output_software": "MIDAS Civil",
+    "output_software_": "CSI Bridge",
     "design_code": "AASHTO",
     "bridge_type": "PSC Box"
     }

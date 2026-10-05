@@ -5,7 +5,7 @@
       "structural_component_type": "bridge",
       "name": "PSC bridge example",
       "material_id": "0a319344-c9e3-45db-b840-24310be69c22",
-      "section_id": "psc-box-section",
+      "section_id": "psc-box-section-low",
       "properties": {
         "bridge_type": "PSC Box",
         "bridge_idealisation": "line-beam",
@@ -20,11 +20,11 @@
       },
       "nested_groups": [
         {
-          "group_id": "superstructure_group",
+          "group_id": "Superstructure_group",
           "structural_component_type": "superstructure",
           "name": "Main Superstructure",
           "material_id": "0a319344-c9e3-45db-b840-24310be69c22",
-          "section_id": "intermediate_girder",
+          "section_id": "psc-box-section-low",
           "properties": {
             "total_deck_width": {
               "value": 12,
@@ -57,11 +57,10 @@
           },
           "nested_groups": [
             {
-              "group_id": "group_span_1",
+              "group_id": "Group_span_1",
               "structural_component_type": "span",
               "name": "Span_1",
-              "material_id": "0a319344-c9e3-45db-b840-24310be69c22",
-              "section_id": "intermediate_girder",
+              "section_id": "psc-box-section-low",
               "properties": {
                 "span_index": 0,
                 "span_length": {
@@ -70,54 +69,35 @@
                 },
                 "no_of_girders": 1,
                 "top_deck_level_at_end": {
-                  "value": 67.0,
+                  "value": 122.0,
                   "unit": "m"
                 },
                 "tapered_details": [
                   {
                     "x_start": {
-                      "value": 10.0,
-                      "unit": "m"
-                    },
-                    "x_end": {
                       "value": 20.0,
                       "unit": "m"
                     },
-                    "section_id": "tapered-section-1"
-                  }
-                ],
-                "construction_sequence_details": {
-                  "pouring_orientation": "skewed",
-                  "segments": [
-                    {
-                      "x_start": {
-                        "value": 10.0,
-                        "unit": "m"
-                      }
+                    "x_end": {
+                      "value": 27.0,
+                      "unit": "m"
                     },
-                    {
-                      "x_start": {
-                        "value": 20.0,
-                        "unit": "m"
-                      }
-                    }
-                  ]
-                }
+                    "section_id": "tapered-low-to-high"
+                  }
+                ]
               },
               "nested_groups": [
                 {
                   "group_id": "longitudinal_members",
                   "structural_component_type": "longitudinal-members",
                   "name": "Longitudinal Members",
-                  "material_id": "0a319344-c9e3-45db-b840-24310be69c22",
-                  "section_id": "psc-box-section",
+                  "section_id": "psc-box-section-low",
                   "nested_groups": [
                     {
                       "group_id": "box_girder_1",
                       "structural_component_type": "girder",
                       "name": "box_girder_1",
-                      "material_id": "0a319344-c9e3-45db-b840-24310be69c22",
-                      "section_id": "psc-box-section",
+                      "section_id": "psc-box-section-low",
                       "properties": {
                         "girder_index": 0
                       },
@@ -126,8 +106,7 @@
                           "group_id": "tendon_s1",
                           "structural_component_type": "tendon-group",
                           "name": "tendon_span_1",
-                          "material_id": "0a319344-c9e3-45db-b840-24310be69c22",
-                          "section_id": "intermediate_girder",
+                          "section_id": "dummy",
                           "nested_groups": []
                         }
                       ]
@@ -140,73 +119,55 @@
               "group_id": "group_span_2",
               "structural_component_type": "span",
               "name": "Span_2",
-              "material_id": "0a319344-c9e3-45db-b840-24310be69c22",
-              "section_id": "intermediate_girder",
+              "section_id": "psc-box-section-low",
               "properties": {
                 "span_index": 1,
                 "span_length": {
                   "value": 50.0,
                   "unit": "m"
                 },
-                "no_of_girders": 3,
+                "no_of_girders": 1,
                 "top_deck_level_at_end": {
-                  "value": 67.0,
+                  "value": 121.0,
                   "unit": "m"
                 },
                 "tapered_details": [
                   {
                     "x_start": {
-                      "value": 0.0,
+                      "value": 3.0,
                       "unit": "m"
                     },
                     "x_end": {
                       "value": 10.0,
                       "unit": "m"
                     },
-                    "section_id": "tapered-section-2"
-                  }
-                ],
-                "splices": [
+                    "section_id": "tapered-high-to-low"
+                  },
                   {
                     "x_start": {
-                      "value": 1,
+                      "value": 40.0,
                       "unit": "m"
                     },
-                    "section_id": "intermediate_girder"
-                  }
-                ],
-                "construction_sequence_details": {
-                  "pouring_orientation": "skewed",
-                  "segments": [
-                    {
-                      "x_start": {
-                        "value": 10.0,
-                        "unit": "m"
-                      }
+                    "x_end": {
+                      "value": 47.0,
+                      "unit": "m"
                     },
-                    {
-                      "x_start": {
-                        "value": 20.0,
-                        "unit": "m"
-                      }
-                    }
-                  ]
-                }
+                    "section_id": "tapered-low-to-high"
+                  }
+                ]
               },
               "nested_groups": [
                 {
                   "group_id": "longitudinal_members",
                   "structural_component_type": "longitudinal-members",
                   "name": "Longitudinal Members",
-                  "material_id": "0a319344-c9e3-45db-b840-24310be69c22",
-                  "section_id": "intermediate_girder",
+                  "section_id": "psc-box-section-low",
                   "nested_groups": [
                     {
                       "group_id": "box_girder_2",
                       "structural_component_type": "girder",
-                      "name": "box_girder_2",
-                      "material_id": "0a319344-c9e3-45db-b840-24310be69c22",
-                      "section_id": "psc-box-section",
+                      "name": "Box_girder_2",
+                      "section_id": "psc-box-section-low",
                       "node_ids": [],
                       "properties": {
                         "girder_index": 1
@@ -216,8 +177,7 @@
                           "group_id": "tendon_s2",
                           "structural_component_type": "tendon-group",
                           "name": "tendon_span_2",
-                          "material_id": "0a319344-c9e3-45db-b840-24310be69c22",
-                          "section_id": "intermediate_girder",
+                          "section_id": "dummy",
                           "elements": [],
                           "nested_groups": []
                         }
@@ -231,8 +191,7 @@
               "group_id": "group_span_3",
               "structural_component_type": "span",
               "name": "Span_3",
-              "material_id": "0a319344-c9e3-45db-b840-24310be69c22",
-              "section_id": "intermediate_girder",
+              "section_id": "psc-box-section-low",
               "properties": {
                 "span_index": 2,
                 "span_length": {
@@ -241,63 +200,35 @@
                 },
                 "no_of_girders": 1,
                 "top_deck_level_at_end": {
-                  "value": 67.0,
+                  "value": 120.0,
                   "unit": "m"
                 },
                 "tapered_details": [
                   {
                     "x_start": {
-                      "value": 0.0,
+                      "value": 3.0,
                       "unit": "m"
                     },
                     "x_end": {
-                      "value": 15.0,
+                      "value": 10.0,
                       "unit": "m"
                     },
-                    "section_id": "tapered-section-1"
+                    "section_id": "tapered-high-to-low"
                   }
-                ],
-                "splices": [
-                  {
-                    "x_start": {
-                      "value": 1,
-                      "unit": "m"
-                    },
-                    "section_id": "intermediate_girder"
-                  }
-                ],
-                "construction_sequence_details": {
-                  "pouring_orientation": "skewed",
-                  "segments": [
-                    {
-                      "x_start": {
-                        "value": 10.0,
-                        "unit": "m"
-                      }
-                    },
-                    {
-                      "x_start": {
-                        "value": 20.0,
-                        "unit": "m"
-                      }
-                    }
-                  ]
-                }
+                ]
               },
               "nested_groups": [
                 {
                   "group_id": "longitudinal_members",
                   "structural_component_type": "longitudinal-members",
                   "name": "Longitudinal Members",
-                  "material_id": "0a319344-c9e3-45db-b840-24310be69c22",
-                  "section_id": "intermediate_girder",
+                  "section_id": "psc-box-section-low",
                   "nested_groups": [
                     {
                       "group_id": "box_girder_3",
                       "structural_component_type": "girder",
-                      "name": "box_girder_3",
-                      "material_id": "0a319344-c9e3-45db-b840-24310be69c22",
-                      "section_id": "psc-box-section",
+                      "name": "Box_girder_3",
+                      "section_id": "psc-box-section-low",
                       "properties": {
                         "girder_index": 2
                       },
@@ -306,8 +237,7 @@
                           "group_id": "tendon_s3",
                           "structural_component_type": "tendon-group",
                           "name": "tendon_span_3",
-                          "material_id": "0a319344-c9e3-45db-b840-24310be69c22",
-                          "section_id": "intermediate_girder"
+                          "section_id": "dummy"
                         }
                       ]
                     }
@@ -320,36 +250,31 @@
         {
         "group_id": "Substructure",
         "structural_component_type": "substructure",
-        "name": "substructure",
-        "material_id": "0a319344-c9e3-45db-b840-24310be69c22",
-        "section_id": "intermediate_girder",
+        "name": "Substructure",
+        "material_id": "443913a0-c9e3-45db-b840-24310be69c22",
         "nested_groups":
           [
             {
-              "group_id": "Abutment_1",
+              "group_id": "Abutment_0",
               "structural_component_type": "support",
-              "name": "Abutment_1",
-              "material_id": "0a319344-c9e3-45db-b840-24310be69c22",
-              "section_id": "intermediate_girder",
+              "name": "Abutment_0",
               "properties": {
                 "support_index": 0,
                 "skew_angle": {
-                  "value": 0.0,
+                  "value": 15.0,
                   "unit": "degrees"
                 },
                 "bearing_underside_level": {
-                  "value": -5.0,
+                  "value": 119.0,
                   "unit": "m"
                 },
                 "orientation": "orthogonal"
               },
               "nested_groups": [
                 {
-                  "group_id": "Above_ground_1",
+                  "group_id": "Above_ground_0",
                   "structural_component_type": "above-ground",
-                  "name": "Abutment_1_above_ground",
-                  "material_id": "0a319344-c9e3-45db-b840-24310be69c22",
-                  "section_id": "intermediate_girder",
+                  "name": "Abutment_0_above_ground",
                   "properties": {
                     "details" : {
                       "support_type": "solid-type",
@@ -358,18 +283,14 @@
                   },
                   "nested_groups": [
                     {
-                      "group_id": "Vertical_members_1",
+                      "group_id": "Vertical_members_0",
                       "structural_component_type": "vertical-members",
-                      "name": "vertical_members",
-                      "material_id": "0a319344-c9e3-45db-b840-24310be69c22",
-                      "section_id": "intermediate_girder",
+                      "name": "Vertical_members_0",
                       "nested_groups": [
                         {
-                          "group_id": "abutment 1 wall",
+                          "group_id": "abutment 0 wall",
                           "structural_component_type": "wall",
                           "name": "abutment wall",
-                          "material_id": "0a319344-c9e3-45db-b840-24310be69c22",
-                          "section_id": "intermediate_girder",
                           "properties": {
                             "element_thickness": {
                               "value": 1.5,
@@ -383,11 +304,10 @@
                   ]
                 },
                 {
-                  "group_id": "Below_ground_1",
+                  "group_id": "Below_ground_0",
                   "structural_component_type": "below-ground",
-                  "name": "Abutment_1_below_ground",
-                  "material_id": "0a319344-c9e3-45db-b840-24310be69c22",
-                  "section_id": "intermediate_girder",
+                  "name": "Abutment_0_below_ground",
+                  "material_id": "443913a0-c9e3-45db-b840-22c96eb01342",
                   "properties": {
                     "foundation_details": {
                       "foundation_type": "deep",
@@ -398,8 +318,7 @@
                     {
                       "group_id": "Pile",
                       "structural_component_type": "pile",
-                      "name": "pile",
-                      "material_id": "443913a0-c9e3-45db-b840-22c96eb01342",
+                      "name": "0ile_0_1",
                       "section_id": "pile_section",
                       "properties": {
                         "pile_index": 0,
@@ -416,7 +335,22 @@
                           "unit": "m"
                         },
                         "spring_spacing": [{
-                          "value":  1.0,
+                          "value":  2.5,
+                          "unit": "m"
+                        },{
+                          "value":  2.5,
+                          "unit": "m"
+                        },{
+                          "value":  2.5,
+                          "unit": "m"
+                        },{
+                          "value":  2.5,
+                          "unit": "m"
+                        },{
+                          "value":  2.5,
+                          "unit": "m"
+                        },{
+                          "value":  2.5,
                           "unit": "m"
                         }]
                       }
@@ -424,8 +358,7 @@
                     {
                       "group_id": "Pile",
                       "structural_component_type": "pile",
-                      "name": "pile",
-                      "material_id": "443913a0-c9e3-45db-b840-22c96eb01342",
+                      "name": "Pile_0_2",
                       "section_id": "pile_section",
                       "properties": {
                         "pile_index": 1,
@@ -434,7 +367,7 @@
                           "unit": "m"
                         },
                         "offset_along_support_line": {
-                          "value":  3.0,
+                          "value":  3.5,
                           "unit": "m"
                         },
                         "offset_normal_to_support_line": {
@@ -450,8 +383,7 @@
                     {
                       "group_id": "Pile",
                       "structural_component_type": "pile",
-                      "name": "pile",
-                      "material_id": "443913a0-c9e3-45db-b840-22c96eb01342",
+                      "name": "Pile_0_3",
                       "section_id": "pile_section",
                       "properties": {
                         "pile_index": 2,
@@ -460,7 +392,7 @@
                           "unit": "m"
                         },
                         "offset_along_support_line": {
-                          "value":  3.0,
+                          "value":  3.5,
                           "unit": "m"
                         },
                         "offset_normal_to_support_line": {
@@ -476,8 +408,7 @@
                     {
                       "group_id": "Pile",
                       "structural_component_type": "pile",
-                      "name": "pile",
-                      "material_id": "443913a0-c9e3-45db-b840-22c96eb01342",
+                      "name": "Pile_0_4",
                       "section_id": "pile_section",
                       "properties": {
                         "pile_index": 3,
@@ -486,7 +417,7 @@
                           "unit": "m"
                         },
                         "offset_along_support_line": {
-                          "value":  -3.0,
+                          "value":  -3.5,
                           "unit": "m"
                         },
                         "offset_normal_to_support_line": {
@@ -502,8 +433,7 @@
                     {
                       "group_id": "Pile",
                       "structural_component_type": "pile",
-                      "name": "pile",
-                      "material_id": "443913a0-c9e3-45db-b840-22c96eb01342",
+                      "name": "Pile_0_5",
                       "section_id": "pile_section",
                       "properties": {
                         "pile_index": 4,
@@ -512,7 +442,7 @@
                           "unit": "m"
                         },
                         "offset_along_support_line": {
-                          "value":  -3.0,
+                          "value":  -3.5,
                           "unit": "m"
                         },
                         "offset_normal_to_support_line": {
@@ -524,25 +454,688 @@
                           "unit": "m"
                         }]
                       }
+                    },
+                    {
+                      "group_id": "Pile_cap_1",
+                      "structural_component_type": "pile-cap",
+                      "name": "Pilecap1",
+                      "section_id": "pilecap",
+                      "properties": {
+                        "top_of_pile_cap_level": {
+                          "value": 101.5,
+                          "unit": "m"
+                        },
+                        "element_length": {
+                          "value":  10.0,
+                          "unit": "m"
+                        }
+                      }
                     }
                   ]
                 }
               ]
             },
             {
-              "group_id": "Abutment_2",
+              "group_id": "Pier_3",
               "structural_component_type": "support",
-              "name": "Abutment_2",
-              "material_id": "0a319344-c9e3-45db-b840-24310be69c22",
-              "section_id": "intermediate_girder",
+              "name": "Pier_3",
+              "section_id": "pier-section",
               "properties": {
                 "support_index": 3,
+                "skew_angle": {
+                  "value": 30.0,
+                  "unit": "degrees"
+                },
+                "bearing_underside_level": {
+                  "value": 114.0,
+                  "unit": "m"
+                },
+                "orientation": "orthogonal"
+              },
+              "nested_groups": [
+                {
+                  "group_id": "Above_ground_3",
+                  "structural_component_type": "above-ground",
+                  "name": "Pier_3_above_ground",
+                  "properties": {
+                    "details" : {
+                      "support_type": "column-type",
+                      "no_of_piers": 2
+                    }
+                  },
+                  "nested_groups": [
+                    {
+                      "group_id": "Vertical_members_3",
+                      "structural_component_type": "vertical-members",
+                      "name": "Vertical_members_3",
+                      "nested_groups": [
+                        {
+                          "group_id": "pier_3_1",
+                          "structural_component_type": "pier",
+                          "name": "Pier_3_1",
+                          "properties": {
+                            "transverse_offset": {
+                              "value": 0.0,
+                              "unit": "m"
+                            }
+                          }
+                        }
+                      ]
+                    }
+
+                  ]
+                },
+                {
+                  "group_id": "Below_ground_3",
+                  "structural_component_type": "below-ground",
+                  "name": "Pier_3_below_ground",
+                  "material_id": "443913a0-c9e3-45db-b840-22c96eb01342",
+                  "properties": {
+                    "foundation_details": {
+                      "foundation_type": "deep",
+                      "no_of_piles": 5
+                    }
+                  },
+                  "nested_groups": [
+                    {
+                      "group_id": "Vertical_members_pier_3",
+                      "structural_component_type": "vertical-members",
+                      "name": "Vertical_members_pier_3",
+                      "nested_groups": [
+                        {
+                          "group_id": "Pile",
+                          "structural_component_type": "pile",
+                          "name": "Pile_3_1",
+                          "section_id": "pile_section",
+                          "properties": {
+                            "pile_index": 0,
+                            "pile_length": {
+                              "value":  15.0,
+                              "unit": "m"
+                            },
+                            "offset_along_support_line": {
+                              "value":  0.0,
+                              "unit": "m"
+                            },
+                            "offset_normal_to_support_line": {
+                              "value":  0.0,
+                              "unit": "m"
+                            },
+                            "spring_spacing": [{
+                              "value":  2.5,
+                              "unit": "m"
+                            }, {
+                              "value":  2.5,
+                              "unit": "m"
+                            },{
+                              "value":  2.5,
+                              "unit": "m"
+                            },{
+                              "value":  2.5,
+                              "unit": "m"
+                            },{
+                              "value":  2.5,
+                              "unit": "m"
+                            },{
+                              "value":  2.5,
+                              "unit": "m"
+                            }]
+                          }
+                        },
+                        {
+                          "group_id": "Pile",
+                          "structural_component_type": "pile",
+                          "name": "Pile_3_2",
+                          "section_id": "pile_section",
+                          "properties": {
+                            "pile_index": 1,
+                            "pile_length": {
+                              "value":  15.0,
+                              "unit": "m"
+                            },
+                            "offset_along_support_line": {
+                              "value":  3.5,
+                              "unit": "m"
+                            },
+                            "offset_normal_to_support_line": {
+                              "value":  1.5,
+                              "unit": "m"
+                            },
+                            "spring_spacing": [{
+                              "value":  3.0,
+                              "unit": "m"
+                            },
+                            {
+                            "value":  3.0,
+                            "unit": "m"
+                          },
+                            {
+                            "value":  3.0,
+                            "unit": "m"
+                          },
+                            {
+                            "value":  3.0,
+                            "unit": "m"
+                          },
+                            {
+                            "value":  3.0,
+                            "unit": "m"
+                          }]
+                          }
+                        },
+                        {
+                          "group_id": "Pile",
+                          "structural_component_type": "pile",
+                          "name": "Pile_3_3",
+                          "section_id": "pile_section",
+                          "properties": {
+                            "pile_index": 2,
+                            "pile_length": {
+                              "value":  15.0,
+                              "unit": "m"
+                            },
+                            "offset_along_support_line": {
+                              "value":  3.5,
+                              "unit": "m"
+                            },
+                            "offset_normal_to_support_line": {
+                              "value":  -1.5,
+                              "unit": "m"
+                            },
+                            "spring_spacing": [{
+                              "value":  3.0,
+                              "unit": "m"
+                            },
+                            {
+                            "value":  3.0,
+                            "unit": "m"
+                          },
+                            {
+                            "value":  3.0,
+                            "unit": "m"
+                          },
+                            {
+                            "value":  3.0,
+                            "unit": "m"
+                          },
+                            {
+                            "value":  3.0,
+                            "unit": "m"
+                          }]
+                          }
+                        },
+                        {
+                          "group_id": "Pile",
+                          "structural_component_type": "pile",
+                          "name": "Pile_3_4",
+                          "section_id": "pile_section",
+                          "properties": {
+                            "pile_index": 3,
+                            "pile_length": {
+                              "value":  15.0,
+                              "unit": "m"
+                            },
+                            "offset_along_support_line": {
+                              "value":  -3.5,
+                              "unit": "m"
+                            },
+                            "offset_normal_to_support_line": {
+                              "value":  1.5,
+                              "unit": "m"
+                            },
+                            "spring_spacing": [{
+                              "value":  3.0,
+                              "unit": "m"
+                            },
+                              {
+                            "value":  3.0,
+                            "unit": "m"
+                          },
+                              {
+                            "value":  3.0,
+                            "unit": "m"
+                          },
+                              {
+                            "value":  3.0,
+                            "unit": "m"
+                          },
+                              {
+                            "value":  3.0,
+                            "unit": "m"
+                          }
+                            ]
+                          }
+                        },
+                        {
+                          "group_id": "Pile",
+                          "structural_component_type": "pile",
+                          "name": "Pile_3_5",
+                          "section_id": "pile_section",
+                          "properties": {
+                            "pile_index": 4,
+                            "pile_length": {
+                              "value":  15.0,
+                              "unit": "m"
+                            },
+                            "offset_along_support_line": {
+                              "value":  -3.5,
+                              "unit": "m"
+                            },
+                            "offset_normal_to_support_line": {
+                              "value":  -1.5,
+                              "unit": "m"
+                            },
+                            "spring_spacing": [{
+                              "value":  3.0,
+                              "unit": "m"
+                            },
+                            {
+                            "value":  3.0,
+                            "unit": "m"
+                          },
+                            {
+                            "value":  3.0,
+                            "unit": "m"
+                          },
+                            {
+                            "value":  3.0,
+                            "unit": "m"
+                          },
+                            {
+                            "value":  3.0,
+                            "unit": "m"
+                          }]
+                          }
+                        }
+                      ]
+                    },
+                    {
+                     "group_id": "Horizontal_members_pier_3",
+                      "structural_component_type": "horizontal-members",
+                      "name": "Horizontal_members_pier_3",
+                      "material_id": "443913a0-c9e3-45db-b840-24310be69c22",
+                      "nested_groups": [
+                        {
+                          "group_id": "Pile_cap_pier_3",
+                          "structural_component_type": "pile-cap",
+                          "name": "Pilecap_pier_3",
+                          "section_id": "pilecap",
+                          "properties": {
+                            "top_of_pile_cap_level": {
+                              "value": 95.5,
+                              "unit": "m"
+                            },
+                            "element_length": {
+                              "value":  10.0,
+                              "unit": "m"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "group_id": "Pier_1",
+              "structural_component_type": "support",
+              "name": "Pier_1",
+              "section_id": "pier-section",
+              "properties": {
+                "support_index": 1,
                 "skew_angle": {
                   "value": 0.0,
                   "unit": "degrees"
                 },
                 "bearing_underside_level": {
-                  "value": -5.0,
+                  "value": 115.0,
+                  "unit": "m"
+                },
+                "orientation": "orthogonal"
+              },
+              "nested_groups": [
+                {
+                  "group_id": "Above_ground_1",
+                  "structural_component_type": "above-ground",
+                  "name": "Pier_1_above_ground",
+                  "properties": {
+                    "details" : {
+                      "support_type": "column-type",
+                      "no_of_piers": 2
+                    }
+                  },
+                  "nested_groups": [
+                    {
+                      "group_id": "Vertical_members_1",
+                      "structural_component_type": "vertical-members",
+                      "name": "Vertical_members_1",
+                      "section_id": "rec_1.2x1.2",
+                      "nested_groups": [
+                        {
+                          "group_id": "pier_1_1",
+                          "structural_component_type": "pier",
+                          "name": "pier_1_1",
+                          "properties": {
+                            "transverse_offset": {
+                              "value": 3.0,
+                              "unit": "m"
+                            }
+                          }
+                        },
+                        {
+                          "group_id": "pier_1_2",
+                          "structural_component_type": "pier",
+                          "name": "Pier_1_2",
+                          "properties": {
+                            "transverse_offset": {
+                              "value": -3.0,
+                              "unit": "m"
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "group_id": "Horizontal_members_1",
+                      "structural_component_type": "horizontal-members",
+                      "name": "Horizontal_members_1",
+                      "material_id": "443913a0-c9e3-45db-b840-24310be69c22",
+                      "nested_groups": [
+                        {
+                          "group_id": "Crossbeam_1",
+                          "structural_component_type": "crossbeam",
+                          "name": "Crossbeam_pier_1",
+                          "material_id": "443913a0-c9e3-45db-b840-24310be69c22",
+                          "section_id": "crossbeam-high",
+                          "properties": {
+                            "element_length": {
+                              "value": 10.0,
+                              "unit": "m"
+                            },
+                            "tapered_details": [
+                              {
+                                "x_start": {
+                                  "value": 1.5,
+                                  "unit": "m"
+                                },
+                                "x_end": {
+                                  "value": 4.0,
+                                  "unit": "m"
+                                },
+                                "section_id": "crossbeam-tapered-high-to-low"
+                              }
+                            ]
+                          },
+                          "nested_groups": []
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "group_id": "Below_ground_1",
+                  "structural_component_type": "below-ground",
+                  "name": "Pier_1_below_ground",
+                  "material_id": "443913a0-c9e3-45db-b840-22c96eb01342",
+                  "properties": {
+                    "foundation_details": {
+                      "foundation_type": "deep",
+                      "no_of_piles": 5
+                    }
+                  },
+                  "nested_groups": [
+                    {
+                      "group_id": "Vertical_members_pier_1",
+                      "structural_component_type": "vertical-members",
+                      "name": "Vertical_members_pier_1",
+                      "nested_groups": [
+                        {
+                          "group_id": "Pile",
+                          "structural_component_type": "pile",
+                          "name": "Pile_1_1",
+                          "section_id": "pile_section",
+                          "properties": {
+                            "pile_index": 0,
+                            "pile_length": {
+                              "value":  12.0,
+                              "unit": "m"
+                            },
+                            "offset_along_support_line": {
+                              "value":  0.0,
+                              "unit": "m"
+                            },
+                            "offset_normal_to_support_line": {
+                              "value":  0.0,
+                              "unit": "m"
+                            },
+                            "spring_spacing": [{
+                              "value":  3.0,
+                              "unit": "m"
+                            },
+                            {
+                              "value":  3.0,
+                              "unit": "m"
+                            },
+                            {
+                              "value":  3.0,
+                              "unit": "m"
+                            },
+                            {
+                              "value":  3.0,
+                              "unit": "m"
+                            }]
+                          }
+                        },
+                        {
+                        "group_id": "Pile",
+                        "structural_component_type": "pile",
+                        "name": "Pile_1_2",
+                        "section_id": "pile_section",
+                        "properties": {
+                          "pile_index": 1,
+                          "pile_length": {
+                            "value":  12.0,
+                            "unit": "m"
+                          },
+                          "offset_along_support_line": {
+                            "value":  3.5,
+                            "unit": "m"
+                          },
+                          "offset_normal_to_support_line": {
+                            "value":  1.5,
+                            "unit": "m"
+                          },
+                          "spring_spacing": [{
+                            "value":  1.0,
+                            "unit": "m"
+                          },
+                          {
+                            "value":  1.0,
+                            "unit": "m"
+                          },
+                          {
+                            "value":  1.0,
+                            "unit": "m"
+                          },
+                          {
+                            "value":  1.0,
+                            "unit": "m"
+                          },
+                          {
+                            "value":  1.0,
+                            "unit": "m"
+                          },
+                          {
+                            "value":  2.5,
+                            "unit": "m"
+                          },
+                          {
+                            "value":  2.5,
+                            "unit": "m"
+                          },
+                          {
+                            "value":  2.0,
+                            "unit": "m"
+                          }]
+                        }
+                      },
+                      {
+                        "group_id": "Pile",
+                        "structural_component_type": "pile",
+                        "name": "Pile_1_3",
+                        "section_id": "pile_section",
+                        "properties": {
+                          "pile_index": 2,
+                          "pile_length": {
+                            "value":  12.0,
+                            "unit": "m"
+                          },
+                          "offset_along_support_line": {
+                            "value":  3.5,
+                            "unit": "m"
+                          },
+                          "offset_normal_to_support_line": {
+                            "value":  -1.5,
+                            "unit": "m"
+                          },
+                          "spring_spacing": [{
+                            "value":  3.0,
+                            "unit": "m"
+                          },
+                          {
+                            "value":  3.0,
+                            "unit": "m"
+                          },
+                          {
+                            "value":  3.0,
+                            "unit": "m"
+                          },
+                          {
+                            "value":  3.0,
+                            "unit": "m"
+                          }]
+                        }
+                      },
+                      {
+                        "group_id": "Pile",
+                        "structural_component_type": "pile",
+                        "name": "Pile_1_4",
+                        "section_id": "pile_section",
+                        "properties": {
+                          "pile_index": 3,
+                          "pile_length": {
+                            "value":  12.0,
+                            "unit": "m"
+                          },
+                          "offset_along_support_line": {
+                            "value":  -3.5,
+                            "unit": "m"
+                          },
+                          "offset_normal_to_support_line": {
+                            "value":  1.5,
+                            "unit": "m"
+                          },
+                          "spring_spacing": [{
+                            "value":  3.0,
+                            "unit": "m"
+                          },
+                          {
+                            "value":  3.0,
+                            "unit": "m"
+                          },
+                          {
+                            "value":  3.0,
+                            "unit": "m"
+                          },
+                          {
+                            "value":  3.0,
+                            "unit": "m"
+                          }]
+                        }
+                      },
+                      {
+                        "group_id": "Pile",
+                        "structural_component_type": "pile",
+                        "name": "Pile_1_5",
+                        "section_id": "pile_section",
+                        "properties": {
+                          "pile_index": 4,
+                          "pile_length": {
+                            "value":  12.0,
+                            "unit": "m"
+                          },
+                          "offset_along_support_line": {
+                            "value":  -3.5,
+                            "unit": "m"
+                          },
+                          "offset_normal_to_support_line": {
+                            "value":  -1.5,
+                            "unit": "m"
+                          },
+                          "spring_spacing": [{
+                            "value":  3.0,
+                            "unit": "m"
+                          },
+                          {
+                            "value":  3.0,
+                            "unit": "m"
+                          },
+                          {
+                            "value":  3.0,
+                            "unit": "m"
+                          },
+                          {
+                            "value":  3.0,
+                            "unit": "m"
+                          }]
+                        }
+                      }
+                      ]
+                    },
+                    {
+                      "group_id": "horizontal_members_pier_1",
+                      "structural_component_type": "horizontal-members",
+                      "name": "Horizontal_members_pier_1",
+                      "material_id": "443913a0-c9e3-45db-b840-24310be69c22",
+                      "nested_groups": [
+                        {
+                          "group_id": "Pile_cap_pier_1",
+                          "structural_component_type": "pile-cap",
+                          "name": "Pilecap_pier_1",
+                          "material_id": "443913a0-c9e3-45db-b840-24310be69c22",
+                          "section_id": "pilecap",
+                          "properties": {
+                            "top_of_pile_cap_level": {
+                              "value": 101.5,
+                              "unit": "m"
+                            },
+                            "element_length": {
+                              "value":  10.0,
+                              "unit": "m"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "group_id": "Pier_2",
+              "structural_component_type": "support",
+              "name": "Pier_2",
+              "material_id": "443913a0-c9e3-45db-b840-24310be69c22",
+              "section_id": "pier-section",
+              "properties": {
+                "support_index": 2,
+                "skew_angle": {
+                  "value": 30.0,
+                  "unit": "degrees"
+                },
+                "bearing_underside_level": {
+                  "value": 114.0,
                   "unit": "m"
                 },
                 "orientation": "orthogonal"
@@ -551,34 +1144,86 @@
                 {
                   "group_id": "Above_ground_2",
                   "structural_component_type": "above-ground",
-                  "name": "Abutment_2_above_ground",
-                  "material_id": "0a319344-c9e3-45db-b840-24310be69c22",
-                  "section_id": "intermediate_girder",
+                  "name": "Pier_2_above_ground",
                   "properties": {
                     "details" : {
-                      "support_type": "solid-type",
-                      "no_of_walls": 1
+                      "support_type": "column-type",
+                      "no_of_piers": 3
                     }
                   },
                   "nested_groups": [
                     {
                       "group_id": "Vertical_members_2",
                       "structural_component_type": "vertical-members",
-                      "name": "vertical_members",
-                      "material_id": "0a319344-c9e3-45db-b840-24310be69c22",
-                      "section_id": "intermediate_girder",
+                      "name": "Vertical_members_2",
                       "nested_groups": [
                         {
-                          "group_id": "abutment 2 wall",
-                          "structural_component_type": "wall",
-                          "name": "abutment wall",
-                          "material_id": "0a319344-c9e3-45db-b840-24310be69c22",
-                          "section_id": "intermediate_girder",
+                          "group_id": "pier_2_1",
+                          "structural_component_type": "pier",
+                          "name": "Pier_2_1",
+                          "section_id": "pier-section",
                           "properties": {
-                            "element_thickness": {
-                              "value": 1.5,
+                            "transverse_offset": {
+                              "value": 3.0,
                               "unit": "m"
                             }
+                          }
+                        },
+                        {
+                          "group_id": "pier_2_2",
+                          "structural_component_type": "pier",
+                          "name": "Pier_2_2",
+                          "section_id": "pier-section",
+                          "properties": {
+                            "transverse_offset": {
+                              "value": -3.0,
+                              "unit": "m"
+                            }
+                          }
+                        },
+                        {
+                          "group_id": "pier_2_3",
+                          "structural_component_type": "pier",
+                          "name": "Pier_2_3",
+                          "section_id": "pier-section",
+                          "properties": {
+                            "transverse_offset": {
+                              "value": 0.0,
+                              "unit": "m"
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "group_id": "Horizontal_members_2",
+                      "structural_component_type": "horizontal-members",
+                      "name": "Horizontal_members_2",
+                      "material_id": "443913a0-c9e3-45db-b840-24310be69c22",
+                      "nested_groups": [
+                        {
+                          "group_id": "crossbeam_2",
+                          "structural_component_type": "crossbeam",
+                          "name": "Crossbeam_pier_2",
+                          "section_id": "crossbeam-high",
+                          "properties": {
+                            "element_length": {
+                              "value": 10.0,
+                              "unit": "m"
+                            },
+                            "tapered_details": [
+                              {
+                                "x_start": {
+                                  "value": 1.5,
+                                  "unit": "m"
+                                },
+                                "x_end": {
+                                  "value": 5.0,
+                                  "unit": "m"
+                                },
+                                "section_id": "crossbeam-tapered-high-to-low"
+                              }
+                            ]
                           },
                           "nested_groups": []
                         }
@@ -589,9 +1234,7 @@
                 {
                   "group_id": "Below_ground_2",
                   "structural_component_type": "below-ground",
-                  "name": "Abutment_2_below_ground",
-                  "material_id": "0a319344-c9e3-45db-b840-24310be69c22",
-                  "section_id": "intermediate_girder",
+                  "name": "Pier_2_below_ground",
                   "properties": {
                     "foundation_details": {
                       "foundation_type": "deep",
@@ -600,652 +1243,258 @@
                   },
                   "nested_groups": [
                     {
-                      "group_id": "Pile",
-                      "structural_component_type": "pile",
-                      "name": "pile",
-                      "material_id": "443913a0-c9e3-45db-b840-22c96eb01342",
-                      "section_id": "pile_section",
-                      "properties": {
-                        "pile_index": 0,
-                        "pile_length": {
-                          "value":  12.0,
-                          "unit": "m"
-                        },
-                        "offset_along_support_line": {
-                          "value":  0.0,
-                          "unit": "m"
-                        },
-                        "offset_normal_to_support_line": {
-                          "value":  0.0,
-                          "unit": "m"
-                        },
-                        "spring_spacing": [{
-                          "value":  1.0,
-                          "unit": "m"
-                        }]
-                      }
-                    },
-                    {
-                      "group_id": "Pile",
-                      "structural_component_type": "pile",
-                      "name": "pile",
-                      "material_id": "443913a0-c9e3-45db-b840-22c96eb01342",
-                      "section_id": "pile_section",
-                      "properties": {
-                        "pile_length": {
-                        "pile_index": 1,
-                          "value":  12.0,
-                          "unit": "m"
-                        },
-                        "offset_along_support_line": {
-                          "value":  3.0,
-                          "unit": "m"
-                        },
-                        "offset_normal_to_support_line": {
-                          "value":  1.5,
-                          "unit": "m"
-                        },
-                        "spring_spacing": [{
-                          "value":  1.0,
-                          "unit": "m"
-                        }]
-                      }
-                    },
-                    {
-                      "group_id": "Pile",
-                      "structural_component_type": "pile",
-                      "name": "pile",
-                      "material_id": "443913a0-c9e3-45db-b840-22c96eb01342",
-                      "section_id": "pile_section",
-                      "properties": {
-                        "pile_index": 2,
-                        "pile_length": {
-                          "value":  12.0,
-                          "unit": "m"
-                        },
-                        "offset_along_support_line": {
-                          "value":  3.0,
-                          "unit": "m"
-                        },
-                        "offset_normal_to_support_line": {
-                          "value":  -1.5,
-                          "unit": "m"
-                        },
-                        "spring_spacing": [{
-                          "value":  1.0,
-                          "unit": "m"
-                        }]
-                      }
-                    },
-                    {
-                      "group_id": "Pile",
-                      "structural_component_type": "pile",
-                      "name": "pile",
-                      "material_id": "443913a0-c9e3-45db-b840-22c96eb01342",
-                      "section_id": "pile_section",
-                      "properties": {
-                        "pile_index": 3,
-                        "pile_length": {
-                          "value":  12.0,
-                          "unit": "m"
-                        },
-                        "offset_along_support_line": {
-                          "value":  -3.0,
-                          "unit": "m"
-                        },
-                        "offset_normal_to_support_line": {
-                          "value":  1.5,
-                          "unit": "m"
-                        },
-                        "spring_spacing": [{
-                          "value":  1.0,
-                          "unit": "m"
-                        }]
-                      }
-                    },
-                    {
-                      "group_id": "Pile",
-                      "structural_component_type": "pile",
-                      "name": "pile",
-                      "material_id": "443913a0-c9e3-45db-b840-22c96eb01342",
-                      "section_id": "pile_section",
-                      "properties": {
-                        "pile_index": 4,
-                        "pile_length": {
-                          "value":  12.0,
-                          "unit": "m"
-                        },
-                        "offset_along_support_line": {
-                          "value":  -3.0,
-                          "unit": "m"
-                        },
-                        "offset_normal_to_support_line": {
-                          "value":  -1.5,
-                          "unit": "m"
-                        },
-                        "spring_spacing": [{
-                          "value":  1.0,
-                          "unit": "m"
-                        }]
-                      }
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "group_id": "Pier_1",
-              "structural_component_type": "support",
-              "name": "Pier_1",
-              "material_id": "0a319344-c9e3-45db-b840-24310be69c22",
-              "section_id": "intermediate_girder",
-              "properties": {
-                "support_index": 1,
-                "skew_angle": {
-                  "value": 0.0,
-                  "unit": "degrees"
-                },
-                "bearing_underside_level": {
-                  "value": -5.0,
-                  "unit": "m"
-                },
-                "orientation": "orthogonal"
-              },
-              "nested_groups": [
-                {
-                  "group_id": "Above_ground_1",
-                  "structural_component_type": "above-ground",
-                  "name": "Abutment_1_above_ground",
-                  "material_id": "0a319344-c9e3-45db-b840-24310be69c22",
-                  "section_id": "intermediate_girder",
-                  "properties": {
-                    "details" : {
-                      "support_type": "solid-type",
-                      "no_of_walls": 1
-                    }
-                  },
-                  "nested_groups": [
-                    {
-                      "group_id": "Vertical_members_1",
+                      "group_id": "Vertical_members_pier_2",
                       "structural_component_type": "vertical-members",
-                      "name": "vertical_members",
-                      "material_id": "0a319344-c9e3-45db-b840-24310be69c22",
-                      "section_id": "intermediate_girder",
+                      "name": "Vertical_members_pier_2",
+                      "material_id": "443913a0-c9e3-45db-b840-22c96eb01342",
                       "nested_groups": [
                         {
-                          "group_id": "pier_1",
-                          "structural_component_type": "pier",
-                          "name": "pier_1",
-                          "material_id": "0a319344-c9e3-45db-b840-24310be69c22",
-                          "section_id": "intermediate_girder",
+                          "group_id": "Pile",
+                          "structural_component_type": "pile",
+                          "name": "Pile_2_1",
+                          "section_id": "pile_section",
                           "properties": {
-                            "transverse_offset": {
-                              "value": 0,
-                              "unit": "m"
-                            }
-                          },
-                          "nested_groups": []
-                        }
-                      ]
-                    },
-                    {
-                      "group_id": "Horizontal_members_1",
-                      "structural_component_type": "horizontal-members",
-                      "name": "horizontal_members",
-                      "material_id": "0a319344-c9e3-45db-b840-24310be69c22",
-                      "section_id": "intermediate_girder",
-                      "nested_groups": [
-                        {
-                          "group_id": "crossbeam",
-                          "structural_component_type": "crossbeam",
-                          "name": "crossbeam",
-                          "material_id": "0a319344-c9e3-45db-b840-24310be69c22",
-                          "section_id": "intermediate_girder",
-                          "properties": {
-                            "element_length": {
-                              "value": 10.0,
+                            "pile_index": 0,
+                            "pile_length": {
+                              "value":  15.0,
                               "unit": "m"
                             },
-                            "tapered_details": [
-                              {
-                                "x_start": {
-                                  "value": 1,
-                                  "unit": "m"
-                                },
-                                "x_end": {
-                                  "value": 5,
-                                  "unit": "m"
-                                },
-                                "section_id": "intermediate_girder"
-                              },
-                              {
-                                "x_start": {
-                                  "value": 1,
-                                  "unit": "m"
-                                },
-                                "x_end": {
-                                  "value": 5,
-                                  "unit": "m"
-                                },
-                                "section_id": "intermediate_girder"
-                              }
-                            ]
-                          },
-                          "nested_groups": []
-                        }
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "group_id": "Below_ground_1",
-                  "structural_component_type": "below-ground",
-                  "name": "Pier_1_below_ground",
-                  "material_id": "0a319344-c9e3-45db-b840-24310be69c22",
-                  "section_id": "intermediate_girder",
-                  "properties": {
-                    "foundation_details": {
-                      "foundation_type": "deep",
-                      "no_of_piles": 5
-                    }
-                  },
-                  "nested_groups": [
-                     {
-                      "group_id": "Pile",
-                      "structural_component_type": "pile",
-                      "name": "pile",
-                      "material_id": "443913a0-c9e3-45db-b840-22c96eb01342",
-                      "section_id": "pile_section",
-                      "properties": {
-                        "pile_index": 0,
-                        "pile_length": {
-                          "value":  12.0,
-                          "unit": "m"
+                            "offset_along_support_line": {
+                              "value":  0.0,
+                              "unit": "m"
+                            },
+                            "offset_normal_to_support_line": {
+                              "value":  0.0,
+                              "unit": "m"
+                            },
+                            "spring_spacing": [{
+                              "value":  2.5,
+                              "unit": "m"
+                            }, {
+                              "value":  2.5,
+                              "unit": "m"
+                            },{
+                              "value":  2.5,
+                              "unit": "m"
+                            },{
+                              "value":  2.5,
+                              "unit": "m"
+                            },{
+                              "value":  2.5,
+                              "unit": "m"
+                            },{
+                              "value":  2.5,
+                              "unit": "m"
+                            }]
+                          }
                         },
-                        "offset_along_support_line": {
-                          "value":  0.0,
-                          "unit": "m"
-                        },
-                        "offset_normal_to_support_line": {
-                          "value":  0.0,
-                          "unit": "m"
-                        },
-                        "spring_spacing": [{
-                          "value":  1.0,
-                          "unit": "m"
-                        }]
-                      }
-                    },
-                      {
-                        "group_id": "Pile",
-                        "structural_component_type": "pile",
-                        "name": "pile",
-                        "material_id": "443913a0-c9e3-45db-b840-22c96eb01342",
-                        "section_id": "pile_section",
-                        "properties": {
-                          "pile_index": 1,
-                          "pile_length": {
-                            "value":  12.0,
-                            "unit": "m"
-                          },
-                          "offset_along_support_line": {
+                        {
+                          "group_id": "Pile",
+                          "structural_component_type": "pile",
+                          "name": "pile_2_2",
+                          "section_id": "pile_section",
+                          "properties": {
+                            "pile_index": 1,
+                            "pile_length": {
+                              "value":  15.0,
+                              "unit": "m"
+                            },
+                            "offset_along_support_line": {
+                              "value":  3.5,
+                              "unit": "m"
+                            },
+                            "offset_normal_to_support_line": {
+                              "value":  1.5,
+                              "unit": "m"
+                            },
+                            "spring_spacing": [{
+                              "value":  3.0,
+                              "unit": "m"
+                            },
+                            {
                             "value":  3.0,
                             "unit": "m"
                           },
-                          "offset_normal_to_support_line": {
-                            "value":  1.5,
-                            "unit": "m"
-                          },
-                          "spring_spacing": [{
-                            "value":  1.0,
-                            "unit": "m"
-                          }]
-                        }
-                      },
-                      {
-                        "group_id": "Pile",
-                        "structural_component_type": "pile",
-                        "name": "pile",
-                        "material_id": "443913a0-c9e3-45db-b840-22c96eb01342",
-                        "section_id": "pile_section",
-                        "properties": {
-                          "pile_index": 2,
-                          "pile_length": {
-                            "value":  12.0,
-                            "unit": "m"
-                          },
-                          "offset_along_support_line": {
+                            {
                             "value":  3.0,
                             "unit": "m"
                           },
-                          "offset_normal_to_support_line": {
-                            "value":  -1.5,
+                            {
+                            "value":  3.0,
                             "unit": "m"
                           },
-                          "spring_spacing": [{
-                            "value":  1.0,
+                            {
+                            "value":  3.0,
                             "unit": "m"
                           }]
-                        }
-                      },
-                      {
-                        "group_id": "Pile",
-                        "structural_component_type": "pile",
-                        "name": "pile",
-                        "material_id": "443913a0-c9e3-45db-b840-22c96eb01342",
-                        "section_id": "pile_section",
-                        "properties": {
-                          "pile_index": 3,
-                          "pile_length": {
-                            "value":  12.0,
-                            "unit": "m"
-                          },
-                          "offset_along_support_line": {
-                            "value":  -3.0,
-                            "unit": "m"
-                          },
-                          "offset_normal_to_support_line": {
-                            "value":  1.5,
-                            "unit": "m"
-                          },
-                          "spring_spacing": [{
-                            "value":  1.0,
-                            "unit": "m"
-                          }]
-                        }
-                      },
-                      {
-                        "group_id": "Pile",
-                        "structural_component_type": "pile",
-                        "name": "pile",
-                        "material_id": "443913a0-c9e3-45db-b840-22c96eb01342",
-                        "section_id": "pile_section",
-                        "properties": {
-                          "pile_index": 4,
-                          "pile_length": {
-                            "value":  12.0,
-                            "unit": "m"
-                          },
-                          "offset_along_support_line": {
-                            "value":  -3.0,
-                            "unit": "m"
-                          },
-                          "offset_normal_to_support_line": {
-                            "value":  -1.5,
-                            "unit": "m"
-                          },
-                          "spring_spacing": [{
-                            "value":  1.0,
-                            "unit": "m"
-                          }]
-                        }
-                      }
-                  ]
-                }
-              ]
-            },
-            {
-              "group_id": "Pier_2",
-              "structural_component_type": "support",
-              "name": "Pier_2",
-              "material_id": "0a319344-c9e3-45db-b840-24310be69c22",
-              "section_id": "intermediate_girder",
-              "properties": {
-                "support_index": 2,
-                "skew_angle": {
-                  "value": 0.0,
-                  "unit": "degrees"
-                },
-                "bearing_underside_level": {
-                  "value": -5.0,
-                  "unit": "m"
-                },
-                "orientation": "orthogonal"
-              },
-              "nested_groups": [
-                {
-                  "group_id": "Above_ground_1",
-                  "structural_component_type": "above-ground",
-                  "name": "Abutment_1_above_ground",
-                  "material_id": "0a319344-c9e3-45db-b840-24310be69c22",
-                  "section_id": "intermediate_girder",
-                  "properties": {
-                    "details" : {
-                      "support_type": "solid-type",
-                      "no_of_walls": 1
-                    }
-                  },
-                  "nested_groups": [
-                    {
-                      "group_id": "Vertical_members_1",
-                      "structural_component_type": "vertical-members",
-                      "name": "vertical_members",
-                      "material_id": "0a319344-c9e3-45db-b840-24310be69c22",
-                      "section_id": "intermediate_girder",
-                      "nested_groups": [
+                          }
+                        },
                         {
-                          "group_id": "pier_1",
-                          "structural_component_type": "pier",
-                          "name": "pier_1",
-                          "material_id": "0a319344-c9e3-45db-b840-24310be69c22",
-                          "section_id": "intermediate_girder",
+                          "group_id": "Pile",
+                          "structural_component_type": "pile",
+                          "name": "Pile_2_3",
+                          "section_id": "pile_section",
                           "properties": {
-                            "transverse_offset": {
-                              "value": 0,
-                              "unit": "m"
-                            }
-                          },
-                          "nested_groups": []
-                        }
-                      ]
-                    },
-                    {
-                      "group_id": "Horizontal_members_1",
-                      "structural_component_type": "horizontal-members",
-                      "name": "horizontal_members",
-                      "material_id": "0a319344-c9e3-45db-b840-24310be69c22",
-                      "section_id": "intermediate_girder",
-                      "nested_groups": [
-                        {
-                          "group_id": "crossbeam",
-                          "structural_component_type": "crossbeam",
-                          "name": "crossbeam",
-                          "material_id": "0a319344-c9e3-45db-b840-24310be69c22",
-                          "section_id": "intermediate_girder",
-                          "properties": {
-                            "element_length": {
-                              "value": 10.0,
+                            "pile_index": 2,
+                            "pile_length": {
+                              "value":  15.0,
                               "unit": "m"
                             },
-                            "tapered_details": [
-                              {
-                                "x_start": {
-                                  "value": 0,
-                                  "unit": "m"
-                                },
-                                "x_end": {
-                                  "value": 1,
-                                  "unit": "m"
-                                },
-                                "section_id": "intermediate_girder"
-                              },
-                              {
-                                "x_start": {
-                                  "value": 1,
-                                  "unit": "m"
-                                },
-                                "x_end": {
-                                  "value": 9,
-                                  "unit": "m"
-                                },
-                                "section_id": "intermediate_girder"
-                              }
-                            ]
+                            "offset_along_support_line": {
+                              "value":  3.5,
+                              "unit": "m"
+                            },
+                            "offset_normal_to_support_line": {
+                              "value":  -1.5,
+                              "unit": "m"
+                            },
+                            "spring_spacing": [{
+                              "value":  3.0,
+                              "unit": "m"
+                            },
+                            {
+                            "value":  3.0,
+                            "unit": "m"
                           },
-                          "nested_groups": []
+                            {
+                            "value":  3.0,
+                            "unit": "m"
+                          },
+                            {
+                            "value":  3.0,
+                            "unit": "m"
+                          },
+                            {
+                            "value":  3.0,
+                            "unit": "m"
+                          }]
+                          }
+                        },
+                        {
+                          "group_id": "Pile",
+                          "structural_component_type": "pile",
+                          "name": "Pile_2_4",
+                          "section_id": "pile_section",
+                          "properties": {
+                            "pile_index": 3,
+                            "pile_length": {
+                              "value":  15.0,
+                              "unit": "m"
+                            },
+                            "offset_along_support_line": {
+                              "value":  -3.5,
+                              "unit": "m"
+                            },
+                            "offset_normal_to_support_line": {
+                              "value":  1.5,
+                              "unit": "m"
+                            },
+                            "spring_spacing": [{
+                              "value":  3.0,
+                              "unit": "m"
+                            },
+                              {
+                            "value":  3.0,
+                            "unit": "m"
+                          },
+                              {
+                            "value":  3.0,
+                            "unit": "m"
+                          },
+                              {
+                            "value":  3.0,
+                            "unit": "m"
+                          },
+                              {
+                            "value":  3.0,
+                            "unit": "m"
+                          }
+                            ]
+                          }
+                        },
+                        {
+                          "group_id": "Pile",
+                          "structural_component_type": "pile",
+                          "name": "Pile_2_5",
+                          "section_id": "pile_section",
+                          "properties": {
+                            "pile_index": 4,
+                            "pile_length": {
+                              "value":  15.0,
+                              "unit": "m"
+                            },
+                            "offset_along_support_line": {
+                              "value":  -3.5,
+                              "unit": "m"
+                            },
+                            "offset_normal_to_support_line": {
+                              "value":  -1.5,
+                              "unit": "m"
+                            },
+                            "spring_spacing": [{
+                              "value":  3.0,
+                              "unit": "m"
+                            },
+                            {
+                            "value":  3.0,
+                            "unit": "m"
+                          },
+                            {
+                            "value":  3.0,
+                            "unit": "m"
+                          },
+                            {
+                            "value":  3.0,
+                            "unit": "m"
+                          },
+                            {
+                            "value":  3.0,
+                            "unit": "m"
+                          }]
+                          }
+                        }
+                      ]
+                    },
+                    {
+                     "group_id": "Horizontal_members_pier_2",
+                      "structural_component_type": "horizontal-members",
+                      "name": "Horizontal_members_pier_2",
+                      "material_id": "443913a0-c9e3-45db-b840-24310be69c22",
+                      "nested_groups": [
+                        {
+                          "group_id": "Pile_cap_pier_2",
+                          "structural_component_type": "pile-cap",
+                          "name": "Pilecap_pier_2",
+                          "section_id": "pilecap",
+                          "properties": {
+                            "top_of_pile_cap_level": {
+                              "value": 95.5,
+                              "unit": "m"
+                            },
+                            "element_length": {
+                              "value":  10.0,
+                              "unit": "m"
+                            }
+                          }
                         }
                       ]
                     }
                   ]
-                },
-                {
-                  "group_id": "Below_ground_1",
-                  "structural_component_type": "below-ground",
-                  "name": "Pier_1_below_ground",
-                  "material_id": "0a319344-c9e3-45db-b840-24310be69c22",
-                  "section_id": "intermediate_girder",
-                  "properties": {
-                    "foundation_details": {
-                      "foundation_type": "deep",
-                      "no_of_piles": 5
-                    }
-                  },
-                  "nested_groups": [
-                    {
-                      "group_id": "Pile",
-                      "structural_component_type": "pile",
-                      "name": "pile",
-                      "material_id": "443913a0-c9e3-45db-b840-22c96eb01342",
-                      "section_id": "pile_section",
-                      "properties": {
-                        "pile_index": 0,
-                        "pile_length": {
-                          "value":  12.0,
-                          "unit": "m"
-                        },
-                        "offset_along_support_line": {
-                          "value":  0.0,
-                          "unit": "m"
-                        },
-                        "offset_normal_to_support_line": {
-                          "value":  0.0,
-                          "unit": "m"
-                        },
-                        "spring_spacing": [{
-                          "value":  1.0,
-                          "unit": "m"
-                        }]
-                      }
-                    },
-                    {
-                      "group_id": "Pile",
-                      "structural_component_type": "pile",
-                      "name": "pile",
-                      "material_id": "443913a0-c9e3-45db-b840-22c96eb01342",
-                      "section_id": "pile_section",
-                      "properties": {
-                        "pile_index": 1,
-                        "pile_length": {
-                          "value":  12.0,
-                          "unit": "m"
-                        },
-                        "offset_along_support_line": {
-                          "value":  3.0,
-                          "unit": "m"
-                        },
-                        "offset_normal_to_support_line": {
-                          "value":  1.5,
-                          "unit": "m"
-                        },
-                        "spring_spacing": [{
-                          "value":  1.0,
-                          "unit": "m"
-                        }]
-                      }
-                    },
-                    {
-                      "group_id": "Pile",
-                      "structural_component_type": "pile",
-                      "name": "pile",
-                      "material_id": "443913a0-c9e3-45db-b840-22c96eb01342",
-                      "section_id": "pile_section",
-                      "properties": {
-                        "pile_index": 2,
-                        "pile_length": {
-                          "value":  12.0,
-                          "unit": "m"
-                        },
-                        "offset_along_support_line": {
-                          "value":  3.0,
-                          "unit": "m"
-                        },
-                        "offset_normal_to_support_line": {
-                          "value":  -1.5,
-                          "unit": "m"
-                        },
-                        "spring_spacing": [{
-                          "value":  1.0,
-                          "unit": "m"
-                        }]
-                      }
-                    },
-                    {
-                      "group_id": "Pile",
-                      "structural_component_type": "pile",
-                      "name": "pile",
-                      "material_id": "443913a0-c9e3-45db-b840-22c96eb01342",
-                      "section_id": "pile_section",
-                      "properties": {
-                        "pile_index": 3,
-                        "pile_length": {
-                          "value":  12.0,
-                          "unit": "m"
-                        },
-                        "offset_along_support_line": {
-                          "value":  -3.0,
-                          "unit": "m"
-                        },
-                        "offset_normal_to_support_line": {
-                          "value":  1.5,
-                          "unit": "m"
-                        },
-                        "spring_spacing": [{
-                          "value":  1.0,
-                          "unit": "m"
-                        }]
-                      }
-                    },
-                    {
-                      "group_id": "Pile",
-                      "structural_component_type": "pile",
-                      "name": "pile",
-                      "material_id": "443913a0-c9e3-45db-b840-22c96eb01342",
-                      "section_id": "pile_section",
-                      "properties": {
-                        "pile_index": 4,
-                        "pile_length": {
-                          "value":  12.0,
-                          "unit": "m"
-                        },
-                        "offset_along_support_line": {
-                          "value":  -3.0,
-                          "unit": "m"
-                        },
-                        "offset_normal_to_support_line": {
-                          "value":  -1.5,
-                          "unit": "m"
-                        },
-                        "spring_spacing": [{
-                          "value":  1.0,
-                          "unit": "m"
-                        }]
-                      }
-                    }
-                  ]
                 }
               ]
-            },
-            {
+            }
+
+          ]
+        },
+        {
               "group_id": "Linkage group",
               "structural_component_type": "linkage",
-              "name": "linkage group",
-              "material_id": "0a319344-c9e3-45db-b840-24310be69c22",
-              "section_id": "intermediate_girder",
+              "name": "Linkage group",
               "nested_groups": [
                 {
-                  "group_id": "Linkage_support_1",
+                  "group_id": "bearings_support_0",
                   "structural_component_type": "superstructure-to-substructure-connections",
-                  "name": "superstructure_to_substructure_connections",
+                  "name": "Sup_to_sub_0",
                   "properties": {
                     "support_index":0,
                     "bearing_configuration_details": {
@@ -1254,66 +1503,58 @@
                       "bearing_spacing_type": "uniform",
                       "bearing_spacing": [{
                         "value": 5.0,
-                        "units": "m"
+                        "unit": "m"
                       }]
                     }
                   }
                 },
                 {
-                  "group_id": "Linkage_support_2",
+                  "group_id": "bearings_support_1",
                   "structural_component_type": "superstructure-to-substructure-connections",
-                  "name": "superstructure_to_substructure_connections",
+                  "name": "Sup_to_sub_1",
                   "properties": {
                     "support_index":1,
                     "bearing_configuration_details": {
+                      "bearing_configuration_type": "singular",
+                      "no_of_bearings": 1
+                    }
+                  }
+                },
+                {
+                  "group_id": "bearings_support_2",
+                  "structural_component_type": "superstructure-to-substructure-connections",
+                  "name": "Sup_to_sub_2",
+                  "properties": {
+                    "support_index":2,
+                    "bearing_configuration_details": {
                       "bearing_configuration_type": "multiple",
-                      "no_of_bearings": 2,
+                      "no_of_bearings": 3,
                       "bearing_spacing_type": "uniform",
                       "bearing_spacing": [{
-                        "value": 5.0,
-                        "units": "m"
+                        "value": 2.0,
+                        "unit": "m"
+                      },
+                      {
+                        "value": 2.0,
+                        "unit": "m"
                       }]
                     }
                   }
                 },
                 {
-                  "group_id": "Linkage_support_3",
+                  "group_id": "bearings_support_3",
                   "structural_component_type": "superstructure-to-substructure-connections",
-                  "name": "superstructure_to_substructure_connections",
+                  "name": "Sup_to_sub_3",
                   "properties": {
                     "support_index":3,
                     "bearing_configuration_details": {
-                      "bearing_configuration_type": "multiple",
-                      "no_of_bearings": 2,
-                      "bearing_spacing_type": "uniform",
-                      "bearing_spacing": [{
-                        "value": 5.0,
-                        "units": "m"
-                      }]
-                    }
-                  }
-                },
-                {
-                  "group_id": "Linkage_support_4",
-                  "structural_component_type": "superstructure-to-substructure-connections",
-                  "name": "superstructure_to_substructure_connections",
-                  "properties": {
-                    "support_index":4,
-                    "bearing_configuration_details": {
-                      "bearing_configuration_type": "multiple",
-                      "no_of_bearings": 2,
-                      "bearing_spacing_type": "uniform",
-                      "bearing_spacing": [{
-                        "value": 5.0,
-                        "units": "m"
-                      }]
+                      "bearing_configuration_type": "singular",
+                      "no_of_bearings": 1
                     }
                   }
                 }
               ]
             }
-          ]
-        }
       ]
     }
   ]

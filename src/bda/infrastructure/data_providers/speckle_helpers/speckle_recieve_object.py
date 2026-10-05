@@ -4,29 +4,30 @@ from specklepy.core.api import operations
 from specklepy.objects import Base
 import json
 
+SPECKLE_GENERIC_TYPES = (
+    "Objects.Data.DataObject",
+    "Speckle.Core.Models.Collections.Collection",
+)
+
+
 def hydrate_speckle_types(obj):
     """
     Recursively traverse a Speckle JSON-like structure and fix
-    speckle_type values for DataObjects.
+    speckle_type values for DataObjects and Collections.
 
     Replaces:
-        "speckle_type": "Objects.Data.DataObject"
-    with:
-        properties["bda_speckle_type"]["provided_value"]
+        "speckle_type": "Objects.Data.DataObject" | "Speckle.Core.Models.Collections.Collection"
+    with the value of the top-level "bda_speckle_type" field added by the sender.
     """
 
     if isinstance(obj, dict):
 
-        # ✅ Check if this is a DataObject needing correction
-        if obj.get("speckle_type") == "Objects.Data.DataObject":
-            props = obj.get("properties", {})
-            bda = props.get("bda_speckle_type")
+        # ✅ Check if this needs correction
+        if obj.get("speckle_type") in SPECKLE_GENERIC_TYPES:
+            bda = obj.get("bda_speckle_type")
 
-            if isinstance(bda, dict):
-                provided = bda.get("provided_value")
-
-                if isinstance(provided, str):
-                    obj["speckle_type"] = provided
+            if isinstance(bda, str):
+                obj["speckle_type"] = bda
 
         # ✅ Recurse into all dictionary values
         for value in obj.values():
@@ -78,6 +79,7 @@ def make_received_model_recursive(model: Type[BaseModel]) -> Type[BaseModel]:
         {
             "__annotations__": new_annotations,
             "model_config": new_config,
+            "__module__": model.__module__,
         },
     )
 

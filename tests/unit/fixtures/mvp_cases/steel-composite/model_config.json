@@ -1,7 +1,7 @@
 {
   "model_config": {
     "unit_system": "US Customary",
-    "output_software": "CSI Bridge",
+    "output_software": "MIDAS Civil",
     "design_code": "AASHTO",
     "bridge_type": "Steel Composite"
     }

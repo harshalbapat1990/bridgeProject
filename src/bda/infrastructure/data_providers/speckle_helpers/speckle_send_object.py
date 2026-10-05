@@ -742,6 +742,7 @@ def ingest_ui_json_and_commit(
     json_data: dict,
     pydantic_model: Type[BaseModel],
     speckle_url: str,
+    commit_message: str = "Version Created from Pydantic Model"
 ) -> str:
     """
     End-to-end ingestion for UI-provided JSON.
@@ -750,6 +751,7 @@ def ingest_ui_json_and_commit(
     # 1️⃣ Validation
     try:
         validated_model = validate_and_parse_model(json_data, pydantic_model)
+        print(f"✅ Successfully validated JSON against {pydantic_model.__name__}")
     except ValidationError as e:
         raise ValueError(
             {
@@ -764,7 +766,7 @@ def ingest_ui_json_and_commit(
     # ✅ 3️⃣ IMPORTANT FIX — SERIALIZE TO JSON STRING
     payload_json = validated_model.model_dump_json(
         by_alias=True,
-        exclude_none=False,
+        exclude_none=True,
         exclude_defaults=False,
     )
 
@@ -781,7 +783,7 @@ def ingest_ui_json_and_commit(
 
     version_id = connector.commit_version(
         obj=speckle_object,
-        message="Committed from UI-validated Pydantic model",
+        message=commit_message,
     )
 
     return version_id

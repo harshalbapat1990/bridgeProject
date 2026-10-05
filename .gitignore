@@ -204,3 +204,4 @@ tests/smoke_test_outputs/*
 !tests/smoke_test_outputs/.gitkeep
 geometry_3d.png
 geometry_xy.png
+*.bkp

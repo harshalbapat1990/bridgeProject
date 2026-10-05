@@ -1,13 +1,11 @@
 from bda.contracts.speckle_contracts.base_objects import BridgeDataObject, EnumParameter, \
-    DataObjectSpeckleType, BridgeDataObjectProperties, Geometry
+    BridgeDataObjectProperties, Geometry
 from bda.contracts.speckle_contracts.bda_analytical.model_config_data.model_config_data_enums import \
     ModelUnitSystemEnum, OutputSoftwareEnum, DesignCodesEnum, StructureTypeEnum
-from typing import Literal
-from pydantic import Field
+from typing import ClassVar, Literal
+import re
+from pydantic import Field, field_validator
 
-
-class ModelConfigDataObjectSpeckleType(DataObjectSpeckleType):
-    provided_value: Literal["Objects.Data.DataObject:BDA_Model_Config"]="Objects.Data.DataObject:BDA_Model_Config"
 
 class BDA_ModelUnitSystem(EnumParameter[ModelUnitSystemEnum]):
     name: Literal["Model Unit System"] = "Model Unit System"
@@ -44,7 +42,6 @@ class BDA_StructureType(EnumParameter[StructureTypeEnum]):
 # model config dataobject Properties
 
 class ModelConfigDataObjectProperties(BridgeDataObjectProperties):
-    bda_speckle_type:ModelConfigDataObjectSpeckleType
     model_unit_system :BDA_ModelUnitSystem = Field(alias="Model Unit System")
     output_software:BDA_OutputSoftware = Field(alias="Output Software")
     design_code:BDA_DesignCode = Field(alias="Design Code")
@@ -52,13 +49,96 @@ class ModelConfigDataObjectProperties(BridgeDataObjectProperties):
 
 class BDA_ModelDataDataObject(BridgeDataObject):
     name: Literal["BDA Analytical Model Data"] = "BDA Analytical Model Data"
+    speckle_type: Literal["Objects.Data.DataObject:BDA_Model_Config"]="Objects.Data.DataObject:BDA_Model_Config"
+
+    bda_speckle_type: Literal[
+        "Objects.Data.DataObject:BDA_Model_Config"
+    ] = Field(
+        ...,
+        frozen=True
+    )
 
     properties: ModelConfigDataObjectProperties
-    
+
     displayValue: list[Geometry] = Field(
         default_factory=list,
         frozen=True,
         description="Always empty for config object.",
         json_schema_extra={"const": []},
     )
+
+    CONFIG_ID_PATTERN: ClassVar[re.Pattern] = re.compile(
+        r"^CFG-\d{4}$"
+    )
+
+    applicationId: str = Field(pattern=CONFIG_ID_PATTERN)
+
+    @field_validator("applicationId")
+    @classmethod
+    def validate_application_id(
+        cls,
+        value: str,
+    ):
+
+        if not cls.CONFIG_ID_PATTERN.match(value):
+            raise ValueError(
+                "Config applicationId must match CFG-0001"
+            )
+
+        return value
+
+    @classmethod
+    def create(
+        cls,
+        model_unit_system: ModelUnitSystemEnum,
+        output_software: OutputSoftwareEnum,
+        design_code: DesignCodesEnum,
+        structure_type: StructureTypeEnum,
+        application_id: str = "CFG-0001",
+    ) -> "BDA_ModelDataDataObject":
+        return cls(
+            applicationId=application_id,
+            bda_speckle_type=(
+                "Objects.Data.DataObject:BDA_Model_Config"
+            ),
+            properties=ModelConfigDataObjectProperties(
+                **{
+                    "Model Unit System": BDA_ModelUnitSystem(
+                        provided_value=model_unit_system
+                    ),
+                    "Output Software": BDA_OutputSoftware(
+                        provided_value=output_software
+                    ),
+                    "Design Code": BDA_DesignCode(
+                        provided_value=design_code
+                    ),
+                    "Structure Type": BDA_StructureType(
+                        provided_value=structure_type
+                    ),
+                },
+            )
+        )
+    
+if __name__ == "__main__":
+
+    from bda.contracts.speckle_contracts.bda_analytical.model_config_data.model_config_data_enums import (
+        ModelUnitSystemEnum,
+        OutputSoftwareEnum,
+        DesignCodesEnum,
+        StructureTypeEnum,
+    )
+
+    model_config = BDA_ModelDataDataObject.create(
+        model_unit_system=ModelUnitSystemEnum.METRIC,
+        output_software=OutputSoftwareEnum.MIDAS_CIVIL,
+        design_code=DesignCodesEnum.EUROCODE,
+        structure_type=StructureTypeEnum.PSC_BOX,
+    )
+
+    print(
+            model_config.model_dump_json(
+                indent=4,
+                by_alias=True,
+            )
+        )
     

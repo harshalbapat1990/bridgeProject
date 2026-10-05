@@ -1,0 +1,23 @@
+{
+  "material_id": "mat-003",
+  "name": "Concrete",
+  "material_type": "concrete",
+  "material_model_type": "isotropic",
+  "standard_code": "AASHTO",
+  "general_properties": {
+    "unit_weight": {
+      "value": 25,
+      "unit": "banana"
+    }
+  },
+  "design_parameters": {
+    "specified_minimum_compressive_strength": {
+      "value": 30,
+      "unit": "MPa"
+    },
+    "expected_compressive_strength": {
+      "value": 40,
+      "unit": "MPa"
+    }
+  }
+}

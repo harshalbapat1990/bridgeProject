@@ -148,8 +148,8 @@ class GroupPropertiesEdgeBeam(GroupPropertiesBase):
 
 @dataclass
 class GroupPropertiesDiaphragm(GroupPropertiesBase):
-    support_index: int
     geometry_details: DiaphragmDetails
+    support_index: int
 
 
 @dataclass

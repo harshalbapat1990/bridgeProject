@@ -30,6 +30,8 @@ class ExportUnits:
     pressure: Unit          # E, strengths            → kPa  | kip ft⁻²
     weight_density: Unit    # material unit weight    → kN m⁻³ | kip ft⁻³
     temperature_coef: Unit  # thermal expansion coef → °C⁻¹ | °F⁻¹
+    stiffness_force: Unit
+    stiffness_moment: Unit
 
 
 # ---------------------------------------------------------------------------
@@ -42,6 +44,8 @@ _SI = ExportUnits(
     pressure=ureg.kilopascal,
     weight_density=ureg.kilonewton / ureg.meter ** 3,
     temperature_coef=ureg.delta_degC ** -1,
+    stiffness_force=ureg.kilonewton / ureg.meter,
+    stiffness_moment=ureg.kilonewton * ureg.meter / ureg.rad,
 )
 
 _IM = ExportUnits(
@@ -50,6 +54,8 @@ _IM = ExportUnits(
     pressure=ureg.kip / ureg.foot ** 2,
     weight_density=ureg.kip / ureg.foot ** 3,
     temperature_coef=ureg.delta_degF ** -1,
+    stiffness_force=ureg.kip / ureg.foot,
+    stiffness_moment=ureg.kip * ureg.foot / ureg.rad,
 )
 
 _MAP: dict[UnitSystem, ExportUnits] = {

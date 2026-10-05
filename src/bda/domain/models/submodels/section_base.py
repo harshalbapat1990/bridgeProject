@@ -116,7 +116,7 @@ class DimensionsBase(ABC):
     @abstractmethod
     def total_height(self) -> Length:
         """Return total height of section"""
-        raise NotImplementedError
+        raise NotImplementedError(f"Section total height is not implemented.")
 
     @property
     @abstractmethod

@@ -315,6 +315,31 @@
         "wall_thickness_tw":  {"value": 0.02, "unit": "m"}
       },
       "offset": "left-center"
+    },
+
+    {
+      "section_id": "7d2f1e64-3a6b-4c58-9f21-0b6e5d4c8a12",
+      "name": "tendon_user_example",
+      "section_family": "tendon",
+      "section_type": "tendon-user",
+      "dimensions": {
+        "number_of_strands": 19,
+        "typical_strand_area": {"value": 140.0, "unit": "mm2"}
+      },
+      "general_properties": {
+        "tendon_type": "Internal Post-Tension",
+        "duct_diameter": {"value": 0.09, "unit": "m"},
+        "bond_type": "Bonded",
+        "anchorage_set_slip": {"value": 6.0, "unit": "mm"},
+        "curvature_coefficient": 0.25,
+        "wobble_coefficient": {"value": 0.0066, "unit": "1/m"}
+      },
+      "relaxation_parameters": {
+        "relaxation_code": "CEB-FIP-1990",
+        "relaxation_class": "Class 2 (low relaxation)",
+        "relaxation_1000_hours_value": 0.05
+      },
+      "offset": "center-center"
     }
   ]
 }

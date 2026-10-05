@@ -196,9 +196,9 @@ class DesignParametersConcreteAashtoParaModel(DesignParametersBase):
 
 class GeneralSteelDesignParametersAashtoParaModelBase(DesignParametersBase):
     specified_minimum_yield_strength: QuantityParaModel = Field(validation_alias=AliasChoices(
-        "specified_minimum_yield_strength", "Minimum Steel Yield Strength"))
+        "specified_minimum_yield_strength", "Minimum Steel Yield Strength", "Minimum Reinforcement Yield Strength"))
     specified_minimum_tensile_strength: QuantityParaModel = Field(validation_alias=AliasChoices(
-        "specified_minimum_tensile_strength", "Minimum Steel Tensile Strength"))
+        "specified_minimum_tensile_strength", "Minimum Steel Tensile Strength","Minimum Reinforcement Tensile Strength"))
 
 
 class SteelDesignParametersAashtoParaModel(GeneralSteelDesignParametersAashtoParaModelBase):
@@ -208,20 +208,24 @@ class SteelDesignParametersAashtoParaModel(GeneralSteelDesignParametersAashtoPar
         "expected_tensile_strength", "Expected Steel Tensile Strength"))
 
 
-class ReinforcementDesignParametersAashtoParaModel(GeneralSteelDesignParametersAashtoParaModelBase):
+class ReinforcementDesignParametersAashtoParaModel(DesignParametersBase):
+    specified_minimum_yield_strength: QuantityParaModel = Field(validation_alias=AliasChoices(
+        "specified_minimum_yield_strength", "Minimum Reinforcement Yield Strength"))
+    specified_minimum_tensile_strength: QuantityParaModel = Field(validation_alias=AliasChoices(
+        "specified_minimum_tensile_strength", "Minimum Reinforcement Tensile Strength"))
     expected_yield_strength: QuantityParaModel = Field(validation_alias=AliasChoices(
-        "expected_yield_strength", 'Expected Steel Yield Strength'))
+        "expected_yield_strength", 'Expected Reinforcement Yield Strength'))
     expected_tensile_strength: QuantityParaModel = Field(validation_alias=AliasChoices(
-        "expected_tensile_strength", "Expected Steel Tensile Strength"))
+        "expected_tensile_strength", "Expected Reinforcement Tensile Strength"))
 
 
 class TendonDesignParametersAashtoParaModel(DesignParametersBase):
     specified_minimum_yield_strength: QuantityParaModel = Field(validation_alias=AliasChoices(
         "specified_minimum_yield_strength",
-        "Prestressing/Post-Tensioning Steel Yield Strength"))
+        "Tendon Yield Strength"))
     specified_minimum_tensile_strength: QuantityParaModel = Field(validation_alias=AliasChoices(
         "specified_minimum_tensile_strength",
-        "Prestressing/Post-Tensioning Steel Specified Minimum Tensile Strength"))
+        "Tendon Specified Minimum Tensile Strength"))
 
 class DesignParametersConcreteEurocodeParaModel(DesignParametersBase):
     specified_minimum_compressive_strength: QuantityParaModel
@@ -277,3 +281,4 @@ _GENERAL_PROPERTIES_BY_MODEL_TYPE = {
 
 
 MaterialParaModel = MaterialBaseParaModel
+ 

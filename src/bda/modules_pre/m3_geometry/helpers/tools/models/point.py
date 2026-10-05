@@ -50,4 +50,3 @@ class Point:
             self.y + direction_y * distance_m,
             self.z + direction_z * distance_m,
         )
-

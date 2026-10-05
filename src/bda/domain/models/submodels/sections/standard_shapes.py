@@ -21,7 +21,7 @@ class DimensionsAngle(DimensionsBase):
     @property
     def total_height(self) -> Length:
         """Return total height of section"""
-        raise NotImplementedError
+        return self.height
 
     @property
     def total_width(self) -> Length:
@@ -47,7 +47,7 @@ class DimensionsISection(DimensionsBase):
     @property
     def total_height(self) -> Length:
         """Return total height of section"""
-        raise NotImplementedError
+        return self.total_height_h
 
     @property
     def total_width(self) -> Length:
@@ -74,7 +74,7 @@ class DimensionsBox(DimensionsBase):
     @property
     def total_height(self) -> Length:
         """Return total height of section"""
-        raise NotImplementedError
+        raise self.height_h
 
     @property
     def total_width(self) -> Length:
@@ -104,7 +104,7 @@ class DimensionsChannel(DimensionsBase):
     @property
     def total_height(self) -> Length:
         """Return total height of section"""
-        raise NotImplementedError
+        raise self.height_h
 
     @property
     def total_width(self) -> Length:
@@ -128,7 +128,7 @@ class DimensionsSolidRectangle(DimensionsBase):
     @property
     def total_height(self) -> Length:
         """Return total height of section"""
-        raise NotImplementedError
+        return self.height_h
 
     @property
     def total_width(self) -> Length:
@@ -148,7 +148,7 @@ class DimensionsSolidRound(DimensionsBase):
     @property
     def total_height(self) -> Length:
         """Return total height of section"""
-        raise NotImplementedError
+        raise self.diameter_d
 
     @property
     def total_width(self) -> Length:
@@ -168,7 +168,7 @@ class DimensionsPipe(DimensionsBase):
     @property
     def total_height(self) -> Length:
         """Return total height of section"""
-        raise NotImplementedError
+        raise self.external_diameter_d
 
     @property
     def total_width(self) -> Length:

@@ -2,7 +2,7 @@ from pint import UnitRegistry
 from pint.facets.plain.quantity import PlainQuantity
 
 def _quantity_repr(self):
-    return f"{self:.3g~P}"
+    return f"{self:.4g~P}"
 
 PlainQuantity.__repr__ = _quantity_repr
 
@@ -45,6 +45,7 @@ delta_degC = ureg.delta_degC
 
 # --- angle ---
 deg = ureg.degree
+rad = ureg.radians
 
 degF = ureg.degF
 delta_degF = ureg.delta_degF

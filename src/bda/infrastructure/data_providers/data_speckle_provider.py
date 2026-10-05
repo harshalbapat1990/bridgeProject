@@ -4,7 +4,9 @@ from typing import List, Type
 from pydantic import BaseModel
 
 from bda.contracts.paramodel.bearings.bearing_bc_para_model import BearingBCsSupportParaModel
-from bda.contracts.paramodel.foundation.foundation_bc_para_model import FoundationBCsParaModel
+from bda.contracts.paramodel.deck_appurtenances import BridgeDeckLayoutBaseParaModel
+from bda.contracts.paramodel.foundations.foundation_bc_para_model import FoundationBCsParaModel
+from bda.contracts.paramodel.loadings.load_model_base_para_models import LoadModelBaseParaModel
 from bda.contracts.paramodel.materials.materials_para_model import MaterialBaseParaModel
 from bda.contracts.shared.bda_model_config import BdaModelConfig
 
@@ -166,15 +168,45 @@ class DataSpeckleProvider(IDataStoreProvider):
 
     def get_geometry_groups_for_project(self) -> List[GeometryGroupParaModel]:
         """Load group structure for the project.
-
+        
         Returns:
-            List of GroupDTO objects in hierarchy.
-
-        Raises:
-            FileNotFoundError: If groups not found
-            ValueError: If groups data is invalid
+            List of GeometryGroupParaModel objects flattened from the hierarchy.
         """
-        raise NotImplementedError("The method get_groups_for_project not yet implemented for data Speckle provider.")
+        from bda.contracts.speckle_contracts.bda_analytical.geometry.component_type_groups.geometry_group_bridge import GeometryGroupBridge
+        
+        AppLogger().info(f"Parsing geometry groups from {self.SpeckleModelUrl}...")
+        
+        # Find the GeometryGroupBridge in validated data
+        geo_bridge = next(
+            (e for e in self.ModelDataValidated.elements
+             if isinstance(e, GeometryGroupBridge)),
+            None,
+        )
+        
+        if geo_bridge is None:
+            raise ValueError(f"No valid geometry groups found in {self.SpeckleModelUrl}.")
+        
+        # Recursively extract all geometry groups (flattened)
+        all_geometry_groups = []
+        
+        def flatten_geometry_hierarchy(group):
+            """Recursively flatten geometry group hierarchy."""
+            # Convert current group to ParaModel
+            group_data = group.model_dump(mode="json", by_alias=True)
+            geometry_group = GeometryGroupParaModel.model_validate(group_data)
+            all_geometry_groups.append(geometry_group)
+            
+            # Recursively process nested groups
+            for element in group.elements:
+                if hasattr(element, 'speckle_type'):
+                    # Check if it's a nested geometry group
+                    if 'Collection:BDA_Geometry_Group' in element.speckle_type:
+                        flatten_geometry_hierarchy(element)
+        
+        # Flatten from root bridge
+        flatten_geometry_hierarchy(geo_bridge)
+        AppLogger().info(f"Successfully extracted {len(all_geometry_groups)} geometry groups.")
+        return all_geometry_groups
 
 
     def get_foundation_boundary_conditions_for_project(self) -> List[FoundationBCsParaModel]:
@@ -202,10 +234,36 @@ class DataSpeckleProvider(IDataStoreProvider):
         raise NotImplementedError("The method get_bearing_boundary_conditions_for_project "
                                   "not yet implemented for data Speckle provider.")
 
+    def get_deck_appurtenances_for_project(self) -> List[BridgeDeckLayoutBaseParaModel]:
+        """Load deck appurtenances for the project.
+
+        Returns:
+            List of BridgeDeckLayoutBaseParaModel objects.
+
+        Raises:
+            FileNotFoundError: If deck appurtenances not found
+            ValueError: If deck appurtenances data is invalid
+        """
+        raise NotImplementedError("The method get_deck_appurtenances_for_project "
+                                  "not yet implemented for data Speckle provider.")
+
+    def get_loads_for_project(self) -> List[LoadModelBaseParaModel]:
+        """Load loads definitions for the project.
+
+        Returns:
+            List of LoadModelBaseParaModel objects.
+
+        Raises:
+            FileNotFoundError: If loads file not found
+            ValueError: If loads data is invalid
+        """
+        raise NotImplementedError("The method get_loads_for_project "
+                                  "not yet implemented for data Speckle provider.")
+
 
 if __name__ == "__main__":
     # Example usage
-    model = "https://design.dev.jacobs.com/projects/b05b0a09f4/models/eab47a2f4a@7e3a5e740c"
+    model = "https://design.jacobs.com/projects/8f0d636aa6/models/0ed6df7cda"
 
     # read authorization token from local settings
     from pathlib import Path

@@ -1,8 +1,7 @@
 from bda.application.mapping.geometry_groups.group_mapper import GeometryGroupMapper
 from bda.application.interfaces.module.i_module import IModule
-from bda.modules_pre.m3_geometry.helpers.psc_box_helpers.geometry_builder import (
-    GeometryPSCBoxBuilder,
-)
+from bda.domain.models.submodels import GeometryGroup
+from bda.modules_pre.m3_geometry.builders.psc_box_builder.geometry_builder import GeometryPSCBoxBuilder
 from bda.modules_pre.m3_geometry.helpers.tools.visualizer import GeometryVisualizer
 
 
@@ -33,27 +32,10 @@ class GeometryPSCBoxModule(IModule):
         geometry = GeometryGroupMapper.map_group(geometry_group_dto)
         self.amm.add_initial_geometry(geometry)
 
-        # --- Build pipeline ---
-        builder = (
-            GeometryPSCBoxBuilder(amm=self.amm, logger=self.logger)
-            .with_bridge()
-            .with_spans()
-            .with_support_angles()
-            .with_span_processing()
-        )
+        builder = GeometryPSCBoxBuilder(amm=self.amm, logger=self.logger)
+        builder.build()
 
-        result = builder.build()
-
-        # --- Logging ---
-        self.logger.info("Spans collected: %d", len(result.spans))
-        self.logger.info("Supports collected: %d", len(result.support_angles))
-        self.logger.info(f"Default division of the beams: {result.girder_mesh_divisor}")
-        self.logger.info(f"Nodes: {result.nodes_manager.nodes}")
-        self.logger.info(f"Elements: {result.elements}")
-        self.logger.info(f"No. elements: {len(result.elements)}")
-        # self.logger.info(f"No. reference elements: {len(result.)}")
         return True
-
 
 if __name__ == "__main__":
 
@@ -82,13 +64,22 @@ if __name__ == "__main__":
     module_sections.run()
 
     module_geometry = GeometryPSCBoxModule(amm=amm, data_provider=data_provider, logger=logger)
-
     module_geometry.run()
 
-    superstructure = amm.geometry_group.get_groups_by_component_type(StructuralComponentType.GIRDER)
+    girder = amm.geometry_group.get_groups_by_component_type(StructuralComponentType.GIRDER)
+    piles = amm.geometry_group.get_groups_by_component_type(StructuralComponentType.PILE)
+    links = amm.geometry_group.get_groups_by_component_type(StructuralComponentType.LINKAGE)
 
-    fig = GeometryVisualizer.plot(amm.geometry_group,
-                            title="Geometry for PSC Box bridge",
-                            show=True,
-                            flat=False,
-                            interactive=False)
+    assert isinstance(amm.geometry_group, GeometryGroup)
+
+    fig = GeometryVisualizer.plot(
+        amm.geometry_group,
+        title="Geometry for PSC Box bridge",
+        show=True,
+        include_finite_elements=True,
+        include_reference_elements=False,
+        include_links=True,
+        flat=False,
+        isometric=False,
+        interactive=True
+    )

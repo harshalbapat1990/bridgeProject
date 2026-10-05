@@ -5,13 +5,13 @@ from unittest.mock import mock_open, patch
 import pytest
 from pydantic import ValidationError
 
-from bda.contracts.paramodel.foundation.enums import (
+from bda.contracts.paramodel.foundations.enums import (
     DofTypeEnumParaModel,
     FoundationApplicationTypeEnumParaModel,
-    FoundationModelTypeEnumParaModel,
+    FoundationModelTypeParaModel,
     SoilProfileTypeEnumParaModel,
 )
-from bda.contracts.paramodel.foundation.foundation_bc_para_model import (
+from bda.contracts.paramodel.foundations.foundation_bc_para_model import (
     BearingBasedFoundationApplicationParaModel,
     FoundationBCsBaseParaModel,
     LumpedFoundationBCsParaModel,
@@ -86,7 +86,7 @@ class TestDataFileProvider_FoundationBoundaryConditions:
 
     def test_lumped_bearing_base_fields(self, lumped_bearing):
         assert lumped_bearing.support_index == 0
-        assert lumped_bearing.foundation_model_type == FoundationModelTypeEnumParaModel.LumpedFoundationModel
+        assert lumped_bearing.foundation_model_type == FoundationModelTypeParaModel.LUMPED_FOUNDATION_MODEL
         assert lumped_bearing.orientation == ElementOrientationParaModel.ORTHOGONAL
 
     def test_lumped_bearing_stiffness_definition_type(self, lumped_bearing):
@@ -127,11 +127,11 @@ class TestDataFileProvider_FoundationBoundaryConditions:
     def test_lumped_bearing_application_type_and_values(self, lumped_bearing):
         app = lumped_bearing.application
         assert isinstance(app, BearingBasedFoundationApplicationParaModel)
-        assert app.application_type == FoundationApplicationTypeEnumParaModel.BearingBased
+        assert app.application_type == FoundationApplicationTypeEnumParaModel.BEARING_BASED
         assert_quantity(app.vertical_offset, 0.5, "m")
 
     # ------------------------------------------------------------------
-    # Lumped foundation (substructure based) - index 1
+    # Lumped foundations (substructure based) - index 1
     # ------------------------------------------------------------------
 
     def test_lumped_substructure_type(self, lumped_substructure):
@@ -139,13 +139,13 @@ class TestDataFileProvider_FoundationBoundaryConditions:
 
     def test_lumped_substructure_base_fields(self, lumped_substructure):
         assert lumped_substructure.support_index == 1
-        assert lumped_substructure.foundation_model_type == FoundationModelTypeEnumParaModel.LumpedFoundationModel
+        assert lumped_substructure.foundation_model_type == FoundationModelTypeParaModel.LUMPED_FOUNDATION_MODEL
         assert lumped_substructure.orientation == ElementOrientationParaModel.ORTHOGONAL
 
     def test_lumped_substructure_application_type(self, lumped_substructure):
         app = lumped_substructure.application
         assert isinstance(app, SubstructureElementBasedFoundationApplicationParaModel)
-        assert app.application_type == FoundationApplicationTypeEnumParaModel.SubstructureElementBased
+        assert app.application_type == FoundationApplicationTypeEnumParaModel.SUBSTRUCTURE_ELEMENT_BASED
 
     # ------------------------------------------------------------------
     # Pile interaction foundation - index 2
@@ -156,7 +156,7 @@ class TestDataFileProvider_FoundationBoundaryConditions:
 
     def test_pile_interaction_base_fields(self, pile_interaction):
         assert pile_interaction.support_index == 2
-        assert pile_interaction.foundation_model_type == FoundationModelTypeEnumParaModel.PileInteractionModel
+        assert pile_interaction.foundation_model_type == FoundationModelTypeParaModel.PILE_INTERACTION_MODEL
 
     def test_pile_interaction_pile_springs_count(self, pile_interaction):
         assert len(pile_interaction.pile_springs) == 2

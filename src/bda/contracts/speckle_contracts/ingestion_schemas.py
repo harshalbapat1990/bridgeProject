@@ -26,6 +26,7 @@ def make_received_model_recursive(model: Type[BaseModel]) -> BaseModel:
         {
             "__annotations__": new_annotations,
             "model_config": new_config,
+            "__module__": model.__module__,
         },
     )
     return received_model

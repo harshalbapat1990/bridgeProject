@@ -4,9 +4,9 @@ import pytest
 from bda.application.mapping.base import to_uuid
 from bda.application.mapping.sections.section_mapper import SectionMapper
 from bda.contracts.paramodel.sections import SectionBaseParaModel
-from bda.contracts.paramodel.sections.sections_para_models import SectionFamilyParaModel, SectionTypeParaModel, \
-    SectionOffsetParaModel
-from bda.domain.enums import OffsetReference, SectionType, TaperVariation
+from bda.contracts.paramodel.sections.sections_para_models import SectionFamilyParaModel, SectionTypeParaModel
+
+from bda.domain.enums import SectionType, TaperVariation
 from bda.domain.models.submodels.sections import SectionStandardAngle, SectionPSCValue, Point2D, SectionStandardISection, \
     SectionStandardBox, SectionStandardChannel, SectionStandardSolidRectangle, SectionStandardSolidRound, SectionStandardPipe, \
     SectionCompositeSteelISymmetric, SectionCompositeSteelIAsymmetric, SectionPSC12Cell, SectionTapered
@@ -28,8 +28,26 @@ class TestSectionMapper:
         return DataFileProvider(folder=str(fixtures_path))
 
     @pytest.fixture
-    def sections(self, provider):
+    def all_sections(self, provider):
         return provider.get_sections_for_project()
+
+    @pytest.fixture
+    def sections(self, all_sections):
+        # Exclude section families that do not yet have a registered mapper
+        # (currently the TENDON family). These are covered by dedicated
+        # placeholder tests until their mappers are implemented.
+        return [
+            s for s in all_sections
+            if s.section_family != SectionFamilyParaModel.TENDON
+        ]
+
+    @pytest.fixture
+    def tendon_user_section(self, all_sections):
+        return next(
+            s for s in all_sections
+            if s.section_family == SectionFamilyParaModel.TENDON
+            and s.section_type == SectionTypeParaModel.TENDON_USER
+        )
 
     def test_map_all_sections_from_json(self, sections):
         result = SectionMapper.to_domain_list(sections)
@@ -47,7 +65,9 @@ class TestSectionMapper:
 
         assert isinstance(standard_angle, SectionStandardAngle)
         assert standard_angle.name == "standard_angle"
-        assert standard_angle.offset.offset_reference == OffsetReference.LEFT_TOP
+        # removed from MVP implementation, but leaving here for future development
+        #
+        # assert standard_angle.offset.offset_reference == OffsetReference.LEFT_TOP
         assert standard_angle.dimensions.height.magnitude == 0.203
         assert standard_angle.dimensions.width.magnitude == 0.203
         assert standard_angle.dimensions.thickness_web.magnitude == 0.022
@@ -60,7 +80,9 @@ class TestSectionMapper:
 
         assert isinstance(psc_value, SectionPSCValue)
         assert psc_value.name == "psc_value_section"
-        assert psc_value.offset.offset_reference == OffsetReference.CENTER_TOP
+        # removed from MVP implementation, but leaving here for future development
+        #
+        # assert psc_value.offset.offset_reference == OffsetReference.CENTER_TOP
 
         #+------------------------------------
         #+  dimension.outer_outline
@@ -173,12 +195,38 @@ class TestSectionMapper:
 
         assert isinstance(tapered, SectionTapered)
 
-    def test_offset_mapping(self, sections):
-        result = SectionMapper.to_domain_list(sections)
+    # ------------------------------------------------------------------
+    # Tendon – user (idx 15)
+    #
+    # TODO: The TENDON family / TENDON_USER type does not yet have a
+    #       registered mapper in the SectionMapper. The test below asserts
+    #       the current NotImplementedError behaviour and acts as a
+    #       placeholder for the future SectionTendonUser mapping. Once the
+    #       mapper is implemented, replace this test with real mapping
+    #       assertions (analogous to the other section families above).
+    # ------------------------------------------------------------------
 
-        sec = next(x for x in result if x.name == "standard_box")
+    def test_mapper_tendon_user_not_registered(self, tendon_user_section):
+        # Guard: make sure the fixture really is the tendon-user section.
+        assert tendon_user_section.section_family == SectionFamilyParaModel.TENDON
+        assert tendon_user_section.section_type == SectionTypeParaModel.TENDON_USER
 
-        assert sec.offset.offset_reference == OffsetReference.RIGHT_TOP
+        with pytest.raises(NotImplementedError) as exc_info:
+            SectionMapper.to_domain(tendon_user_section)
+
+        message = str(exc_info.value)
+        assert "No mapper registered" in message
+        assert "TENDON_USER" in message
+        assert "TENDON" in message
+
+    # removed from MVP implementation, but leaving here for future development
+    #
+    # def test_offset_mapping(self, sections):
+    #     result = SectionMapper.to_domain_list(sections)
+    #
+    #     sec = next(x for x in result if x.name == "standard_box")
+    #
+    #     assert sec.offset.offset_reference == OffsetReference.RIGHT_TOP
 
     def test_guid_mapping(self, sections):
         result = SectionMapper.to_domain_list(sections)
@@ -193,7 +241,7 @@ def test_mapper_missing_mapper():
         name: str = "fake"
         section_family: SectionFamilyParaModel = SectionFamilyParaModel.STANDARD_SHAPE
         section_type: SectionTypeParaModel = "non-existing-type"
-        offset: SectionOffsetParaModel = SectionOffsetParaModel.CENTER_CENTER
+        # offset: SectionOffsetParaModel = SectionOffsetParaModel.CENTER_CENTER
 
     fake = FakeSection()
 

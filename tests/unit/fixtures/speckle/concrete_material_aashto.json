@@ -1,0 +1,114 @@
+{
+    "id": "e1418ea1-7bcf-4a9d-9259-cd1b515ef4e4",
+    "applicationId": "MAT-0001-CONC-AASHTO",
+    "name": "Concrete",
+    "speckle_type": "Objects.Data.DataObject:BDA_Concrete_Material_AASHTO",
+    "bda_speckle_type": "Objects.Data.DataObject:BDA_Concrete_Material_AASHTO",
+    "properties": {
+        "General Material Properties": {
+            "name": "General Material Properties",
+            "isUser": true,
+            "description": "General material properties",
+            "group_parameters": {
+                "Material Type": {
+                    "name": "Material Type",
+                    "isUser": false,
+                    "provided_value": "concrete",
+                    "description": "Type of material (e.g., Concrete, Steel, Timber)",
+                    "symbol": "MatType",
+                    "provided_unit": null,
+                    "base_unit": null,
+                    "base_value": null
+                },
+                "Material Design Code": {
+                    "name": "Material Design Code",
+                    "isUser": false,
+                    "provided_value": "AASHTO",
+                    "description": "Associated design code of material",
+                    "symbol": null,
+                    "provided_unit": null,
+                    "base_unit": null,
+                    "base_value": null
+                },
+                "Isotropy": {
+                    "name": "Isotropy",
+                    "isUser": true,
+                    "provided_value": "isotropic",
+                    "description": "Whether the material is isotropic or orthotropic",
+                    "symbol": null,
+                    "provided_unit": null,
+                    "base_unit": null,
+                    "base_value": null
+                },
+                "Unit Weight": {
+                    "name": "Unit Weight",
+                    "isUser": true,
+                    "provided_value": 24.0,
+                    "description": "Weight per unit volume of a material",
+                    "symbol": "\u03b3",
+                    "provided_unit": "kN/m\u00b3",
+                    "base_unit": "kN/m\u00b3",
+                    "base_value": 24.0
+                },
+                "Modulus of Elasticity": {
+                    "name": "Modulus of Elasticity",
+                    "isUser": true,
+                    "provided_value": 35.0,
+                    "description": "Ratio of stress to strain in a material",
+                    "symbol": "E",
+                    "provided_unit": "GPa",
+                    "base_unit": "Pa",
+                    "base_value": 35000000000.0
+                },
+                "Poisson's Ratio": {
+                    "name": "Poisson's Ratio",
+                    "isUser": true,
+                    "provided_value": 0.2,
+                    "description": "Ratio of transverse strain to axial strain in a material",
+                    "symbol": "\u03bd",
+                    "provided_unit": null,
+                    "base_unit": null,
+                    "base_value": null
+                },
+                "Coefficient of Thermal Expansion": {
+                    "name": "Coefficient of Thermal Expansion",
+                    "isUser": true,
+                    "provided_value": 1e-05,
+                    "description": "Change in length per unit length per degree of temperature change",
+                    "symbol": "\u03b1",
+                    "provided_unit": "1/\u0394\u00b0C",
+                    "base_unit": "1/\u0394\u00b0C",
+                    "base_value": 1e-05
+                }
+            }
+        },
+        "Design Material Properties": {
+            "name": "Concrete Material Properties",
+            "isUser": true,
+            "description": "Concrete material properties",
+            "group_parameters": {
+                "Expected Concrete Strength": {
+                    "name": "Expected Compressive Strength",
+                    "isUser": true,
+                    "provided_value": 55000000.0,
+                    "description": "Expected compressive strength of concrete at 28 days",
+                    "symbol": "fc,exp",
+                    "provided_unit": "kN/m\u00b2",
+                    "base_unit": "Pa",
+                    "base_value": 55000000000.0
+                },
+                "Specified Concrete Strength": {
+                    "name": "Specified Minimum Compressive Strength",
+                    "isUser": true,
+                    "provided_value": 50000000.0,
+                    "description": "Specified minimum compressive strength of concrete",
+                    "symbol": "fc,min",
+                    "provided_unit": "kN/m\u00b2",
+                    "base_unit": "Pa",
+                    "base_value": 50000000000.0
+                }
+            }
+        }
+    },
+    "displayValue": []
+}

@@ -184,9 +184,7 @@ class MidasSectionExporter:
                 s: SectionCompositeSteelIAsymmetric = section
                 d: DimensionsCompositeSteelIAsymmetric = s.dimensions
 
-                json_data = {
-                    "Assign": {
-                        str(s.model_id): {
+                json_db = {
                             "SECTTYPE": "COMPOSITE",
                             "SECT_NAME": s.name,
                             "SECT_BEFORE": {
@@ -231,11 +229,31 @@ class MidasSectionExporter:
                                     to_float(d.slab_girder_spacing_hh, eu.length),
                                 ]
                             }
-                        }
-                    }
                 }
-                from midas_civil import MidasAPI
-                MidasAPI(method="PUT", command="/db/SECT", body=json_data)
+
+                # A method provided by Midas Support to locally create a cross-section
+                # that is not supported by the Midas Civil Python library, add it to the in-memory model,
+                # and then export it together with all other model elements in a single operation
+                # instead of sending it directly to Midas Civil NX every single time.
+                from midas_civil._section import _SS_UNSUPP
+                unSpecSec = _SS_UNSUPP(
+                    s.model_id,
+                    s.name,
+                    json_db['SECTTYPE'],
+                    json_db['SECT_BEFORE']['SHAPE'],
+                    self._get_section_offset(s.offset),
+                    True,
+                    True,
+                    json_db
+                )
+
+                self.MidasSection.sect.append(unSpecSec)
+                self.MidasSection.ids.append(int(unSpecSec.ID))
+
+                # # Previous code in case of any issues with the above method
+                # section_id = s.model_id
+                # from midas_civil import MidasAPI
+                # MidasAPI(method="PUT", command="/db/SECT", body={"Assign": {section_id: json_db}})
 
             case _:
                 raise ValueError(f"Invalid section type: {section.section_type} "
@@ -339,6 +357,7 @@ class MidasSectionExporter:
                 or section.section_start.section_family != section.section_end.section_family:
             raise ValueError(f"Invalid tapered section definition for section: {section.name} "
                              f"Start and end section type and section family must be the same.")
+        section.section_type = section.section_start.section_type
 
         export_json = self.MidasSection.json()
         exported_sections = export_json.get("Assign", None)
@@ -370,10 +389,31 @@ class MidasSectionExporter:
                                                   json_tapered,
                                                   end_section)
 
-            final_json = {'Assign': {str(section.model_id): json_tapered}}
 
-            from midas_civil import MidasAPI
-            MidasAPI(method='PUT', command='/db/SECT', body=final_json)
+            # A method provided by Midas Support to locally create a cross-section
+            # that is not supported by the Midas Civil Python library, add it to the in-memory model,
+            # and then export it together with all other model elements in a single operation
+            # instead of sending it directly to Midas Civil NX every single time.
+            from midas_civil._section import _SS_UNSUPP
+            unSpecSec = _SS_UNSUPP(
+                section.model_id,
+                section.name,
+                json_tapered['SECTTYPE'],
+                json_tapered['SECT_BEFORE']['SHAPE'],
+                self._get_section_offset(section.offset),
+                True,
+                True,
+                json_tapered
+            )
+
+            self.MidasSection.sect.append(unSpecSec)
+            self.MidasSection.ids.append(int(unSpecSec.ID))
+
+            # # Previous code in case of any issues with the above method
+            # final_json = {'Assign': {str(section.model_id): json_tapered}}
+            #
+            # from midas_civil import MidasAPI
+            # MidasAPI(method='PUT', command='/db/SECT', body=final_json)
 
         except Exception as e:
             raise Exception(f"Failed to export tapered section for section: {section.name} "

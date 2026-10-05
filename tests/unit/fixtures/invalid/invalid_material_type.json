@@ -1,0 +1,9 @@
+{
+  "material_id": "mat-002",
+  "name": "Invalid Material",
+  "material_type": "wood",
+  "material_model_type": "isotropic",
+  "standard_code": "AASHTO",
+  "general_properties": {},
+  "design_parameters": {}
+}

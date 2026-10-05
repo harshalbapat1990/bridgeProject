@@ -2,7 +2,7 @@ from typing import Dict, Type
 
 from bda.contracts.paramodel.groups.enums import StructuralComponentTypeParaModel
 
-from .properties_base import PropertiesBaseParaModel
+from .properties_base import PropertiesBaseParaModel, PropertiesIndividualTendonParaModel
 
 from .superstructure_properties import (
     PropertiesSuperstructureParaModel,
@@ -49,5 +49,6 @@ _PROPERTIES_BY_GROUP_TYPE: Dict[StructuralComponentTypeParaModel, Type[Propertie
     StructuralComponentTypeParaModel.BELOW_GROUND: PropertiesBelowGroundParaModel,
     StructuralComponentTypeParaModel.PILE: PropertiesPileParaModel,
     StructuralComponentTypeParaModel.PILE_CAP: PropertiesPileCapParaModel,
-    StructuralComponentTypeParaModel.SUPERSTRUCTURE_TO_SUBSTRUCTURE_CONNECTIONS: PropertiesLinkageSupToSubParaModel
+    StructuralComponentTypeParaModel.SUPERSTRUCTURE_TO_SUBSTRUCTURE_CONNECTIONS: PropertiesLinkageSupToSubParaModel,
+    StructuralComponentTypeParaModel.INDIVIDUAL_TENDON: PropertiesIndividualTendonParaModel,
 }

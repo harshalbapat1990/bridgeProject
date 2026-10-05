@@ -1,0 +1,355 @@
+{
+  "loads": [
+
+    {
+      "_comment": "DC - Structural dead load applied by group ID, loading by density enhancement",
+      "load_context": "design",
+      "main_code": "AASHTO",
+      "secondary_code": "None",
+      "load_application_domain": "Structure",
+      "load_service_state": "In Service",
+      "structural_load_type": "dead load",
+      "load_nature": "DC",
+      "loading": {
+        "method": "density enhancement",
+        "enhancement_factor": 0.0
+      },
+      "load_application": {
+        "application_type": "structural group id",
+        "group_id": "superstructure-group-01"
+      }
+    },
+
+    {
+      "_comment": "DW - Structural dead load applied by component type, loading by direct value",
+      "load_context": "design",
+      "main_code": "AASHTO",
+      "secondary_code": "UAE",
+      "load_application_domain": "Structure",
+      "load_service_state": "In Service",
+      "structural_load_type": "dead load",
+      "load_nature": "DW",
+      "loading": {
+        "method": "direct value",
+        "linear_load_value": { "value": 12.5, "unit": "kN/m" },
+        "pressure_load_value": null
+      },
+      "load_application": {
+        "application_type": "structural component type",
+        "component_type": "deck-slab"
+      }
+    },
+
+    {
+      "_comment": "DW - Non-structural dead load applied by deck appurtenance ID, density enhancement",
+      "load_context": "design",
+      "main_code": "AASHTO",
+      "load_application_domain": "Ancillary works",
+      "load_service_state": "In Service",
+      "load_nature": "DW",
+      "loading": {
+        "method": "density enhancement",
+        "enhancement_factor": 0.1
+      },
+      "load_application": {
+        "application_type": "deck appurtenance id",
+        "appurtenance_id": "barrier-left-01"
+      }
+    },
+
+    {
+      "_comment": "BR - Braking load, 3 lanes in one direction",
+      "load_context": "design",
+      "main_code": "AASHTO",
+      "load_application_domain": "Live load",
+      "load_service_state": "In Service",
+      "load_nature": "BR",
+      "primary_traffic_type": "road",
+      "vehicle_def_type": "standard",
+      "traffic_load_model": "HL-93",
+      "traffic_load_type": "braking",
+      "max_traffic_lanes_in_one_direction": 3
+    },
+
+    {
+      "_comment": "CS - Construction execution load with all three UDL components",
+      "load_context": "design",
+      "main_code": "AASHTO",
+      "load_application_domain": "Construction",
+      "load_service_state": "Construction",
+      "load_nature": "CS",
+      "load_fixed_material_udl": { "value": 1.0, "unit": "kN/m2" },
+      "load_variable_material_udl": { "value": 1.5, "unit": "kN/m2" },
+      "load_personel_and_eqp_udl": { "value": 2.4, "unit": "kN/m2" }
+    },
+
+    {
+      "_comment": "CS - Construction execution load, only fixed material UDL defined",
+      "load_context": "design",
+      "main_code": "AASHTO",
+      "load_application_domain": "Construction",
+      "load_service_state": "Construction",
+      "load_nature": "CS",
+      "load_fixed_material_udl": { "value": 0.5, "unit": "kN/m2" },
+      "load_variable_material_udl": null,
+      "load_personel_and_eqp_udl": null
+    },
+
+    {
+      "_comment": "WS - Wind in-service load, exposure Category B, strength III/IV/V and service I/IV wind speeds",
+      "load_context": "design",
+      "main_code": "AASHTO",
+      "load_application_domain": "Environment",
+      "load_service_state": "In Service",
+      "load_nature": "WS",
+      "env_load_type": "wind",
+      "exposure_category": "Category B",
+      "reference_superstructure_height": { "value": 6.5, "unit": "m" },
+      "wind_speed_3s_gust_strength_iii": { "value": 45.0, "unit": "m/s" },
+      "wind_speed_3s_gust_service_iv": { "value": 38.0, "unit": "m/s" },
+      "wind_speed_3s_gust_service_i": { "value": 35.0, "unit": "m/s" },
+      "wind_speed_3s_gust_strength_v": { "value": 50.0, "unit": "m/s" }
+    },
+
+    {
+      "_comment": "CS - Wind in-construction load, exposure Category C",
+      "load_context": "design",
+      "main_code": "AASHTO",
+      "load_application_domain": "Environment",
+      "load_service_state": "Construction",
+      "load_nature": "CS",
+      "env_load_type": "wind",
+      "exposure_category": "Category C",
+      "wind_speed_3s_gust_active_work_zone": { "value": 40.0, "unit": "m/s" },
+      "wind_speed_3s_gust_inactive_work_zone": { "value": 45.0, "unit": "m/s" },
+      "wind_speed_reduction_factor_active_work_zone": 0.75,
+      "wind_speed_reduction_factor_inactive_work_zone": 1.0,
+      "avg_height_of_superstructure_for_active_work_zone": { "value": 8.0, "unit": "m" },
+      "avg_height_of_superstructure_for_inactive_work_zone": { "value": 10.0, "unit": "m" },
+      "superstructure_constr_duration_days": 180
+    },
+
+    {
+      "_comment": "TG - Temperature load with custom gradient definition and asphalt overlay",
+      "load_context": "design",
+      "main_code": "AASHTO",
+      "load_application_domain": "Environment",
+      "load_service_state": "In Service",
+      "load_nature": "TG",
+      "env_load_type": "temperature",
+      "temperature_effect_type": "gradient",
+      "gradient_temperature_params": {
+        "definition_type": "custom",
+        "deck_overlay": "asphalt",
+        "cooling_t1": { "value": -5.0, "unit": "degC" },
+        "cooling_t2": { "value": -3.5, "unit": "degC" },
+        "cooling_t3": { "value": 0.0, "unit": "degC" },
+        "heating_t1": { "value": 12.0, "unit": "degC" },
+        "heating_t2": { "value": 6.7, "unit": "degC" },
+        "heating_t3": { "value": 3.0, "unit": "degC" }
+      }
+    },
+
+    {
+      "_comment": "TG - Temperature load with zone-based gradient definition and plain deck",
+      "load_context": "design",
+      "main_code": "AASHTO",
+      "load_application_domain": "Environment",
+      "load_service_state": "In Service",
+      "load_nature": "TG",
+      "env_load_type": "temperature",
+      "temperature_effect_type": "gradient",
+      "gradient_temperature_params": {
+        "definition_type": "by zone",
+        "deck_overlay": "plain",
+        "zone": "zone 1"
+      }
+    },
+
+    {
+      "_comment": "TU - Temperature uniform load",
+      "load_context": "design",
+      "main_code": "AASHTO",
+      "load_application_domain": "Environment",
+      "load_service_state": "In Service",
+      "load_nature": "TU",
+      "env_load_type": "temperature",
+      "temperature_effect_type": "uniform",
+      "uniform_temperature_params": {
+        "temperature_min_design": { "value": -10.0, "unit": "degC" },
+        "temperature_ref_expansion": { "value": 20.0, "unit": "degC" },
+        "temperature_ref_contraction": { "value": 20.0, "unit": "degC" },
+        "temperature_max_design": { "value": 50.0, "unit": "degC" }
+      }
+    },
+
+    {
+      "_comment": "LL - HL Vertical traffic load with standard lane width definition",
+      "load_context": "design",
+      "main_code": "AASHTO",
+      "secondary_code": "None",
+      "load_application_domain": "Live load",
+      "load_service_state": "In Service",
+      "primary_traffic_type": "road",
+      "vehicle_def_type": "standard",
+      "traffic_load_model": "HL-93",
+      "traffic_load_type": "vertical traffic direct",
+      "load_nature": "LL",
+      "include_truck_model": false,
+      "include_tandem_model": false,
+      "include_fatigue_model": false,
+      "lane_parameters": {
+        "lane_definition_type": "standard"
+      }
+    },
+
+    {
+      "_comment": "LL - HL Vertical traffic load with custom lane width definition",
+      "load_context": "design",
+      "main_code": "AASHTO",
+      "secondary_code": "None",
+      "load_application_domain": "Live load",
+      "load_service_state": "In Service",
+      "primary_traffic_type": "road",
+      "vehicle_def_type": "standard",
+      "traffic_load_model": "HL-93",
+      "traffic_load_type": "vertical traffic direct",
+      "load_nature": "LL",
+      "include_truck_model": true,
+      "include_tandem_model": true,
+      "include_fatigue_model": true,
+      "lane_parameters": {
+        "lane_definition_type": "custom",
+        "lane_width": { "value": 3.5, "unit": "m" }
+      }
+    },
+
+    {
+      "_comment": "PL - Pedestrian load, standard",
+      "load_context": "design",
+      "main_code": "AASHTO",
+      "secondary_code": "None",
+      "load_application_domain": "Live load",
+      "load_service_state": "In Service",
+      "primary_traffic_type": "road",
+      "vehicle_def_type": "standard",
+      "traffic_load_model": "Pedestrian",
+      "load_nature": "PL"
+    },
+
+    {
+      "_comment": "PS - Prestressing with application by stress",
+      "load_context": "design",
+      "main_code": "AASHTO",
+      "secondary_code": "None",
+      "load_application_domain": "Structure",
+      "load_service_state": "In Service",
+      "load_nature": "PS",
+      "structural_load_type": "prestressing",
+      "loading": {
+        "tendon_jacking_type": "both ends",
+        "prestress_application_type": "by stress",
+        "tendon_stress": { "value": 1200.0, "unit": "MPa" }
+      },
+      "load_application": [{
+        "application_type": "structural component type",
+        "component_type": "individual-tendon"
+      }]
+    },
+
+    {
+      "_comment": "EQ - Earthquake load without vertical rs",
+      "load_context": "design",
+      "main_code": "AASHTO",
+      "secondary_code": "None",
+      "load_application_domain": "Environment",
+      "load_service_state": "In Service",
+      "env_load_type": "earthquake",
+      "load_nature": "EQ",
+      "response_spectrum_params": {
+        "damping_ratio": 0.05,
+        "horizontal_response_spectrum": [
+          { "period": { "value": 0.0, "unit": "s" }, "acceleration": { "value": 0.0, "unit": "m/s^2" } },
+          { "period": { "value": 1.0, "unit": "s" }, "acceleration": { "value": 1.0, "unit": "m/s^2" } },
+          { "period": { "value": 2.0, "unit": "s" }, "acceleration": { "value": 4.0, "unit": "m/s^2" } },
+          { "period": { "value": 3.0, "unit": "s" }, "acceleration": { "value": 9.0, "unit": "m/s^2" } },
+          { "period": { "value": 4.0, "unit": "s" }, "acceleration": { "value": 16.0, "unit": "m/s^2" } },
+          { "period": { "value": 5.0, "unit": "s" }, "acceleration": { "value": 25.0, "unit": "m/s^2" } }
+        ],
+        "consider_vertical_rs": false
+      },
+      "modal_analysis_params": {
+        "modal_analysis_type": "Eigen Vectors (Lanczos)",
+        "number_of_modes": 10,
+        "included_load_types": [
+          {
+            "load_nature": "DC",
+            "mass_participation": 1.0
+          },
+          {
+            "load_nature": "DW",
+            "mass_participation": 1.2
+          }
+        ]
+      }
+    },
+
+    {
+      "_comment": "EQ - Earthquake load with vertical rs",
+      "load_context": "design",
+      "main_code": "AASHTO",
+      "secondary_code": "None",
+      "load_application_domain": "Environment",
+      "load_service_state": "In Service",
+      "env_load_type": "earthquake",
+      "load_nature": "EQ",
+      "response_spectrum_params": {
+        "damping_ratio": 0.05,
+        "horizontal_response_spectrum": [
+          { "period": { "value": 0.0, "unit": "s" }, "acceleration": { "value": 0.0, "unit": "m/s^2" } },
+          { "period": { "value": 1.0, "unit": "s" }, "acceleration": { "value": 1.0, "unit": "m/s^2" } },
+          { "period": { "value": 2.0, "unit": "s" }, "acceleration": { "value": 4.0, "unit": "m/s^2" } },
+          { "period": { "value": 3.0, "unit": "s" }, "acceleration": { "value": 9.0, "unit": "m/s^2" } },
+          { "period": { "value": 4.0, "unit": "s" }, "acceleration": { "value": 16.0, "unit": "m/s^2" } },
+          { "period": { "value": 5.0, "unit": "s" }, "acceleration": { "value": 25.0, "unit": "m/s^2" } }
+        ],
+        "consider_vertical_rs": true,
+        "use_horizontal_rs_as_vertical": false,
+        "vertical_response_spectrum": [
+          { "period": { "value": 0.0, "unit": "s" }, "acceleration": { "value": 0.0, "unit": "m/s^2" } },
+          { "period": { "value": 1.0, "unit": "s" }, "acceleration": { "value": 0.5, "unit": "m/s^2" } },
+          { "period": { "value": 2.0, "unit": "s" }, "acceleration": { "value": 2.0, "unit": "m/s^2" } },
+          { "period": { "value": 3.0, "unit": "s" }, "acceleration": { "value": 4.5, "unit": "m/s^2" } },
+          { "period": { "value": 4.0, "unit": "s" }, "acceleration": { "value": 8.0, "unit": "m/s^2" } },
+          { "period": { "value": 5.0, "unit": "s" }, "acceleration": { "value": 12.5, "unit": "m/s^2" } }
+        ]
+      },
+      "modal_analysis_params": {
+        "modal_analysis_type": "Eigen Vectors (Lanczos)",
+        "number_of_modes": 10,
+        "included_load_types": [
+          {
+            "load_nature": "DC",
+            "mass_participation": 1.0
+          },
+          {
+            "load_nature": "DW",
+            "mass_participation": 1.2
+          }
+        ]
+      }
+    },
+    {
+      "_comment": "SE - Settlement load",
+      "load_context": "design",
+      "main_code": "AASHTO",
+      "secondary_code": "None",
+      "load_application_domain": "Environment",
+      "load_service_state": "In Service",
+      "env_load_type": "settlement",
+      "load_nature": "SE",
+      "diff_settlement_value": { "value": 15.0, "unit": "mm" }
+    }
+  ]
+
+}

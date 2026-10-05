@@ -75,10 +75,10 @@ FoundationDetails = Union[DeepFoundationDetails, ShallowFoundationDetails]
 
 @dataclass
 class GroupPropertiesSupport(GroupPropertiesBase):
-    support_index: int
     skew_angle: Angle
     bearing_underside_level: Length
     orientation: ElementOrientation
+    support_index: int
 
 
 @dataclass

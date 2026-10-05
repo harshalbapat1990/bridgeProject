@@ -3,9 +3,13 @@ import pytest
 from pathlib import Path
 from unittest.mock import patch, mock_open
 
-from bda.contracts.paramodel.sections.dimensions_para_models import Point2DParaModel
+from bda.contracts.paramodel.sections.dimensions_para_models import Point2DParaModel, \
+    DimensionsTendonUserParaModel
 from bda.contracts.paramodel.sections.sections_para_models import SectionFamilyParaModel, SectionTypeParaModel, \
-    SectionOffsetParaModel, SectionStandardPipeParaModel
+    SectionStandardPipeParaModel, SectionTendonUserParaModel, \
+    TendonPropertiesInternalPostParaModel, TendonTypeEnumParaModel, BondTypeEnumParaModel, \
+    RelaxationParamsCEBFIP1990ParaModel, RelaxationCodeEnumParaModel, \
+    RelaxationClassCEBFIP1990EnumParaModel
 from bda.infrastructure.data_providers.data_file_provider import DataFileProvider
 from bda.contracts.paramodel.sections import (
     SectionBaseParaModel,
@@ -59,6 +63,8 @@ class TestDataFileProvider_Sections:
     # 11  psc_1cell
     # 12  psc_2cell
     # 13  tapered_example_1
+    # 14  standard_pipe
+    # 15  tendon_user_example
 
     # ------------------------------------------------------------------
     # Collection shape
@@ -70,8 +76,8 @@ class TestDataFileProvider_Sections:
     def test_returns_list(self, sections):
         assert isinstance(sections, list)
 
-    def test_returns_15_sections(self, sections):
-        assert len(sections) == 15
+    def test_returns_16_sections(self, sections):
+        assert len(sections) == 16
 
     def test_all_items_are_section_base_para_model(self, sections):
         for s in sections:
@@ -90,8 +96,10 @@ class TestDataFileProvider_Sections:
     def test_s0_section_type(self, sections):
         assert sections[0].section_type == SectionTypeParaModel.ANGLE
 
-    def test_s0_offset(self, sections):
-        assert sections[0].offset == SectionOffsetParaModel.LEFT_TOP
+    # removed from MVP implementation, but leaving here for future development
+    #
+    # def test_s0_offset(self, sections):
+    #     assert sections[0].offset == SectionOffsetParaModel.LEFT_TOP
 
     def test_s0_id_is_str(self, sections):
         assert isinstance(sections[0].section_id, str)
@@ -127,8 +135,10 @@ class TestDataFileProvider_Sections:
     def test_s3_section_family(self, sections):
         assert sections[3].section_family == SectionFamilyParaModel.STANDARD_SHAPE
 
-    def test_s3_offset(self, sections):
-        assert sections[3].offset == SectionOffsetParaModel.LEFT_TOP
+    # removed from MVP implementation, but leaving here for future development
+    #
+    # def test_s3_offset(self, sections):
+    #     assert sections[3].offset == SectionOffsetParaModel.LEFT_TOP
 
     # ------------------------------------------------------------------
     # User – i-section (idx 3)
@@ -388,6 +398,90 @@ class TestDataFileProvider_Sections:
         for field in (d.external_diameter_d, d.wall_thickness_tw):
             assert field.unit == "m"
 
+
+    # ------------------------------------------------------------------
+    # Tendon – user (idx 15)
+    # ------------------------------------------------------------------
+
+    def test_s15_type(self, sections):
+        assert isinstance(sections[15], SectionTendonUserParaModel)
+
+    def test_s15_name(self, sections):
+        assert sections[15].name == "tendon_user_example"
+
+    def test_s15_section_id(self, sections):
+        assert sections[15].section_id == "7d2f1e64-3a6b-4c58-9f21-0b6e5d4c8a12"
+
+    def test_s15_section_family(self, sections):
+        assert sections[15].section_family == SectionFamilyParaModel.TENDON
+
+    def test_s15_section_type(self, sections):
+        assert sections[15].section_type == SectionTypeParaModel.TENDON_USER
+
+    # removed from MVP implementation, but leaving here for future development
+    #
+    # def test_s15_offset(self, sections):
+    #     assert sections[15].offset == SectionOffsetParaModel.CENTER_CENTER
+
+    # Dimensions
+    def test_s15_dimensions_type(self, sections):
+        assert isinstance(sections[15].dimensions, DimensionsTendonUserParaModel)
+
+    def test_s15_dim_number_of_strands_is_quantity(self, sections):
+        assert isinstance(sections[15].dimensions.number_of_strands, int)
+
+    def test_s15_dim_number_of_strands_value(self, sections):
+        assert sections[15].dimensions.number_of_strands == 19
+
+    def test_s15_dim_typical_strand_area_value(self, sections):
+        assert sections[15].dimensions.typical_strand_area.value == pytest.approx(140.0)
+
+    def test_s15_dim_typical_strand_area_unit(self, sections):
+        assert sections[15].dimensions.typical_strand_area.unit == "mm2"
+
+    # General properties (Internal Post-Tension)
+    def test_s15_general_properties_type(self, sections):
+        assert isinstance(sections[15].general_properties, TendonPropertiesInternalPostParaModel)
+
+    def test_s15_general_properties_tendon_type(self, sections):
+        assert sections[15].general_properties.tendon_type == TendonTypeEnumParaModel.INTERNAL_POST_TENSION
+
+    def test_s15_general_properties_duct_diameter_value(self, sections):
+        assert sections[15].general_properties.duct_diameter.value == pytest.approx(0.09)
+
+    def test_s15_general_properties_duct_diameter_unit(self, sections):
+        assert sections[15].general_properties.duct_diameter.unit == "m"
+
+    def test_s15_general_properties_bond_type(self, sections):
+        assert sections[15].general_properties.bond_type == BondTypeEnumParaModel.BONDED
+
+    def test_s15_general_properties_anchorage_set_slip_value(self, sections):
+        assert sections[15].general_properties.anchorage_set_slip.value == pytest.approx(6.0)
+
+    def test_s15_general_properties_anchorage_set_slip_unit(self, sections):
+        assert sections[15].general_properties.anchorage_set_slip.unit == "mm"
+
+    def test_s15_general_properties_curvature_coefficient(self, sections):
+        assert sections[15].general_properties.curvature_coefficient == pytest.approx(0.25)
+
+    def test_s15_general_properties_wobble_coefficient_value(self, sections):
+        assert sections[15].general_properties.wobble_coefficient.value == pytest.approx(0.0066)
+
+    def test_s15_general_properties_wobble_coefficient_unit(self, sections):
+        assert sections[15].general_properties.wobble_coefficient.unit == "1/m"
+
+    # Relaxation parameters (CEB-FIP-1990)
+    def test_s15_relaxation_parameters_type(self, sections):
+        assert isinstance(sections[15].relaxation_parameters, RelaxationParamsCEBFIP1990ParaModel)
+
+    def test_s15_relaxation_parameters_code(self, sections):
+        assert sections[15].relaxation_parameters.relaxation_code == RelaxationCodeEnumParaModel.CEB_FIP_1990
+
+    def test_s15_relaxation_parameters_class(self, sections):
+        assert sections[15].relaxation_parameters.relaxation_class == RelaxationClassCEBFIP1990EnumParaModel.CLASS_2_LOW
+
+    def test_s15_relaxation_parameters_relaxation_1000_hours_value(self, sections):
+        assert sections[15].relaxation_parameters.relaxation_1000_hours_value == pytest.approx(0.05)
 
     # ------------------------------------------------------------------
     # Error handling

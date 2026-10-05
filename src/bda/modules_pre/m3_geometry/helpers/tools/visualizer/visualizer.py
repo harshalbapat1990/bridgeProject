@@ -211,8 +211,6 @@ class GeometryVisualizer:
 				links: list[ElementLink] = []
 
 				if include_finite_elements:
-					for node in group.analytical_typology.free_nodes:
-						node_map[id(node)] = node
 
 					for element in group.analytical_typology.elements:
 						if not isinstance(element, Element1D):

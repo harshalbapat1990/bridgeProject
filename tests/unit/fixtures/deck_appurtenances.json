@@ -1,0 +1,210 @@
+{
+  "deck_appurtenances": [
+    {
+      "deck_layout_type": "single-carriageway",
+      "name": "Single Carriageway Layout",
+      "layout_index": 0,
+      "start_x_point": { "value": 0.0, "unit": "m" },
+      "edge_barrier_1": {
+        "appurtenance_id": "eb1-sc",
+        "name": "Edge Barrier Left",
+        "element_index": 0,
+        "appurtenance_type": "CONCRETE BARRIER",
+        "material_id": "mat_concrete_1",
+        "positioned_by": "fixed",
+        "geometry_type": "linear",
+        "width": { "value": 0.50, "unit": "m" },
+        "height": { "value": 1.20, "unit": "m" }
+      },
+      "verge_footway_1": {
+        "appurtenance_id": "vf1-sc",
+        "name": "Verge / Footway Left",
+        "element_index": 1,
+        "appurtenance_type": "RAISED VERGE / FOOTWAY",
+        "material_id": "mat_concrete_2",
+        "positioned_by": "fixed",
+        "geometry_type": "surface",
+        "width": { "value": 1.50, "unit": "m" },
+        "thickness_left": { "value": 0.25, "unit": "m" },
+        "thickness_right": { "value": 0.20, "unit": "m" }
+      },
+      "carriageway_1": {
+        "appurtenance_id": "cw1-sc",
+        "name": "Carriageway",
+        "element_index": 2,
+        "appurtenance_type": "SURFACING",
+        "material_id": "mat_asphalt_1",
+        "positioned_by": "fixed",
+        "geometry_type": "surface",
+        "width": { "value": 5.50, "unit": "m" },
+        "thickness_left": { "value": 0.08, "unit": "m" },
+        "thickness_right": { "value": 0.08, "unit": "m" }
+      },
+      "verge_footway_2": {
+        "appurtenance_id": "vf2-sc",
+        "name": "Verge / Footway Right",
+        "element_index": 3,
+        "appurtenance_type": "RAISED VERGE / FOOTWAY",
+        "material_id": "mat_concrete_2",
+        "positioned_by": "fixed",
+        "geometry_type": "surface",
+        "width": { "value": 0.50, "unit": "m" },
+        "thickness_left": { "value": 0.20, "unit": "m" },
+        "thickness_right": { "value": 0.25, "unit": "m" }
+      },
+      "edge_barrier_2": {
+        "appurtenance_id": "eb2-sc",
+        "name": "Edge Barrier Right",
+        "element_index": 4,
+        "appurtenance_type": "CONCRETE BARRIER",
+        "material_id": "mat_concrete_1",
+        "positioned_by": "fixed",
+        "geometry_type": "linear",
+        "width": { "value": 0.50, "unit": "m" },
+        "height": { "value": 1.20, "unit": "m" }
+      },
+      "miscellaneous_items": [
+        {
+          "appurtenance_id": "mr1-sc",
+          "name": "Metal Railing Left",
+          "element_index": 5,
+          "appurtenance_type": "METAL RAILING",
+          "material_id": "mat_steel_1",
+          "positioned_by": "by offset",
+          "geometry_type": "linear",
+          "width": { "value": 0.15, "unit": "m" },
+          "height": { "value": 1.10, "unit": "m" },
+          "offset": { "value": -4.50, "unit": "m" }
+        },
+        {
+          "appurtenance_id": "pf1-sc",
+          "name": "Permanent Formwork Left",
+          "element_index": 6,
+          "appurtenance_type": "PERMANENT FORMWORK",
+          "material_id": "mat_concrete_3",
+          "positioned_by": "by offset",
+          "geometry_type": "surface",
+          "width": { "value": 1.50, "unit": "m" },
+          "thickness_left": { "value": 0.06, "unit": "m" },
+          "thickness_right": { "value": 0.06, "unit": "m" },
+          "offset": { "value": -3.00, "unit": "m" }
+        }
+      ]
+    },
+    {
+      "deck_layout_type": "dual-carriageway",
+      "name": "Dual Carriageway Layout",
+      "layout_index": 1,
+      "start_x_point": { "value": 25.0, "unit": "m" },
+      "edge_barrier_1": {
+        "appurtenance_id": "eb1-dc",
+        "name": "Edge Barrier Left",
+        "element_index": 0,
+        "appurtenance_type": "METAL RAILING",
+        "material_id": "mat_steel_1",
+        "positioned_by": "fixed",
+        "geometry_type": "linear",
+        "width": { "value": 0.12, "unit": "m" },
+        "height": { "value": 1.10, "unit": "m" }
+      },
+      "verge_footway_1": {
+        "appurtenance_id": "vf1-dc",
+        "name": "Verge Left",
+        "element_index": 1,
+        "appurtenance_type": "RAISED VERGE / FOOTWAY",
+        "material_id": "mat_concrete_2",
+        "positioned_by": "fixed",
+        "geometry_type": "surface",
+        "width": { "value": 1.50, "unit": "m" },
+        "thickness_left": { "value": 0.30, "unit": "m" },
+        "thickness_right": { "value": 0.25, "unit": "m" }
+      },
+      "carriageway_1": {
+        "appurtenance_id": "cw1-dc",
+        "name": "Carriageway 1",
+        "element_index": 2,
+        "appurtenance_type": "SURFACING",
+        "material_id": "mat_asphalt_1",
+        "positioned_by": "fixed",
+        "geometry_type": "surface",
+        "width": { "value": 5.50, "unit": "m" },
+        "thickness_left": { "value": 0.10, "unit": "m" },
+        "thickness_right": { "value": 0.10, "unit": "m" }
+      },
+      "central_reserve": {
+        "appurtenance_id": "cr1-dc",
+        "name": "Central Reserve",
+        "element_index": 3,
+        "appurtenance_type": "RAISED CENTRAL RESERVE",
+        "material_id": "mat_concrete_2",
+        "positioned_by": "fixed",
+        "geometry_type": "surface",
+        "width": { "value": 2.50, "unit": "m" },
+        "thickness_left": { "value": 0.35, "unit": "m" },
+        "thickness_right": { "value": 0.35, "unit": "m" }
+      },
+      "carriageway_2": {
+        "appurtenance_id": "cw2-dc",
+        "name": "Carriageway 2",
+        "element_index": 4,
+        "appurtenance_type": "SURFACING",
+        "material_id": "mat_asphalt_1",
+        "positioned_by": "fixed",
+        "geometry_type": "surface",
+        "width": { "value": 5.50, "unit": "m" },
+        "thickness_left": { "value": 0.10, "unit": "m" },
+        "thickness_right": { "value": 0.10, "unit": "m" }
+      },
+      "verge_footway_2": {
+        "appurtenance_id": "vf2-dc",
+        "name": "Verge Right",
+        "element_index": 5,
+        "appurtenance_type": "RAISED VERGE / FOOTWAY",
+        "material_id": "mat_concrete_2",
+        "positioned_by": "fixed",
+        "geometry_type": "surface",
+        "width": { "value": 1.50, "unit": "m" },
+        "thickness_left": { "value": 0.25, "unit": "m" },
+        "thickness_right": { "value": 0.30, "unit": "m" }
+      },
+      "edge_barrier_2": {
+        "appurtenance_id": "eb2-dc",
+        "name": "Edge Barrier Right",
+        "element_index": 6,
+        "appurtenance_type": "METAL RAILING",
+        "material_id": "mat_steel_1",
+        "positioned_by": "fixed",
+        "geometry_type": "linear",
+        "width": { "value": 0.12, "unit": "m" },
+        "height": { "value": 1.10, "unit": "m" }
+      },
+      "miscellaneous_items": [
+        {
+          "appurtenance_id": "cb1-dc",
+          "name": "Crash Barrier Central",
+          "element_index": 7,
+          "appurtenance_type": "CONCRETE BARRIER",
+          "material_id": "mat_concrete_1",
+          "positioned_by": "by offset",
+          "geometry_type": "linear",
+          "width": { "value": 0.60, "unit": "m" },
+          "height": { "value": 1.30, "unit": "m" },
+          "offset": { "value": 0.30, "unit": "m" }
+        },
+        {
+          "appurtenance_id": "pf1-dc",
+          "name": "Permanent Formwork Right",
+          "element_index": 8,
+          "appurtenance_type": "PERMANENT FORMWORK",
+          "material_id": "mat_concrete_3",
+          "positioned_by": "by offset",
+          "geometry_type": "surface",
+          "width": { "value": 1.50, "unit": "m" },
+          "thickness_left": { "value": 0.07, "unit": "m" },
+          "thickness_right": { "value": 0.07, "unit": "m" },
+          "offset": { "value": 5.50, "unit": "m" }
+        }
+      ]
+    }
+  ]
+}

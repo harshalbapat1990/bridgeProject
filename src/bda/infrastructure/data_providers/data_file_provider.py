@@ -4,9 +4,17 @@ from typing import List
 
 from bda.contracts.paramodel.bearings.adapter import BearingBCsParaModelAdapter
 from bda.contracts.paramodel.bearings.bearing_bc_para_model import BearingBCsSupportParaModel
-from bda.contracts.paramodel.foundation.adapter import FoundationBCsParaModelAdapter
-from bda.contracts.paramodel.foundation.foundation_bc_para_model import FoundationBCsParaModel
+from bda.contracts.paramodel.foundations.adapter import FoundationBCsParaModelAdapter
+from bda.contracts.paramodel.foundations.foundation_bc_para_model import FoundationBCsParaModel
+from bda.contracts.paramodel.deck_appurtenances import (
+    BridgeDeckLayoutBaseParaModel,
+    BridgeDeckLayoutParaModelAdapter,
+)
 from bda.contracts.paramodel.groups.adapter import GroupsParaModelAdapter
+from bda.contracts.paramodel.loadings.adapter import LoadParaModelAdapter
+from bda.contracts.paramodel.loadings.load_model_base_para_models import (
+    LoadModelBaseParaModel,
+)
 from bda.contracts.paramodel.materials import MaterialParaModel
 from bda.contracts.paramodel.sections import SectionParaModelAdapter, SectionParaModel
 from bda.contracts.paramodel.groups import GeometryGroupParaModel
@@ -170,6 +178,53 @@ class DataFileProvider(IDataStoreProvider):
 
         raw_results = data.get("bearing_bc", [])
         para_models = BearingBCsParaModelAdapter.parse_list(raw_results)
+
+        return para_models
+
+    def get_deck_appurtenances_for_project(self, file_name: str = "deck_appurtenances.json") -> List[BridgeDeckLayoutBaseParaModel]:
+        """Read deck appurtenances from deck_appurtenances.json in the folder.
+
+        Returns:
+            List of BridgeDeckLayoutBaseParaModel objects parsed from the JSON file
+
+        Raises:
+            FileNotFoundError: If deck_appurtenances.json is not found
+            json.JSONDecodeError: If JSON is invalid
+        """
+        if not self.Folder:
+            raise ValueError("Folder not initialized. Call the constructor with a folder path.")
+
+        file = Path(self.Folder) / file_name
+
+        with open(file, 'r') as f:
+            data = json.load(f)
+
+        raw_list = data.get("deck_appurtenances", [])
+        para_models = [BridgeDeckLayoutParaModelAdapter.parse(item) for item in raw_list]
+
+        return para_models
+
+
+    def get_loads_for_project(self, file_name: str = "loads.json") -> List[LoadModelBaseParaModel]:
+        """Read load definitions from loads.json in the folder.
+
+        Returns:
+            List of LoadModelBaseParaModel objects parsed from the JSON file
+
+        Raises:
+            FileNotFoundError: If loads.json is not found
+            json.JSONDecodeError: If JSON is invalid
+        """
+        if not self.Folder:
+            raise ValueError("Folder not initialized. Call the constructor with a folder path.")
+
+        file = Path(self.Folder) / file_name
+
+        with open(file, 'r') as f:
+            data = json.load(f)
+
+        raw_results = data.get("loads", [])
+        para_models = LoadParaModelAdapter.parse_list(raw_results)
 
         return para_models
 

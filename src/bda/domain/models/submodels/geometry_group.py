@@ -1,11 +1,9 @@
-from dataclasses import dataclass, field
-
 from uuid import UUID, uuid4
 from typing import Optional, List, Iterable, Sequence, Self, Callable, Iterator
 
 from bda.domain.enums import StructuralComponentType
-from bda.domain.models.submodels.analytical_model_data import AnalyticalTypology
-from bda.domain.models.submodels.element import Element, ElementLink
+from bda.domain.models.analytical_typology import AnalyticalTypology
+from bda.domain.models.submodels.element import Element
 from bda.domain.models.submodels.geometry_group_props.bridge_properties import *
 from bda.domain.models.submodels.geometry_group_props.linkage_properties import *
 from bda.domain.models.submodels.geometry_group_props.shared import *
@@ -84,45 +82,31 @@ class GeometryGroup:
     _reference_nodes: List[Node] = field(default_factory=list)
     _reference_elements: List[Element] = field(default_factory=list)
 
-    material_uid: UUID | None = field(
-        default=None,
-        doc=(
-            "Identifier of the material assigned to this group. Primarily used "
-            "for mapping materials imported from ParaModel and may be `None` for "
-            "groups created at later stages. Use `get_material()` to retrieve the "
-            "effective material, whether assigned directly or inherited from a "
-            "parent group."
-        ),)
+    material_uid: UUID | None = None
+    """Identifier of the material assigned to this group. Primarily used for
+    mapping materials imported from ParaModel and may be `None` for groups
+    created at later stages. Use `get_material()` to retrieve the effective
+    material, whether assigned directly or inherited from a parent group."""
 
-    section_uid: UUID | None = field(
-        default=None,
-        doc=(
-            "Identifier of the section assigned to this group. Primarily used "
-            "for mapping sections imported from ParaModel and may be `None` for "
-            "groups created at later stages. Use `get_section()` to retrieve the "
-            "effective section, whether assigned directly or inherited from a "
-            "parent group."
-        ),)
+    section_uid: UUID | None = None
+    """Identifier of the section assigned to this group. Primarily used for
+    mapping sections imported from ParaModel and may be `None` for groups
+    created at later stages. Use `get_section()` to retrieve the effective
+    section, whether assigned directly or inherited from a parent group."""
 
-    _material: Optional[Material] = field(
-        default=None,
-        doc=(
-            "Material directly assigned to this group. This field does not "
-            "resolve material inheritance and therefore may be `None` even if "
-            "the group has an effective material inherited from one of its "
-            "parent groups. Use `get_material()` to retrieve the effective "
-            "material, including inherited assignments."
-        ),)
+    _material: Optional[Material] = None
+    """Material directly assigned to this group. This field does not resolve
+    material inheritance and therefore may be `None` even if the group has an
+    effective material inherited from one of its parent groups. Use
+    `get_material()` to retrieve the effective material, including inherited
+    assignments."""
 
-    _section: Optional[Section] = field(
-        default=None,
-        doc=(
-            "Section directly assigned to this group. This field does not "
-            "resolve section inheritance and therefore may be `None` even if "
-            "the group has an effective section inherited from one of its "
-            "parent groups. Use `get_section()` to retrieve the effective "
-            "section, including inherited assignments."
-        ),)
+    _section: Optional[Section] = None
+    """Section directly assigned to this group. This field does not resolve
+    section inheritance and therefore may be `None` even if the group has an
+    effective section inherited from one of its parent groups. Use
+    `get_section()` to retrieve the effective section, including inherited
+    assignments."""
 
     properties: Optional[GroupProperties] = None
 
@@ -300,9 +284,9 @@ class GeometryGroup:
         """
         return sum(1 for _ in self.iter_groups())
 
-    def get_groups_by_component_type(self, component_type: StructuralComponentType) -> list['GeometryGroup']:
+    def get_groups_by_component_type(self, component_type: StructuralComponentType) -> List['GeometryGroup']:
         """
-        Retrieves all groups of a specific structural component type.
+        Retrieves all nested groups of a specific structural component type.
 
         Args:
             component_type (StructuralComponentType): The structural component type to filter by.
@@ -311,6 +295,31 @@ class GeometryGroup:
             List[GeometryGroup]: A list of groups that match the specified component type.
         """
         return [g for g in self.iter_groups() if g.component_type == component_type]
+
+    def get_first_group_by_component_type(
+            self,
+            component_type: StructuralComponentType
+    ) -> GeometryGroup | None:
+        """
+        Retrieves the first nested group matching the specified structural
+        component type.
+
+        Args:
+            component_type (StructuralComponentType):
+                The structural component type to search for.
+
+        Returns:
+            GeometryGroup | None:
+                The first matching group if found; otherwise ``None``.
+        """
+        return next(
+            (
+                group
+                for group in self.iter_groups()
+                if group.component_type == component_type
+            ),
+            None,
+        )
 
     def get_parent_group_by_component_type(self, component_type: StructuralComponentType) -> Optional['GeometryGroup']:
         """
@@ -349,20 +358,28 @@ class GeometryGroup:
 
         Args:
             group (GeometryGroup): The group to add as a child.
+
+        Example:
+            >>> parent_group = GeometryGroup(component_type=StructuralComponentType.BRIDGE)
+            >>> child_group = GeometryGroup(component_type=StructuralComponentType.SUBSTRUCTURE)
+
+            >>> parent_group.add_nested_group(child_group)
         """
         self._nested_groups.append(group)
         group._parent_group = self
 
-    def add_reference_node(self, node: Node) -> None:
+    def _add_reference_node(self, node: Node) -> None:
+        if any(n.uid == node.uid for n in self._reference_nodes):
+            return
         self._reference_nodes.append(node)
 
-    def add_reference_nodes(self, nodes: Iterable[Node]) -> None:
+    def _add_reference_nodes(self, nodes: Iterable[Node]) -> None:
         for node in nodes:
-            self.add_reference_node(node)
+            self._add_reference_node(node)
 
-    def add_reference_element(self, element: Element) -> None:
+    def _add_reference_element(self, element: Element) -> None:
         self._reference_elements.append(element)
 
-    def add_reference_elements(self, elements: Iterable[Element]) -> None:
+    def _add_reference_elements(self, elements: Iterable[Element]) -> None:
         for element in elements:
-            self.add_reference_element(element)
+            self._add_reference_element(element)

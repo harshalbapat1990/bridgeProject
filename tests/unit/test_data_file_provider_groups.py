@@ -3,6 +3,16 @@ from pathlib import Path
 
 from bda.contracts.paramodel.groups import *
 from bda.contracts.paramodel.groups import PropertiesBridgeParaModel
+from bda.contracts.paramodel.groups.enums import (
+    CurvatureTypeEnumParaModel,
+)
+from bda.contracts.paramodel.sections.sections_para_models import SectionOffsetParaModel
+from bda.contracts.paramodel.groups.component_properties.properties_base import (
+    PropertiesIndividualTendonParaModel,
+    TendonGeometryCircularTypeParaModel,
+    ControlPointParaModel,
+    ControlPointWithRadiusParaModel,
+)
 
 from bda.infrastructure.data_providers.data_file_provider import DataFileProvider
 
@@ -38,7 +48,7 @@ class TestDataFileProvider_Groups:
         assert isinstance(groups, list)
 
     def test_returns_all_groups(self, groups):
-        assert len(groups) == 25
+        assert len(groups) == 26
 
     def test_all_items_are_GeometryGroupParaModel(self, groups):
         for g in groups:
@@ -453,6 +463,84 @@ class TestDataFileProvider_Groups:
 
 
     # ------------------------------------------------------------------
+    # Individual tendon
+    # ------------------------------------------------------------------
+
+    def _individual_tendon(self, groups):
+        return next(
+            g for g in groups
+            if g.structural_component_type == "individual-tendon"
+        )
+
+    def test_individual_tendon_groups_exist(self, groups):
+        tendon_groups = [
+            g for g in groups
+            if g.structural_component_type == "individual-tendon"
+        ]
+        assert len(tendon_groups) == 1
+
+    def test_individual_tendon_is_GeometryGroupParaModel(self, groups):
+        assert isinstance(self._individual_tendon(groups), GeometryGroupParaModel)
+
+    def test_individual_tendon_name(self, groups):
+        assert self._individual_tendon(groups).name == "Individual Tendon 1"
+
+    def test_individual_tendon_parent_group(self, groups):
+        assert self._individual_tendon(groups).parent_group == "girder_1"
+
+    def test_individual_tendon_properties_type(self, groups):
+        g = self._individual_tendon(groups)
+        assert isinstance(g.properties, PropertiesIndividualTendonParaModel)
+
+    def test_individual_tendon_index(self, groups):
+        assert self._individual_tendon(groups).properties.tendon_index == 0
+
+    def test_individual_tendon_geometry_type(self, groups):
+        g = self._individual_tendon(groups)
+        assert isinstance(g.properties.tendon_geometry, TendonGeometryCircularTypeParaModel)
+
+    def test_individual_tendon_geometry_curvature_type(self, groups):
+        g = self._individual_tendon(groups)
+        assert g.properties.tendon_geometry.curvature_type == CurvatureTypeEnumParaModel.CIRCULAR
+
+    def test_individual_tendon_geometry_datum_point(self, groups):
+        g = self._individual_tendon(groups)
+        assert g.properties.tendon_geometry.datum_point == SectionOffsetParaModel.CENTER_TOP
+
+    def test_individual_tendon_control_points_length(self, groups):
+        g = self._individual_tendon(groups)
+        assert len(g.properties.tendon_geometry.control_points) == 2
+
+    def test_individual_tendon_control_points_type(self, groups):
+        g = self._individual_tendon(groups)
+        assert all(
+            isinstance(cp, ControlPointWithRadiusParaModel)
+            for cp in g.properties.tendon_geometry.control_points
+        )
+
+    def test_individual_tendon_first_control_point_point_type(self, groups):
+        g = self._individual_tendon(groups)
+        cp = g.properties.tendon_geometry.control_points[0]
+        assert isinstance(cp.point, ControlPointParaModel)
+
+    def test_individual_tendon_first_control_point_values(self, groups):
+        g = self._individual_tendon(groups)
+        cp = g.properties.tendon_geometry.control_points[0]
+        assert_quantity(cp.point.longitudinal_x, 0.0, "m")
+        assert_quantity(cp.point.transverse_offset_y, 0.1, "m")
+        assert_quantity(cp.point.vertical_offset_z, -0.5, "m")
+        assert_quantity(cp.radius, 50.0, "m")
+
+    def test_individual_tendon_second_control_point_values(self, groups):
+        g = self._individual_tendon(groups)
+        cp = g.properties.tendon_geometry.control_points[1]
+        assert_quantity(cp.point.longitudinal_x, 20.0, "m")
+        assert_quantity(cp.point.transverse_offset_y, 0.0, "m")
+        assert_quantity(cp.point.vertical_offset_z, -1.2, "m")
+        assert_quantity(cp.radius, 75.0, "m")
+
+
+    # ------------------------------------------------------------------
     # Properties tests
     # ------------------------------------------------------------------
 
@@ -477,6 +565,7 @@ class TestDataFileProvider_Groups:
             ("pile", PropertiesPileParaModel),
             ("pile-cap", PropertiesPileCapParaModel),
             ("superstructure-to-substructure-connections", PropertiesLinkageSupToSubParaModel),
+            ("individual-tendon", PropertiesIndividualTendonParaModel),
         ],
     )
     def test_group_properties_type_mapping(self, groups, component_type, expected_cls):

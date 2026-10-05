@@ -1,20 +1,22 @@
 from __future__ import annotations
 
-from typing import Literal
+from typing import Literal, ClassVar
 from pydantic import Field, StrictFloat, BaseModel
 
 from bda.contracts.speckle_contracts.bda_analytical.sections.psc_family.psc_family_data_object import (
     PSCDataObject,
     PSCDataObject_Properties,
+    SectionFamily_PSC,
 )
 
 from bda.contracts.speckle_contracts.bda_analytical.sections.general_section_data_object_parameters import (
     SectionType,
     LengthDimensionParameter,
+    SectionDescription,
+    SectionDimensionParameterGroup
 )
 
 from bda.contracts.speckle_contracts.base_objects import (
-    DataObjectSpeckleType,
     ParameterGroup,
     Parameter
 )
@@ -30,12 +32,6 @@ from bda.contracts.paramodel.sections.sections_para_models import (
 
 class SectionType_PSCValue(SectionType):
     provided_value: SectionTypeParaModel = SectionTypeParaModel.PSC_VALUE
-
-
-class PSCValueDataObjectSpeckleType(DataObjectSpeckleType):
-    provided_value: Literal[
-        "Objects.Data.DataObject:BDA_Section:PSC:PSC Value"
-    ] = "Objects.Data.DataObject:BDA_Section:PSC:PSC Value"
 
 
 # ==========================================================
@@ -123,7 +119,7 @@ class PSCValueExternalPolygon(PolygonParameterGroup):
 
 class PSCValueInternalPolygonsGroup(ParameterGroup):
     name: Literal["Internal Section Polygons"] = "Internal Section Polygons"
-    description: Literal["internal defined voids within the PSC Value section"]
+    description: Literal["internal defined voids within the PSC Value section"]="internal defined voids within the PSC Value section"
 
     group_parameters: dict[str,PolygonParameterGroup] = Field(...,min_length=1)
 
@@ -137,7 +133,7 @@ class PSCValueDimensionGroupParameters(BaseModel):
     internal_voids:PSCValueInternalPolygonsGroup = Field(alias="Internal Section Polygons")
 
 
-class SectionDimensionParameterGroup_PSCValue(ParameterGroup):
+class SectionDimensionParameterGroup_PSCValue(SectionDimensionParameterGroup):
     group_parameters: PSCValueDimensionGroupParameters
 
 # ==========================================================
@@ -145,8 +141,6 @@ class SectionDimensionParameterGroup_PSCValue(ParameterGroup):
 # ==========================================================
 
 class PSCValueDataObject_Properties(PSCDataObject_Properties):
-    bda_speckle_type: PSCValueDataObjectSpeckleType
-
     section_type: SectionType_PSCValue = Field(alias="Section Type")
     section_dimensions: SectionDimensionParameterGroup_PSCValue = Field(
         alias="Section Dimensions"
@@ -159,8 +153,168 @@ class PSCValueDataObject_Properties(PSCDataObject_Properties):
 # ==========================================================
 
 class SectionDataObject_PSCValue(PSCDataObject):
+    APPLICATION_ID_PATTERN: ClassVar[str] = r"^SECT-[0-9]{4}-PSC-VALUE$"
+    applicationId: str = Field(
+        pattern=APPLICATION_ID_PATTERN,
+    )
     speckle_type: Literal[
         "Objects.Data.DataObject:BDA_Section:PSC:PSC Value"
     ]
 
+    bda_speckle_type: Literal[
+        "Objects.Data.DataObject:BDA_Section:PSC:PSC Value"
+    ] = Field(
+        ...,
+        frozen=True
+    )
+
     properties: PSCValueDataObject_Properties
+
+    @classmethod
+    def create(
+        cls,
+        name: str,
+        external_polygon: list[tuple[float, float]],
+        internal_polygons: dict[str, list[tuple[float, float]]],
+        description: str | None = None,
+        unit: Literal["m", "in"] = "m",
+        application_id: str = "psc_value_1",
+        isUser: bool = True,
+    ) -> "SectionDataObject_PSCValue":
+
+        return cls(
+            id=None,
+            name=name,
+            applicationId=application_id,
+            speckle_type=(
+                "Objects.Data.DataObject:"
+                "BDA_Section:PSC:PSC Value"
+            ),
+            bda_speckle_type=(
+                "Objects.Data.DataObject:"
+                "BDA_Section:PSC:PSC Value"
+            ),
+            properties=(
+                PSCValueDataObject_Properties(
+                    **{
+                        "Section Description":
+                            SectionDescription(
+                                isUser=isUser,
+                                provided_value=description,
+                            ),
+
+                        "Section Family":
+                            SectionFamily_PSC(
+                                isUser=False,
+                            ),
+
+                        "Section Type":
+                            SectionType_PSCValue(
+                                isUser=False,
+                            ),
+
+                        "Section Dimensions":
+                            SectionDimensionParameterGroup_PSCValue(
+                                isUser=isUser,
+                                group_parameters=(
+                                    PSCValueDimensionGroupParameters(
+                                        **{
+                                            "External Section Polygon":
+                                                PSCValueExternalPolygon(
+                                                    isUser=isUser,
+                                                    group_parameters={
+                                                        "2D Coordinates":
+                                                            CoordinateListParameter(
+                                                                isUser=isUser,
+                                                                provided_value=external_polygon,
+                                                                base_value=external_polygon,
+                                                                provided_unit=unit,
+                                                                base_unit="m",
+                                                            )
+                                                    },
+                                                ),
+
+                                            "Internal Section Polygons":
+                                                PSCValueInternalPolygonsGroup(
+                                                    isUser=isUser,
+                                                    group_parameters={
+                                                        polygon_name:
+                                                            PolygonParameterGroup(
+                                                                name=polygon_name,
+                                                                isUser=isUser,
+                                                                group_parameters={
+                                                                    "2D Coordinates":
+                                                                        CoordinateListParameter(
+                                                                            isUser=isUser,
+                                                                            provided_value=polygon_points,
+                                                                            base_value=polygon_points,
+                                                                            provided_unit=unit,
+                                                                            base_unit="m",
+                                                                        )
+                                                                },
+                                                            )
+                                                        for polygon_name, polygon_points
+                                                        in internal_polygons.items()
+                                                    },
+                                                ),
+                                        }
+                                    )
+                                ),
+                            ),
+                    }
+                )
+            ),
+        )
+    
+if __name__ == "__main__":
+
+    psc_section = SectionDataObject_PSCValue.create(
+        name="PSC Box Example",
+        application_id="SECT-0001-PSC-VALUE",
+        external_polygon=[
+            (-6.0, 2.5),
+            (6.0, 2.5),
+            (6.0, 2.35),
+            (2.75, 0.0),
+            (-2.75, 0.0),
+            (-6.0, 2.35),
+        ],
+
+        internal_polygons={
+            "Void 1": [
+                (-0.25, 2.2),
+                (-1.8323, 2.2),
+                (-2.8323, 2.1),
+                (-2.3510, 0.6155),
+                (-0.25, 0.3),
+            ],
+
+            "Void 2": [
+                (0.25, 2.2),
+                (1.8323, 2.2),
+                (2.8323, 2.1),
+                (2.3510, 0.6155),
+                (0.25, 0.3),
+            ],
+        },
+
+        description="PSC box girder section",
+        unit="m",
+    )
+
+    print(
+        psc_section.model_dump_json(
+            indent=4,
+            by_alias=True,
+            exclude_none=True,
+        )
+    )
+
+    import json                             #can be commented out after testing
+    print("\n=== JSON SCHEMA ===\n")        #can be commented out after testing
+    print(
+        json.dumps(
+            SectionDataObject_PSCValue.model_json_schema(),
+            indent=4,
+        )                                   #can be commented out after testing
+    )

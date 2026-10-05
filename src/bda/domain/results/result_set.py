@@ -299,16 +299,11 @@ def _collect_element_ids(group: "GeometryGroupBase") -> set:
 
 def _collect_node_ids(group: "GeometryGroupBase") -> set:
     ids: set = set()
-    for node in group.analytical_typology.free_nodes:
-        try:
-            node_id = node.node_id
-        except AttributeError:
-            raise AttributeError(
-                f"Node object {node!r} has no 'node_id' attribute. "
-                "Check the domain model definition for the correct field name."
-            )
-        if node_id is not None:
-            ids.add(node_id)
+    typology = group.analytical_typology
+    for element in (*typology.elements, *typology.links):
+        for node in (element.node_start, element.node_end):
+            if node.node_id is not None:
+                ids.add(node.node_id)
     for nested in group.nested_groups:
         ids.update(_collect_node_ids(nested))
     return ids

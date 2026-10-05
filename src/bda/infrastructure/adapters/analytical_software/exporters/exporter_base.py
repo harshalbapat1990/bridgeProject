@@ -6,9 +6,12 @@ from typing import List
 from bda.application.interfaces.analytical_software.exporter import IExporter
 from bda.domain import AnalyticalMultiModel
 from bda.domain.models.submodels import GeometryGroup, MaterialBase, SectionBase
+from bda.domain.units import export_units
 from bda.domain.units.export_units import ExportUnits
 from bda.infrastructure.adapters.analytical_software.exporters.common.section_ordering import \
     order_sections_for_export
+from bda.infrastructure.adapters.analytical_software.exporters.midas_helpers.boundary_bcs_exporter import \
+    MidasBoundaryExporter
 from bda.infrastructure.utils.logger import AppLogger
 
 logger = AppLogger()
@@ -114,40 +117,69 @@ class ExporterBase(IExporter, ABC):
 
         return True
 
-    def _export_geometry(self, geometry: GeometryGroup | List[GeometryGroup],
+    def _export_geometry(self, amm: AnalyticalMultiModel,
                          export_units: ExportUnits) -> bool:
         """
-        Export geometry to the analytical software.
+        Export geometry-related model entities to the analytical software.
 
         Parameters
         ----------
-        geometry: GeometryGroup | List[GeometryGroup]
-            A single geometry group or a list of them.
-        export_units: ExportUnits
+        amm : AnalyticalMultiModel
+            Analytical model containing the geometry hierarchy, nodes,
+            elements, releases and other geometry-related data required
+            by the target analytical software.
+
+        export_units : ExportUnits
+            Unit system used during export.
 
         Returns
         -------
         bool
-            True when the geometry was exported.
+            True when the geometry was exported successfully.
 
         """
 
-        geometry_groups = [geometry] if isinstance(geometry, GeometryGroup) else list(geometry)
-
-        logger.info("Exporting geometry: %s groups", len(geometry_groups))
-
-        if not geometry_groups:
-            logger.warning("No geometry found in the model")
-            return True
+        logger.info("Exporting geometry: %s groups", amm.geometry_group.get_no_of_groups() if amm.geometry_group else 0)
 
         try:
-            self._write_geometry(geometry_groups, export_units)
+            self._write_geometry(amm, export_units)
 
         except Exception as e:
             logger.error("Export failed at geometry export: %s", e)
             return False
 
         return True
+
+    def _export_boundaries(self, amm: AnalyticalMultiModel, export_units: ExportUnits) -> bool:
+        """
+        Export boundaries to the analytical software.
+
+        Parameters
+        ----------
+        amm: AnalyticalMultiModel
+
+        Returns
+        -------
+        bool
+            True when the boundaries were exported.
+
+        """
+
+        logger.info("Exporting boundaries")
+
+        try:
+            self._write_boundaries(amm, export_units)
+
+        except Exception as e:
+            logger.error("Export failed at boundaries export: %s", e)
+            return False
+
+        return True
+
+    @abstractmethod
+    def _write_boundaries(self, amm: AnalyticalMultiModel, export_units: ExportUnits) -> None:
+        """Send the boundaries to the analytical software."""
+        pass
 
     @abstractmethod
     def _prepare_model(self, amm: AnalyticalMultiModel) -> None:
@@ -165,7 +197,7 @@ class ExporterBase(IExporter, ABC):
         pass
 
     @abstractmethod
-    def _write_geometry(self, geometry_groups: List[GeometryGroup],
+    def _write_geometry(self, amm: AnalyticalMultiModel,
                         export_units: ExportUnits) -> None:
         """Send the given geometry groups to the analytical software."""
         pass

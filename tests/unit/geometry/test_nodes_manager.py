@@ -1,7 +1,7 @@
 import pytest
 
 from bda.domain.units import registry as units
-from bda.modules_pre.m3_geometry.helpers.tools.managers.nodes_manager import NodesManager
+from bda.domain.managers import NodesManager
 
 
 def test_normalize_tolerance_m_accepts_positive_float():

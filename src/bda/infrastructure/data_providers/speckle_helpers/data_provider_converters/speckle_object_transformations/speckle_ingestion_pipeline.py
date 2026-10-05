@@ -25,3 +25,19 @@ def validate_speckle_payload(data: Base, schema: Type[BaseModel]) -> BaseModel:
 
     parsed = adapter.validate_python(canonical_data)
     return parsed
+
+def validate_geometry_payload(data: Base) -> BaseModel:
+    """Validate and canonicalize Speckle geometry data.
+    
+    Args:
+        data: Raw Speckle geometry object (typically GeometryGroupBridge)
+        
+    Returns:
+        Validated Pydantic model instance
+        
+    Raises:
+        ValidationError: If geometry data doesn't match schema
+    """
+    from bda.contracts.speckle_contracts.bda_analytical.geometry.component_type_groups.geometry_group_bridge import GeometryGroupBridge
+    
+    return validate_speckle_payload(data, schema=GeometryGroupBridge)

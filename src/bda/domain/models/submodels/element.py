@@ -6,6 +6,7 @@ from enum import Enum
 from uuid import UUID, uuid4
 
 from bda.domain import units
+from bda.domain.models.submodels.boundary_conditions.spring_stiffness import SpringStiffness
 from bda.domain.models.submodels.node import Node
 from bda.domain.units.quantities import Angle, Length
 
@@ -24,7 +25,7 @@ class LinkType(str, Enum):
 @dataclass
 class ElementBase(ABC):
     uid: UUID = field(default_factory=uuid4, init=False)
-    element_id: int = field(default=None, init=False)
+    element_id: int = field(default=0, init=False)
     element_type: ElementType = field(default=None, init=False)
 
     def set_id(self, element_id: int):
@@ -78,6 +79,19 @@ class Element1DBase(ElementBase, ABC):
 
 @dataclass
 class Element1D(Element1DBase):
+    """
+    Represents a standard 1D finite element defined by two nodes.
+
+    This element is typically used to model beam, frame, pile, or other
+    linear structural members within the finite element model. The element
+    geometry is defined by the start and end nodes inherited from
+    ``Element1DBase``.
+
+    Attributes:
+        element_type (ElementType):
+            Identifier of the element type. Always set to
+            ``ElementType.BEAM``.
+    """
     element_type: ElementType = field(default= ElementType.BEAM, init=False)
 
     def __repr__(self) -> str:
@@ -91,6 +105,27 @@ class Element1D(Element1DBase):
 
 @dataclass
 class ElementLink(Element1DBase):
+    """
+    Represents a 1D link element connecting two nodes.
+
+    Link elements are typically used to model bearings, springs,
+    releases, constraints, or other discrete connections between
+    structural components. The mechanical behaviour of the link is
+    defined by the selected ``link_type`` and its associated properties.
+
+    Attributes:
+        element_type (ElementType):
+            Identifier of the element type. Always set to
+            ``ElementType.LINK``.
+
+        link_type (LinkType):
+            Type of link defining the connection behaviour.
+
+        properties (dict):
+            Dictionary containing link-specific properties.
+            Reserved for future implementation.
+    """
+
     element_type: ElementType = field(default=ElementType.LINK, init=False)
     link_type: LinkType = field(kw_only=True)
-    properties: dict = field(default_factory=dict, init=False) #TODO - to be implemented later
+    properties: SpringStiffness = field(kw_only=True, default_factory=SpringStiffness)

@@ -2,7 +2,7 @@ from bda.domain.enums import UnitSystem, StructuralComponentType
 from bda.application.mapping.geometry_groups.group_mapper import GeometryGroupMapper
 from bda.application.interfaces.module.i_module import IModule
 from bda.domain.models.submodels.sections import SectionCompositeBase
-from bda.modules_pre.m3_geometry.helpers.steel_composite_builder.geometry_builder import (
+from bda.modules_pre.m3_geometry.builders.steel_composite_builder.builder import (
     GeometrySteelCompositeBuilder,
 )
 
@@ -26,9 +26,6 @@ class GeometrySteelCompositeModule(IModule):
 
         self.amm.add_initial_geometry(geometry)
 
-        # iterating through each span find all composite sections and assign first accessible deck material
-        all_composite_sections = [s for s in self.amm.get_all_sections() if isinstance(s, SectionCompositeBase)]
-        all_used_composite_sections = [s for s in self.amm.get_all_used_sections() if isinstance(s, SectionCompositeBase)]
         spans = self.amm.geometry_group.get_groups_by_component_type(StructuralComponentType.SPAN)
 
         for span in spans:
@@ -50,14 +47,14 @@ class GeometrySteelCompositeModule(IModule):
         builder = GeometrySteelCompositeBuilder(amm=self.amm, logger=self.logger)
         builder.build()
 
-        total_elements = sum(len(g.analytical_typology.elements) for g in self.amm.geometry_group.iter_groups())
-        total_reference_elements = sum(len(g.reference_elements) for g in self.amm.geometry_group.iter_groups())
-        self.logger.debug(
-            "Initialized ModelSpace from AMM geometry (nodes=%d, elements=%d, reference_elements=%d).",
-            len(builder.nodes_manager.nodes),
-            total_elements,
-            total_reference_elements,
-        )
+        # total_elements = sum(len(g.analytical_typology.elements) for g in self.amm.geometry_group.iter_groups())
+        # total_reference_elements = sum(len(g.reference_elements) for g in self.amm.geometry_group.iter_groups())
+        # self.logger.debug(
+        #     "Initialized ModelSpace from AMM geometry (nodes=%d, elements=%d, reference_elements=%d).",
+        #     len(self.amm.nodes_manager.nodes),
+        #     total_elements,
+        #     total_reference_elements,
+        # )
 
         return True
 

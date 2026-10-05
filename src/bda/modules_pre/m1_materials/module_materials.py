@@ -18,9 +18,8 @@ class MaterialsModule(IModule):
                 self.amm.add_initial_material(mat)
                 self.logger.debug("Material: %s successfully added to MultiModel", material.name)
 
-
             except ValueError as e:
-                self.logger.error(f"Material {material.name} not added to MultiModel due to: '{str(e)}'")
+                self.logger.warning(f"Material {material.name} not added to MultiModel due to: '{str(e)}'")
             except Exception as e:
                 raise RuntimeError(f"Error processing material '{material.name}': {e}") from e
 

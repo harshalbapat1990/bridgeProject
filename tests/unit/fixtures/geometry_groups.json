@@ -631,6 +631,42 @@
 
 
     {
+      "group_id": "individual_tendon_1",
+      "structural_component_type": "individual-tendon",
+      "name": "Individual Tendon 1",
+      "material_id": null,
+      "section_id": null,
+      "elements": [],
+      "nested_groups": [],
+      "parent_group": "girder_1",
+      "properties": {
+        "tendon_index": 0,
+        "tendon_geometry": {
+          "curvature_type": "Circular",
+          "control_points": [
+            {
+              "point": {
+                "longitudinal_x": {"value": 0.0, "unit": "m"},
+                "transverse_offset_y": {"value": 0.1, "unit": "m"},
+                "vertical_offset_z": {"value": -0.5, "unit": "m"}
+              },
+              "radius": {"value": 50.0, "unit": "m"}
+            },
+            {
+              "point": {
+                "longitudinal_x": {"value": 20.0, "unit": "m"},
+                "transverse_offset_y": {"value": 0.0, "unit": "m"},
+                "vertical_offset_z": {"value": -1.2, "unit": "m"}
+              },
+              "radius": {"value": 75.0, "unit": "m"}
+            }
+          ]
+        }
+      }
+    },
+
+
+    {
       "group_id": "nested_Bridge_group",
       "structural_component_type": "bridge",
       "name": "Test Bridge",

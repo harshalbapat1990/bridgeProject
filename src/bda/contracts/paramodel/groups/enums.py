@@ -1,5 +1,8 @@
 from enum import Enum
 
+from bda.contracts.paramodel.shared.case_insensitive_enum import CaseInsensitiveEnum
+
+
 class StructuralComponentTypeParaModel(str, Enum):
     BRIDGE = "bridge"
     SUPERSTRUCTURE = "superstructure"
@@ -83,3 +86,7 @@ class DiaphragmTypeParaModel(str, Enum):
     BRACING_ENCASED = "bracing-encased"
     STEEL_GIRDER = "steel-girder"
     CONCRETE_NON_MODELLED = "concrete-non-modelled"
+
+class CurvatureTypeEnumParaModel(CaseInsensitiveEnum):
+    CIRCULAR = "Circular"
+    # PARABOLA = "Parabola"

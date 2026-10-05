@@ -3,13 +3,17 @@ from __future__ import annotations
 
 import re
 from enum import Enum
-from typing import Any, Generic, TypeAlias, TypeVar, Union, Optional, Annotated, Iterable
+from typing import Any, ClassVar, Generic, TypeAlias, TypeVar, Union, Optional, Annotated, Iterable
 from uuid import UUID, uuid4
 
 from typing_extensions import Literal
 from pydantic import BaseModel, Field, ConfigDict, field_validator, model_validator
 
 T = TypeVar("T")
+
+from collections.abc import Sequence
+from pydantic import model_validator
+
 
 # -------------------------
 # Recursive JSON value type
@@ -21,7 +25,16 @@ JsonValue: TypeAlias = JsonPrimitive | list["JsonValue"] | dict
 # Parameter Objects
 # -------------------------
 
-def validate_parameter_tree(value: Any, path: list[str] | None = None) -> None:
+from typing import Any, Union, get_args, get_origin
+from types import UnionType
+
+from pydantic import BaseModel
+
+
+def validate_parameter_tree(
+    value: Any,
+    path: list[str] | None = None,
+) -> None:
     path = path or ["root"]
 
     def fmt_path() -> str:
@@ -34,33 +47,95 @@ def validate_parameter_tree(value: Any, path: list[str] | None = None) -> None:
             f"Type: {type(v).__name__}\n"
             f"Value: {repr(v)}\n"
             f"{reason}\n"
-            f"Expected Parameter or ParameterGroup (directly or indirectly)."
+            f"Expected Parameter or ParameterGroup "
+            f"(directly or indirectly)."
         )
 
-    # ✅ Catch None explicitly (THIS is your current issue)
+    def allows_none(annotation: Any) -> bool:
+        if annotation is None:
+            return False
+
+        origin = get_origin(annotation)
+
+        # Optional[T] / Union[T, None]
+        if origin is Union:
+            return type(None) in get_args(annotation)
+
+        # T | None (Python 3.10+)
+        if origin is UnionType:
+            return type(None) in get_args(annotation)
+
+        return False
+
     if value is None:
-        fail(value, "Encountered None. Likely a missing or null field in payload.")
+        fail(
+            value,
+            "Encountered None. Likely a missing or null field in payload.",
+        )
 
     if isinstance(value, Parameter):
         return
 
     if isinstance(value, ParameterGroup):
-        validate_parameter_tree(value.group_parameters, path + ["group_parameters"])
+        validate_parameter_tree(
+            value.group_parameters,
+            path + ["group_parameters"],
+        )
         return
 
     if isinstance(value, dict):
         for k, v in value.items():
-            validate_parameter_tree(v, path + [str(k)])
+            validate_parameter_tree(
+                v,
+                path + [str(k)],
+            )
         return
 
     if isinstance(value, BaseModel):
+        model_fields = value.__class__.model_fields
+
         for k, v in value.__dict__.items():
-            validate_parameter_tree(v, path + [str(k)])
+            if k.startswith("_"):
+                continue
+
+            field_info = model_fields.get(k)
+
+            path_name = (
+                field_info.alias
+                if field_info is not None
+                and field_info.alias is not None
+                else k
+            )
+
+            # Allow None only when the field annotation explicitly supports it
+            if v is None:
+                if (
+                    field_info is not None
+                    and allows_none(field_info.annotation)
+                ):
+                    continue
+
+                fail(
+                    v,
+                    "Encountered None for non-optional field.",
+                )
+
+            validate_parameter_tree(
+                v,
+                path + [str(path_name)],
+            )
+
+        model_extra = getattr(value, "model_extra", None) or {}
+
+        for k, v in model_extra.items():
+            validate_parameter_tree(
+                v,
+                path + [str(k)],
+            )
+
         return
 
     fail(value)
-
-
 
 def iter_bridges_objects(root: Any) -> Iterable["BridgesBase"]:
     """
@@ -158,11 +233,15 @@ class EnumParameter(UnitlessParameter[T], Generic[T]):
         
         return v.lower()
 
+UnitValue = (
+    float
+    | list[float]
+    | tuple[float, ...]
+)
 
-class UnitParameter(Parameter[T], Generic[T]):
-    provided_unit: str
-    base_unit: str
-    base_value: T
+UnitT = TypeVar("UnitT", bound=UnitValue)
+
+
 
 # General Minimum Property
 class DataObjectSpeckleType(UnitlessParameter[str]):
@@ -215,11 +294,9 @@ class BridgesBase(BaseModel):
         },
     )
 
-    applicationId: Optional[str] = Field(
-        default=None,
+    applicationId: str = Field(
         description=(
-            "Optional application-defined identifier. "
-            "May be any string, including an empty string, or null."
+            "Application-defined identifier. Must contain one or more uppercase letters, digits, or hyphens."
         ),
         json_schema_extra={
             "type": ["string", "null"]
@@ -246,7 +323,26 @@ class BridgesBase(BaseModel):
             object.__setattr__(self, "id", str(uuid4()))
         return self
 
+    """Validates applicationId by trimming whitespace and ensuring a non-empty value."""
+    APPLICATION_ID_PATTERN: ClassVar[re.Pattern] = re.compile(
+        r"^[A-Z0-9-]+$"
+    )
 
+    @field_validator("applicationId")
+    @classmethod
+    def validate_application_id_not_empty(
+        cls,
+        value: str,
+    ):
+
+        value = value.strip()
+
+        if not value:
+            raise ValueError(
+                "applicationId cannot be empty"
+            )
+
+        return value
 
  #Geometry Objects
 # -------------------------
@@ -282,8 +378,6 @@ Geometry = Annotated[Union[Point, Line, Mesh], Field(discriminator="speckle_type
 class BridgeDataObjectProperties(BaseModel):
     model_config = ConfigDict(extra="allow", validate_assignment=True)
 
-    bda_speckle_type: DataObjectSpeckleType
-
     @model_validator(mode="after")
     def _validate_properties_tree(self) -> "BridgeDataObjectProperties":
         validate_parameter_tree(self.__dict__)
@@ -299,19 +393,27 @@ class BridgeDataObject(BridgesBase):
     name: str
     speckle_type: str  # allow suffix, validated below
 
+    # Mirrors `speckle_type` so the concrete data object type survives specklepy's
+    # send/receive round trip, which silently collapses custom DataObject suffixes
+    # back to the bare "Objects.Data.DataObject". Required (not defaulted) so it is
+    # a mandatory constant in the generated JSON schema, matching `speckle_type`
+    # itself: every concrete subclass must redeclare it as a matching Literal.
+    bda_speckle_type: str = Field(
+        ...,
+        description="Entity speckle type used for creation. This is used for round tripping of objects and persistance of custom speckle object variants that are not persisted in deserialisation of objects",
+    )
+
     properties: BridgeDataObjectProperties
     displayValue: list[Geometry] = Field(default_factory=list)
 
     @model_validator(mode="after")
     def _validate_speckle_type_contract(self) -> "BridgeDataObject":
-        param_value = self.properties.bda_speckle_type.provided_value
-
         # 1. Must begin with Objects.Data.DataObject (with optional suffix)
         for value, source in [
             (self.speckle_type, "BridgeDataObject.speckle_type"),
-            (param_value, "properties['bda_speckle_type'].provided_value"),
+            (self.bda_speckle_type, "BridgeDataObject.bda_speckle_type"),
         ]:
-            if not DATA_OBJECT_PATTERN.match(value):
+            if not value or not DATA_OBJECT_PATTERN.match(value):
                 raise ValueError(
                     f"{source} must start with "
                     f"'{DATA_OBJECT_PREFIX}' and may include "
@@ -320,11 +422,11 @@ class BridgeDataObject(BridgesBase):
                 )
 
         # 2. Must match exactly
-        if self.speckle_type != param_value:
+        if self.speckle_type != self.bda_speckle_type:
             raise ValueError(
                 "BridgeDataObject.speckle_type must match "
-                "properties['bda_speckle_type'].provided_value "
-                f"(got '{self.speckle_type}' vs '{param_value}')"
+                "BridgeDataObject.bda_speckle_type "
+                f"(got '{self.speckle_type}' vs '{self.bda_speckle_type}')"
             )
 
         return self
@@ -335,7 +437,7 @@ BridgeElement = Annotated[
         "BridgeCollection",
         # ONLY concrete data objects go here
     ],
-    Field(discriminator="speckle_type"),
+    Field(discriminator="bda_speckle_type"),
 ]
 
 class BridgeCollection(BridgesBase):
@@ -343,11 +445,31 @@ class BridgeCollection(BridgesBase):
         "Speckle.Core.Models.Collections.Collection"
     ] = Field(
         "Speckle.Core.Models.Collections.Collection",
-        frozen=True
+        frozen=True #NOTE we should use this to ensure immutability across the geom group files, i am making the changes, so you can just review them if you agree or revert wherever you dont
+    )
+
+    # Mirrors `speckle_type` so the concrete collection type survives specklepy's
+    # send/receive round trip, which silently collapses custom Collection suffixes
+    # back to the bare "Speckle.Core.Models.Collections.Collection". Required (not
+    # defaulted) so it is a mandatory constant in the generated JSON schema,
+    # matching `speckle_type` itself: every concrete subclass must redeclare it as
+    # a matching Literal.
+    bda_speckle_type: str = Field(
+        ...,
+        description="Entity speckle type used for creation. This is used for round tripping of objects and persistance of custom speckle object variants that are not persisted in deserialisation of objects",
     )
 
     name: str
     elements: list[BridgeElement] = Field(default_factory=list)
+
+    @model_validator(mode="after")
+    def _validate_bda_speckle_type(self) -> "BridgeCollection":
+        if self.bda_speckle_type != self.speckle_type:
+            raise ValueError(
+                "BridgeCollection.bda_speckle_type must match speckle_type "
+                f"(got '{self.bda_speckle_type}' vs '{self.speckle_type}')"
+            )
+        return self
 
     @model_validator(mode="after")
     def _validate_unique_application_ids(self) -> "BridgeCollection":

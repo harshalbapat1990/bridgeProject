@@ -11,7 +11,6 @@ from bda.domain.models.submodels.geometry_group_props.geometry_groups_enums impo
 )
 from bda.domain.units.quantities import Length
 
-
 # -------------------------
 # DETAIL CLASSES
 # -------------------------
@@ -48,7 +47,7 @@ BearingConfigurationDetails = Union[SingleBearingConfigurationDetails, MultipleB
 
 @dataclass
 class GroupPropertiesLinkageSupToSub(GroupPropertiesBase):
-    support_index: int
     bearing_configuration_details: BearingConfigurationDetails
+    support_index: int
 
 

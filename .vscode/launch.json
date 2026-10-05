@@ -1,0 +1,29 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "bda",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "bda",
+            "cwd": "${workspaceFolder}",
+            "env": {
+                "PYTHONUNBUFFERED": "1"
+            },
+            "console": "integratedTerminal"
+        },
+        
+        {
+            "name": "Speckle Provider",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "bda.infrastructure.data_providers.data_speckle_provider",
+            "cwd": "${workspaceFolder}/src/bda/infrastructure/data_providers",
+            "env": {
+                "PYTHONUNBUFFERED": "1"
+            },
+            "console": "integratedTerminal"
+        }
+
+    ]
+}

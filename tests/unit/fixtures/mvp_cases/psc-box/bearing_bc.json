@@ -1,0 +1,263 @@
+{
+  "bearing_bc": [
+    {
+      "support_index": 0,
+      "bearings_by_girder": [
+        {
+          "girder_index": 0,
+          "bearing_configuration_type": "multiple",
+          "bearing_definitions": [
+            {
+              "bearing_index": 0,
+              "orientation": "skewed",
+              "bearing_stiffness_definition": {
+                "sdx": {
+                  "dof_type": "custom",
+                  "stiffness": {
+                    "value": 2500000,
+                    "unit": "kN/m"
+                  }
+                },
+                "sdy": {
+                  "dof_type": "custom",
+                  "stiffness": {
+                    "value": 3000000,
+                    "unit": "kN/m"
+                  }
+                },
+                "sdz": {
+                  "dof_type": "custom",
+                  "stiffness": {
+                    "value": 10000000,
+                    "unit": "kN/m"
+                  }
+                },
+                "srx": {
+                  "dof_type": "custom",
+                  "stiffness": {
+                    "value": 50000,
+                    "unit": "kN*m/rad"
+                  }
+                },
+                "sry": {
+                  "dof_type": "custom",
+                  "stiffness": {
+                    "value": 50000,
+                    "unit": "kN*m/rad"
+                  }
+                },
+                "srz": {
+                  "dof_type": "custom",
+                  "stiffness": {
+                    "value": 10000,
+                    "unit": "kN*m/rad"
+                  }
+                }
+              }
+            },
+            {
+              "bearing_index": 1,
+              "orientation": "skewed",
+              "bearing_stiffness_definition": {
+                "sdx": {
+                  "dof_type": "custom",
+                  "stiffness": {
+                    "value": 2500000,
+                    "unit": "kN/m"
+                  }
+                },
+                "sdy": {
+                  "dof_type": "custom",
+                  "stiffness": {
+                    "value": 3000000,
+                    "unit": "kN/m"
+                  }
+                },
+                "sdz": {
+                  "dof_type": "custom",
+                  "stiffness": {
+                    "value": 10000000,
+                    "unit": "kN/m"
+                  }
+                },
+                "srx": {
+                  "dof_type": "custom",
+                  "stiffness": {
+                    "value": 50000,
+                    "unit": "kN*m/rad"
+                  }
+                },
+                "sry": {
+                  "dof_type": "custom",
+                  "stiffness": {
+                    "value": 50000,
+                    "unit": "kN*m/rad"
+                  }
+                },
+                "srz": {
+                  "dof_type": "custom",
+                  "stiffness": {
+                    "value": 10000,
+                    "unit": "kN*m/rad"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+
+    {
+      "support_index": 1,
+      "bearings_by_girder": [
+        {
+          "girder_index": 0,
+          "bearing_configuration_type": "singular",
+          "bearing_definition": {
+            "bearing_index": 0,
+            "orientation": "orthogonal",
+            "bearing_stiffness_definition": {
+              "sdx": {
+                "dof_type": "free"
+              },
+              "sdy": {
+                "dof_type": "fixed"
+              },
+              "sdz": {
+                "dof_type": "fixed"
+              },
+              "srx": {
+                "dof_type": "free"
+              },
+              "sry": {
+                "dof_type": "free"
+              },
+              "srz": {
+                "dof_type": "free"
+              }
+            }
+          }
+        }
+      ]
+    },
+
+    {
+      "support_index": 2,
+      "bearings_by_girder": [
+        {
+          "girder_index": 0,
+          "bearing_configuration_type": "multiple",
+          "bearing_definitions": [
+            {
+              "bearing_index": 0,
+              "orientation": "skewed",
+              "bearing_stiffness_definition": {
+                "sdx": {
+                  "dof_type": "free"
+                },
+                "sdy": {
+                  "dof_type": "fixed"
+                },
+                "sdz": {
+                  "dof_type": "fixed"
+                },
+                "srx": {
+                  "dof_type": "free"
+                },
+                "sry": {
+                  "dof_type": "free"
+                },
+                "srz": {
+                  "dof_type": "free"
+                }
+              }
+            },
+            {
+              "bearing_index": 1,
+              "orientation": "skewed",
+              "bearing_stiffness_definition": {
+                "sdx": {
+                  "dof_type": "free"
+                },
+                "sdy": {
+                  "dof_type": "fixed"
+                },
+                "sdz": {
+                  "dof_type": "fixed"
+                },
+                "srx": {
+                  "dof_type": "free"
+                },
+                "sry": {
+                  "dof_type": "free"
+                },
+                "srz": {
+                  "dof_type": "free"
+                }
+              }
+            },
+            {
+              "bearing_index": 2,
+              "orientation": "skewed",
+              "bearing_stiffness_definition": {
+                "sdx": {
+                  "dof_type": "free"
+                },
+                "sdy": {
+                  "dof_type": "fixed"
+                },
+                "sdz": {
+                  "dof_type": "fixed"
+                },
+                "srx": {
+                  "dof_type": "free"
+                },
+                "sry": {
+                  "dof_type": "free"
+                },
+                "srz": {
+                  "dof_type": "free"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+
+    {
+      "support_index": 3,
+      "bearings_by_girder": [
+        {
+          "girder_index": 0,
+          "bearing_configuration_type": "singular",
+          "bearing_definition": {
+            "bearing_index": 0,
+            "orientation": "orthogonal",
+            "bearing_stiffness_definition": {
+              "sdx": {
+                "dof_type": "fixed"
+              },
+              "sdy": {
+                "dof_type": "fixed"
+              },
+              "sdz": {
+                "dof_type": "fixed"
+              },
+              "srx": {
+                "dof_type": "free"
+              },
+              "sry": {
+                "dof_type": "free"
+              },
+              "srz": {
+                "dof_type": "free"
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,114 @@
+{
+    "id": "e1c752ee-d9fc-4ffc-996a-eb9f08cd8b42",
+    "applicationId": "MAT-0001-TENDON-AASHTO",
+    "name": "Tendon",
+    "speckle_type": "Objects.Data.DataObject:BDA_Tendon_Material_AASHTO",
+    "bda_speckle_type": "Objects.Data.DataObject:BDA_Tendon_Material_AASHTO",
+    "properties": {
+        "General Material Properties": {
+            "name": "General Material Properties",
+            "isUser": true,
+            "description": "General material properties",
+            "group_parameters": {
+                "Material Type": {
+                    "name": "Material Type",
+                    "isUser": false,
+                    "provided_value": "tendon",
+                    "description": "Type of material (e.g., Concrete, Steel, Timber)",
+                    "symbol": "MatType",
+                    "provided_unit": null,
+                    "base_unit": null,
+                    "base_value": null
+                },
+                "Material Design Code": {
+                    "name": "Material Design Code",
+                    "isUser": false,
+                    "provided_value": "AASHTO",
+                    "description": "Associated design code of material",
+                    "symbol": null,
+                    "provided_unit": null,
+                    "base_unit": null,
+                    "base_value": null
+                },
+                "Isotropy": {
+                    "name": "Isotropy",
+                    "isUser": true,
+                    "provided_value": "isotropic",
+                    "description": "Whether the material is isotropic or orthotropic",
+                    "symbol": null,
+                    "provided_unit": null,
+                    "base_unit": null,
+                    "base_value": null
+                },
+                "Unit Weight": {
+                    "name": "Unit Weight",
+                    "isUser": true,
+                    "provided_value": 77.0,
+                    "description": "Weight per unit volume of a material",
+                    "symbol": "\u03b3",
+                    "provided_unit": "kN/m\u00b3",
+                    "base_unit": "kN/m\u00b3",
+                    "base_value": 77.0
+                },
+                "Modulus of Elasticity": {
+                    "name": "Modulus of Elasticity",
+                    "isUser": true,
+                    "provided_value": 195.0,
+                    "description": "Ratio of stress to strain in a material",
+                    "symbol": "E",
+                    "provided_unit": "GPa",
+                    "base_unit": "Pa",
+                    "base_value": 195000000000.0
+                },
+                "Poisson's Ratio": {
+                    "name": "Poisson's Ratio",
+                    "isUser": true,
+                    "provided_value": 0.3,
+                    "description": "Ratio of transverse strain to axial strain in a material",
+                    "symbol": "\u03bd",
+                    "provided_unit": null,
+                    "base_unit": null,
+                    "base_value": null
+                },
+                "Coefficient of Thermal Expansion": {
+                    "name": "Coefficient of Thermal Expansion",
+                    "isUser": true,
+                    "provided_value": 1.2e-05,
+                    "description": "Change in length per unit length per degree of temperature change",
+                    "symbol": "\u03b1",
+                    "provided_unit": "1/\u0394\u00b0C",
+                    "base_unit": "1/\u0394\u00b0C",
+                    "base_value": 1.2e-05
+                }
+            }
+        },
+        "Design Material Properties": {
+            "name": "Tendon Material Properties",
+            "isUser": true,
+            "description": "Tendon material properties",
+            "group_parameters": {
+                "Tendon Yield Strength": {
+                    "name": "Prestressing/Post-Tensioning Steel Yield Strength",
+                    "isUser": true,
+                    "provided_value": 1670000000.0,
+                    "description": "Yield strength of prestressing or post-tensioning steel",
+                    "symbol": "fy,min",
+                    "provided_unit": "kN/m\u00b2",
+                    "base_unit": "Pa",
+                    "base_value": 1670000000000.0
+                },
+                "Tendon Specified Minimum Tensile Strength": {
+                    "name": "Prestressing/Post-Tensioning Steel Specified Minimum Tensile Strength",
+                    "isUser": true,
+                    "provided_value": 1860000000.0,
+                    "description": "Minimum tensile strength of tendon",
+                    "symbol": "fu,min",
+                    "provided_unit": "kN/m\u00b2",
+                    "base_unit": "Pa",
+                    "base_value": 1860000000000.0
+                }
+            }
+        }
+    },
+    "displayValue": []
+}

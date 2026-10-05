@@ -4,7 +4,7 @@ from typing import Annotated, Literal, List, Union
 
 from pydantic import Field
 
-from bda.contracts.paramodel.foundation.foundation_bc_para_model import NodeSpringStiffnessParaModel
+from bda.contracts.paramodel.foundations.foundation_bc_para_model import NodeSpringStiffnessParaModel
 from bda.contracts.paramodel.groups.enums import BearingConfigurationTypeParaModel, ElementOrientationParaModel
 from bda.contracts.paramodel.shared.base_model_para_model import BaseModelParaModel
 

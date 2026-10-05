@@ -155,12 +155,14 @@ def _map_standard_angle(sec: SectionBaseParaModel) -> SectionBase:
             f"Expected SectionStandardAngleParaModel, got {type(sec).__name__}"
         )
     s: SectionStandardAngleParaModel = sec
-    map_offset = _SectionOffsetMapper.to_domain
+    # removed from MVP implementation, but leaving here for future development
+    #
+    # map_offset = _SectionOffsetMapper.to_domain
     return SectionStandardAngle(
         guid= to_uuid(s.section_id),
         source_id=s.section_id,
         name=s.name,
-        offset=map_offset(s.offset),
+        # offset=map_offset(s.offset),
         dimensions=DimensionsAngle(
             height=to_pint(s.dimensions.height_h),
             width=to_pint(s.dimensions.width_b),
@@ -176,12 +178,14 @@ def _map_standard_Isection(sec: SectionBaseParaModel) -> SectionBase:
             f"Expected SectionStandardISectionParaModel, got {type(sec).__name__}"
         )
     s: SectionStandardISectionParaModel = sec
-    map_offset = _SectionOffsetMapper.to_domain
+    # removed from MVP implementation, but leaving here for future development
+    #
+    # map_offset = _SectionOffsetMapper.to_domain
     return SectionStandardISection(
         guid=to_uuid(s.section_id),
         source_id=s.section_id,
         name= s.name,
-        offset= map_offset(s.offset),
+        # offset= map_offset(s.offset),
         dimensions= DimensionsISection(
             total_height_h= to_pint(s.dimensions.total_height_h),
             top_flange_width_b1= to_pint(s.dimensions.top_flange_width_b1),
@@ -201,12 +205,14 @@ def _map_standard_box(sec: SectionBaseParaModel) -> SectionBase:
             f"Expected SectionStandardBoxParaModel, got {type(sec).__name__}"
         )
     s: SectionStandardBoxParaModel = sec
-    map_offset = _SectionOffsetMapper.to_domain
+    # removed from MVP implementation, but leaving here for future development
+    #
+    # map_offset = _SectionOffsetMapper.to_domain
     return SectionStandardBox(
         guid=to_uuid(s.section_id),
         source_id=s.section_id,
         name= s.name,
-        offset= map_offset(s.offset),
+        # offset= map_offset(s.offset),
         dimensions= DimensionsBox(
             height_h= to_pint(s.dimensions.height_h),
             top_flange_width_b= to_pint(s.dimensions.flange_width_b),
@@ -222,12 +228,14 @@ def _map_standard_channel(sec: SectionBaseParaModel) -> SectionBase:
             f"Expected SectionStandardChannelParaModel, got {type(sec).__name__}"
         )
     s: SectionStandardChannelParaModel = sec
-    map_offset = _SectionOffsetMapper.to_domain
+    # removed from MVP implementation, but leaving here for future development
+    #
+    # map_offset = _SectionOffsetMapper.to_domain
     return SectionStandardChannel(
         guid=to_uuid(s.section_id),
         source_id=s.section_id,
         name= s.name,
-        offset= map_offset(s.offset),
+        # offset= map_offset(s.offset),
         dimensions= DimensionsChannel(
             height_h=to_pint(s.dimensions.height_h), #TODO - consider changing this to "total_height_h"
             top_flange_width_b1=to_pint(s.dimensions.top_flange_width_b1),
@@ -247,12 +255,14 @@ def _map_standard_solid_rectangle(sec: SectionBaseParaModel) -> SectionBase:
             f"Expected SectionStandardSolidRectangleParaModel, got {type(sec).__name__}"
         )
     s: SectionStandardSolidRectangleParaModel = sec
-    map_offset = _SectionOffsetMapper.to_domain
+    # removed from MVP implementation, but leaving here for future development
+    #
+    # map_offset = _SectionOffsetMapper.to_domain
     return SectionStandardSolidRectangle(
         guid=to_uuid(s.section_id),
         source_id=s.section_id,
         name=s.name,
-        offset=map_offset(s.offset),
+        # offset=map_offset(s.offset),
         dimensions=DimensionsSolidRectangle(
             height_h= to_pint(s.dimensions.height_h),
             width_b= to_pint(s.dimensions.width_b),
@@ -266,12 +276,14 @@ def _map_standard_solid_round(sec: SectionBaseParaModel) -> SectionBase:
             f"Expected SectionStandardSolidRoundParaModel, got {type(sec).__name__}"
         )
     s: SectionStandardSolidRoundParaModel = sec
-    map_offset = _SectionOffsetMapper.to_domain
+    # removed from MVP implementation, but leaving here for future development
+    #
+    # map_offset = _SectionOffsetMapper.to_domain
     return SectionStandardSolidRound(
         guid=to_uuid(s.section_id),
         source_id=s.section_id,
         name=s.name,
-        offset=map_offset(s.offset),
+        # offset=map_offset(s.offset),
         dimensions= DimensionsSolidRound(
             diameter_d= to_pint(s.dimensions.diameter_d),
         )
@@ -284,12 +296,14 @@ def _map_standard_pipe(sec: SectionBaseParaModel) -> SectionBase:
             f"Expected SectionStandardPipeParaModel, got {type(sec).__name__}"
         )
     s: SectionStandardPipeParaModel = sec
-    map_offset = _SectionOffsetMapper.to_domain
+    # removed from MVP implementation, but leaving here for future development
+    #
+    # map_offset = _SectionOffsetMapper.to_domain
     return SectionStandardPipe(
         guid=to_uuid(s.section_id),
         source_id=s.section_id,
         name=sec.name,
-        offset=map_offset(sec.offset),
+        # offset=map_offset(sec.offset),
         dimensions= DimensionsPipe(
             external_diameter_d= to_pint(sec.dimensions.external_diameter_d),
             wall_thickness_tw= to_pint(sec.dimensions.wall_thickness_tw),
@@ -307,12 +321,14 @@ def _map_composite_steel_I_symmetric(sec: SectionBaseParaModel) -> SectionBase:
             f"Expected SectionCompositeSteelISymmetricParaModel, got {type(sec).__name__}"
         )
     s: SectionCompositeSteelISymmetricParaModel = sec
-    map_offset = _SectionOffsetMapper.to_domain
+    # removed from MVP implementation, but leaving here for future development
+    #
+    # map_offset = _SectionOffsetMapper.to_domain
     return SectionCompositeSteelISymmetric(
         guid=to_uuid(s.section_id),
         source_id=s.section_id,
         name= s.name,
-        offset= map_offset(s.offset),
+        # offset= map_offset(s.offset),
         dimensions= DimensionsCompositeSteelISymmetric(
             slab_width_bc= to_pint(s.dimensions.slab_width_bc),
             slab_thickness_tc= to_pint(s.dimensions.slab_thickness_tc),
@@ -333,12 +349,14 @@ def _map_composite_steel_I_asymmetric(sec: SectionBaseParaModel) -> SectionBase:
             f"Expected SectionCompositeSteelISymmetricParaModel, got {type(sec).__name__}"
         )
     s: SectionCompositeSteelIAsymmetricParaModel = sec
-    map_offset = _SectionOffsetMapper.to_domain
+    # removed from MVP implementation, but leaving here for future development
+    #
+    # map_offset = _SectionOffsetMapper.to_domain
     return SectionCompositeSteelIAsymmetric(
         guid=to_uuid(s.section_id),
         source_id=s.section_id,
         name=s.name,
-        offset=map_offset(s.offset),
+        # offset=map_offset(s.offset),
         dimensions=DimensionsCompositeSteelIAsymmetric(
             slab_distance_rf_sg= to_pint(s.dimensions.slab_distance_rf_sg),
             top_flange_distance_rf_top= to_pint(s.dimensions.top_flange_distance_rf_top),
@@ -369,14 +387,16 @@ def _map_psc_value(sec: SectionBaseParaModel) -> SectionBase:
             f"Expected SectionPSCValueParaModel, got {type(sec).__name__}"
         )
     s: SectionPSCValueParaModel = sec
-    map_offset = _SectionOffsetMapper.to_domain
+    # removed from MVP implementation, but leaving here for future development
+    #
+    # map_offset = _SectionOffsetMapper.to_domain
     map_polygon = _HelperSectionPSCMapper._map_polygon
     map_polygons = _HelperSectionPSCMapper._map_polygons
     return SectionPSCValue(
         guid=to_uuid(s.section_id),
         source_id=s.section_id,
         name= s.name,
-        offset=map_offset(s.offset),
+        # offset=map_offset(s.offset),
         dimensions= DimensionsPSCValues(
             outer_outline= map_polygon(s.dimensions.outer_outline),
             inner_outlines= map_polygons(s.dimensions.inner_outlines),
@@ -390,7 +410,9 @@ def _map_psc_1cell(sec: SectionBaseParaModel) -> SectionBase:
             f"Expected SectionPSC1CellParaModel, got {type(sec).__name__}"
         )
     s: SectionPSC1CellParaModel = sec
-    map_offset = _SectionOffsetMapper.to_domain
+    # removed from MVP implementation, but leaving here for future development
+    #
+    # map_offset = _SectionOffsetMapper.to_domain
     map_fixed_bool = _HelperSectionPSCMapper._map_fixed_bool
     map_fixed_length = _HelperSectionPSCMapper._map_fixed_length
 
@@ -399,7 +421,7 @@ def _map_psc_1cell(sec: SectionBaseParaModel) -> SectionBase:
         source_id=s.section_id,
         section_type=SectionType.PSC_1CELL,
         name= s.name,
-        offset=map_offset(s.offset),
+        # offset=map_offset(s.offset),
         dimensions= DimensionsPSC12Cell(
             joints= JointsPSC(*map_fixed_bool(s.dimensions.joints, 8, "joints")),
             outer_height_ho= OuterHeightHo(*map_fixed_length(s.dimensions.outer_height_ho, 6, "outer_height_ho")),
@@ -417,7 +439,9 @@ def _map_psc_2cells(sec: SectionBaseParaModel) -> SectionBase:
             f"Expected SectionPSC2CellParaModel, got {type(sec).__name__}"
         )
     s: SectionPSC2CellParaModel = sec
-    map_offset = _SectionOffsetMapper.to_domain
+    # removed from MVP implementation, but leaving here for future development
+    #
+    # map_offset = _SectionOffsetMapper.to_domain
     map_fixed_bool = _HelperSectionPSCMapper._map_fixed_bool
     map_fixed_length = _HelperSectionPSCMapper._map_fixed_length
     return SectionPSC12Cell(
@@ -425,7 +449,7 @@ def _map_psc_2cells(sec: SectionBaseParaModel) -> SectionBase:
         source_id=s.section_id,
         section_type=SectionType.PSC_2CELL, #TODO - PSC_2CELLS in SectionTypeParaModel, PSC_2CELL in SectionType. Inconsistent.
         name= s.name,
-        offset=map_offset(s.offset),
+        # offset=map_offset(s.offset),
         dimensions= DimensionsPSC12Cell(
             joints= JointsPSC(*map_fixed_bool(s.dimensions.joints, 8, "joints")),
             outer_height_ho= OuterHeightHo(*map_fixed_length(s.dimensions.outer_height_ho, 6, "outer_height_ho")),
@@ -446,13 +470,15 @@ def _map_tapered(sec: SectionBaseParaModel) -> SectionBase:
             f"Expected SectionTaperedParaModel, got {type(sec).__name__}"
         )
     s: SectionTaperedParaModel = sec
-    map_offset = _SectionOffsetMapper.to_domain
+    # removed from MVP implementation, but leaving here for future development
+    #
+    # map_offset = _SectionOffsetMapper.to_domain
     map_taper_variation = _TaperVariationMapper.to_domain
     return SectionTapered(
         guid=to_uuid(s.section_id),
         source_id=s.section_id,
         name= s.name,
-        offset= map_offset(s.offset),
+        # offset= map_offset(s.offset),
         section_start_id= to_uuid(s.section_start_id),
         section_end_id= to_uuid(s.section_end_id),
         taper_y_variation= map_taper_variation(s.taper_y_variation),
@@ -478,28 +504,29 @@ class _TaperVariationMapper:
             raise NotImplementedError(
                 f"Taper variation {taper_variation} not found in TaperVariationMapper"
             )
-
-class _SectionOffsetMapper:
-    _MAP = {
-        SectionOffsetParaModel.CENTER_TOP: OffsetReference.CENTER_TOP,
-        SectionOffsetParaModel.LEFT_TOP: OffsetReference.LEFT_TOP,
-        SectionOffsetParaModel.RIGHT_TOP: OffsetReference.RIGHT_TOP,
-        SectionOffsetParaModel.CENTER_CENTER: OffsetReference.CENTER_CENTER,
-        SectionOffsetParaModel.LEFT_CENTER: OffsetReference.LEFT_CENTER,
-        SectionOffsetParaModel.RIGHT_CENTER: OffsetReference.RIGHT_CENTER,
-        SectionOffsetParaModel.CENTER_BOTTOM: OffsetReference.CENTER_BOTTOM,
-        SectionOffsetParaModel.LEFT_BOTTOM: OffsetReference.LEFT_BOTTOM,
-        SectionOffsetParaModel.RIGHT_BOTTOM: OffsetReference.RIGHT_BOTTOM,
-    }
-
-    @staticmethod
-    def to_domain(offset: SectionOffsetParaModel) -> Offset:
-        try:
-            return Offset(_SectionOffsetMapper._MAP[offset])
-        except KeyError:
-            raise NotImplementedError(
-                f"Section offset {offset} is not implemented. "
-            )
+# removed from MVP implementation, but leaving here for future development
+#
+# class _SectionOffsetMapper:
+#     _MAP = {
+#         SectionOffsetParaModel.CENTER_TOP: OffsetReference.CENTER_TOP,
+#         SectionOffsetParaModel.LEFT_TOP: OffsetReference.LEFT_TOP,
+#         SectionOffsetParaModel.RIGHT_TOP: OffsetReference.RIGHT_TOP,
+#         SectionOffsetParaModel.CENTER_CENTER: OffsetReference.CENTER_CENTER,
+#         SectionOffsetParaModel.LEFT_CENTER: OffsetReference.LEFT_CENTER,
+#         SectionOffsetParaModel.RIGHT_CENTER: OffsetReference.RIGHT_CENTER,
+#         SectionOffsetParaModel.CENTER_BOTTOM: OffsetReference.CENTER_BOTTOM,
+#         SectionOffsetParaModel.LEFT_BOTTOM: OffsetReference.LEFT_BOTTOM,
+#         SectionOffsetParaModel.RIGHT_BOTTOM: OffsetReference.RIGHT_BOTTOM,
+#     }
+#
+#     @staticmethod
+#     def to_domain(offset: SectionOffsetParaModel) -> Offset:
+#         try:
+#             return Offset(_SectionOffsetMapper._MAP[offset])
+#         except KeyError:
+#             raise NotImplementedError(
+#                 f"Section offset {offset} is not implemented. "
+#             )
 
 class _HelperSectionPSCMapper:
     @staticmethod

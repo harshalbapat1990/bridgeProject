@@ -17,7 +17,7 @@ Families
 """
 from __future__ import annotations
 
-from typing import Any, Dict, List, Optional, Type, Union, Tuple
+from typing import Any, Dict, List, Optional, Type, Union, Tuple, Literal, Annotated
 
 from pydantic import BaseModel, model_validator, AliasChoices, Field, AliasPath, field_validator
 
@@ -32,10 +32,11 @@ from bda.contracts.paramodel.sections.dimensions_para_models import (
     DimensionsCompositeSteelISymmetricParaModel,
     DimensionsCompositeSteelIAsymmetricParaModel,
     DimensionsPSCValueParaModel,
-    DimensionsPSC1or2CellsParaModel,
+    DimensionsPSC1or2CellsParaModel, DimensionsTendonUserParaModel,
 )
 from bda.contracts.paramodel.shared.base_model_para_model import BaseModelParaModel
 from bda.contracts.paramodel.shared.case_insensitive_enum import CaseInsensitiveEnum
+from bda.contracts.shared import QuantityParaModel
 
 
 # ---------------------------------------------------------------------------
@@ -55,6 +56,7 @@ class SectionTypeParaModel(CaseInsensitiveEnum):
     PSC_VALUE = "psc value"
     PSC_1CELL = "psc 1cell"
     PSC_2CELLS = "psc 2cells"
+    TENDON_USER = "tendon-user"
 
 
 class SectionFamilyParaModel(CaseInsensitiveEnum):
@@ -62,8 +64,10 @@ class SectionFamilyParaModel(CaseInsensitiveEnum):
     COMPOSITE = "composite"
     PSC = "psc"
     TAPERED = "tapered"
+    TENDON = "tendon"
 
-
+# removed from MVP implementation for section, but leaving here for future development
+# and usage in other areas of the codebase (e.g., tendon geometry)
 class SectionOffsetParaModel(CaseInsensitiveEnum):
     CENTER_TOP = "center-top"
     LEFT_TOP = "left-top"
@@ -108,11 +112,13 @@ class SectionBaseParaModel(BaseModelParaModel):
         "section_type",
             AliasPath("properties", "Section Type", "provided_value")))
 
-    offset: SectionOffsetParaModel = Field(
-        validation_alias=AliasChoices(
-        "offset",
-            AliasPath("properties", "Section Offset", "provided_value")),
-        default=SectionOffsetParaModel.CENTER_CENTER)
+    # removed from MVP implementation, but leaving here for future development
+    #
+    # offset: SectionOffsetParaModel = Field(
+    #     validation_alias=AliasChoices(
+    #     "offset",
+    #         AliasPath("properties", "Section Offset", "provided_value")),
+    #     default=SectionOffsetParaModel.CENTER_CENTER)
 
 
 class WithDimensionsMixin(BaseModelParaModel):
@@ -128,6 +134,7 @@ class WithDimensionsMixin(BaseModelParaModel):
         DimensionsCompositeSteelIAsymmetricParaModel,
         DimensionsPSCValueParaModel,
         DimensionsPSC1or2CellsParaModel,
+        DimensionsTendonUserParaModel
     ] = Field(validation_alias=AliasChoices(
         "dimensions",
         AliasPath("properties", "Section Dimensions", "group_parameters")
@@ -223,6 +230,83 @@ class SectionTaperedParaModel(SectionBaseParaModel):
             AliasPath("properties", "Taper Z Variation", "provided_value")))
 
 
+class BondTypeEnumParaModel(CaseInsensitiveEnum):
+    BONDED = "Bonded"
+    UNBONDED = "Unbonded"
+
+
+class TendonTypeEnumParaModel(CaseInsensitiveEnum):
+    # INTERNAL_PRE_TENSION = "Internal Pre-Tension"
+    INTERNAL_POST_TENSION = "Internal Post-Tension"
+    # EXTERNAL_POST_TENSION = "External Post-Tension"
+
+
+class RelaxationClassCEBFIP1990EnumParaModel(CaseInsensitiveEnum):
+    CLASS_1_NORMAL = "Class 1 (normal relaxation)"
+    CLASS_2_LOW = "Class 2 (low relaxation)"
+
+
+class RelaxationCodeEnumParaModel(CaseInsensitiveEnum):
+    CEB_FIP_1990 = "CEB-FIP-1990"
+
+
+class TendonGeneralPropertiesBaseParaModel(BaseModelParaModel):
+    tendon_type: TendonTypeEnumParaModel
+
+
+class InternalPostTensionPropertiesBaseParaModel(BaseModelParaModel):
+    duct_diameter: QuantityParaModel
+    bond_type: BondTypeEnumParaModel
+    anchorage_set_slip: QuantityParaModel
+    curvature_coefficient: float
+    wobble_coefficient: QuantityParaModel
+
+
+class TendonPropertiesInternalPostParaModel(
+    TendonGeneralPropertiesBaseParaModel,
+    InternalPostTensionPropertiesBaseParaModel
+):
+    tendon_type: Literal[
+        TendonTypeEnumParaModel.INTERNAL_POST_TENSION
+    ] = TendonTypeEnumParaModel.INTERNAL_POST_TENSION
+
+
+_TendonGeneralPropertiesBaseParaModel = Annotated[
+    Union[
+        TendonPropertiesInternalPostParaModel,
+    ],
+    Field(discriminator="tendon_type"),
+]
+
+
+class RelaxationParamsBaseParaModel(BaseModelParaModel):
+    relaxation_code: RelaxationCodeEnumParaModel
+
+
+class RelaxationParamsCEBFIP1990ParaModel(RelaxationParamsBaseParaModel):
+    relaxation_code: Literal[
+        RelaxationCodeEnumParaModel.CEB_FIP_1990
+    ] = RelaxationCodeEnumParaModel.CEB_FIP_1990
+    relaxation_class: RelaxationClassCEBFIP1990EnumParaModel
+    relaxation_1000_hours_value: float = Field(ge=0.0)
+
+
+_RelaxationParamsBaseParaModel = Annotated[
+    Union[
+        RelaxationParamsCEBFIP1990ParaModel,
+    ],
+    Field(discriminator="relaxation_code")
+]
+
+
+class SectionTendonBaseParaModel(SectionBaseParaModel):
+    general_properties: _TendonGeneralPropertiesBaseParaModel
+    relaxation_parameters: _RelaxationParamsBaseParaModel
+
+
+class SectionTendonUserParaModel(SectionTendonBaseParaModel, WithDimensionsMixin):
+    pass
+
 # ---------------------------------------------------------------------------
 # Type alias (union for type hints / documentation only)
 # ---------------------------------------------------------------------------
@@ -241,6 +325,7 @@ SectionParaModel = Union[
     SectionPSC1CellParaModel,
     SectionPSC2CellParaModel,
     SectionTaperedParaModel,
+    SectionTendonUserParaModel
 ]
 
 # ---------------------------------------------------------------------------
@@ -268,6 +353,8 @@ _SECTION_CLASS_BY_SECTION_FAMILY_AND_TYPE: Dict[
     (SectionFamilyParaModel.PSC, SectionTypeParaModel.PSC_2CELLS): SectionPSC2CellParaModel,
     # Tapered – one model regardless of section_type
     (SectionFamilyParaModel.TAPERED, None):              SectionTaperedParaModel,
+    # Tendons
+    (SectionFamilyParaModel.TENDON, SectionTypeParaModel.TENDON_USER): SectionTendonUserParaModel,
 }
 
 

@@ -8,6 +8,8 @@ from bda.domain.enums import UnitSystem
 from bda.domain.models.submodels import MaterialBase, SectionBase, GeometryGroup
 from bda.domain.units.export_units import ExportUnits, get_export_units
 from bda.infrastructure.adapters.analytical_software.exporters.exporter_base import ExporterBase
+from bda.infrastructure.adapters.analytical_software.exporters.midas_helpers.boundary_bcs_exporter import \
+    MidasBoundaryExporter
 from bda.infrastructure.adapters.analytical_software.exporters.midas_helpers.geometry_exporter import \
     MidasGeometryExporter
 from bda.infrastructure.adapters.analytical_software.exporters.midas_helpers.model_preparation import \
@@ -63,8 +65,11 @@ class MidasCivilExporter(ExporterBase):
             if not self._export_sections(amm.get_all_sections(), eu):
                 raise RuntimeError("sections export failed")
 
-            if not self._export_geometry(amm.geometry_group or [], eu):
+            if not self._export_geometry(amm, eu):
                 raise RuntimeError("geometry export failed")
+
+            if not self._export_boundaries(amm, eu):
+                raise RuntimeError("boundaries export failed")
 
             exported = True
 
@@ -103,12 +108,17 @@ class MidasCivilExporter(ExporterBase):
         for section in sections:
             section_exporter.export_section(section)
 
-    def _write_geometry(self, geometry_groups: List[GeometryGroup], export_units: ExportUnits) -> None:
+    def _write_geometry(self, amm: AnalyticalMultiModel, export_units: ExportUnits) -> None:
         """Send the given geometry groups to MIDAS Civil."""
 
         geometry_exporter = MidasGeometryExporter(export_units)
-        for geometry_group in geometry_groups:
-            geometry_exporter.export_geometry_group(geometry_group)
+        geometry_exporter.export(amm)
+
+    def _write_boundaries(self, amm: AnalyticalMultiModel, export_units: ExportUnits) -> None:
+        """Send the boundary conditions to MIDAS Civil."""
+        boundary_exporter = MidasBoundaryExporter(export_units)
+        boundary_exporter.export(amm)
+
 
     def _prepare_model(self, amm: AnalyticalMultiModel) -> None:
         """

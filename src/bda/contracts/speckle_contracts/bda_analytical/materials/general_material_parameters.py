@@ -2,18 +2,17 @@ from __future__ import annotations
 from pathlib import Path
 import sys
 
-from bda.contracts.speckle_contracts.base_objects import Parameter, UnitlessParameter, EnumParameter, UnitParameter, ParameterGroup, BridgeDataObjectProperties, DataObjectSpeckleType
+from bda.contracts.speckle_contracts.base_objects import Parameter, UnitlessParameter, EnumParameter, ParameterGroup, BridgeDataObjectProperties
 from bda.contracts.paramodel.materials.materials_para_model import MaterialTypeParaModel, MaterialModelTypeParaModel, StandardCodeParaModel
 from bda.contracts.speckle_contracts.bda_analytical.model_config_data.model_config_data_enums import DesignCodesEnum
 from typing import Literal, Optional
 from pydantic import BaseModel, Field, StrictFloat
 import json
 
+from bda.contracts.speckle_contracts.unit_parameters import StrictPressureParameter, StrictTemperatureCoefficientParameter, StrictWeightDensityParameter
 
 
 
-class GeneralMaterialDataObjectType(DataObjectSpeckleType):
-    provided_value: Literal["Objects.Data.DataObject:BDA_General_Material"]="Objects.Data.DataObject:BDA_General_Material"
 
 # Material Type
 
@@ -43,6 +42,24 @@ class MaterialDesignCode(EnumParameter[StandardCodeParaModel]):
 
     provided_value: StandardCodeParaModel
 
+
+# Code Specific Subclass
+
+class MaterialDesignCode_AASHTO(
+    MaterialDesignCode
+):
+    provided_value: StandardCodeParaModel = (
+        StandardCodeParaModel.AASHTO
+    )
+
+
+class MaterialDesignCode_Eurocode(
+    MaterialDesignCode
+):
+    provided_value: StandardCodeParaModel = (
+        StandardCodeParaModel.EUROCODE
+    )
+
 # Isotropy
 
 class Isotropy(EnumParameter[MaterialModelTypeParaModel]):
@@ -55,7 +72,7 @@ class Isotropy(EnumParameter[MaterialModelTypeParaModel]):
 
 
 # Unit Weight
-class UnitWeight(UnitParameter[StrictFloat]):
+class UnitWeight(StrictWeightDensityParameter):
     name: Literal["Unit Weight"] = "Unit Weight"
     symbol: Literal["γ"] = "γ"
     description: Literal["Weight per unit volume of a material"] = "Weight per unit volume of a material"
@@ -69,13 +86,13 @@ class UnitWeight(UnitParameter[StrictFloat]):
 
 # Modulus of Elasticity
 
-class ModulusOfElasticity(UnitParameter[StrictFloat]):
+class ModulusOfElasticity(StrictPressureParameter):
     name: Literal["Modulus of Elasticity"] = "Modulus of Elasticity"
     symbol: Literal["E"] = "E"
     description: Literal["Ratio of stress to strain in a material"] = \
         "Ratio of stress to strain in a material"
 
-    provided_unit: Literal["Pa", "kPa", "GPa", "kip/ft²"]
+    provided_unit: Literal["Pa", "kPa", "GPa", "kips/in²","kN/m²"]
     base_unit: Literal["Pa"] = "Pa"
 
 
@@ -92,14 +109,14 @@ class PoissonsRatio(UnitlessParameter[StrictFloat]):
 
 # Coefficient of Thermal Expansion
 
-class CoefficientOfThermalExpansion(UnitParameter[StrictFloat]):
+class CoefficientOfThermalExpansion(StrictTemperatureCoefficientParameter):
     name: Literal["Coefficient of Thermal Expansion"] = "Coefficient of Thermal Expansion"
     symbol: Literal["α"] = "α"
     description: Literal["Change in length per unit length per degree of temperature change"] = \
         "Change in length per unit length per degree of temperature change"
 
-    provided_unit: Literal["1/°C", "1/°F"]
-    base_unit: Literal["1/°C"] = "1/°C"
+    provided_unit: Literal["1/Δ°C", "1/Δ°F"]
+    base_unit: Literal["1/Δ°C"] = "1/Δ°C"
 
 # == General Material Parameter Group ==
 
@@ -122,7 +139,6 @@ class GeneralMaterialParameterGroup(ParameterGroup):
     group_parameters: GeneralMaterialParameters
 
 class GeneralMaterialDataObject_Properties(BridgeDataObjectProperties):
-    bda_speckle_type:GeneralMaterialDataObjectType
     general_material_properties: GeneralMaterialParameterGroup = Field(
         alias="General Material Properties"
     )

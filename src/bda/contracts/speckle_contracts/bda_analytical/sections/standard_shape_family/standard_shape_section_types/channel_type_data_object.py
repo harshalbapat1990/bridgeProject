@@ -1,20 +1,21 @@
 from __future__ import annotations
 
-from typing import Literal
+from typing import Literal, ClassVar
 from pydantic import BaseModel, Field, StrictFloat
 
 from bda.contracts.speckle_contracts.bda_analytical.sections.standard_shape_family.standard_shape_family_data_object import (
     StandardShapeDataObject,
     StandardShapeDataObject_Properties,
+    SectionFamily_StandardShape,
 )
 
 from bda.contracts.speckle_contracts.bda_analytical.sections.general_section_data_object_parameters import (
     SectionDimensionParameterGroup,
     SectionType,
     LengthDimensionParameter,
+    SectionDescription,
 )
 
-from bda.contracts.speckle_contracts.base_objects import DataObjectSpeckleType
 from bda.contracts.paramodel.sections.sections_para_models import (
     SectionTypeParaModel,
 )
@@ -26,12 +27,6 @@ from bda.contracts.paramodel.sections.sections_para_models import (
 
 class SectionType_Channel(SectionType):
     provided_value: SectionTypeParaModel = SectionTypeParaModel.CHANNEL
-
-
-class ChannelSectionDataObjectSpeckleType(DataObjectSpeckleType):
-    provided_value: Literal[
-        "Objects.Data.DataObject:BDA_Section:Standard_Shape:Channel"
-    ] = "Objects.Data.DataObject:BDA_Section:Standard_Shape:Channel"
 
 
 # ==========================================================
@@ -132,8 +127,6 @@ class SectionDimensionParameterGroup_Channel(SectionDimensionParameterGroup):
 # ==========================================================
 
 class ChannelDataObject_Properties(StandardShapeDataObject_Properties):
-    bda_speckle_type: ChannelSectionDataObjectSpeckleType
-
     section_type: SectionType_Channel = Field(alias="Section Type")
 
     section_dimensions: SectionDimensionParameterGroup_Channel = Field(
@@ -146,8 +139,180 @@ class ChannelDataObject_Properties(StandardShapeDataObject_Properties):
 # ==========================================================
 
 class SectionDataObject_Channel(StandardShapeDataObject):
+    APPLICATION_ID_PATTERN: ClassVar[str] = r"^SECT-[0-9]{4}-STANDARD-CHANNEL$"
+    applicationId: str = Field(
+        pattern=APPLICATION_ID_PATTERN,
+    )
     speckle_type: Literal[
         "Objects.Data.DataObject:BDA_Section:Standard_Shape:Channel"
     ]
 
+    bda_speckle_type: Literal[
+        "Objects.Data.DataObject:BDA_Section:Standard_Shape:Channel"
+    ] = Field(
+        ...,
+        frozen=True
+    )
+
     properties: ChannelDataObject_Properties
+
+    @classmethod
+    def create(
+        cls,
+        name: str,
+        height: float,
+        top_flange_width: float,
+        bottom_flange_width: float,
+        web_thickness: float,
+        top_flange_thickness: float,
+        bottom_flange_thickness: float,
+        web_inner_radius: float,
+        flange_end_radius: float,
+        description: str | None = None,
+        unit: Literal["m", "in"] = "m",
+        application_id: str = "channel_1",
+        isUser: bool = True,
+    ) -> "SectionDataObject_Channel":
+
+        return cls(
+            id=None,
+            name=name,
+            applicationId=application_id,
+            speckle_type=(
+                "Objects.Data.DataObject:"
+                "BDA_Section:Standard_Shape:Channel"
+            ),
+            bda_speckle_type=(
+                "Objects.Data.DataObject:"
+                "BDA_Section:Standard_Shape:Channel"
+            ),
+            properties=(
+                ChannelDataObject_Properties(
+                    **{
+                        "Section Description":
+                            SectionDescription(
+                                isUser=isUser,
+                                provided_value=description,
+                            ),
+
+                        "Section Family":
+                            SectionFamily_StandardShape(
+                                isUser=False
+                            ),
+
+                        "Section Type":
+                            SectionType_Channel(
+                                isUser=False
+                            ),
+
+                        "Section Dimensions":
+                            SectionDimensionParameterGroup_Channel(
+                                isUser=isUser,
+                                group_parameters=(
+                                    ChannelDimensionGroupParameters(
+                                        **{
+                                            "Height":
+                                                ChannelHeight(
+                                                    isUser=isUser,
+                                                    provided_value=height,
+                                                    provided_unit=unit,
+                                                    base_value=height,
+                                                ),
+
+                                            "Top Flange Width":
+                                                ChannelTopFlangeWidth(
+                                                    isUser=isUser,
+                                                    provided_value=top_flange_width,
+                                                    provided_unit=unit,
+                                                    base_value=top_flange_width,
+                                                ),
+
+                                            "Bottom Flange Width":
+                                                ChannelBottomFlangeWidth(
+                                                    isUser=isUser,
+                                                    provided_value=bottom_flange_width,
+                                                    provided_unit=unit,
+                                                    base_value=bottom_flange_width,
+                                                ),
+
+                                            "Web Thickness":
+                                                ChannelWebThickness(
+                                                    isUser=isUser,
+                                                    provided_value=web_thickness,
+                                                    provided_unit=unit,
+                                                    base_value=web_thickness,
+                                                ),
+
+                                            "Top Flange Thickness":
+                                                ChannelTopFlangeThickness(
+                                                    isUser=isUser,
+                                                    provided_value=top_flange_thickness,
+                                                    provided_unit=unit,
+                                                    base_value=top_flange_thickness,
+                                                ),
+
+                                            "Bottom Flange Thickness":
+                                                ChannelBottomFlangeThickness(
+                                                    isUser=isUser,
+                                                    provided_value=bottom_flange_thickness,
+                                                    provided_unit=unit,
+                                                    base_value=bottom_flange_thickness,
+                                                ),
+
+                                            "Web Inner Radius":
+                                                ChannelWebInnerRadius(
+                                                    isUser=isUser,
+                                                    provided_value=web_inner_radius,
+                                                    provided_unit=unit,
+                                                    base_value=web_inner_radius,
+                                                ),
+
+                                            "Flange End Radius":
+                                                ChannelFlangeEndRadius(
+                                                    isUser=isUser,
+                                                    provided_value=flange_end_radius,
+                                                    provided_unit=unit,
+                                                    base_value=flange_end_radius,
+                                                ),
+                                        }
+                                    )
+                                ),
+                            ),
+                    }
+                )
+            ),
+        )
+
+if __name__ == "__main__":
+
+    channel = SectionDataObject_Channel.create(
+        name="Example Channel Section",
+        application_id="SECT-0001-STANDARD-CHANNEL",
+        height=0.600,
+        top_flange_width=0.250,
+        bottom_flange_width=0.250,
+        web_thickness=0.012,
+        top_flange_thickness=0.020,
+        bottom_flange_thickness=0.020,
+        web_inner_radius=0.015,
+        flange_end_radius=0.010,
+        description="Steel channel section",
+        unit="m",
+    )
+
+    print(
+        channel.model_dump_json(
+            indent=4,
+            by_alias=True,
+            exclude_none=True,
+        )
+    )
+        
+    import json                             #can be commented out after testing
+    print("\n=== JSON SCHEMA ===\n")        #can be commented out after testing
+    print(
+        json.dumps(
+            SectionDataObject_Channel.model_json_schema(),
+            indent=4,
+        )                                   #can be commented out after testing
+    )

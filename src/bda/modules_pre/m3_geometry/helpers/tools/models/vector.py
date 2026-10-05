@@ -7,6 +7,7 @@ from typing import TYPE_CHECKING, cast
 import numpy as np
 from pint.registry import Quantity
 
+from bda.domain.models.submodels import Node
 from bda.modules_pre.m3_geometry.helpers.tools.models.unit_vector import UnitVector
 
 if TYPE_CHECKING:
@@ -31,6 +32,15 @@ class Vector:
             n2.x - n1.x,
             n2.y - n1.y,
             n2.z - n1.z,)
+
+    @classmethod
+    def from_nodes(cls, n1: Node, n2: Node) -> Vector:
+        """Build a vector from Node ``n1`` to Node ``n2`` (n2 - n1)."""
+        return cls(
+            n2.X - n1.X,
+            n2.Y - n1.Y,
+            n2.Z - n1.Z,
+        )
 
     @classmethod
     def from_unit_vector_and_length(cls, vector: UnitVector, length: Quantity) -> Vector:
@@ -135,3 +145,11 @@ class Vector:
     def to_array(self):
         """Return vector components as ``numpy.ndarray`` with object dtype."""
         return np.array([self.x, self.y, self.z], dtype=object)
+
+    def dot(self, other: Vector) -> Quantity:
+        """Returns the dot product of two vectors."""
+        return (
+                self.x * other.x
+                + self.y * other.y
+                + self.z * other.z
+        )

@@ -1,20 +1,21 @@
 from __future__ import annotations
 
-from typing import Literal
+from typing import Literal, ClassVar
 from pydantic import BaseModel, Field, StrictFloat
 
 from bda.contracts.speckle_contracts.bda_analytical.sections.standard_shape_family.standard_shape_family_data_object import (
     StandardShapeDataObject,
     StandardShapeDataObject_Properties,
+    SectionFamily_StandardShape,
 )
 
 from bda.contracts.speckle_contracts.bda_analytical.sections.general_section_data_object_parameters import (
     SectionDimensionParameterGroup,
     SectionType,
     LengthDimensionParameter,
+    SectionDescription,
 )
 
-from bda.contracts.speckle_contracts.base_objects import DataObjectSpeckleType
 from bda.contracts.paramodel.sections.sections_para_models import (
     SectionTypeParaModel,
 )
@@ -26,12 +27,6 @@ from bda.contracts.paramodel.sections.sections_para_models import (
 
 class SectionType_ISection(SectionType):
     provided_value: SectionTypeParaModel = SectionTypeParaModel.I_SECTION
-
-
-class ISectionDataObjectSpeckleType(DataObjectSpeckleType):
-    provided_value: Literal[
-        "Objects.Data.DataObject:BDA_Section:Standard_Shape:I-Section"
-    ] = "Objects.Data.DataObject:BDA_Section:Standard_Shape:I-Section"
 
 
 # ==========================================================
@@ -132,8 +127,6 @@ class SectionDimensionParameterGroup_ISection(SectionDimensionParameterGroup):
 # ==========================================================
 
 class ISectionDataObject_Properties(StandardShapeDataObject_Properties):
-    bda_speckle_type: ISectionDataObjectSpeckleType
-
     section_type: SectionType_ISection = Field(alias="Section Type")
 
     section_dimensions: SectionDimensionParameterGroup_ISection = Field(
@@ -146,8 +139,180 @@ class ISectionDataObject_Properties(StandardShapeDataObject_Properties):
 # ==========================================================
 
 class SectionDataObject_ISection(StandardShapeDataObject):
+    APPLICATION_ID_PATTERN: ClassVar[str] = r"^SECT-[0-9]{4}-STANDARD-ISECTION$"
+    applicationId: str = Field(
+        pattern=APPLICATION_ID_PATTERN,
+    )
     speckle_type: Literal[
         "Objects.Data.DataObject:BDA_Section:Standard_Shape:I-Section"
     ]
 
+    bda_speckle_type: Literal[
+        "Objects.Data.DataObject:BDA_Section:Standard_Shape:I-Section"
+    ] = Field(
+        ...,
+        frozen=True
+    )
+
     properties: ISectionDataObject_Properties
+
+    @classmethod
+    def create(
+        cls,
+        name: str,
+        total_height: float,
+        top_flange_width: float,
+        bottom_flange_width: float,
+        web_thickness: float,
+        top_flange_thickness: float,
+        bottom_flange_thickness: float,
+        web_inner_radius: float,
+        flange_end_radius: float,
+        description: str | None = None,
+        unit: Literal["m", "in"] = "m",
+        application_id: str = "isection_1",
+        isUser: bool = True,
+    ) -> "SectionDataObject_ISection":
+
+        return cls(
+            id=None,
+            name=name,
+            applicationId=application_id,
+            speckle_type=(
+                "Objects.Data.DataObject:"
+                "BDA_Section:Standard_Shape:I-Section"
+            ),
+            bda_speckle_type=(
+                "Objects.Data.DataObject:"
+                "BDA_Section:Standard_Shape:I-Section"
+            ),
+            properties=(
+                ISectionDataObject_Properties(
+                    **{
+                        "Section Description":
+                            SectionDescription(
+                                isUser=isUser,
+                                provided_value=description,
+                            ),
+
+                        "Section Family":
+                            SectionFamily_StandardShape(
+                                isUser=False
+                            ),
+
+                        "Section Type":
+                            SectionType_ISection(
+                                isUser=False
+                            ),
+
+                        "Section Dimensions":
+                            SectionDimensionParameterGroup_ISection(
+                                isUser=isUser,
+                                group_parameters=(
+                                    ISectionDimensionGroupParameters(
+                                        **{
+                                            "Total Height":
+                                                ISectionTotalHeight(
+                                                    isUser=isUser,
+                                                    provided_value=total_height,
+                                                    provided_unit=unit,
+                                                    base_value=total_height,
+                                                ),
+
+                                            "Top Flange Width":
+                                                ISectionTopFlangeWidth(
+                                                    isUser=isUser,
+                                                    provided_value=top_flange_width,
+                                                    provided_unit=unit,
+                                                    base_value=top_flange_width,
+                                                ),
+
+                                            "Bottom Flange Width":
+                                                ISectionBottomFlangeWidth(
+                                                    isUser=isUser,
+                                                    provided_value=bottom_flange_width,
+                                                    provided_unit=unit,
+                                                    base_value=bottom_flange_width,
+                                                ),
+
+                                            "Web Thickness":
+                                                ISectionWebThickness(
+                                                    isUser=isUser,
+                                                    provided_value=web_thickness,
+                                                    provided_unit=unit,
+                                                    base_value=web_thickness,
+                                                ),
+
+                                            "Top Flange Thickness":
+                                                ISectionTopFlangeThickness(
+                                                    isUser=isUser,
+                                                    provided_value=top_flange_thickness,
+                                                    provided_unit=unit,
+                                                    base_value=top_flange_thickness,
+                                                ),
+
+                                            "Bottom Flange Thickness":
+                                                ISectionBottomFlangeThickness(
+                                                    isUser=isUser,
+                                                    provided_value=bottom_flange_thickness,
+                                                    provided_unit=unit,
+                                                    base_value=bottom_flange_thickness,
+                                                ),
+
+                                            "Web Inner Radius":
+                                                ISectionWebInnerRadius(
+                                                    isUser=isUser,
+                                                    provided_value=web_inner_radius,
+                                                    provided_unit=unit,
+                                                    base_value=web_inner_radius,
+                                                ),
+
+                                            "Flange End Radius":
+                                                ISectionFlangeEndRadius(
+                                                    isUser=isUser,
+                                                    provided_value=flange_end_radius,
+                                                    provided_unit=unit,
+                                                    base_value=flange_end_radius,
+                                                ),
+                                        }
+                                    )
+                                ),
+                            ),
+                    }
+                )
+            ),
+        )
+
+if __name__ == "__main__":
+
+    i_section = SectionDataObject_ISection.create(
+        name="Example I Section",
+        application_id="SECT-0001-STANDARD-ISECTION",
+        total_height=1.200,
+        top_flange_width=0.500,
+        bottom_flange_width=0.500,
+        web_thickness=0.020,
+        top_flange_thickness=0.035,
+        bottom_flange_thickness=0.035,
+        web_inner_radius=0.020,
+        flange_end_radius=0.012,
+        description="Steel plate girder I-section",
+        unit="m",
+    )
+
+    print(
+        i_section.model_dump_json(
+            indent=4,
+            by_alias=True,
+            exclude_none=True,
+        )
+    )
+
+    import json                             #can be commented out after testing
+    print("\n=== JSON SCHEMA ===\n")        #can be commented out after testing
+    print(
+        json.dumps(
+            SectionDataObject_ISection.model_json_schema(),
+            indent=4,
+        )                                   #can be commented out after testing
+    )

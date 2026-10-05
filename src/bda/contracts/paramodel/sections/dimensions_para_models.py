@@ -250,3 +250,8 @@ class DimensionsPSC1or2CellsParaModel(BaseModelParaModel):
     inner_height_hi: List[Q]
     inner_breadth_bi: List[Q]
 
+
+class DimensionsTendonUserParaModel(BaseModelParaModel):
+    """User-defined tendon dimensions for tendon sections."""
+    number_of_strands: int
+    typical_strand_area: Q

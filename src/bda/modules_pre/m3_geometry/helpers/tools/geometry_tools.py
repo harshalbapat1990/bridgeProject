@@ -175,3 +175,72 @@ class GeometryTools:
                 result.append(q)
 
         return result
+
+    @staticmethod
+    def project_point_on_line(
+            line: AppliedVector,
+            point: Point,
+            clamp: bool = True,
+    ) -> Point:
+        """
+        Project a point onto a line or line segment.
+
+        Parameters
+        ----------
+        line : AppliedVector
+            Line defined by a start point and a direction vector.
+        point : Point
+            Point to be projected onto the line.
+        clamp : bool, optional
+            If True, the projection is constrained to the line segment
+            defined by the start point and the end point of the applied
+            vector. If False, the projection is performed on the infinite
+            line. Default is True.
+
+        Returns
+        -------
+        Point
+            Projected point lying on the line or line segment.
+
+        Notes
+        -----
+        The projection parameter ``t`` is computed as:
+
+            t = dot(point - start_point, direction) / dot(direction, direction)
+
+        When ``clamp=True``, ``t`` is restricted to the range [0, 1],
+        ensuring that the returned point lies on the line segment.
+        """
+
+        p0 = np.array([
+            line.start_point.x.to("meters").magnitude,
+            line.start_point.y.to("meters").magnitude,
+            line.start_point.z.to("meters").magnitude,
+        ])
+
+        d = np.array([
+            line.vector.x.to("meters").magnitude,
+            line.vector.y.to("meters").magnitude,
+            line.vector.z.to("meters").magnitude,
+        ])
+
+        p = np.array([
+            point.x.to("meters").magnitude,
+            point.y.to("meters").magnitude,
+            point.z.to("meters").magnitude,
+        ])
+
+        t = np.dot(p - p0, d) / np.dot(d, d)
+
+        # parameter t = 0.0 - 1.0 means that the projected point is on the segment, otherwise it is outside the segment
+        # clamping this parameter to 0.0 - 1.0 will force the projected point to be on the segment
+
+        if clamp:
+            t = np.clip(t, 0.0, 1.0)
+
+        p_proj = p0 + t * d
+
+        return GeometryTools._point_from_meters(
+            line,
+            p_proj
+        )
