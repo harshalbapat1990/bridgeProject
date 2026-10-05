@@ -179,10 +179,6 @@ class GeometryGroupVerticalMembersAboveGround(GeometryGroupVerticalMembers):
         return cls(
             id=None,
             applicationId=application_id,
-            bda_speckle_type=(
-                "Speckle.Core.Models.Collections.Collection:"
-                "BDA_Geometry_Group_Vertical_Members"
-            ),
             elements=[
                 _create_vertical_members_properties(application_id, isUser),
                 *(piers or []),
@@ -256,10 +252,6 @@ class GeometryGroupVerticalMembersBelowGround(GeometryGroupVerticalMembers):
         return cls(
             id=None,
             applicationId=application_id,
-            bda_speckle_type=(
-                "Speckle.Core.Models.Collections.Collection:"
-                "BDA_Geometry_Group_Vertical_Members"
-            ),
             elements=[
                 _create_vertical_members_properties(application_id, isUser),
                 *(piles or []),

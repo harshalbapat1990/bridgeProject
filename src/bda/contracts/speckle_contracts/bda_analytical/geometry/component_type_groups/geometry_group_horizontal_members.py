@@ -159,10 +159,6 @@ class GeometryGroupHorizontalMembersAboveGround(GeometryGroupHorizontalMembers):
         return cls(
             id=None,
             applicationId=application_id,
-            bda_speckle_type=(
-                "Speckle.Core.Models.Collections.Collection:"
-                "BDA_Geometry_Group_Horizontal_Members"
-            ),
             elements=[
                 _create_horizontal_members_properties(application_id, isUser),
                 *([crossbeam] if crossbeam is not None else []),
@@ -231,10 +227,6 @@ class GeometryGroupHorizontalMembersBelowGround(GeometryGroupHorizontalMembers):
         return cls(
             id=None,
             applicationId=application_id,
-            bda_speckle_type=(
-                "Speckle.Core.Models.Collections.Collection:"
-                "BDA_Geometry_Group_Horizontal_Members"
-            ),
             elements=[
                 _create_horizontal_members_properties(application_id, isUser),
                 *([pile_cap] if pile_cap is not None else []),
