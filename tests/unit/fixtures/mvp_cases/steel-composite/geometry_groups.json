@@ -1,0 +1,1476 @@
+{
+  "geometry_groups": [
+    {
+      "group_id": "Bridge_group",
+      "structural_component_type": "bridge",
+      "name": "Test steel composite bridge",
+      "properties": {
+        "bridge_type": "Steel Composite",
+        "bridge_idealisation": "grillage",
+        "no_of_spans": 3,
+        "analysis_settings": {
+          "mesh_divisor": 20
+        },
+        "top_deck_level": {
+          "value": 65.5,
+          "unit": "m"
+        }
+      },
+      "nested_groups": [
+        {
+          "group_id": "Superstructure",
+          "structural_component_type": "superstructure",
+          "name": "Superstructure",
+          "properties": {
+            "total_deck_width": {
+              "value": 12,
+              "unit": "m"
+            },
+            "no_of_girders": 5,
+            "girder_spacing_type": "uniform",
+            "girder_spacing_values": [
+              {
+                "value": 2.0,
+                "unit": "m"
+              }
+            ],
+            "stringcourse_left_barrier_width": {
+              "value": 0.6,
+              "unit": "m"
+            },
+            "stringcourse_right_barrier_width": {
+              "value": 0.75,
+              "unit": "m"
+            },
+            "cantilever_left_width": {
+              "value": 3.00,
+              "unit": "m"
+            },
+            "cantilever_right_width": {
+              "value": 1.00,
+              "unit": "m"
+            }
+          },
+          "nested_groups": [
+            {
+              "group_id": "group_span_1",
+              "structural_component_type": "span",
+              "name": "Span No. 1",
+              "properties": {
+                "span_index": 0,
+                "span_length": {
+                  "value": 40.0,
+                  "unit": "m"
+                },
+                "top_deck_level_at_end": {
+                  "value": 65.0,
+                  "unit": "m"
+                },
+                "cracked_extents": [
+                  {
+                    "x_start": {
+                      "value": 35.0,
+                      "unit": "m"
+                    },
+                    "x_end": {
+                      "value": 40.0,
+                      "unit": "m"
+                    }
+                  }
+                ],
+                "splices": [
+                  {
+                    "x_start": {
+                      "value": 10.0,
+                      "unit": "m"
+                    },
+                    "section_id": "splice_section_2"
+                  },
+                  {
+                    "x_start": {
+                      "value": 27.0,
+                      "unit": "m"
+                    },
+                    "section_id": "splice_section_3"
+                  }
+                ],
+                "construction_sequence_details": {
+                  "pouring_orientation": "orthogonal",
+                  "segments": [
+                    {
+                      "x_start": {
+                        "value": 8.0,
+                        "unit": "m"
+                      }
+                    },
+                    {
+                      "x_start": {
+                        "value": 20.0,
+                        "unit": "m"
+                      }
+                    }
+                  ]
+                }
+              },
+              "nested_groups": [
+                {
+                  "group_id": "longitudinal_members_1",
+                  "structural_component_type": "longitudinal-members",
+                  "name": "Longitudinal Members",
+                  "nested_groups": [
+                    {
+                      "group_id": "girder_1_1",
+                      "structural_component_type": "girder",
+                      "name": "Girder No. 1",
+                      "material_id": "540f31a7-2911-4d5b-b8eb-724d613a7563",
+                      "section_id": "edge_girder_left",
+                      "properties": {
+                        "girder_index": 0
+                      }
+                    },
+                    {
+                      "group_id": "girder_2_1",
+                      "structural_component_type": "girder",
+                      "name": "Girder No. 2",
+                      "material_id": "540f31a7-2911-4d5b-b8eb-724d613a7563",
+                      "section_id": "intermediate_girder",
+                      "properties": {
+                        "girder_index": 1
+                      }
+                    },
+                    {
+                      "group_id": "girder_3_1",
+                      "structural_component_type": "girder",
+                      "name": "Girder No. 3",
+                      "material_id": "540f31a7-2911-4d5b-b8eb-724d613a7563",
+                      "section_id": "intermediate_girder",
+                      "properties": {
+                        "girder_index": 2
+                      }
+                    },
+                    {
+                      "group_id": "girder_4_1",
+                      "structural_component_type": "girder",
+                      "name": "Girder No. 4",
+                      "material_id": "540f31a7-2911-4d5b-b8eb-724d613a7563",
+                      "section_id": "intermediate_girder",
+                      "properties": {
+                        "girder_index": 3
+                      }
+                    },
+                    {
+                      "group_id": "girder_5_1",
+                      "structural_component_type": "girder",
+                      "name": "Girder No. 5",
+                      "material_id": "540f31a7-2911-4d5b-b8eb-724d613a7563",
+                      "section_id": "edge_girder_right",
+                      "properties": {
+                        "girder_index": 4
+                      }
+                    }
+                  ]
+                },
+                {
+                  "group_id": "transverse_members_1",
+                  "structural_component_type": "transverse-members",
+                  "name": "Transverse Members",
+                  "nested_groups": [
+                    {
+                      "group_id": "deck_slab_1",
+                      "structural_component_type": "deck-slab",
+                      "name": "Deck Slab",
+                      "material_id": "0a319344-c9e3-45db-b840-24310be69c22",
+                      "section_id": "deck-slab-section"
+                    },
+                    {
+                      "group_id": "diaphragm_1",
+                      "structural_component_type": "diaphragm",
+                      "name": "Diaphragm No. 1",
+                      "material_id": "0a319344-c9e3-45db-b840-24310be69c22",
+                      "section_id": "diaphragm-section",
+                      "properties": {
+                        "support_index": 0,
+                        "geometry_details": {
+                          "diaphragm_type": "bracing-encased"
+                        }
+                      },
+                      "nested_groups": [
+                        {
+                          "group_id": "transverse_bracing_as_diaphragm_1",
+                          "structural_component_type": "transverse-bracing",
+                          "name": "Transverse Bracing as Diaphragm",
+                          "material_id": "540f31a7-2911-4d5b-b8eb-724d613a7563",
+                          "properties": {
+                            "bracing_orientation": "skewed",
+                            "x_position_at_start_girder": {
+                              "value": 0.0,
+                              "unit": "m"
+                            },
+                            "spacing_type": "uniform",
+                            "spacing_values": [
+                              {
+                                "value": 10.0,
+                                "unit": "m"
+                              }
+                            ],
+                            "no_of_bracings": 1,
+                            "left_girder_index": 0,
+                            "right_girder_index": 1,
+                            "bracing_details": {
+                              "horizontal_offset_at_left": {
+                                "value": 0.2,
+                                "unit": "m"
+                              },
+                              "horizontal_offset_at_right": {
+                                "value": 0.2,
+                                "unit": "m"
+                              }
+                            }
+                          },
+                          "nested_groups": [
+                            {
+                              "group_id": "brace_1_1",
+                              "structural_component_type": "brace",
+                              "name": "Brace Element",
+                              "section_id": "bracing-brace-section",
+                              "properties": {
+                                "geometry_details": {
+                                  "bracing_type": "k-type",
+                                  "vertical_offset_left_top": {
+                                    "value": 0.35,
+                                    "unit": "m"
+                                  },
+                                  "vertical_offset_left_btm": {
+                                    "value": 0.95,
+                                    "unit": "m"
+                                  },
+                                  "vertical_offset_right_top": {
+                                    "value": 0.35,
+                                    "unit": "m"
+                                  },
+                                  "vertical_offset_right_btm": {
+                                    "value": 0.95,
+                                    "unit": "m"
+                                  },
+                                  "horizontal_offset_left_brace": {
+                                    "value": 1.50,
+                                    "unit": "m"
+                                  },
+                                  "horizontal_offset_right_brace": {
+                                    "value": 1.50,
+                                    "unit": "m"
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "group_id": "chord_diaphragm_1_1",
+                              "structural_component_type": "chord",
+                              "name": "Chord Element",
+                              "section_id": "bracing-chord-section",
+                              "properties": {
+                                "vertical_offset_at_left": {
+                                  "value": 0.25,
+                                  "unit": "m"
+                                },
+                                "vertical_offset_at_right": {
+                                  "value": 0.25,
+                                  "unit": "m"
+                                }
+                              }
+                            },
+                            {
+                              "group_id": "chord_diaphragm_2_1",
+                              "structural_component_type": "chord",
+                              "name": "Chord Element",
+                              "section_id": "bracing-chord-section",
+                              "properties": {
+                                "vertical_offset_at_left": {
+                                  "value": 1.25,
+                                  "unit": "m"
+                                },
+                                "vertical_offset_at_right": {
+                                  "value": 1.25,
+                                  "unit": "m"
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "group_id": "transverse_bracing_as_diaphragm_2",
+                          "structural_component_type": "transverse-bracing",
+                          "material_id": "540f31a7-2911-4d5b-b8eb-724d613a7563",
+                          "name": "Transverse Bracing as Diaphragm",
+                          "properties": {
+                            "bracing_orientation": "skewed",
+                            "x_position_at_start_girder": {
+                              "value": 0.0,
+                              "unit": "m"
+                            },
+                            "spacing_type": "uniform",
+                            "spacing_values": [
+                              {
+                                "value": 10.0,
+                                "unit": "m"
+                              }
+                            ],
+                            "no_of_bracings": 1,
+                            "left_girder_index": 1,
+                            "right_girder_index": 2,
+                            "bracing_details": {
+                              "horizontal_offset_at_left": {
+                                "value": 0.2,
+                                "unit": "m"
+                              },
+                              "horizontal_offset_at_right": {
+                                "value": 0.2,
+                                "unit": "m"
+                              }
+                            }
+                          },
+                          "nested_groups": [
+                            {
+                              "group_id": "brace_1_2",
+                              "structural_component_type": "brace",
+                              "name": "Brace Element",
+                              "section_id": "bracing-brace-section",
+                              "properties": {
+                                "geometry_details": {
+                                  "bracing_type": "x-type",
+                                  "vertical_offset_left_top": {
+                                    "value": 0.25,
+                                    "unit": "m"
+                                  },
+                                  "vertical_offset_left_btm": {
+                                    "value": 0.95,
+                                    "unit": "m"
+                                  },
+                                  "vertical_offset_right_top": {
+                                    "value": 0.25,
+                                    "unit": "m"
+                                  },
+                                  "vertical_offset_right_btm": {
+                                    "value": 0.95,
+                                    "unit": "m"
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "group_id": "chord_diaphragm_1_2",
+                              "structural_component_type": "chord",
+                              "name": "Chord Element",
+                              "section_id": "bracing-chord-section",
+                              "properties": {
+                                "vertical_offset_at_left": {
+                                  "value": 0.15,
+                                  "unit": "m"
+                                },
+                                "vertical_offset_at_right": {
+                                  "value": 0.15,
+                                  "unit": "m"
+                                }
+                              }
+                            },
+                            {
+                              "group_id": "chord_diaphragm_2_2",
+                              "structural_component_type": "chord",
+                              "name": "Chord Element",
+                              "section_id": "bracing-chord-section",
+                              "properties": {
+                                "vertical_offset_at_left": {
+                                  "value": 1.25,
+                                  "unit": "m"
+                                },
+                                "vertical_offset_at_right": {
+                                  "value": 1.25,
+                                  "unit": "m"
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "group_id": "transverse_bracing_as_diaphragm_3",
+                          "structural_component_type": "transverse-bracing",
+                          "name": "Transverse Bracing as Diaphragm",
+                          "material_id": "540f31a7-2911-4d5b-b8eb-724d613a7563",
+                          "properties": {
+                            "bracing_orientation": "skewed",
+                            "x_position_at_start_girder": {
+                              "value": 0.0,
+                              "unit": "m"
+                            },
+                            "spacing_type": "uniform",
+                            "spacing_values": [
+                              {
+                                "value": 10.0,
+                                "unit": "m"
+                              }
+                            ],
+                            "no_of_bracings": 1,
+                            "left_girder_index": 2,
+                            "right_girder_index": 3,
+                            "bracing_details": {
+                              "horizontal_offset_at_left": {
+                                "value": 0.2,
+                                "unit": "m"
+                              },
+                              "horizontal_offset_at_right": {
+                                "value": 0.2,
+                                "unit": "m"
+                              }
+                            }
+                          },
+                          "nested_groups": [
+                            {
+                              "group_id": "brace_1_3",
+                              "structural_component_type": "brace",
+                              "name": "Brace Element",
+                              "section_id": "bracing-brace-section",
+                              "properties": {
+                                "geometry_details": {
+                                  "bracing_type": "k-type",
+                                  "vertical_offset_left_top": {
+                                    "value": 0.25,
+                                    "unit": "m"
+                                  },
+                                  "vertical_offset_left_btm": {
+                                    "value": 0.95,
+                                    "unit": "m"
+                                  },
+                                  "vertical_offset_right_top": {
+                                    "value": 0.25,
+                                    "unit": "m"
+                                  },
+                                  "vertical_offset_right_btm": {
+                                    "value": 0.95,
+                                    "unit": "m"
+                                  },
+                                  "horizontal_offset_left_brace": {
+                                    "value": 1.50,
+                                    "unit": "m"
+                                  },
+                                  "horizontal_offset_right_brace": {
+                                    "value": 1.50,
+                                    "unit": "m"
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "group_id": "chord_diaphragm_1_3",
+                              "structural_component_type": "chord",
+                              "name": "Chord Element",
+                              "section_id": "bracing-chord-section",
+                              "properties": {
+                                "vertical_offset_at_left": {
+                                  "value": 0.25,
+                                  "unit": "m"
+                                },
+                                "vertical_offset_at_right": {
+                                  "value": 0.25,
+                                  "unit": "m"
+                                }
+                              }
+                            },
+                            {
+                              "group_id": "chord_diaphragm_2_3",
+                              "structural_component_type": "chord",
+                              "name": "Chord Element",
+                              "section_id": "bracing-chord-section",
+                              "properties": {
+                                "vertical_offset_at_left": {
+                                  "value": 1.25,
+                                  "unit": "m"
+                                },
+                                "vertical_offset_at_right": {
+                                  "value": 1.25,
+                                  "unit": "m"
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "group_id": "transverse_bracing_as_diaphragm_4",
+                          "structural_component_type": "transverse-bracing",
+                          "name": "Transverse Bracing as Diaphragm",
+                          "material_id": "540f31a7-2911-4d5b-b8eb-724d613a7563",
+                          "properties": {
+                            "bracing_orientation": "skewed",
+                            "x_position_at_start_girder": {
+                              "value": 0.0,
+                              "unit": "m"
+                            },
+                            "spacing_type": "uniform",
+                            "spacing_values": [
+                              {
+                                "value": 10.0,
+                                "unit": "m"
+                              }
+                            ],
+                            "no_of_bracings": 1,
+                            "left_girder_index": 3,
+                            "right_girder_index": 4,
+                            "bracing_details": {
+                              "horizontal_offset_at_left": {
+                                "value": 0.2,
+                                "unit": "m"
+                              },
+                              "horizontal_offset_at_right": {
+                                "value": 0.2,
+                                "unit": "m"
+                              }
+                            }
+                          },
+                          "nested_groups": [
+                            {
+                              "group_id": "brace_1_4",
+                              "structural_component_type": "brace",
+                              "name": "Brace Element",
+                              "section_id": "bracing-brace-section",
+                              "properties": {
+                                "geometry_details": {
+                                  "bracing_type": "k-type",
+                                  "vertical_offset_left_top": {
+                                    "value": 0.25,
+                                    "unit": "m"
+                                  },
+                                  "vertical_offset_left_btm": {
+                                    "value": 0.95,
+                                    "unit": "m"
+                                  },
+                                  "vertical_offset_right_top": {
+                                    "value": 0.25,
+                                    "unit": "m"
+                                  },
+                                  "vertical_offset_right_btm": {
+                                    "value": 0.95,
+                                    "unit": "m"
+                                  },
+                                  "horizontal_offset_left_brace": {
+                                    "value": 1.50,
+                                    "unit": "m"
+                                  },
+                                  "horizontal_offset_right_brace": {
+                                    "value": 1.50,
+                                    "unit": "m"
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "group_id": "chord_diaphragm_1_4",
+                              "structural_component_type": "chord",
+                              "name": "Chord Element",
+                              "section_id": "bracing-chord-section",
+                              "properties": {
+                                "vertical_offset_at_left": {
+                                  "value": 0.25,
+                                  "unit": "m"
+                                },
+                                "vertical_offset_at_right": {
+                                  "value": 0.25,
+                                  "unit": "m"
+                                }
+                              }
+                            },
+                            {
+                              "group_id": "chord_diaphragm_2_4",
+                              "structural_component_type": "chord",
+                              "name": "Chord Element",
+                              "section_id": "bracing-chord-section",
+                              "properties": {
+                                "vertical_offset_at_left": {
+                                  "value": 1.25,
+                                  "unit": "m"
+                                },
+                                "vertical_offset_at_right": {
+                                  "value": 1.25,
+                                  "unit": "m"
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "group_id": "diaphragm_2",
+                      "structural_component_type": "diaphragm",
+                      "name": "Diaphragm No. 2",
+                      "section_id": "diaphragm-section-steel",
+                      "material_id": "540f31a7-2911-4d5b-b8eb-724d613a7563",
+                      "properties": {
+                        "support_index": 1,
+                        "geometry_details": {
+                          "diaphragm_type": "steel-girder"
+                        }
+                      }
+                    },
+                    {
+                      "group_id": "transverse_bracing_101",
+                      "structural_component_type": "transverse-bracing",
+                      "name": "Transverse Bracing at span",
+                      "material_id": "540f31a7-2911-4d5b-b8eb-724d613a7563",
+                      "properties": {
+                        "bracing_orientation": "orthogonal",
+                        "x_position_at_start_girder": {
+                          "value": 5.0,
+                          "unit": "m"
+                        },
+                        "spacing_type": "uniform",
+                        "spacing_values": [
+                          {
+                            "value": 4.0,
+                            "unit": "m"
+                          }
+                        ],
+                        "no_of_bracings": 6,
+                        "left_girder_index": 1,
+                        "right_girder_index": 2,
+                        "bracing_details": {
+                          "horizontal_offset_at_left": {
+                            "value": 0.25,
+                            "unit": "m"
+                          },
+                          "horizontal_offset_at_right": {
+                            "value": 0.25,
+                            "unit": "m"
+                          }
+                        }
+                      },
+                      "nested_groups": [
+                        {
+                          "group_id": "brace_1_101",
+                          "structural_component_type": "brace",
+                          "name": "Brace Element",
+                          "section_id": "bracing-brace-section",
+                          "properties": {
+                            "geometry_details": {
+                              "bracing_type": "k-type",
+                              "vertical_offset_left_top": {
+                                "value": 0.25,
+                                "unit": "m"
+                              },
+                              "vertical_offset_left_btm": {
+                                "value": 0.95,
+                                "unit": "m"
+                              },
+                              "vertical_offset_right_top": {
+                                "value": 0.25,
+                                "unit": "m"
+                              },
+                              "vertical_offset_right_btm": {
+                                "value": 0.95,
+                                "unit": "m"
+                              },
+                              "horizontal_offset_left_brace": {
+                                "value": 1.10,
+                                "unit": "m"
+                              },
+                              "horizontal_offset_right_brace": {
+                                "value": 1.10,
+                                "unit": "m"
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "group_id": "chord_1_101",
+                          "structural_component_type": "chord",
+                          "name": "Chord Element",
+                          "section_id": "bracing-chord-section",
+                          "properties": {
+                            "vertical_offset_at_left": {
+                              "value": 0.25,
+                              "unit": "m"
+                            },
+                            "vertical_offset_at_right": {
+                              "value": 0.25,
+                              "unit": "m"
+                            }
+                          }
+                        },
+                        {
+                          "group_id": "chord_2_101",
+                          "structural_component_type": "chord",
+                          "name": "Chord Element",
+                          "section_id": "bracing-chord-section",
+                          "properties": {
+                            "vertical_offset_at_left": {
+                              "value": 1.25,
+                              "unit": "m"
+                            },
+                            "vertical_offset_at_right": {
+                              "value": 1.25,
+                              "unit": "m"
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "group_id": "transverse_bracing_101b",
+                      "structural_component_type": "transverse-bracing",
+                      "name": "Transverse Bracing at span",
+                      "material_id": "540f31a7-2911-4d5b-b8eb-724d613a7563",
+                      "properties": {
+                        "bracing_orientation": "skewed",
+                        "x_position_at_start_girder": {
+                          "value": 5.0,
+                          "unit": "m"
+                        },
+                        "spacing_type": "uniform",
+                        "spacing_values": [
+                          {
+                            "value": 4.0,
+                            "unit": "m"
+                          }
+                        ],
+                        "no_of_bracings": 6,
+                        "left_girder_index": 0,
+                        "right_girder_index": 1,
+                        "bracing_details": {
+                          "horizontal_offset_at_left": {
+                            "value": 0.25,
+                            "unit": "m"
+                          },
+                          "horizontal_offset_at_right": {
+                            "value": 0.25,
+                            "unit": "m"
+                          }
+                        }
+                      },
+                      "nested_groups": [
+                        {
+                          "group_id": "brace_1_101",
+                          "structural_component_type": "brace",
+                          "name": "Brace Element",
+                          "section_id": "bracing-brace-section",
+                          "properties": {
+                            "geometry_details": {
+                              "bracing_type": "x-type",
+                              "vertical_offset_left_top": {
+                                "value": 0.25,
+                                "unit": "m"
+                              },
+                              "vertical_offset_left_btm": {
+                                "value": 0.95,
+                                "unit": "m"
+                              },
+                              "vertical_offset_right_top": {
+                                "value": 0.25,
+                                "unit": "m"
+                              },
+                              "vertical_offset_right_btm": {
+                                "value": 0.95,
+                                "unit": "m"
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "group_id": "chord_1_101b",
+                          "structural_component_type": "chord",
+                          "name": "Chord Element",
+                          "section_id": "bracing-chord-section",
+                          "properties": {
+                            "vertical_offset_at_left": {
+                              "value": 0.25,
+                              "unit": "m"
+                            },
+                            "vertical_offset_at_right": {
+                              "value": 0.25,
+                              "unit": "m"
+                            }
+                          }
+                        },
+                        {
+                          "group_id": "chord_2_101b",
+                          "structural_component_type": "chord",
+                          "name": "Chord Element",
+                          "section_id": "bracing-chord-section",
+                          "properties": {
+                            "vertical_offset_at_left": {
+                              "value": 1.25,
+                              "unit": "m"
+                            },
+                            "vertical_offset_at_right": {
+                              "value": 1.25,
+                              "unit": "m"
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "group_id": "plan_bracing_101b",
+                      "structural_component_type": "plan-bracing",
+                      "name": "Plan Bracing at span",
+                      "section_id": "plan-bracing-section",
+                      "material_id": "540f31a7-2911-4d5b-b8eb-724d613a7563",
+                      "properties": {
+                        "plan_bracing_type": "warren",
+                        "left_girder_index": 1,
+                        "right_girder_index": 2
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "group_id": "group_span_2",
+              "structural_component_type": "span",
+              "name": "Span No. 2",
+              "properties": {
+                "span_index": 1,
+                "span_length": {
+                  "value": 60.0,
+                  "unit": "m"
+                },
+                "top_deck_level_at_end": {
+                  "value": 64.0,
+                  "unit": "m"
+                },
+                "cracked_extents": [
+                  {
+                    "x_start": {
+                      "value": 0.0,
+                      "unit": "m"
+                    },
+                    "x_end": {
+                      "value": 10.0,
+                      "unit": "m"
+                    }
+                  },
+                  {
+                    "x_start": {
+                      "value": 50.0,
+                      "unit": "m"
+                    },
+                    "x_end": {
+                      "value": 60.0,
+                      "unit": "m"
+                    }
+                  }
+                ],
+                "splices": [
+                  {
+                    "x_start": {
+                      "value": 15.0,
+                      "unit": "m"
+                    },
+                    "section_id": "splice_section_1"
+                  },
+                  {
+                    "x_start": {
+                      "value": 45.0,
+                      "unit": "m"
+                    },
+                    "section_id": "splice_section_2"
+                  }
+                ],
+                "construction_sequence_details": {
+                  "pouring_orientation": "skewed",
+                  "segments": [
+                    {
+                      "x_start": {
+                        "value": 10.0,
+                        "unit": "m"
+                      }
+                    },
+                    {
+                      "x_start": {
+                        "value": 20.0,
+                        "unit": "m"
+                      }
+                    }
+                  ]
+                }
+              },
+              "nested_groups": [
+                {
+                  "group_id": "longitudinal_members_2",
+                  "structural_component_type": "longitudinal-members",
+                  "name": "Longitudinal Members",
+                  "nested_groups": [
+                    {
+                      "group_id": "girder_1_2",
+                      "structural_component_type": "girder",
+                      "name": "Girder No. 1",
+                      "material_id": "540f31a7-2911-4d5b-b8eb-724d613a7563",
+                      "section_id": "edge_girder_left",
+                      "properties": {
+                        "girder_index": 0
+                      }
+                    },
+                    {
+                      "group_id": "girder_2_2",
+                      "structural_component_type": "girder",
+                      "name": "Girder No. 2",
+                      "material_id": "540f31a7-2911-4d5b-b8eb-724d613a7563",
+                      "section_id": "intermediate_girder",
+                      "properties": {
+                        "girder_index": 1
+                      }
+                    },
+                    {
+                      "group_id": "girder_3_2",
+                      "structural_component_type": "girder",
+                      "name": "Girder No. 3",
+                      "material_id": "540f31a7-2911-4d5b-b8eb-724d613a7563",
+                      "section_id": "intermediate_girder",
+                      "properties": {
+                        "girder_index": 2
+                      }
+                    },
+                    {
+                      "group_id": "girder_4_2",
+                      "structural_component_type": "girder",
+                      "name": "Girder No. 4",
+                      "material_id": "540f31a7-2911-4d5b-b8eb-724d613a7563",
+                      "section_id": "intermediate_girder",
+                      "properties": {
+                        "girder_index": 3
+                      }
+                    },
+                    {
+                      "group_id": "girder_5_2",
+                      "structural_component_type": "girder",
+                      "name": "Girder No. 5",
+                      "material_id": "540f31a7-2911-4d5b-b8eb-724d613a7563",
+                      "section_id": "edge_girder_right",
+                      "properties": {
+                        "girder_index": 4
+                      }
+                    }
+                  ]
+                },
+                {
+                  "group_id": "transverse_members_2",
+                  "structural_component_type": "transverse-members",
+                  "name": "Transverse Members",
+                  "material_id": "540f31a7-2911-4d5b-b8eb-724d613a7563",
+                  "nested_groups": [
+                    {
+                      "group_id": "deck_slab_2",
+                      "structural_component_type": "deck-slab",
+                      "name": "Deck Slab",
+                      "material_id": "0a319344-c9e3-45db-b840-24310be69c22",
+                      "section_id": "deck-slab-section"
+                    },
+                    {
+                      "group_id": "diaphragm_2_1",
+                      "structural_component_type": "diaphragm",
+                      "name": "Diaphragm No. 1",
+                      "section_id": "diaphragm-section-steel",
+                      "properties": {
+                        "support_index": 2,
+                        "geometry_details": {
+                          "diaphragm_type": "steel-girder"
+                        }
+                      }
+                    },
+                    {
+                      "group_id": "transverse_bracing_201",
+                      "structural_component_type": "transverse-bracing",
+                      "name": "Transverse Bracing at span",
+                      "material_id": "540f31a7-2911-4d5b-b8eb-724d613a7563",
+                      "properties": {
+                        "bracing_orientation": "orthogonal",
+                        "x_position_at_start_girder": {
+                          "value": 5.0,
+                          "unit": "m"
+                        },
+                        "spacing_type": "uniform",
+                        "spacing_values": [
+                          {
+                            "value": 4.0,
+                            "unit": "m"
+                          }
+                        ],
+                        "no_of_bracings": 9,
+                        "left_girder_index": 1,
+                        "right_girder_index": 2,
+                        "bracing_details": {
+                          "horizontal_offset_at_left": {
+                            "value": 0.25,
+                            "unit": "m"
+                          },
+                          "horizontal_offset_at_right": {
+                            "value": 0.25,
+                            "unit": "m"
+                          }
+                        }
+                      },
+                      "nested_groups": [
+                        {
+                          "group_id": "brace_1_101",
+                          "structural_component_type": "brace",
+                          "name": "Brace Element",
+                          "section_id": "bracing-brace-section",
+                          "properties": {
+                            "geometry_details": {
+                              "bracing_type": "k-type",
+                              "vertical_offset_left_top": {
+                                "value": 0.25,
+                                "unit": "m"
+                              },
+                              "vertical_offset_left_btm": {
+                                "value": 0.95,
+                                "unit": "m"
+                              },
+                              "vertical_offset_right_top": {
+                                "value": 0.25,
+                                "unit": "m"
+                              },
+                              "vertical_offset_right_btm": {
+                                "value": 0.95,
+                                "unit": "m"
+                              },
+                              "horizontal_offset_left_brace": {
+                                "value": 1.10,
+                                "unit": "m"
+                              },
+                              "horizontal_offset_right_brace": {
+                                "value": 1.10,
+                                "unit": "m"
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "group_id": "chord_1_101",
+                          "structural_component_type": "chord",
+                          "name": "Chord Element",
+                          "section_id": "bracing-chord-section",
+                          "properties": {
+                            "vertical_offset_at_left": {
+                              "value": 0.25,
+                              "unit": "m"
+                            },
+                            "vertical_offset_at_right": {
+                              "value": 0.25,
+                              "unit": "m"
+                            }
+                          }
+                        },
+                        {
+                          "group_id": "chord_2_101",
+                          "structural_component_type": "chord",
+                          "name": "Chord Element",
+                          "section_id": "bracing-chord-section",
+                          "properties": {
+                            "vertical_offset_at_left": {
+                              "value": 1.25,
+                              "unit": "m"
+                            },
+                            "vertical_offset_at_right": {
+                              "value": 1.25,
+                              "unit": "m"
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "group_id": "plan_bracing_201",
+                      "structural_component_type": "plan-bracing",
+                      "name": "Plan Bracing at span",
+                      "section_id": "plan-bracing-section",
+                      "properties": {
+                        "plan_bracing_type": "x-type",
+                        "left_girder_index": 1,
+                        "right_girder_index": 2
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "group_id": "group_span_3",
+              "structural_component_type": "span",
+              "name": "Span No. 3",
+              "properties": {
+                "span_index": 2,
+                "span_length": {
+                  "value": 30.0,
+                  "unit": "m"
+                },
+                "top_deck_level_at_end": {
+                  "value": 63.0,
+                  "unit": "m"
+                },
+                "cracked_extents": [
+                  {
+                    "x_start": {
+                      "value": 0.0,
+                      "unit": "m"
+                    },
+                    "x_end": {
+                      "value": 10.0,
+                      "unit": "m"
+                    }
+                  }
+                ],
+                "splices": [
+                  {
+                    "x_start": {
+                      "value": 15.0,
+                      "unit": "m"
+                    },
+                    "section_id": "splice_section_1"
+                  }
+                ],
+                "construction_sequence_details": {
+                  "pouring_orientation": "skewed",
+                  "segments": [
+                    {
+                      "x_start": {
+                        "value": 10.0,
+                        "unit": "m"
+                      }
+                    },
+                    {
+                      "x_start": {
+                        "value": 20.0,
+                        "unit": "m"
+                      }
+                    }
+                  ]
+                }
+              },
+              "nested_groups": [
+                {
+                  "group_id": "longitudinal_members_3",
+                  "structural_component_type": "longitudinal-members",
+                  "name": "Longitudinal Members",
+                  "nested_groups": [
+                    {
+                      "group_id": "girder_1_3",
+                      "structural_component_type": "girder",
+                      "name": "Girder No. 1",
+                      "material_id": "540f31a7-2911-4d5b-b8eb-724d613a7563",
+                      "section_id": "edge_girder_left",
+                      "properties": {
+                        "girder_index": 0
+                      }
+                    },
+                    {
+                      "group_id": "girder_2_3",
+                      "structural_component_type": "girder",
+                      "name": "Girder No. 2",
+                      "material_id": "540f31a7-2911-4d5b-b8eb-724d613a7563",
+                      "section_id": "intermediate_girder",
+                      "properties": {
+                        "girder_index": 1
+                      }
+                    },
+                    {
+                      "group_id": "girder_3_3",
+                      "structural_component_type": "girder",
+                      "name": "Girder No. 3",
+                      "material_id": "540f31a7-2911-4d5b-b8eb-724d613a7563",
+                      "section_id": "intermediate_girder",
+                      "properties": {
+                        "girder_index": 2
+                      }
+                    },
+                    {
+                      "group_id": "girder_4_3",
+                      "structural_component_type": "girder",
+                      "name": "Girder No. 4",
+                      "material_id": "540f31a7-2911-4d5b-b8eb-724d613a7563",
+                      "section_id": "intermediate_girder",
+                      "properties": {
+                        "girder_index": 3
+                      }
+                    },
+                    {
+                      "group_id": "girder_5_3",
+                      "structural_component_type": "girder",
+                      "name": "Girder No. 5",
+                      "material_id": "540f31a7-2911-4d5b-b8eb-724d613a7563",
+                      "section_id": "edge_girder_right",
+                      "properties": {
+                        "girder_index": 4
+                      }
+                    }
+                  ]
+                },
+                {
+                  "group_id": "transverse_members_3",
+                  "structural_component_type": "transverse-members",
+                  "name": "Transverse Members",
+                  "nested_groups": [
+                    {
+                      "group_id": "deck_slab_3",
+                      "structural_component_type": "deck-slab",
+                      "name": "Deck Slab",
+                      "material_id": "0a319344-c9e3-45db-b840-24310be69c22",
+                      "section_id": "deck-slab-section"
+                    },
+                    {
+                      "group_id": "diaphragm_3_1",
+                      "structural_component_type": "diaphragm",
+                      "name": "Diaphragm No. 1",
+                      "material_id": "540f31a7-2911-4d5b-b8eb-724d613a7563",
+                      "section_id": "diaphragm-section-steel",
+                      "properties": {
+                        "support_index": 3,
+                        "geometry_details": {
+                          "diaphragm_type": "steel-girder"
+                        }
+                      }
+                    },
+                    {
+                      "group_id": "transverse_bracing_301",
+                      "structural_component_type": "transverse-bracing",
+                      "name": "Transverse Bracing at span",
+                      "material_id": "540f31a7-2911-4d5b-b8eb-724d613a7563",
+                      "properties": {
+                        "bracing_orientation": "orthogonal",
+                        "x_position_at_start_girder": {
+                          "value": 5.0,
+                          "unit": "m"
+                        },
+                        "spacing_type": "uniform",
+                        "spacing_values": [
+                          {
+                            "value": 4.0,
+                            "unit": "m"
+                          }
+                        ],
+                        "no_of_bracings": 5,
+                        "left_girder_index": 1,
+                        "right_girder_index": 2,
+                        "bracing_details": {
+                          "horizontal_offset_at_left": {
+                            "value": 0.25,
+                            "unit": "m"
+                          },
+                          "horizontal_offset_at_right": {
+                            "value": 0.25,
+                            "unit": "m"
+                          }
+                        }
+                      },
+                      "nested_groups": [
+                        {
+                          "group_id": "brace_1_301",
+                          "structural_component_type": "brace",
+                          "name": "Brace Element",
+                          "section_id": "bracing-brace-section",
+                          "properties": {
+                            "geometry_details": {
+                              "bracing_type": "k-type",
+                              "vertical_offset_left_top": {
+                                "value": 0.25,
+                                "unit": "m"
+                              },
+                              "vertical_offset_left_btm": {
+                                "value": 0.95,
+                                "unit": "m"
+                              },
+                              "vertical_offset_right_top": {
+                                "value": 0.25,
+                                "unit": "m"
+                              },
+                              "vertical_offset_right_btm": {
+                                "value": 0.95,
+                                "unit": "m"
+                              },
+                              "horizontal_offset_left_brace": {
+                                "value": 1.10,
+                                "unit": "m"
+                              },
+                              "horizontal_offset_right_brace": {
+                                "value": 1.10,
+                                "unit": "m"
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "group_id": "chord_1_301",
+                          "structural_component_type": "chord",
+                          "name": "Chord Element",
+                          "section_id": "bracing-chord-section",
+                          "properties": {
+                            "vertical_offset_at_left": {
+                              "value": 0.25,
+                              "unit": "m"
+                            },
+                            "vertical_offset_at_right": {
+                              "value": 0.25,
+                              "unit": "m"
+                            }
+                          }
+                        },
+                        {
+                          "group_id": "chord_2_301",
+                          "structural_component_type": "chord",
+                          "name": "Chord Element",
+                          "section_id": "bracing-chord-section",
+                          "properties": {
+                            "vertical_offset_at_left": {
+                              "value": 1.25,
+                              "unit": "m"
+                            },
+                            "vertical_offset_at_right": {
+                              "value": 1.25,
+                              "unit": "m"
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "group_id": "plan_bracing_201",
+                      "structural_component_type": "plan-bracing",
+                      "name": "Plan Bracing at span",
+                      "section_id": "plan-bracing-section",
+                      "material_id": "540f31a7-2911-4d5b-b8eb-724d613a7563",
+                      "properties": {
+                        "plan_bracing_type": "pratt",
+                        "left_girder_index": 1,
+                        "right_girder_index": 2
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "group_id": "Substructure",
+          "structural_component_type": "substructure",
+          "name": "Substructure",
+          "nested_groups": [
+            {
+              "group_id": "Support_1",
+              "structural_component_type": "support",
+              "name": "Support No. 1",
+              "properties": {
+                "support_index": 0,
+                "skew_angle": {
+                  "value": 45.0,
+                  "unit": "deg"
+                },
+                "bearing_underside_level": {
+                  "value": 60.0,
+                  "unit": "m"
+                },
+                "orientation": "skewed"
+              }
+            },
+            {
+              "group_id": "Support_2",
+              "structural_component_type": "support",
+              "name": "Support No. 2",
+              "properties": {
+                "support_index": 1,
+                "skew_angle": {
+                  "value": 45.0,
+                  "unit": "deg"
+                },
+                "bearing_underside_level": {
+                  "value": 60.0,
+                  "unit": "m"
+                },
+                "orientation": "skewed"
+              }
+            },
+            {
+              "group_id": "Support_3",
+              "structural_component_type": "support",
+              "name": "Support No. 3",
+              "properties": {
+                "support_index": 2,
+                "skew_angle": {
+                  "value": 45.0,
+                  "unit": "deg"
+                },
+                "bearing_underside_level": {
+                  "value": 60.0,
+                  "unit": "m"
+                },
+                "orientation": "skewed"
+              }
+            },
+            {
+              "group_id": "Support_4",
+              "structural_component_type": "support",
+              "name": "Support No. 4",
+              "properties": {
+                "support_index": 3,
+                "skew_angle": {
+                  "value": 45.0,
+                  "unit": "deg"
+                },
+                "bearing_underside_level": {
+                  "value": 60.0,
+                  "unit": "m"
+                },
+                "orientation": "skewed"
+              }
+            }
+            ]
+        },
+        {
+          "group_id": "Linkage group",
+          "structural_component_type": "linkage",
+          "name": "Linkage group",
+          "nested_groups": [
+            {
+              "group_id": "Linkage_Support_1",
+              "structural_component_type": "superstructure-to-substructure-connections",
+              "name": "Linkage Support No. 1",
+              "properties": {
+                "support_index": 0,
+                "bearing_configuration_details": {
+                "bearing_configuration_type": "singular"}
+              }
+            },
+            {
+              "group_id": "Linkage_Support_2",
+              "structural_component_type": "superstructure-to-substructure-connections",
+              "name": "Linkage Support No. 2",
+              "properties": {
+                "support_index": 1,
+                "bearing_configuration_details": {
+                "bearing_configuration_type": "singular"}
+              }
+            },
+            {
+              "group_id": "Linkage_Support_3",
+              "structural_component_type": "superstructure-to-substructure-connections",
+              "name": "Linkage Support No. 3",
+              "properties": {
+                "support_index": 2,
+                "bearing_configuration_details": {
+                "bearing_configuration_type": "singular"}
+              }
+            },
+            {
+              "group_id": "Linkage_Support_4",
+              "structural_component_type": "superstructure-to-substructure-connections",
+              "name": "Linkage Support No. 4",
+              "properties": {
+                "support_index": 3,
+                "bearing_configuration_details": {
+                "bearing_configuration_type": "singular"}
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

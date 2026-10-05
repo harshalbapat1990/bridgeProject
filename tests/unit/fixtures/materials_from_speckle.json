@@ -1,0 +1,163 @@
+{
+  "materials": [
+    {
+      "material_id": "0c6ca4f8-0556-6144-b2bb-9198ca234610",
+      "name": "Concrete Material Example - AASHTO",
+      "material_type": "concrete",
+      "material_model_type": "isotropic",
+      "standard_code": "AASHTO",
+      "general_properties": {
+        "unit_weight": {
+          "value": 23.53596,
+          "unit": "kN/m³"
+        },
+        "modulus_of_elasticity": {
+          "value": 30000000000.0,
+          "unit": "Pa"
+        },
+        "thermal_coefficient": {
+          "value": 0.00001,
+          "unit": "1/Δ°C"
+        },
+        "poissons_ratio": {
+          "value": 0.2,
+          "unit": ""
+        }
+      },
+      "design_parameters": {
+        "specified_minimum_compressive_strength": {
+          "value": 32000.0,
+          "unit": "kN/m²"
+        },
+        "expected_compressive_strength": {
+          "value": 40000.0,
+          "unit": "kN/m²"
+        },
+        "initial_concrete_comp_strength_at_casting": null,
+        "friction_factor": null
+      }
+    },
+    {
+      "material_id": "e8ebb3f7-1a11-4314-c19f-9eddf941ff1e",
+      "name": "Reinforcement Material Example - AASHTO",
+      "material_type": "steel reinforcement",
+      "material_model_type": "isotropic",
+      "standard_code": "AASHTO",
+      "general_properties": {
+        "unit_weight": {
+          "value": 76.9822025,
+          "unit": "kN/m³"
+        },
+        "modulus_of_elasticity": {
+          "value": 200000000000.0,
+          "unit": "Pa"
+        },
+        "thermal_coefficient": {
+          "value": 0.000012,
+          "unit": "1/Δ°C"
+        },
+        "poissons_ratio": {
+          "value": 0.3,
+          "unit": ""
+        }
+      },
+      "design_parameters": {
+        "specified_minimum_yield_strength": {
+          "value": 420000.0,
+          "unit": "kN/m²"
+        },
+        "specified_minimum_tensile_strength": {
+          "value": 550000.0,
+          "unit": "kN/m²"
+        },
+        "expected_yield_strength": {
+          "value": 500000.0,
+          "unit": "kN/m²"
+        },
+        "expected_tensile_strength": {
+          "value": 650000.0,
+          "unit": "kN/m²"
+        }
+      }
+    },
+    {
+      "material_id": "03a5ccde-653d-2a7a-039c-dc0fed446f93",
+      "name": "Steel Material Example - AASHTO",
+      "material_type": "steel",
+      "material_model_type": "isotropic",
+      "standard_code": "AASHTO",
+      "general_properties": {
+        "unit_weight": {
+          "value": 76.9822025,
+          "unit": "kN/m³"
+        },
+        "modulus_of_elasticity": {
+          "value": 210000000000.0,
+          "unit": "Pa"
+        },
+        "thermal_coefficient": {
+          "value": 0.000012,
+          "unit": "1/Δ°C"
+        },
+        "poissons_ratio": {
+          "value": 0.3,
+          "unit": ""
+        }
+      },
+      "design_parameters": {
+        "specified_minimum_yield_strength": {
+          "value": 250000.0,
+          "unit": "kN/m²"
+        },
+        "specified_minimum_tensile_strength": {
+          "value": 400000.0,
+          "unit": "kN/m²"
+        },
+        "expected_yield_strength": {
+          "value": 345000.0,
+          "unit": "kN/m²"
+        },
+        "expected_tensile_strength": {
+          "value": 460000.0,
+          "unit": "kN/m²"
+        }
+      }
+    },
+    {
+      "material_id": "289bc7b8-60c4-bc01-76e8-d70263a27879",
+      "name": "Tendon Material Example - AASHTO",
+      "material_type": "tendon",
+      "material_model_type": "isotropic",
+      "standard_code": "AASHTO",
+      "general_properties": {
+        "unit_weight": {
+          "value": 76.9822025,
+          "unit": "kN/m³"
+        },
+        "modulus_of_elasticity": {
+          "value": 195000000000.0,
+          "unit": "Pa"
+        },
+        "thermal_coefficient": {
+          "value": 0.000012,
+          "unit": "1/Δ°C"
+        },
+        "poissons_ratio": {
+          "value": 0.3,
+          "unit": ""
+        }
+      },
+      "design_parameters": {
+        "specified_minimum_yield_strength": {
+          "value": 1860000.0,
+          "unit": "kN/m²"
+        },
+        "specified_minimum_tensile_strength": {
+          "value": 2000000.0,
+          "unit": "kN/m²"
+        }
+      }
+    }
+  ]
+}
+

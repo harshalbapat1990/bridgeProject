@@ -1,0 +1,3171 @@
+{
+  "$defs": {
+    "BDA_DesignCode": {
+      "additionalProperties": false,
+      "properties": {
+        "base_unit": {
+          "default": null,
+          "title": "Base Unit",
+          "type": "null"
+        },
+        "base_value": {
+          "default": null,
+          "title": "Base Value",
+          "type": "null"
+        },
+        "description": {
+          "const": "Design Code of bridge project (e.g Eurocode, AASHTO)",
+          "default": "Design Code of bridge project (e.g Eurocode, AASHTO)",
+          "title": "Description",
+          "type": "string"
+        },
+        "isUser": {
+          "default": true,
+          "title": "Isuser",
+          "type": "boolean"
+        },
+        "name": {
+          "const": "Design Code",
+          "default": "Design Code",
+          "title": "Name",
+          "type": "string"
+        },
+        "provided_unit": {
+          "default": null,
+          "title": "Provided Unit",
+          "type": "null"
+        },
+        "provided_value": {
+          "$ref": "#/$defs/DesignCodesEnum"
+        },
+        "symbol": {
+          "default": null,
+          "title": "Symbol",
+          "type": "null"
+        }
+      },
+      "required": [
+        "provided_value"
+      ],
+      "title": "BDA_DesignCode",
+      "type": "object"
+    },
+    "BDA_ModelDataDataObject": {
+      "additionalProperties": false,
+      "properties": {
+        "applicationId": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Optional application-defined identifier. May be any string, including an empty string, or null.",
+          "title": "Applicationid",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "displayValue": {
+          "const": [],
+          "description": "Always empty for config object.",
+          "items": {
+            "discriminator": {
+              "mapping": {
+                "BDA.Line": "#/$defs/Line",
+                "BDA.Mesh": "#/$defs/Mesh",
+                "BDA.Point": "#/$defs/Point"
+              },
+              "propertyName": "speckle_type"
+            },
+            "oneOf": [
+              {
+                "$ref": "#/$defs/Point"
+              },
+              {
+                "$ref": "#/$defs/Line"
+              },
+              {
+                "$ref": "#/$defs/Mesh"
+              }
+            ]
+          },
+          "title": "Displayvalue",
+          "type": "array"
+        },
+        "id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Backend-assigned identifier. Must be null in input payloads.",
+          "title": "Id",
+          "type": [
+            "null"
+          ]
+        },
+        "name": {
+          "const": "BDA Analytical Model Data",
+          "default": "BDA Analytical Model Data",
+          "title": "Name",
+          "type": "string"
+        },
+        "properties": {
+          "$ref": "#/$defs/ModelConfigDataObjectProperties"
+        },
+        "speckle_type": {
+          "const": "Objects.Data.DataObject:BDA_Model_Config",
+          "default": "Objects.Data.DataObject:BDA_Model_Config",
+          "title": "Speckle Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "properties"
+      ],
+      "title": "BDA_ModelDataDataObject",
+      "type": "object"
+    },
+    "BDA_ModelUnitSystem": {
+      "additionalProperties": false,
+      "properties": {
+        "base_unit": {
+          "default": null,
+          "title": "Base Unit",
+          "type": "null"
+        },
+        "base_value": {
+          "default": null,
+          "title": "Base Value",
+          "type": "null"
+        },
+        "description": {
+          "const": "The preferred unit system used for the model. This will impact the output unit systems of any models",
+          "default": "The preferred unit system used for the model. This will impact the output unit systems of any models",
+          "title": "Description",
+          "type": "string"
+        },
+        "isUser": {
+          "default": true,
+          "title": "Isuser",
+          "type": "boolean"
+        },
+        "name": {
+          "const": "Model Unit System",
+          "default": "Model Unit System",
+          "title": "Name",
+          "type": "string"
+        },
+        "provided_unit": {
+          "default": null,
+          "title": "Provided Unit",
+          "type": "null"
+        },
+        "provided_value": {
+          "$ref": "#/$defs/ModelUnitSystemEnum"
+        },
+        "symbol": {
+          "default": null,
+          "title": "Symbol",
+          "type": "null"
+        }
+      },
+      "required": [
+        "provided_value"
+      ],
+      "title": "BDA_ModelUnitSystem",
+      "type": "object"
+    },
+    "BDA_OutputSoftware": {
+      "additionalProperties": false,
+      "properties": {
+        "base_unit": {
+          "default": null,
+          "title": "Base Unit",
+          "type": "null"
+        },
+        "base_value": {
+          "default": null,
+          "title": "Base Value",
+          "type": "null"
+        },
+        "description": {
+          "const": "The software used for output generation",
+          "default": "The software used for output generation",
+          "title": "Description",
+          "type": "string"
+        },
+        "isUser": {
+          "default": true,
+          "title": "Isuser",
+          "type": "boolean"
+        },
+        "name": {
+          "const": "Output Software",
+          "default": "Output Software",
+          "title": "Name",
+          "type": "string"
+        },
+        "provided_unit": {
+          "default": null,
+          "title": "Provided Unit",
+          "type": "null"
+        },
+        "provided_value": {
+          "$ref": "#/$defs/OutputSoftwareEnum"
+        },
+        "symbol": {
+          "default": null,
+          "title": "Symbol",
+          "type": "null"
+        }
+      },
+      "required": [
+        "provided_value"
+      ],
+      "title": "BDA_OutputSoftware",
+      "type": "object"
+    },
+    "BDA_StructureType": {
+      "additionalProperties": false,
+      "properties": {
+        "base_unit": {
+          "default": null,
+          "title": "Base Unit",
+          "type": "null"
+        },
+        "base_value": {
+          "default": null,
+          "title": "Base Value",
+          "type": "null"
+        },
+        "description": {
+          "const": "Bridge structure type. This dictates the parameters for the analysis",
+          "default": "Bridge structure type. This dictates the parameters for the analysis",
+          "title": "Description",
+          "type": "string"
+        },
+        "isUser": {
+          "default": true,
+          "title": "Isuser",
+          "type": "boolean"
+        },
+        "name": {
+          "const": "Structure Type",
+          "default": "Structure Type",
+          "title": "Name",
+          "type": "string"
+        },
+        "provided_unit": {
+          "default": null,
+          "title": "Provided Unit",
+          "type": "null"
+        },
+        "provided_value": {
+          "$ref": "#/$defs/StructureTypeEnum"
+        },
+        "symbol": {
+          "default": null,
+          "title": "Symbol",
+          "type": "null"
+        }
+      },
+      "required": [
+        "provided_value"
+      ],
+      "title": "BDA_StructureType",
+      "type": "object"
+    },
+    "BridgeSpeckleType_BDA_ReinforcementMaterial": {
+      "additionalProperties": false,
+      "properties": {
+        "base_unit": {
+          "default": null,
+          "title": "Base Unit",
+          "type": "null"
+        },
+        "base_value": {
+          "default": null,
+          "title": "Base Value",
+          "type": "null"
+        },
+        "description": {
+          "const": "Entity speckle type used for creation. This is used for round tripping of objects and persistance of custom speckle object variants that are not persisted in deserialisation of objects",
+          "default": "Entity speckle type used for creation. This is used for round tripping of objects and persistance of custom speckle object variants that are not persisted in deserialisation of objects",
+          "title": "Description",
+          "type": "string"
+        },
+        "isUser": {
+          "default": false,
+          "title": "Isuser",
+          "type": "boolean"
+        },
+        "name": {
+          "const": "DataObject Speckle Type",
+          "default": "DataObject Speckle Type",
+          "title": "Name",
+          "type": "string"
+        },
+        "provided_unit": {
+          "default": null,
+          "title": "Provided Unit",
+          "type": "null"
+        },
+        "provided_value": {
+          "const": "Objects.Data.DataObject:BDA_Reinforcement_Material_AASHTO",
+          "default": "Objects.Data.DataObject:BDA_Reinforcement_Material_AASHTO",
+          "title": "Provided Value",
+          "type": "string"
+        },
+        "symbol": {
+          "default": null,
+          "title": "Symbol",
+          "type": "string"
+        }
+      },
+      "title": "BridgeSpeckleType_BDA_ReinforcementMaterial",
+      "type": "object"
+    },
+    "CoefficientOfThermalExpansion": {
+      "additionalProperties": false,
+      "properties": {
+        "base_unit": {
+          "const": "1/\u00b0C",
+          "default": "1/\u00b0C",
+          "title": "Base Unit",
+          "type": "string"
+        },
+        "base_value": {
+          "title": "Base Value",
+          "type": "number"
+        },
+        "description": {
+          "const": "Change in length per unit length per degree of temperature change",
+          "default": "Change in length per unit length per degree of temperature change",
+          "title": "Description",
+          "type": "string"
+        },
+        "isUser": {
+          "title": "Isuser",
+          "type": "boolean"
+        },
+        "name": {
+          "const": "Coefficient of Thermal Expansion",
+          "default": "Coefficient of Thermal Expansion",
+          "title": "Name",
+          "type": "string"
+        },
+        "provided_unit": {
+          "enum": [
+            "1/\u00b0C",
+            "1/\u00b0F"
+          ],
+          "title": "Provided Unit",
+          "type": "string"
+        },
+        "provided_value": {
+          "title": "Provided Value",
+          "type": "number"
+        },
+        "symbol": {
+          "const": "\u03b1",
+          "default": "\u03b1",
+          "title": "Symbol",
+          "type": "string"
+        }
+      },
+      "required": [
+        "isUser",
+        "provided_value",
+        "provided_unit",
+        "base_value"
+      ],
+      "title": "CoefficientOfThermalExpansion",
+      "type": "object"
+    },
+    "ConcreteMaterialDataObjectType_AASHTO": {
+      "additionalProperties": false,
+      "properties": {
+        "base_unit": {
+          "default": null,
+          "title": "Base Unit",
+          "type": "null"
+        },
+        "base_value": {
+          "default": null,
+          "title": "Base Value",
+          "type": "null"
+        },
+        "description": {
+          "const": "Entity speckle type used for creation. This is used for round tripping of objects and persistance of custom speckle object variants that are not persisted in deserialisation of objects",
+          "default": "Entity speckle type used for creation. This is used for round tripping of objects and persistance of custom speckle object variants that are not persisted in deserialisation of objects",
+          "title": "Description",
+          "type": "string"
+        },
+        "isUser": {
+          "default": false,
+          "title": "Isuser",
+          "type": "boolean"
+        },
+        "name": {
+          "const": "DataObject Speckle Type",
+          "default": "DataObject Speckle Type",
+          "title": "Name",
+          "type": "string"
+        },
+        "provided_unit": {
+          "default": null,
+          "title": "Provided Unit",
+          "type": "null"
+        },
+        "provided_value": {
+          "const": "Objects.Data.DataObject:BDA_Concrete_Material_AASHTO",
+          "default": "Objects.Data.DataObject:BDA_Concrete_Material_AASHTO",
+          "title": "Provided Value",
+          "type": "string"
+        },
+        "symbol": {
+          "default": null,
+          "title": "Symbol",
+          "type": "string"
+        }
+      },
+      "title": "ConcreteMaterialDataObjectType_AASHTO",
+      "type": "object"
+    },
+    "ConcreteMaterialDataObject_AASHTO": {
+      "additionalProperties": false,
+      "properties": {
+        "applicationId": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Optional application-defined identifier. May be any string, including an empty string, or null.",
+          "title": "Applicationid",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "displayValue": {
+          "const": [],
+          "description": "Always empty for material objects.",
+          "items": {
+            "discriminator": {
+              "mapping": {
+                "BDA.Line": "#/$defs/Line",
+                "BDA.Mesh": "#/$defs/Mesh",
+                "BDA.Point": "#/$defs/Point"
+              },
+              "propertyName": "speckle_type"
+            },
+            "oneOf": [
+              {
+                "$ref": "#/$defs/Point"
+              },
+              {
+                "$ref": "#/$defs/Line"
+              },
+              {
+                "$ref": "#/$defs/Mesh"
+              }
+            ]
+          },
+          "title": "Displayvalue",
+          "type": "array"
+        },
+        "id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Backend-assigned identifier. Must be null in input payloads.",
+          "title": "Id",
+          "type": [
+            "null"
+          ]
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "properties": {
+          "$ref": "#/$defs/MaterialDataObject_Properties_Concrete_AASHTO"
+        },
+        "speckle_type": {
+          "const": "Objects.Data.DataObject:BDA_Concrete_Material_AASHTO",
+          "default": "Objects.Data.DataObject:BDA_Concrete_Material_AASHTO",
+          "title": "Speckle Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "properties"
+      ],
+      "title": "ConcreteMaterialDataObject_AASHTO",
+      "type": "object"
+    },
+    "ConcreteMaterialPropertiesParameterGroup_AASHTO": {
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "const": "Concrete material properties",
+          "default": "Concrete material properties",
+          "title": "Description",
+          "type": "string"
+        },
+        "group_parameters": {
+          "$ref": "#/$defs/MaterialParameters_Concrete_AASHTO"
+        },
+        "isUser": {
+          "title": "Isuser",
+          "type": "boolean"
+        },
+        "name": {
+          "const": "Concrete Material Properties",
+          "default": "Concrete Material Properties",
+          "title": "Name",
+          "type": "string"
+        }
+      },
+      "required": [
+        "isUser",
+        "group_parameters"
+      ],
+      "title": "ConcreteMaterialPropertiesParameterGroup_AASHTO",
+      "type": "object"
+    },
+    "Density": {
+      "additionalProperties": false,
+      "properties": {
+        "base_unit": {
+          "const": "kg/m\u00b3",
+          "default": "kg/m\u00b3",
+          "title": "Base Unit",
+          "type": "string"
+        },
+        "base_value": {
+          "title": "Base Value",
+          "type": "number"
+        },
+        "description": {
+          "const": "Mass per unit volume of a material",
+          "default": "Mass per unit volume of a material",
+          "title": "Description",
+          "type": "string"
+        },
+        "isUser": {
+          "title": "Isuser",
+          "type": "boolean"
+        },
+        "name": {
+          "const": "Density",
+          "default": "Density",
+          "title": "Name",
+          "type": "string"
+        },
+        "provided_unit": {
+          "enum": [
+            "kg/m\u00b3",
+            "lbs/ft\u00b3"
+          ],
+          "title": "Provided Unit",
+          "type": "string"
+        },
+        "provided_value": {
+          "minimum": 0,
+          "title": "Provided Value",
+          "type": "number"
+        },
+        "symbol": {
+          "const": "\u03c1",
+          "default": "\u03c1",
+          "title": "Symbol",
+          "type": "string"
+        }
+      },
+      "required": [
+        "isUser",
+        "provided_value",
+        "provided_unit",
+        "base_value"
+      ],
+      "title": "Density",
+      "type": "object"
+    },
+    "DesignCodesEnum": {
+      "enum": [
+        "AASHTO",
+        "Eurocode"
+      ],
+      "title": "DesignCodesEnum",
+      "type": "string"
+    },
+    "ExpectedCompressoveStrength": {
+      "additionalProperties": false,
+      "properties": {
+        "base_unit": {
+          "const": "Pa",
+          "default": "Pa",
+          "title": "Base Unit",
+          "type": "string"
+        },
+        "base_value": {
+          "title": "Base Value",
+          "type": "number"
+        },
+        "description": {
+          "const": "Expected compressive strength of concrete at 28 days",
+          "default": "Expected compressive strength of concrete at 28 days",
+          "title": "Description",
+          "type": "string"
+        },
+        "isUser": {
+          "title": "Isuser",
+          "type": "boolean"
+        },
+        "name": {
+          "const": "Expected Compressive Strength",
+          "default": "Expected Compressive Strength",
+          "title": "Name",
+          "type": "string"
+        },
+        "provided_unit": {
+          "enum": [
+            "kN/m\u00b2",
+            "lbs/ft\u00b3"
+          ],
+          "title": "Provided Unit",
+          "type": "string"
+        },
+        "provided_value": {
+          "title": "Provided Value",
+          "type": "number"
+        },
+        "symbol": {
+          "const": "fc,exp",
+          "default": "fc,exp",
+          "title": "Symbol",
+          "type": "string"
+        }
+      },
+      "required": [
+        "isUser",
+        "provided_value",
+        "provided_unit",
+        "base_value"
+      ],
+      "title": "ExpectedCompressoveStrength",
+      "type": "object"
+    },
+    "ExpectedTensileStrengthSteel": {
+      "additionalProperties": false,
+      "properties": {
+        "base_unit": {
+          "const": "Pa",
+          "default": "Pa",
+          "title": "Base Unit",
+          "type": "string"
+        },
+        "base_value": {
+          "title": "Base Value",
+          "type": "number"
+        },
+        "description": {
+          "const": "Expected tensile strength of steel",
+          "default": "Expected tensile strength of steel",
+          "title": "Description",
+          "type": "string"
+        },
+        "isUser": {
+          "title": "Isuser",
+          "type": "boolean"
+        },
+        "name": {
+          "const": "Expected Steel Tensile Strength",
+          "default": "Expected Steel Tensile Strength",
+          "title": "Name",
+          "type": "string"
+        },
+        "provided_unit": {
+          "enum": [
+            "kN/m\u00b2",
+            "lbs/ft\u00b2"
+          ],
+          "title": "Provided Unit",
+          "type": "string"
+        },
+        "provided_value": {
+          "title": "Provided Value",
+          "type": "number"
+        },
+        "symbol": {
+          "const": "fu,exp",
+          "default": "fu,exp",
+          "title": "Symbol",
+          "type": "string"
+        }
+      },
+      "required": [
+        "isUser",
+        "provided_value",
+        "provided_unit",
+        "base_value"
+      ],
+      "title": "ExpectedTensileStrengthSteel",
+      "type": "object"
+    },
+    "ExpectedYieldStrengthSteel": {
+      "additionalProperties": false,
+      "properties": {
+        "base_unit": {
+          "const": "Pa",
+          "default": "Pa",
+          "title": "Base Unit",
+          "type": "string"
+        },
+        "base_value": {
+          "title": "Base Value",
+          "type": "number"
+        },
+        "description": {
+          "const": "Expected yield strength of steel",
+          "default": "Expected yield strength of steel",
+          "title": "Description",
+          "type": "string"
+        },
+        "isUser": {
+          "title": "Isuser",
+          "type": "boolean"
+        },
+        "name": {
+          "const": "Expected Steel Yield Strength",
+          "default": "Expected Steel Yield Strength",
+          "title": "Name",
+          "type": "string"
+        },
+        "provided_unit": {
+          "enum": [
+            "kN/m\u00b2",
+            "lbs/ft\u00b2"
+          ],
+          "title": "Provided Unit",
+          "type": "string"
+        },
+        "provided_value": {
+          "title": "Provided Value",
+          "type": "number"
+        },
+        "symbol": {
+          "const": "fy,exp",
+          "default": "fy,exp",
+          "title": "Symbol",
+          "type": "string"
+        }
+      },
+      "required": [
+        "isUser",
+        "provided_value",
+        "provided_unit",
+        "base_value"
+      ],
+      "title": "ExpectedYieldStrengthSteel",
+      "type": "object"
+    },
+    "GeneralMaterialDataObjectType_AASHTO": {
+      "additionalProperties": false,
+      "properties": {
+        "base_unit": {
+          "default": null,
+          "title": "Base Unit",
+          "type": "null"
+        },
+        "base_value": {
+          "default": null,
+          "title": "Base Value",
+          "type": "null"
+        },
+        "description": {
+          "const": "Entity speckle type used for creation. This is used for round tripping of objects and persistance of custom speckle object variants that are not persisted in deserialisation of objects",
+          "default": "Entity speckle type used for creation. This is used for round tripping of objects and persistance of custom speckle object variants that are not persisted in deserialisation of objects",
+          "title": "Description",
+          "type": "string"
+        },
+        "isUser": {
+          "default": false,
+          "title": "Isuser",
+          "type": "boolean"
+        },
+        "name": {
+          "const": "DataObject Speckle Type",
+          "default": "DataObject Speckle Type",
+          "title": "Name",
+          "type": "string"
+        },
+        "provided_unit": {
+          "default": null,
+          "title": "Provided Unit",
+          "type": "null"
+        },
+        "provided_value": {
+          "const": "Objects.Data.DataObject:BDA_General_Material_AASHTO",
+          "default": "Objects.Data.DataObject:BDA_General_Material_AASHTO",
+          "title": "Provided Value",
+          "type": "string"
+        },
+        "symbol": {
+          "default": null,
+          "title": "Symbol",
+          "type": "string"
+        }
+      },
+      "title": "GeneralMaterialDataObjectType_AASHTO",
+      "type": "object"
+    },
+    "GeneralMaterialDataObject_AASHTO": {
+      "additionalProperties": false,
+      "properties": {
+        "applicationId": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Optional application-defined identifier. May be any string, including an empty string, or null.",
+          "title": "Applicationid",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "displayValue": {
+          "const": [],
+          "description": "Always empty for material objects.",
+          "items": {
+            "discriminator": {
+              "mapping": {
+                "BDA.Line": "#/$defs/Line",
+                "BDA.Mesh": "#/$defs/Mesh",
+                "BDA.Point": "#/$defs/Point"
+              },
+              "propertyName": "speckle_type"
+            },
+            "oneOf": [
+              {
+                "$ref": "#/$defs/Point"
+              },
+              {
+                "$ref": "#/$defs/Line"
+              },
+              {
+                "$ref": "#/$defs/Mesh"
+              }
+            ]
+          },
+          "title": "Displayvalue",
+          "type": "array"
+        },
+        "id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Backend-assigned identifier. Must be null in input payloads.",
+          "title": "Id",
+          "type": [
+            "null"
+          ]
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "properties": {
+          "$ref": "#/$defs/GeneralMaterialDataObject_Properties_AASHTO"
+        },
+        "speckle_type": {
+          "const": "Objects.Data.DataObject:BDA_General_Material_AASHTO",
+          "default": "Objects.Data.DataObject:BDA_General_Material_AASHTO",
+          "title": "Speckle Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "properties"
+      ],
+      "title": "GeneralMaterialDataObject_AASHTO",
+      "type": "object"
+    },
+    "GeneralMaterialDataObject_Properties_AASHTO": {
+      "additionalProperties": true,
+      "properties": {
+        "General Material Properties": {
+          "$ref": "#/$defs/GeneralMaterialParameterGroup_AASHTO"
+        },
+        "bda_speckle_type": {
+          "$ref": "#/$defs/GeneralMaterialDataObjectType_AASHTO"
+        }
+      },
+      "required": [
+        "bda_speckle_type",
+        "General Material Properties"
+      ],
+      "title": "GeneralMaterialDataObject_Properties_AASHTO",
+      "type": "object"
+    },
+    "GeneralMaterialParameterGroup_AASHTO": {
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "const": "General material properties",
+          "default": "General material properties",
+          "title": "Description",
+          "type": "string"
+        },
+        "group_parameters": {
+          "$ref": "#/$defs/GeneralMaterialParameters_AASHTO"
+        },
+        "isUser": {
+          "title": "Isuser",
+          "type": "boolean"
+        },
+        "name": {
+          "const": "General Material Properties",
+          "default": "General Material Properties",
+          "title": "Name",
+          "type": "string"
+        }
+      },
+      "required": [
+        "isUser",
+        "group_parameters"
+      ],
+      "title": "GeneralMaterialParameterGroup_AASHTO",
+      "type": "object"
+    },
+    "GeneralMaterialParameters_AASHTO": {
+      "properties": {
+        "Coefficient of Thermal Expansion": {
+          "$ref": "#/$defs/CoefficientOfThermalExpansion"
+        },
+        "Density": {
+          "$ref": "#/$defs/Density"
+        },
+        "Isotropy": {
+          "$ref": "#/$defs/Isotropy"
+        },
+        "Material Design Code": {
+          "$ref": "#/$defs/MaterialDesignCode_AASHTO"
+        },
+        "Material Type": {
+          "$ref": "#/$defs/MaterialType"
+        },
+        "Modulus of Elasticity": {
+          "$ref": "#/$defs/ModulusOfElasticity"
+        },
+        "Poisson's Ratio": {
+          "$ref": "#/$defs/PoissonsRatio"
+        }
+      },
+      "required": [
+        "Material Type",
+        "Material Design Code",
+        "Isotropy",
+        "Density",
+        "Modulus of Elasticity",
+        "Poisson's Ratio",
+        "Coefficient of Thermal Expansion"
+      ],
+      "title": "GeneralMaterialParameters_AASHTO",
+      "type": "object"
+    },
+    "GeneralMaterialParameters_Concrete_AASHTO": {
+      "properties": {
+        "Coefficient of Thermal Expansion": {
+          "$ref": "#/$defs/CoefficientOfThermalExpansion"
+        },
+        "Density": {
+          "$ref": "#/$defs/Density"
+        },
+        "Isotropy": {
+          "$ref": "#/$defs/Isotropy"
+        },
+        "Material Design Code": {
+          "$ref": "#/$defs/MaterialDesignCode_AASHTO"
+        },
+        "Material Type": {
+          "$ref": "#/$defs/MaterialType_Concrete"
+        },
+        "Modulus of Elasticity": {
+          "$ref": "#/$defs/ModulusOfElasticity"
+        },
+        "Poisson's Ratio": {
+          "$ref": "#/$defs/PoissonsRatio"
+        }
+      },
+      "required": [
+        "Material Type",
+        "Material Design Code",
+        "Isotropy",
+        "Density",
+        "Modulus of Elasticity",
+        "Poisson's Ratio",
+        "Coefficient of Thermal Expansion"
+      ],
+      "title": "GeneralMaterialParameters_Concrete_AASHTO",
+      "type": "object"
+    },
+    "GeneralMaterialParameters_SteelReinforcement_AASHTO": {
+      "properties": {
+        "Coefficient of Thermal Expansion": {
+          "$ref": "#/$defs/CoefficientOfThermalExpansion"
+        },
+        "Density": {
+          "$ref": "#/$defs/Density"
+        },
+        "Isotropy": {
+          "$ref": "#/$defs/Isotropy"
+        },
+        "Material Design Code": {
+          "$ref": "#/$defs/MaterialDesignCode_AASHTO"
+        },
+        "Material Type": {
+          "$ref": "#/$defs/MaterialType_SteelReinforcement"
+        },
+        "Modulus of Elasticity": {
+          "$ref": "#/$defs/ModulusOfElasticity"
+        },
+        "Poisson's Ratio": {
+          "$ref": "#/$defs/PoissonsRatio"
+        }
+      },
+      "required": [
+        "Material Type",
+        "Material Design Code",
+        "Isotropy",
+        "Density",
+        "Modulus of Elasticity",
+        "Poisson's Ratio",
+        "Coefficient of Thermal Expansion"
+      ],
+      "title": "GeneralMaterialParameters_SteelReinforcement_AASHTO",
+      "type": "object"
+    },
+    "GeneralMaterialParameters_Steel_AASHTO": {
+      "properties": {
+        "Coefficient of Thermal Expansion": {
+          "$ref": "#/$defs/CoefficientOfThermalExpansion"
+        },
+        "Density": {
+          "$ref": "#/$defs/Density"
+        },
+        "Isotropy": {
+          "$ref": "#/$defs/Isotropy"
+        },
+        "Material Design Code": {
+          "$ref": "#/$defs/MaterialDesignCode_AASHTO"
+        },
+        "Material Type": {
+          "$ref": "#/$defs/MaterialType_Steel"
+        },
+        "Modulus of Elasticity": {
+          "$ref": "#/$defs/ModulusOfElasticity"
+        },
+        "Poisson's Ratio": {
+          "$ref": "#/$defs/PoissonsRatio"
+        }
+      },
+      "required": [
+        "Material Type",
+        "Material Design Code",
+        "Isotropy",
+        "Density",
+        "Modulus of Elasticity",
+        "Poisson's Ratio",
+        "Coefficient of Thermal Expansion"
+      ],
+      "title": "GeneralMaterialParameters_Steel_AASHTO",
+      "type": "object"
+    },
+    "GeneralMaterialParameters_Tendon_AASHTO": {
+      "properties": {
+        "Coefficient of Thermal Expansion": {
+          "$ref": "#/$defs/CoefficientOfThermalExpansion"
+        },
+        "Density": {
+          "$ref": "#/$defs/Density"
+        },
+        "Isotropy": {
+          "$ref": "#/$defs/Isotropy"
+        },
+        "Material Design Code": {
+          "$ref": "#/$defs/MaterialDesignCode_AASHTO"
+        },
+        "Material Type": {
+          "$ref": "#/$defs/MaterialType_Tendon"
+        },
+        "Modulus of Elasticity": {
+          "$ref": "#/$defs/ModulusOfElasticity"
+        },
+        "Poisson's Ratio": {
+          "$ref": "#/$defs/PoissonsRatio"
+        }
+      },
+      "required": [
+        "Material Type",
+        "Material Design Code",
+        "Isotropy",
+        "Density",
+        "Modulus of Elasticity",
+        "Poisson's Ratio",
+        "Coefficient of Thermal Expansion"
+      ],
+      "title": "GeneralMaterialParameters_Tendon_AASHTO",
+      "type": "object"
+    },
+    "GeneralMaterialPropertiesParameterGroup_SteelReinforcement_AASHTO": {
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "const": "General material properties",
+          "default": "General material properties",
+          "title": "Description",
+          "type": "string"
+        },
+        "group_parameters": {
+          "$ref": "#/$defs/GeneralMaterialParameters_SteelReinforcement_AASHTO"
+        },
+        "isUser": {
+          "title": "Isuser",
+          "type": "boolean"
+        },
+        "name": {
+          "const": "General Material Properties",
+          "default": "General Material Properties",
+          "title": "Name",
+          "type": "string"
+        }
+      },
+      "required": [
+        "isUser",
+        "group_parameters"
+      ],
+      "title": "GeneralMaterialPropertiesParameterGroup_SteelReinforcement_AASHTO",
+      "type": "object"
+    },
+    "GeneralMaterialPropertiesParameterGroup_Steel_AASHTO": {
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "const": "General material properties",
+          "default": "General material properties",
+          "title": "Description",
+          "type": "string"
+        },
+        "group_parameters": {
+          "$ref": "#/$defs/GeneralMaterialParameters_Steel_AASHTO"
+        },
+        "isUser": {
+          "title": "Isuser",
+          "type": "boolean"
+        },
+        "name": {
+          "const": "General Material Properties",
+          "default": "General Material Properties",
+          "title": "Name",
+          "type": "string"
+        }
+      },
+      "required": [
+        "isUser",
+        "group_parameters"
+      ],
+      "title": "GeneralMaterialPropertiesParameterGroup_Steel_AASHTO",
+      "type": "object"
+    },
+    "GeneralMaterialPropertiesParameterGroup_Tendon_AASHTO": {
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "const": "General material properties",
+          "default": "General material properties",
+          "title": "Description",
+          "type": "string"
+        },
+        "group_parameters": {
+          "$ref": "#/$defs/GeneralMaterialParameters_Tendon_AASHTO"
+        },
+        "isUser": {
+          "title": "Isuser",
+          "type": "boolean"
+        },
+        "name": {
+          "const": "General Material Properties",
+          "default": "General Material Properties",
+          "title": "Name",
+          "type": "string"
+        }
+      },
+      "required": [
+        "isUser",
+        "group_parameters"
+      ],
+      "title": "GeneralMaterialPropertiesParameterGroup_Tendon_AASHTO",
+      "type": "object"
+    },
+    "GeneralMaterialProperties_ParameterGroup_Concrete_AASHTO": {
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "const": "General material properties",
+          "default": "General material properties",
+          "title": "Description",
+          "type": "string"
+        },
+        "group_parameters": {
+          "$ref": "#/$defs/GeneralMaterialParameters_Concrete_AASHTO"
+        },
+        "isUser": {
+          "title": "Isuser",
+          "type": "boolean"
+        },
+        "name": {
+          "const": "General Material Properties",
+          "default": "General Material Properties",
+          "title": "Name",
+          "type": "string"
+        }
+      },
+      "required": [
+        "isUser",
+        "group_parameters"
+      ],
+      "title": "GeneralMaterialProperties_ParameterGroup_Concrete_AASHTO",
+      "type": "object"
+    },
+    "Isotropy": {
+      "additionalProperties": false,
+      "properties": {
+        "base_unit": {
+          "default": null,
+          "title": "Base Unit",
+          "type": "null"
+        },
+        "base_value": {
+          "default": null,
+          "title": "Base Value",
+          "type": "null"
+        },
+        "description": {
+          "const": "Whether the material is isotropic or orthotropic",
+          "default": "Whether the material is isotropic or orthotropic",
+          "title": "Description",
+          "type": "string"
+        },
+        "isUser": {
+          "title": "Isuser",
+          "type": "boolean"
+        },
+        "name": {
+          "const": "Isotropy",
+          "default": "Isotropy",
+          "title": "Name",
+          "type": "string"
+        },
+        "provided_unit": {
+          "default": null,
+          "title": "Provided Unit",
+          "type": "null"
+        },
+        "provided_value": {
+          "$ref": "#/$defs/IsotropyTypesEnum"
+        },
+        "symbol": {
+          "default": null,
+          "title": "Symbol",
+          "type": "null"
+        }
+      },
+      "required": [
+        "isUser",
+        "provided_value"
+      ],
+      "title": "Isotropy",
+      "type": "object"
+    },
+    "IsotropyTypesEnum": {
+      "enum": [
+        "Isotropic",
+        "Orthotropic"
+      ],
+      "title": "IsotropyTypesEnum",
+      "type": "string"
+    },
+    "Line": {
+      "additionalProperties": false,
+      "properties": {
+        "applicationId": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Optional application-defined identifier. May be any string, including an empty string, or null.",
+          "title": "Applicationid",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "end": {
+          "$ref": "#/$defs/Point"
+        },
+        "id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Backend-assigned identifier. Must be null in input payloads.",
+          "title": "Id",
+          "type": [
+            "null"
+          ]
+        },
+        "speckle_type": {
+          "const": "BDA.Line",
+          "default": "BDA.Line",
+          "title": "Speckle Type",
+          "type": "string"
+        },
+        "start": {
+          "$ref": "#/$defs/Point"
+        },
+        "units": {
+          "default": "m",
+          "enum": [
+            "m",
+            "mm",
+            "ft",
+            "in"
+          ],
+          "title": "Units",
+          "type": "string"
+        }
+      },
+      "required": [
+        "start",
+        "end"
+      ],
+      "title": "Line",
+      "type": "object"
+    },
+    "MaterialDataObject_Properties_Concrete_AASHTO": {
+      "additionalProperties": true,
+      "properties": {
+        "Concrete Material Properties": {
+          "$ref": "#/$defs/ConcreteMaterialPropertiesParameterGroup_AASHTO"
+        },
+        "General Material Properties": {
+          "$ref": "#/$defs/GeneralMaterialProperties_ParameterGroup_Concrete_AASHTO"
+        },
+        "bda_speckle_type": {
+          "$ref": "#/$defs/ConcreteMaterialDataObjectType_AASHTO"
+        }
+      },
+      "required": [
+        "bda_speckle_type",
+        "General Material Properties",
+        "Concrete Material Properties"
+      ],
+      "title": "MaterialDataObject_Properties_Concrete_AASHTO",
+      "type": "object"
+    },
+    "MaterialDataObject_Properties_SteelReinforcement_AASHTO": {
+      "additionalProperties": true,
+      "properties": {
+        "General Material Properties": {
+          "$ref": "#/$defs/GeneralMaterialPropertiesParameterGroup_SteelReinforcement_AASHTO"
+        },
+        "Steel Material Properties": {
+          "$ref": "#/$defs/SteelReinforcementMaterialPropertiesParameterGroup_AASHTO"
+        },
+        "bda_speckle_type": {
+          "$ref": "#/$defs/BridgeSpeckleType_BDA_ReinforcementMaterial"
+        }
+      },
+      "required": [
+        "bda_speckle_type",
+        "General Material Properties",
+        "Steel Material Properties"
+      ],
+      "title": "MaterialDataObject_Properties_SteelReinforcement_AASHTO",
+      "type": "object"
+    },
+    "MaterialDataObject_Properties_Steel_AASHTO": {
+      "additionalProperties": true,
+      "properties": {
+        "General Material Properties": {
+          "$ref": "#/$defs/GeneralMaterialPropertiesParameterGroup_Steel_AASHTO"
+        },
+        "Steel Material Properties": {
+          "$ref": "#/$defs/SteelMaterialPropertiesParameterGroup_AASHTO"
+        },
+        "bda_speckle_type": {
+          "$ref": "#/$defs/SteelMaterialDataObjectType_AASHTO"
+        }
+      },
+      "required": [
+        "bda_speckle_type",
+        "General Material Properties",
+        "Steel Material Properties"
+      ],
+      "title": "MaterialDataObject_Properties_Steel_AASHTO",
+      "type": "object"
+    },
+    "MaterialDataObject_Properties_Tendon_AASHTO": {
+      "additionalProperties": true,
+      "properties": {
+        "General Material Properties": {
+          "$ref": "#/$defs/GeneralMaterialPropertiesParameterGroup_Tendon_AASHTO"
+        },
+        "Tendon Material Properties": {
+          "$ref": "#/$defs/TendonMaterialPropertiesParameterGroup_AASHTO"
+        },
+        "bda_speckle_type": {
+          "$ref": "#/$defs/TendonMaterialDataObjectType"
+        }
+      },
+      "required": [
+        "bda_speckle_type",
+        "General Material Properties",
+        "Tendon Material Properties"
+      ],
+      "title": "MaterialDataObject_Properties_Tendon_AASHTO",
+      "type": "object"
+    },
+    "MaterialDesignCode_AASHTO": {
+      "additionalProperties": false,
+      "description": "Concrete-specialised Material Type",
+      "properties": {
+        "base_unit": {
+          "default": null,
+          "title": "Base Unit",
+          "type": "null"
+        },
+        "base_value": {
+          "default": null,
+          "title": "Base Value",
+          "type": "null"
+        },
+        "description": {
+          "const": "Associated design code of material",
+          "default": "Associated design code of material",
+          "title": "Description",
+          "type": "string"
+        },
+        "isUser": {
+          "title": "Isuser",
+          "type": "boolean"
+        },
+        "name": {
+          "const": "Material Design Code",
+          "default": "Material Design Code",
+          "title": "Name",
+          "type": "string"
+        },
+        "provided_unit": {
+          "default": null,
+          "title": "Provided Unit",
+          "type": "null"
+        },
+        "provided_value": {
+          "const": "AASHTO",
+          "default": "AASHTO",
+          "title": "Provided Value",
+          "type": "string"
+        },
+        "symbol": {
+          "default": null,
+          "title": "Symbol",
+          "type": "null"
+        }
+      },
+      "required": [
+        "isUser"
+      ],
+      "title": "MaterialDesignCode_AASHTO",
+      "type": "object"
+    },
+    "MaterialParameters_Concrete_AASHTO": {
+      "properties": {
+        "Expected Concrete Strength": {
+          "$ref": "#/$defs/ExpectedCompressoveStrength"
+        },
+        "Specified Concrete Strength": {
+          "$ref": "#/$defs/SpecifiedMinimumCompressiveStrength"
+        }
+      },
+      "required": [
+        "Expected Concrete Strength",
+        "Specified Concrete Strength"
+      ],
+      "title": "MaterialParameters_Concrete_AASHTO",
+      "type": "object"
+    },
+    "MaterialType": {
+      "additionalProperties": false,
+      "properties": {
+        "base_unit": {
+          "default": null,
+          "title": "Base Unit",
+          "type": "null"
+        },
+        "base_value": {
+          "default": null,
+          "title": "Base Value",
+          "type": "null"
+        },
+        "description": {
+          "const": "Type of material (e.g., Concrete, Steel, Timber)",
+          "default": "Type of material (e.g., Concrete, Steel, Timber)",
+          "title": "Description",
+          "type": "string"
+        },
+        "isUser": {
+          "title": "Isuser",
+          "type": "boolean"
+        },
+        "name": {
+          "const": "Material Type",
+          "default": "Material Type",
+          "title": "Name",
+          "type": "string"
+        },
+        "provided_unit": {
+          "default": null,
+          "title": "Provided Unit",
+          "type": "null"
+        },
+        "provided_value": {
+          "$ref": "#/$defs/MaterialTypeEnum"
+        },
+        "symbol": {
+          "const": "MatType",
+          "default": "MatType",
+          "title": "Symbol",
+          "type": "string"
+        }
+      },
+      "required": [
+        "isUser",
+        "provided_value"
+      ],
+      "title": "MaterialType",
+      "type": "object"
+    },
+    "MaterialTypeEnum": {
+      "enum": [
+        "Concrete",
+        "Steel",
+        "Tendon",
+        "Steel Reinforcement"
+      ],
+      "title": "MaterialTypeEnum",
+      "type": "string"
+    },
+    "MaterialType_Concrete": {
+      "additionalProperties": false,
+      "description": "Concrete-specialised Material Type",
+      "properties": {
+        "base_unit": {
+          "default": null,
+          "title": "Base Unit",
+          "type": "null"
+        },
+        "base_value": {
+          "default": null,
+          "title": "Base Value",
+          "type": "null"
+        },
+        "description": {
+          "const": "Type of material (e.g., Concrete, Steel, Timber)",
+          "default": "Type of material (e.g., Concrete, Steel, Timber)",
+          "title": "Description",
+          "type": "string"
+        },
+        "isUser": {
+          "title": "Isuser",
+          "type": "boolean"
+        },
+        "name": {
+          "const": "Material Type",
+          "default": "Material Type",
+          "title": "Name",
+          "type": "string"
+        },
+        "provided_unit": {
+          "default": null,
+          "title": "Provided Unit",
+          "type": "null"
+        },
+        "provided_value": {
+          "const": "Concrete",
+          "default": "Concrete",
+          "title": "Provided Value",
+          "type": "string"
+        },
+        "symbol": {
+          "const": "MatType",
+          "default": "MatType",
+          "title": "Symbol",
+          "type": "string"
+        }
+      },
+      "required": [
+        "isUser"
+      ],
+      "title": "MaterialType_Concrete",
+      "type": "object"
+    },
+    "MaterialType_Steel": {
+      "additionalProperties": false,
+      "description": "Steel-specialised Material Type",
+      "properties": {
+        "base_unit": {
+          "default": null,
+          "title": "Base Unit",
+          "type": "null"
+        },
+        "base_value": {
+          "default": null,
+          "title": "Base Value",
+          "type": "null"
+        },
+        "description": {
+          "const": "Type of material (e.g., Concrete, Steel, Timber)",
+          "default": "Type of material (e.g., Concrete, Steel, Timber)",
+          "title": "Description",
+          "type": "string"
+        },
+        "isUser": {
+          "title": "Isuser",
+          "type": "boolean"
+        },
+        "name": {
+          "const": "Material Type",
+          "default": "Material Type",
+          "title": "Name",
+          "type": "string"
+        },
+        "provided_unit": {
+          "default": null,
+          "title": "Provided Unit",
+          "type": "null"
+        },
+        "provided_value": {
+          "const": "Steel",
+          "default": "Steel",
+          "title": "Provided Value",
+          "type": "string"
+        },
+        "symbol": {
+          "const": "MatType",
+          "default": "MatType",
+          "title": "Symbol",
+          "type": "string"
+        }
+      },
+      "required": [
+        "isUser"
+      ],
+      "title": "MaterialType_Steel",
+      "type": "object"
+    },
+    "MaterialType_SteelReinforcement": {
+      "additionalProperties": false,
+      "properties": {
+        "base_unit": {
+          "default": null,
+          "title": "Base Unit",
+          "type": "null"
+        },
+        "base_value": {
+          "default": null,
+          "title": "Base Value",
+          "type": "null"
+        },
+        "description": {
+          "const": "Type of material (e.g., Concrete, Steel, Timber)",
+          "default": "Type of material (e.g., Concrete, Steel, Timber)",
+          "title": "Description",
+          "type": "string"
+        },
+        "isUser": {
+          "title": "Isuser",
+          "type": "boolean"
+        },
+        "name": {
+          "const": "Material Type",
+          "default": "Material Type",
+          "title": "Name",
+          "type": "string"
+        },
+        "provided_unit": {
+          "default": null,
+          "title": "Provided Unit",
+          "type": "null"
+        },
+        "provided_value": {
+          "const": "Steel Reinforcement",
+          "default": "Steel Reinforcement",
+          "title": "Provided Value",
+          "type": "string"
+        },
+        "symbol": {
+          "const": "MatType",
+          "default": "MatType",
+          "title": "Symbol",
+          "type": "string"
+        }
+      },
+      "required": [
+        "isUser"
+      ],
+      "title": "MaterialType_SteelReinforcement",
+      "type": "object"
+    },
+    "MaterialType_Tendon": {
+      "additionalProperties": false,
+      "properties": {
+        "base_unit": {
+          "default": null,
+          "title": "Base Unit",
+          "type": "null"
+        },
+        "base_value": {
+          "default": null,
+          "title": "Base Value",
+          "type": "null"
+        },
+        "description": {
+          "const": "Type of material (e.g., Concrete, Steel, Timber)",
+          "default": "Type of material (e.g., Concrete, Steel, Timber)",
+          "title": "Description",
+          "type": "string"
+        },
+        "isUser": {
+          "title": "Isuser",
+          "type": "boolean"
+        },
+        "name": {
+          "const": "Material Type",
+          "default": "Material Type",
+          "title": "Name",
+          "type": "string"
+        },
+        "provided_unit": {
+          "default": null,
+          "title": "Provided Unit",
+          "type": "null"
+        },
+        "provided_value": {
+          "const": "Tendon",
+          "default": "Tendon",
+          "title": "Provided Value",
+          "type": "string"
+        },
+        "symbol": {
+          "const": "MatType",
+          "default": "MatType",
+          "title": "Symbol",
+          "type": "string"
+        }
+      },
+      "required": [
+        "isUser"
+      ],
+      "title": "MaterialType_Tendon",
+      "type": "object"
+    },
+    "MaterialsCollection_AASHTO": {
+      "additionalProperties": false,
+      "properties": {
+        "applicationId": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Optional application-defined identifier. May be any string, including an empty string, or null.",
+          "title": "Applicationid",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "elements": {
+          "items": {
+            "discriminator": {
+              "mapping": {
+                "Objects.Data.DataObject:BDA_Concrete_Material_AASHTO": "#/$defs/ConcreteMaterialDataObject_AASHTO",
+                "Objects.Data.DataObject:BDA_General_Material_AASHTO": "#/$defs/GeneralMaterialDataObject_AASHTO",
+                "Objects.Data.DataObject:BDA_Reinforcement_Material_AASHTO": "#/$defs/SteelReinforcementMaterialDataObject_AASHTO",
+                "Objects.Data.DataObject:BDA_Steel_Material_AASHTO": "#/$defs/SteelMaterialDataObject_AASHTO",
+                "Objects.Data.DataObject:BDA_Tendon_Material_AASHTO": "#/$defs/TendonMaterialDataObject_AASHTO"
+              },
+              "propertyName": "speckle_type"
+            },
+            "oneOf": [
+              {
+                "$ref": "#/$defs/GeneralMaterialDataObject_AASHTO"
+              },
+              {
+                "$ref": "#/$defs/ConcreteMaterialDataObject_AASHTO"
+              },
+              {
+                "$ref": "#/$defs/SteelMaterialDataObject_AASHTO"
+              },
+              {
+                "$ref": "#/$defs/TendonMaterialDataObject_AASHTO"
+              },
+              {
+                "$ref": "#/$defs/SteelReinforcementMaterialDataObject_AASHTO"
+              }
+            ]
+          },
+          "title": "Elements",
+          "type": "array"
+        },
+        "id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Backend-assigned identifier. Must be null in input payloads.",
+          "title": "Id",
+          "type": [
+            "null"
+          ]
+        },
+        "name": {
+          "const": "Materials",
+          "default": "Materials",
+          "title": "Name",
+          "type": "string"
+        },
+        "speckle_type": {
+          "const": "Speckle.Core.Models.Collections.Collection:BDA_Material_Collection",
+          "default": "Speckle.Core.Models.Collections.Collection:BDA_Material_Collection",
+          "title": "Speckle Type",
+          "type": "string"
+        }
+      },
+      "title": "MaterialsCollection_AASHTO",
+      "type": "object"
+    },
+    "Mesh": {
+      "additionalProperties": false,
+      "properties": {
+        "applicationId": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Optional application-defined identifier. May be any string, including an empty string, or null.",
+          "title": "Applicationid",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "faces": {
+          "items": {
+            "type": "integer"
+          },
+          "title": "Faces",
+          "type": "array"
+        },
+        "id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Backend-assigned identifier. Must be null in input payloads.",
+          "title": "Id",
+          "type": [
+            "null"
+          ]
+        },
+        "speckle_type": {
+          "const": "BDA.Mesh",
+          "default": "BDA.Mesh",
+          "title": "Speckle Type",
+          "type": "string"
+        },
+        "units": {
+          "default": "m",
+          "enum": [
+            "m",
+            "mm",
+            "ft",
+            "in"
+          ],
+          "title": "Units",
+          "type": "string"
+        },
+        "vertices": {
+          "items": {
+            "type": "number"
+          },
+          "title": "Vertices",
+          "type": "array"
+        }
+      },
+      "required": [
+        "vertices",
+        "faces"
+      ],
+      "title": "Mesh",
+      "type": "object"
+    },
+    "ModelConfigDataObjectProperties": {
+      "additionalProperties": true,
+      "properties": {
+        "Design Code": {
+          "$ref": "#/$defs/BDA_DesignCode"
+        },
+        "Model Unit System": {
+          "$ref": "#/$defs/BDA_ModelUnitSystem"
+        },
+        "Output Software": {
+          "$ref": "#/$defs/BDA_OutputSoftware"
+        },
+        "Structure Type": {
+          "$ref": "#/$defs/BDA_StructureType"
+        },
+        "bda_speckle_type": {
+          "$ref": "#/$defs/ModelConfigDataObjectSpeckleType"
+        }
+      },
+      "required": [
+        "bda_speckle_type",
+        "Model Unit System",
+        "Output Software",
+        "Design Code",
+        "Structure Type"
+      ],
+      "title": "ModelConfigDataObjectProperties",
+      "type": "object"
+    },
+    "ModelConfigDataObjectSpeckleType": {
+      "additionalProperties": false,
+      "properties": {
+        "base_unit": {
+          "default": null,
+          "title": "Base Unit",
+          "type": "null"
+        },
+        "base_value": {
+          "default": null,
+          "title": "Base Value",
+          "type": "null"
+        },
+        "description": {
+          "const": "Entity speckle type used for creation. This is used for round tripping of objects and persistance of custom speckle object variants that are not persisted in deserialisation of objects",
+          "default": "Entity speckle type used for creation. This is used for round tripping of objects and persistance of custom speckle object variants that are not persisted in deserialisation of objects",
+          "title": "Description",
+          "type": "string"
+        },
+        "isUser": {
+          "default": false,
+          "title": "Isuser",
+          "type": "boolean"
+        },
+        "name": {
+          "const": "DataObject Speckle Type",
+          "default": "DataObject Speckle Type",
+          "title": "Name",
+          "type": "string"
+        },
+        "provided_unit": {
+          "default": null,
+          "title": "Provided Unit",
+          "type": "null"
+        },
+        "provided_value": {
+          "const": "Objects.Data.DataObject:BDA_Model_Config",
+          "default": "Objects.Data.DataObject:BDA_Model_Config",
+          "title": "Provided Value",
+          "type": "string"
+        },
+        "symbol": {
+          "default": null,
+          "title": "Symbol",
+          "type": "string"
+        }
+      },
+      "title": "ModelConfigDataObjectSpeckleType",
+      "type": "object"
+    },
+    "ModelUnitSystemEnum": {
+      "enum": [
+        "Metric",
+        "US Customary"
+      ],
+      "title": "ModelUnitSystemEnum",
+      "type": "string"
+    },
+    "ModulusOfElasticity": {
+      "additionalProperties": false,
+      "properties": {
+        "base_unit": {
+          "const": "Pa",
+          "default": "Pa",
+          "title": "Base Unit",
+          "type": "string"
+        },
+        "base_value": {
+          "title": "Base Value",
+          "type": "number"
+        },
+        "description": {
+          "const": "Ratio of stress to strain in a material",
+          "default": "Ratio of stress to strain in a material",
+          "title": "Description",
+          "type": "string"
+        },
+        "isUser": {
+          "title": "Isuser",
+          "type": "boolean"
+        },
+        "name": {
+          "const": "Modulus of Elasticity",
+          "default": "Modulus of Elasticity",
+          "title": "Name",
+          "type": "string"
+        },
+        "provided_unit": {
+          "enum": [
+            "Pa",
+            "kPa",
+            "GPa",
+            "kip/ft\u00b2"
+          ],
+          "title": "Provided Unit",
+          "type": "string"
+        },
+        "provided_value": {
+          "title": "Provided Value",
+          "type": "number"
+        },
+        "symbol": {
+          "const": "E",
+          "default": "E",
+          "title": "Symbol",
+          "type": "string"
+        }
+      },
+      "required": [
+        "isUser",
+        "provided_value",
+        "provided_unit",
+        "base_value"
+      ],
+      "title": "ModulusOfElasticity",
+      "type": "object"
+    },
+    "OutputSoftwareEnum": {
+      "enum": [
+        "MIDAS Civil",
+        "CSI Bridge"
+      ],
+      "title": "OutputSoftwareEnum",
+      "type": "string"
+    },
+    "Point": {
+      "additionalProperties": false,
+      "properties": {
+        "applicationId": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Optional application-defined identifier. May be any string, including an empty string, or null.",
+          "title": "Applicationid",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Backend-assigned identifier. Must be null in input payloads.",
+          "title": "Id",
+          "type": [
+            "null"
+          ]
+        },
+        "speckle_type": {
+          "const": "BDA.Point",
+          "default": "BDA.Point",
+          "title": "Speckle Type",
+          "type": "string"
+        },
+        "units": {
+          "default": "m",
+          "enum": [
+            "m",
+            "mm",
+            "ft",
+            "in"
+          ],
+          "title": "Units",
+          "type": "string"
+        },
+        "x": {
+          "title": "X",
+          "type": "number"
+        },
+        "y": {
+          "title": "Y",
+          "type": "number"
+        },
+        "z": {
+          "title": "Z",
+          "type": "number"
+        }
+      },
+      "required": [
+        "x",
+        "y",
+        "z"
+      ],
+      "title": "Point",
+      "type": "object"
+    },
+    "PoissonsRatio": {
+      "additionalProperties": false,
+      "properties": {
+        "base_unit": {
+          "default": null,
+          "title": "Base Unit",
+          "type": "null"
+        },
+        "base_value": {
+          "default": null,
+          "title": "Base Value",
+          "type": "null"
+        },
+        "description": {
+          "const": "Ratio of transverse strain to axial strain in a material",
+          "default": "Ratio of transverse strain to axial strain in a material",
+          "title": "Description",
+          "type": "string"
+        },
+        "isUser": {
+          "title": "Isuser",
+          "type": "boolean"
+        },
+        "name": {
+          "const": "Poisson's Ratio",
+          "default": "Poisson's Ratio",
+          "title": "Name",
+          "type": "string"
+        },
+        "provided_unit": {
+          "default": null,
+          "title": "Provided Unit",
+          "type": "null"
+        },
+        "provided_value": {
+          "minimum": 0.0,
+          "title": "Provided Value",
+          "type": "number"
+        },
+        "symbol": {
+          "const": "\u03bd",
+          "default": "\u03bd",
+          "title": "Symbol",
+          "type": "string"
+        }
+      },
+      "required": [
+        "isUser",
+        "provided_value"
+      ],
+      "title": "PoissonsRatio",
+      "type": "object"
+    },
+    "SpecifiedMinimumCompressiveStrength": {
+      "additionalProperties": false,
+      "properties": {
+        "base_unit": {
+          "const": "Pa",
+          "default": "Pa",
+          "title": "Base Unit",
+          "type": "string"
+        },
+        "base_value": {
+          "title": "Base Value",
+          "type": "number"
+        },
+        "description": {
+          "const": "Specified minimum compressive strength of concrete",
+          "default": "Specified minimum compressive strength of concrete",
+          "title": "Description",
+          "type": "string"
+        },
+        "isUser": {
+          "title": "Isuser",
+          "type": "boolean"
+        },
+        "name": {
+          "const": "Specified Minimum Compressive Strength",
+          "default": "Specified Minimum Compressive Strength",
+          "title": "Name",
+          "type": "string"
+        },
+        "provided_unit": {
+          "enum": [
+            "kN/m\u00b2",
+            "lbs/ft\u00b3"
+          ],
+          "title": "Provided Unit",
+          "type": "string"
+        },
+        "provided_value": {
+          "title": "Provided Value",
+          "type": "number"
+        },
+        "symbol": {
+          "const": "fc,min",
+          "default": "fc,min",
+          "title": "Symbol",
+          "type": "string"
+        }
+      },
+      "required": [
+        "isUser",
+        "provided_value",
+        "provided_unit",
+        "base_value"
+      ],
+      "title": "SpecifiedMinimumCompressiveStrength",
+      "type": "object"
+    },
+    "SpecifiedMinimumTensileStrengthSteel": {
+      "additionalProperties": false,
+      "properties": {
+        "base_unit": {
+          "const": "Pa",
+          "default": "Pa",
+          "title": "Base Unit",
+          "type": "string"
+        },
+        "base_value": {
+          "title": "Base Value",
+          "type": "number"
+        },
+        "description": {
+          "const": "Specified minimum tensile strength of steel",
+          "default": "Specified minimum tensile strength of steel",
+          "title": "Description",
+          "type": "string"
+        },
+        "isUser": {
+          "title": "Isuser",
+          "type": "boolean"
+        },
+        "name": {
+          "const": "Specified Minimum Steel Tensile Strength",
+          "default": "Specified Minimum Steel Tensile Strength",
+          "title": "Name",
+          "type": "string"
+        },
+        "provided_unit": {
+          "enum": [
+            "kN/m\u00b2",
+            "lbs/ft\u00b2"
+          ],
+          "title": "Provided Unit",
+          "type": "string"
+        },
+        "provided_value": {
+          "title": "Provided Value",
+          "type": "number"
+        },
+        "symbol": {
+          "const": "fu,min",
+          "default": "fu,min",
+          "title": "Symbol",
+          "type": "string"
+        }
+      },
+      "required": [
+        "isUser",
+        "provided_value",
+        "provided_unit",
+        "base_value"
+      ],
+      "title": "SpecifiedMinimumTensileStrengthSteel",
+      "type": "object"
+    },
+    "SpecifiedMinimumYieldStrengthSteel": {
+      "additionalProperties": false,
+      "properties": {
+        "base_unit": {
+          "const": "Pa",
+          "default": "Pa",
+          "title": "Base Unit",
+          "type": "string"
+        },
+        "base_value": {
+          "title": "Base Value",
+          "type": "number"
+        },
+        "description": {
+          "const": "Specified Minimum yield strength of steel",
+          "default": "Specified Minimum yield strength of steel",
+          "title": "Description",
+          "type": "string"
+        },
+        "isUser": {
+          "title": "Isuser",
+          "type": "boolean"
+        },
+        "name": {
+          "const": "Specified Minimum Steel Yield Strength",
+          "default": "Specified Minimum Steel Yield Strength",
+          "title": "Name",
+          "type": "string"
+        },
+        "provided_unit": {
+          "enum": [
+            "kN/m\u00b2",
+            "lbs/ft\u00b2"
+          ],
+          "title": "Provided Unit",
+          "type": "string"
+        },
+        "provided_value": {
+          "title": "Provided Value",
+          "type": "number"
+        },
+        "symbol": {
+          "const": "fy,min",
+          "default": "fy,min",
+          "title": "Symbol",
+          "type": "string"
+        }
+      },
+      "required": [
+        "isUser",
+        "provided_value",
+        "provided_unit",
+        "base_value"
+      ],
+      "title": "SpecifiedMinimumYieldStrengthSteel",
+      "type": "object"
+    },
+    "SteelMaterialDataObjectType_AASHTO": {
+      "additionalProperties": false,
+      "properties": {
+        "base_unit": {
+          "default": null,
+          "title": "Base Unit",
+          "type": "null"
+        },
+        "base_value": {
+          "default": null,
+          "title": "Base Value",
+          "type": "null"
+        },
+        "description": {
+          "const": "Entity speckle type used for creation. This is used for round tripping of objects and persistance of custom speckle object variants that are not persisted in deserialisation of objects",
+          "default": "Entity speckle type used for creation. This is used for round tripping of objects and persistance of custom speckle object variants that are not persisted in deserialisation of objects",
+          "title": "Description",
+          "type": "string"
+        },
+        "isUser": {
+          "default": false,
+          "title": "Isuser",
+          "type": "boolean"
+        },
+        "name": {
+          "const": "DataObject Speckle Type",
+          "default": "DataObject Speckle Type",
+          "title": "Name",
+          "type": "string"
+        },
+        "provided_unit": {
+          "default": null,
+          "title": "Provided Unit",
+          "type": "null"
+        },
+        "provided_value": {
+          "const": "Objects.Data.DataObject:BDA_Steel_Material_AASHTO",
+          "default": "Objects.Data.DataObject:BDA_Steel_Material_AASHTO",
+          "title": "Provided Value",
+          "type": "string"
+        },
+        "symbol": {
+          "default": null,
+          "title": "Symbol",
+          "type": "string"
+        }
+      },
+      "title": "SteelMaterialDataObjectType_AASHTO",
+      "type": "object"
+    },
+    "SteelMaterialDataObject_AASHTO": {
+      "additionalProperties": false,
+      "properties": {
+        "applicationId": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Optional application-defined identifier. May be any string, including an empty string, or null.",
+          "title": "Applicationid",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "displayValue": {
+          "const": [],
+          "description": "Always empty for material objects.",
+          "items": {
+            "discriminator": {
+              "mapping": {
+                "BDA.Line": "#/$defs/Line",
+                "BDA.Mesh": "#/$defs/Mesh",
+                "BDA.Point": "#/$defs/Point"
+              },
+              "propertyName": "speckle_type"
+            },
+            "oneOf": [
+              {
+                "$ref": "#/$defs/Point"
+              },
+              {
+                "$ref": "#/$defs/Line"
+              },
+              {
+                "$ref": "#/$defs/Mesh"
+              }
+            ]
+          },
+          "title": "Displayvalue",
+          "type": "array"
+        },
+        "id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Backend-assigned identifier. Must be null in input payloads.",
+          "title": "Id",
+          "type": [
+            "null"
+          ]
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "properties": {
+          "$ref": "#/$defs/MaterialDataObject_Properties_Steel_AASHTO"
+        },
+        "speckle_type": {
+          "const": "Objects.Data.DataObject:BDA_Steel_Material_AASHTO",
+          "default": "Objects.Data.DataObject:BDA_Steel_Material_AASHTO",
+          "title": "Speckle Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "properties"
+      ],
+      "title": "SteelMaterialDataObject_AASHTO",
+      "type": "object"
+    },
+    "SteelMaterialParameters_AASHTO": {
+      "properties": {
+        "Expected Steel Tensile Strength": {
+          "$ref": "#/$defs/ExpectedTensileStrengthSteel"
+        },
+        "Expected Steel Yield Strength": {
+          "$ref": "#/$defs/ExpectedYieldStrengthSteel"
+        },
+        "Minimum Steel Tensile Strength": {
+          "$ref": "#/$defs/SpecifiedMinimumTensileStrengthSteel"
+        },
+        "Minimum Steel Yield Strength": {
+          "$ref": "#/$defs/SpecifiedMinimumYieldStrengthSteel"
+        }
+      },
+      "required": [
+        "Expected Steel Yield Strength",
+        "Minimum Steel Yield Strength",
+        "Expected Steel Tensile Strength",
+        "Minimum Steel Tensile Strength"
+      ],
+      "title": "SteelMaterialParameters_AASHTO",
+      "type": "object"
+    },
+    "SteelMaterialPropertiesParameterGroup_AASHTO": {
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "const": "Steel material properties",
+          "default": "Steel material properties",
+          "title": "Description",
+          "type": "string"
+        },
+        "group_parameters": {
+          "$ref": "#/$defs/SteelMaterialParameters_AASHTO"
+        },
+        "isUser": {
+          "title": "Isuser",
+          "type": "boolean"
+        },
+        "name": {
+          "const": "Steel Material Properties",
+          "default": "Steel Material Properties",
+          "title": "Name",
+          "type": "string"
+        }
+      },
+      "required": [
+        "isUser",
+        "group_parameters"
+      ],
+      "title": "SteelMaterialPropertiesParameterGroup_AASHTO",
+      "type": "object"
+    },
+    "SteelReinforcementMaterialDataObject_AASHTO": {
+      "additionalProperties": false,
+      "properties": {
+        "applicationId": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Optional application-defined identifier. May be any string, including an empty string, or null.",
+          "title": "Applicationid",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "displayValue": {
+          "const": [],
+          "description": "Always empty for material objects.",
+          "items": {
+            "discriminator": {
+              "mapping": {
+                "BDA.Line": "#/$defs/Line",
+                "BDA.Mesh": "#/$defs/Mesh",
+                "BDA.Point": "#/$defs/Point"
+              },
+              "propertyName": "speckle_type"
+            },
+            "oneOf": [
+              {
+                "$ref": "#/$defs/Point"
+              },
+              {
+                "$ref": "#/$defs/Line"
+              },
+              {
+                "$ref": "#/$defs/Mesh"
+              }
+            ]
+          },
+          "title": "Displayvalue",
+          "type": "array"
+        },
+        "id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Backend-assigned identifier. Must be null in input payloads.",
+          "title": "Id",
+          "type": [
+            "null"
+          ]
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "properties": {
+          "$ref": "#/$defs/MaterialDataObject_Properties_SteelReinforcement_AASHTO"
+        },
+        "speckle_type": {
+          "const": "Objects.Data.DataObject:BDA_Reinforcement_Material_AASHTO",
+          "default": "Objects.Data.DataObject:BDA_Reinforcement_Material_AASHTO",
+          "title": "Speckle Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "properties"
+      ],
+      "title": "SteelReinforcementMaterialDataObject_AASHTO",
+      "type": "object"
+    },
+    "SteelReinforcementMaterialPropertiesParameterGroup_AASHTO": {
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "const": "Steel material properties",
+          "default": "Steel material properties",
+          "title": "Description",
+          "type": "string"
+        },
+        "group_parameters": {
+          "$ref": "#/$defs/SteelMaterialParameters_AASHTO"
+        },
+        "isUser": {
+          "title": "Isuser",
+          "type": "boolean"
+        },
+        "name": {
+          "const": "Steel Material Properties",
+          "default": "Steel Material Properties",
+          "title": "Name",
+          "type": "string"
+        }
+      },
+      "required": [
+        "isUser",
+        "group_parameters"
+      ],
+      "title": "SteelReinforcementMaterialPropertiesParameterGroup_AASHTO",
+      "type": "object"
+    },
+    "StructureTypeEnum": {
+      "enum": [
+        "Steel Composite",
+        "PSC Box"
+      ],
+      "title": "StructureTypeEnum",
+      "type": "string"
+    },
+    "TendonMaterialDataObjectType": {
+      "additionalProperties": false,
+      "properties": {
+        "base_unit": {
+          "default": null,
+          "title": "Base Unit",
+          "type": "null"
+        },
+        "base_value": {
+          "default": null,
+          "title": "Base Value",
+          "type": "null"
+        },
+        "description": {
+          "const": "Entity speckle type used for creation. This is used for round tripping of objects and persistance of custom speckle object variants that are not persisted in deserialisation of objects",
+          "default": "Entity speckle type used for creation. This is used for round tripping of objects and persistance of custom speckle object variants that are not persisted in deserialisation of objects",
+          "title": "Description",
+          "type": "string"
+        },
+        "isUser": {
+          "default": false,
+          "title": "Isuser",
+          "type": "boolean"
+        },
+        "name": {
+          "const": "DataObject Speckle Type",
+          "default": "DataObject Speckle Type",
+          "title": "Name",
+          "type": "string"
+        },
+        "provided_unit": {
+          "default": null,
+          "title": "Provided Unit",
+          "type": "null"
+        },
+        "provided_value": {
+          "const": "Objects.Data.DataObject:BDA_Tendon_Material_AASHTO",
+          "default": "Objects.Data.DataObject:BDA_Tendon_Material_AASHTO",
+          "title": "Provided Value",
+          "type": "string"
+        },
+        "symbol": {
+          "default": null,
+          "title": "Symbol",
+          "type": "string"
+        }
+      },
+      "title": "TendonMaterialDataObjectType",
+      "type": "object"
+    },
+    "TendonMaterialDataObject_AASHTO": {
+      "additionalProperties": false,
+      "properties": {
+        "applicationId": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Optional application-defined identifier. May be any string, including an empty string, or null.",
+          "title": "Applicationid",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "displayValue": {
+          "const": [],
+          "description": "Always empty for material objects.",
+          "items": {
+            "discriminator": {
+              "mapping": {
+                "BDA.Line": "#/$defs/Line",
+                "BDA.Mesh": "#/$defs/Mesh",
+                "BDA.Point": "#/$defs/Point"
+              },
+              "propertyName": "speckle_type"
+            },
+            "oneOf": [
+              {
+                "$ref": "#/$defs/Point"
+              },
+              {
+                "$ref": "#/$defs/Line"
+              },
+              {
+                "$ref": "#/$defs/Mesh"
+              }
+            ]
+          },
+          "title": "Displayvalue",
+          "type": "array"
+        },
+        "id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Backend-assigned identifier. Must be null in input payloads.",
+          "title": "Id",
+          "type": [
+            "null"
+          ]
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "properties": {
+          "$ref": "#/$defs/MaterialDataObject_Properties_Tendon_AASHTO"
+        },
+        "speckle_type": {
+          "const": "Objects.Data.DataObject:BDA_Tendon_Material_AASHTO",
+          "default": "Objects.Data.DataObject:BDA_Tendon_Material_AASHTO",
+          "title": "Speckle Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "properties"
+      ],
+      "title": "TendonMaterialDataObject_AASHTO",
+      "type": "object"
+    },
+    "TendonMaterialParameters_AASHTO": {
+      "properties": {
+        "Prestressing/Post-Tensioning Steel Specified Minimum Tensile Strength": {
+          "$ref": "#/$defs/TendonSpecifiedMinimumTensileStrength"
+        },
+        "Prestressing/Post-Tensioning Steel Yield Strength": {
+          "$ref": "#/$defs/TendonYieldStrength"
+        }
+      },
+      "required": [
+        "Prestressing/Post-Tensioning Steel Yield Strength",
+        "Prestressing/Post-Tensioning Steel Specified Minimum Tensile Strength"
+      ],
+      "title": "TendonMaterialParameters_AASHTO",
+      "type": "object"
+    },
+    "TendonMaterialPropertiesParameterGroup_AASHTO": {
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "const": "Tendon material properties",
+          "default": "Tendon material properties",
+          "title": "Description",
+          "type": "string"
+        },
+        "group_parameters": {
+          "$ref": "#/$defs/TendonMaterialParameters_AASHTO"
+        },
+        "isUser": {
+          "title": "Isuser",
+          "type": "boolean"
+        },
+        "name": {
+          "const": "Tendon Material Properties",
+          "default": "Tendon Material Properties",
+          "title": "Name",
+          "type": "string"
+        }
+      },
+      "required": [
+        "isUser",
+        "group_parameters"
+      ],
+      "title": "TendonMaterialPropertiesParameterGroup_AASHTO",
+      "type": "object"
+    },
+    "TendonSpecifiedMinimumTensileStrength": {
+      "additionalProperties": false,
+      "properties": {
+        "base_unit": {
+          "const": "Pa",
+          "default": "Pa",
+          "title": "Base Unit",
+          "type": "string"
+        },
+        "base_value": {
+          "title": "Base Value",
+          "type": "number"
+        },
+        "description": {
+          "const": "Minimum tensile strength of tendon",
+          "default": "Minimum tensile strength of tendon",
+          "title": "Description",
+          "type": "string"
+        },
+        "isUser": {
+          "title": "Isuser",
+          "type": "boolean"
+        },
+        "name": {
+          "const": "Prestressing/Post-Tensioning Steel Specified Minimum Tensile Strength",
+          "default": "Prestressing/Post-Tensioning Steel Specified Minimum Tensile Strength",
+          "title": "Name",
+          "type": "string"
+        },
+        "provided_unit": {
+          "enum": [
+            "kN/m\u00b2",
+            "lbs/ft\u00b2"
+          ],
+          "title": "Provided Unit",
+          "type": "string"
+        },
+        "provided_value": {
+          "title": "Provided Value",
+          "type": "number"
+        },
+        "symbol": {
+          "const": "fu,min",
+          "default": "fu,min",
+          "title": "Symbol",
+          "type": "string"
+        }
+      },
+      "required": [
+        "isUser",
+        "provided_value",
+        "provided_unit",
+        "base_value"
+      ],
+      "title": "TendonSpecifiedMinimumTensileStrength",
+      "type": "object"
+    },
+    "TendonYieldStrength": {
+      "additionalProperties": false,
+      "properties": {
+        "base_unit": {
+          "const": "Pa",
+          "default": "Pa",
+          "title": "Base Unit",
+          "type": "string"
+        },
+        "base_value": {
+          "title": "Base Value",
+          "type": "number"
+        },
+        "description": {
+          "const": "Yield strength of prestressing or post-tensioning steel",
+          "default": "Yield strength of prestressing or post-tensioning steel",
+          "title": "Description",
+          "type": "string"
+        },
+        "isUser": {
+          "title": "Isuser",
+          "type": "boolean"
+        },
+        "name": {
+          "const": "Prestressing/Post-Tensioning Steel Yield Strength",
+          "default": "Prestressing/Post-Tensioning Steel Yield Strength",
+          "title": "Name",
+          "type": "string"
+        },
+        "provided_unit": {
+          "enum": [
+            "kN/m\u00b2",
+            "lbs/ft\u00b2"
+          ],
+          "title": "Provided Unit",
+          "type": "string"
+        },
+        "provided_value": {
+          "title": "Provided Value",
+          "type": "number"
+        },
+        "symbol": {
+          "const": "fy,min",
+          "default": "fy,min",
+          "title": "Symbol",
+          "type": "string"
+        }
+      },
+      "required": [
+        "isUser",
+        "provided_value",
+        "provided_unit",
+        "base_value"
+      ],
+      "title": "TendonYieldStrength",
+      "type": "object"
+    }
+  },
+  "$id": "urn:bda:schema:bda-analytical-model:model-root:1.0.3",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "BDA Analytical Model Root schema",
+  "generated_at": "2026-05-19T11:56:12Z",
+  "properties": {
+    "applicationId": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Optional application-defined identifier. May be any string, including an empty string, or null.",
+      "title": "Applicationid",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "elements": {
+      "allOf": [
+        {
+          "contains": {
+            "properties": {
+              "speckle_type": {
+                "const": "Speckle.Core.Models.Collections.Collection:BDA_Material_Collection"
+              }
+            },
+            "required": [
+              "speckle_type"
+            ],
+            "type": "object"
+          },
+          "maxContains": 1,
+          "minContains": 1
+        },
+        {
+          "contains": {
+            "properties": {
+              "speckle_type": {
+                "const": "Objects.Data.DataObject:BDA_Model_Config"
+              }
+            },
+            "required": [
+              "speckle_type"
+            ],
+            "type": "object"
+          },
+          "maxContains": 1,
+          "minContains": 1
+        }
+      ],
+      "items": {
+        "discriminator": {
+          "mapping": {
+            "Objects.Data.DataObject:BDA_Model_Config": "#/$defs/BDA_ModelDataDataObject",
+            "Speckle.Core.Models.Collections.Collection:BDA_Material_Collection": "#/$defs/MaterialsCollection_AASHTO"
+          },
+          "propertyName": "speckle_type"
+        },
+        "oneOf": [
+          {
+            "$ref": "#/$defs/MaterialsCollection_AASHTO"
+          },
+          {
+            "$ref": "#/$defs/BDA_ModelDataDataObject"
+          }
+        ]
+      },
+      "maxItems": 2,
+      "minItems": 2,
+      "title": "Elements",
+      "type": "array"
+    },
+    "id": {
+      "anyOf": [
+        {
+          "format": "uuid",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Backend-assigned identifier. Must be null in input payloads.",
+      "title": "Id",
+      "type": [
+        "null"
+      ]
+    },
+    "name": {
+      "const": "Model Root",
+      "default": "Model Root",
+      "title": "Name",
+      "type": "string"
+    },
+    "speckle_type": {
+      "const": "Speckle.Core.Models.Collections.Collection:BDA_ModelRoot_Collection",
+      "default": "Speckle.Core.Models.Collections.Collection:BDA_ModelRoot_Collection",
+      "title": "Speckle Type",
+      "type": "string"
+    }
+  },
+  "schema_family": "bda-analytical-model",
+  "schema_name": "model-root",
+  "source_model": "bda.contracts.speckle_contracts.bda_analytical.model_root.ModelRootCollection",
+  "title": "ModelRootCollection",
+  "type": "object",
+  "version": "1.0.3"
+}

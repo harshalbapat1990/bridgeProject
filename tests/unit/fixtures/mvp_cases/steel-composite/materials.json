@@ -1,0 +1,133 @@
+{
+  "materials": [
+    {
+      "material_id": "0a319344-c9e3-45db-b840-24310be69c22",
+      "material_type": "concrete",
+      "material_model_type": "isotropic",
+      "standard_code": "AASHTO",
+      "name": "Concrete_C5000",
+      "general_properties": {
+        "modulus_of_elasticity": {
+          "value": 2.05e10,
+          "unit": "Pa"
+        },
+        "unit_weight": {
+          "value": 25,
+          "unit": "kN/m3"
+        },
+        "poissons_ratio": {
+          "value": 0.2,
+          "unit": null
+        },
+        "thermal_coefficient": {
+          "value": 6.667e-6,
+          "unit": "1/Δ°F"
+        }
+      },
+      "design_parameters": {
+        "specified_minimum_compressive_strength": {
+          "value": 40e6,
+          "unit": "Pa"
+        },
+        "expected_compressive_strength": {
+          "value": 50e6,
+          "unit": "Pa"
+        },
+        "initial_concrete_comp_strength_at_casting": {
+          "value": 10e6,
+          "unit": "Pa"
+        },
+        "friction_factor": {
+          "value": 0.5,
+          "unit": null
+        }
+      }
+    },
+    {
+      "material_id": "540f31a7-2911-4d5b-b8eb-724d613a7563",
+      "material_type": "steel",
+      "name": "Steel ASTM A709",
+      "material_model_type": "isotropic",
+      "standard_code": "AASHTO",
+      "general_properties": {
+        "modulus_of_elasticity": {
+          "value": 1.9995e11,
+          "unit": "Pa"
+        },
+        "unit_weight": {
+          "value": 77.09,
+          "unit": "kN/m3"
+        },
+        "poissons_ratio": {
+          "value": 0.3,
+          "unit": null
+        },
+        "thermal_coefficient": {
+          "value": 6.5e-6,
+          "unit": "1/Δ°F"
+        }
+      },
+      "design_parameters": {
+        "specified_minimum_yield_strength": {
+          "value": 345e6,
+          "unit": "Pa"
+        },
+        "specified_minimum_tensile_strength": {
+          "value": 450e6,
+          "unit": "Pa"
+        },
+        "expected_yield_strength": {
+          "value": 415e6,
+          "unit": "Pa"
+        },
+        "expected_tensile_strength": {
+          "value": 550e6,
+          "unit": "Pa"
+        }
+      }
+    },
+    {
+      "material_id": "6d3895c6-9b9c-4d04-8d95-4433e009e987",
+      "material_type": "steel reinforcement",
+      "name": "Rebar ASTM A615",
+      "material_model_type": "isotropic",
+      "standard_code": "AASHTO",
+      "general_properties": {
+        "modulus_of_elasticity": {
+          "value": 2.00e11,
+          "unit": "Pa"
+        },
+        "unit_weight": {
+          "value": 78.5,
+          "unit": "kN/m3"
+        },
+        "poissons_ratio": {
+          "value": 0.3,
+          "unit": null
+        },
+        "thermal_coefficient": {
+          "value": 6.7e-6,
+          "unit": "1/Δ°F"
+        }
+      },
+      "design_parameters": {
+        "specified_minimum_yield_strength": {
+          "value": 420e6,
+          "unit": "Pa"
+        },
+        "specified_minimum_tensile_strength": {
+          "value": 620e6,
+          "unit": "Pa"
+        },
+        "expected_yield_strength": {
+          "value": 500e6,
+          "unit": "Pa"
+        },
+        "expected_tensile_strength": {
+          "value": 690e6,
+          "unit": "Pa"
+        }
+      }
+    }
+  ]
+}

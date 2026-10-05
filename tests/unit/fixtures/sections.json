@@ -1,0 +1,320 @@
+{
+  "sections": [
+    {
+      "section_id": "331ffcb4-4aa8-4d67-9b72-e7428ac99bdf",
+      "name": "standard_angle",
+      "section_family": "standard shape",
+      "section_type": "angle",
+      "dimensions": {
+        "height_h":            {"value": 0.203, "unit": "m"},
+        "width_b":             {"value": 0.203, "unit": "m"},
+        "thickness_web_tw":     {"value": 0.022, "unit": "m"},
+        "thickness_flange_tf":  {"value": 0.022, "unit": "m"}
+      },
+      "offset": "left-top"
+    },
+
+    {
+      "section_id": "331ffcb4-4aa8-4d67-9b73-e7428ac99bdf",
+      "name": "standard_angle_1",
+      "section_family": "standard shape",
+      "section_type": "angle",
+      "dimensions": {
+        "height_h":            {"value": 0.203, "unit": "m"},
+        "width_b":             {"value": 0.203, "unit": "m"},
+        "thickness_web_tw":     {"value": 0.022, "unit": "m"},
+        "thickness_flange_tf":  {"value": 0.022, "unit": "m"}
+      },
+      "offset": "left-top"
+    },
+
+    {
+      "section_id": "331ffcb4-4aa8-4d67-9b71-e7428ac99bdf",
+      "name": "standard_angle_2",
+      "section_family": "standard shape",
+      "section_type": "angle",
+      "dimensions": {
+        "height_h":            {"value": 0.403, "unit": "m"},
+        "width_b":             {"value": 0.403, "unit": "m"},
+        "thickness_web_tw":     {"value": 0.052, "unit": "m"},
+        "thickness_flange_tf":  {"value": 0.052, "unit": "m"}
+      },
+      "offset": "left-top"
+    },
+
+    {
+      "section_id": "ab9d73f3-e6ee-4a69-be74-65310342a9f8",
+      "name": "standard_I_section",
+      "section_family": "standard shape",
+      "section_type": "i-section",
+      "dimensions": {
+        "total_height_h":          {"value": 1.01,  "unit": "m"},
+        "top_flange_width_b1":     {"value": 0.41,  "unit": "m"},
+        "bottom_flange_width_b2":  {"value": 0.50,  "unit": "m"},
+        "web_thickness_tw":        {"value": 0.015, "unit": "m"},
+        "top_flange_thickness_tf1":    {"value": 0.02,  "unit": "m"},
+        "bottom_flange_thickness_tf2": {"value": 0.05,  "unit": "m"},
+        "web_inner_radius_r1":     {"value": 0.01,  "unit": "m"},
+        "flange_end_radius_r2":    {"value": 0.01,  "unit": "m"}
+      },
+      "offset": "left-top"
+    },
+
+    {
+      "section_id": "1580fd00-499a-4155-8b98-7865102e0082",
+      "name": "standard_box",
+      "section_family": "standard shape",
+      "section_type": "box",
+      "dimensions": {
+        "height_h":                  {"value": 0.50,  "unit": "m"},
+        "flange_width_b":            {"value": 0.30,  "unit": "m"},
+        "web_thickness_tw":          {"value": 0.015, "unit": "m"},
+        "flange_thickness_tf":       {"value": 0.02,  "unit": "m"}
+      },
+      "offset": "right-top"
+    },
+
+    {
+      "section_id": "25000c8f-3f43-4e05-8896-ed3cc5fb78af",
+      "name": "standard_channel",
+      "section_family": "standard shape",
+      "section_type": "channel",
+      "dimensions": {
+        "height_h":                  {"value": 0.55,  "unit": "m"},
+        "top_flange_width_b1":       {"value": 0.20,  "unit": "m"},
+        "bottom_flange_width_b2":    {"value": 0.22,  "unit": "m"},
+        "web_thickness_tw":          {"value": 0.014, "unit": "m"},
+        "top_flange_thickness_tf1":  {"value": 0.018, "unit": "m"},
+        "bottom_flange_thickness_tf2": {"value": 0.02, "unit": "m"},
+        "web_inner_radius_r1":       {"value": 0.01,  "unit": "m"},
+        "flange_end_radius_r2":      {"value": 0.008, "unit": "m"}
+      },
+      "offset": "center-center"
+    },
+
+    {
+      "section_id": "f3793143-149d-41c5-9545-958d57b479b1",
+      "name": "standard_solid_rectangle",
+      "section_family": "standard shape",
+      "section_type": "solid rectangle",
+      "dimensions": {
+        "height_h": {"value": 0.40, "unit": "m"},
+        "width_b":  {"value": 0.25, "unit": "m"}
+      },
+      "offset": "left-bottom"
+    },
+
+    {
+      "section_id": "e0be50ee-5d20-48d2-9299-d1406df34223",
+      "name": "standard_solid_round",
+      "section_family": "standard shape",
+      "section_type": "solid circle",
+      "dimensions": {
+        "diameter_d": {"value": 0.18, "unit": "m"}
+      },
+      "offset": "right-bottom"
+    },
+
+    {
+      "section_id": "b1b34ec4-69a8-4aae-9699-ec660bcd455c",
+      "name": "composite_steel_i_type1",
+      "section_family": "composite",
+      "section_type": "composite I symmetric",
+      "dimensions": {
+        "slab_width_bc":              {"value": 3.00,  "unit": "m"},
+        "slab_thickness_tc":          {"value": 0.20,  "unit": "m"},
+        "slab_girder_spacing_hh":     {"value": 0.0,  "unit": "m"},
+        "girder_top_flange_width_b1":        {"value": 0.35,  "unit": "m"},
+        "girder_top_flange_thickness_tf1":   {"value": 0.03,  "unit": "m"},
+        "girder_bottom_flange_width_b2":     {"value": 0.45,  "unit": "m"},
+        "girder_bottom_flange_thickness_tf2":{"value": 0.04,  "unit": "m"},
+        "girder_web_thickness_tw":    {"value": 0.018, "unit": "m"},
+        "girder_web_height_hw":       {"value": 1.20,  "unit": "m"}
+      },
+      "offset": "center-bottom"
+    },
+
+    {
+      "section_id": "66b336f9-ec7f-4946-a141-9dbca69f3ed9",
+      "name": "composite_steel_i_type2",
+      "section_family": "composite",
+      "section_type": "composite I asymmetric",
+      "dimensions": {
+        "slab_distance_rf_sg":            {"value": 0.15,  "unit": "m"},
+        "top_flange_distance_rf_top":     {"value": 0.20,  "unit": "m"},
+        "bottom_flange_distance_rf_bot":  {"value": 0.25,  "unit": "m"},
+        "slab_width_bc":                  {"value": 3.20,  "unit": "m"},
+        "slab_thickness_tc":              {"value": 0.22,  "unit": "m"},
+        "slab_girder_spacing_hh":         {"value": 0.0,  "unit": "m"},
+        "girder_top_flange_left_width_b1":  {"value": 0.30,  "unit": "m"},
+        "girder_top_flange_right_width_b2": {"value": 0.32,  "unit": "m"},
+        "girder_top_flange_thickness_t1":          {"value": 0.025, "unit": "m"},
+        "girder_bottom_flange_left_width_b3":  {"value": 0.45,  "unit": "m"},
+        "girder_bottom_flange_right_width_b4": {"value": 0.47,  "unit": "m"},
+        "girder_bottom_flange_thickness_t2":          {"value": 0.035, "unit": "m"},
+        "girder_web_thickness_tw":  {"value": 0.016, "unit": "m"},
+        "girder_web_height_h":      {"value": 1.25,  "unit": "m"}
+      },
+      "offset": "right-center"
+    },
+
+    {
+      "section_id": "c2b08321-f036-4808-b2ff-b8b4e9095874",
+      "name": "psc_value_section",
+      "section_family": "psc",
+      "section_type": "psc value",
+      "dimensions": {
+        "outer_outline": {
+          "vertices": [
+            {"x": {"value": 0.0, "unit": "m"}, "y": {"value": 0.0, "unit": "m"}},
+            {"x": {"value": 1.2, "unit": "m"}, "y": {"value": 0.0, "unit": "m"}},
+            {"x": {"value": 1.2, "unit": "m"}, "y": {"value": 2.1, "unit": "m"}},
+            {"x": {"value": 0.0, "unit": "m"}, "y": {"value": 2.1, "unit": "m"}}
+          ]
+        },
+
+        "inner_outlines": [
+          {
+            "vertices": [
+              {"x": {"value": 0.2, "unit": "m"}, "y": {"value": 0.4, "unit": "m"}},
+              {"x": {"value": 1.0, "unit": "m"}, "y": {"value": 0.4, "unit": "m"}},
+              {"x": {"value": 1.0, "unit": "m"}, "y": {"value": 1.7, "unit": "m"}},
+              {"x": {"value": 0.2, "unit": "m"}, "y": {"value": 1.7, "unit": "m"}}
+            ]
+          }
+        ]
+      },
+      "offset": "center-top"
+    },
+
+    {
+        "section_id": "0a5c43b8-062a-4650-b434-094e1dd13cf9",
+        "name": "psc_1cell",
+        "section_family": "psc",
+        "section_type": "psc 1cell",
+        "dimensions": {
+          "joints": [true, false, true, false, true, false, true, false],
+
+          "outer_height_ho": [
+            {"value": 2.5, "unit": "m"},
+            {"value": 2.6, "unit": "m"},
+            {"value": 2.7, "unit": "m"},
+            {"value": 2.7, "unit": "m"},
+            {"value": 2.6, "unit": "m"},
+            {"value": 2.5, "unit": "m"}
+          ],
+
+          "outer_breadth_bo": [
+            {"value": 3.0, "unit": "m"},
+            {"value": 3.1, "unit": "m"},
+            {"value": 3.2, "unit": "m"},
+            {"value": 3.2, "unit": "m"},
+            {"value": 3.1, "unit": "m"},
+            {"value": 3.0, "unit": "m"}
+          ],
+
+          "inner_height_hi": [
+            {"value": 1.0, "unit": "m"},
+            {"value": 1.05, "unit": "m"},
+            {"value": 1.1, "unit": "m"},
+            {"value": 1.1, "unit": "m"},
+            {"value": 1.05, "unit": "m"},
+            {"value": 1.0, "unit": "m"},
+            {"value": 0.95, "unit": "m"},
+            {"value": 0.9, "unit": "m"},
+            {"value": 0.95, "unit": "m"},
+            {"value": 1.0, "unit": "m"}
+          ],
+
+          "inner_breadth_bi": [
+            {"value": 2.0, "unit": "m"},
+            {"value": 2.05, "unit": "m"},
+            {"value": 2.1, "unit": "m"},
+            {"value": 2.1, "unit": "m"},
+            {"value": 2.05, "unit": "m"},
+            {"value": 2.0, "unit": "m"},
+            {"value": 1.95, "unit": "m"}
+          ]
+        },
+        "offset": "left-center"
+      },
+
+
+      {
+        "section_id": "5cb45d1f-9d93-4f0d-8f27-23a054a8e245",
+        "name": "psc_2cell",
+        "section_family": "psc",
+        "section_type": "psc 2cells",
+        "dimensions": {
+          "joints": [true, false, true, false, true, false, true, false],
+
+          "outer_height_ho": [
+            {"value": 2.5, "unit": "m"},
+            {"value": 2.6, "unit": "m"},
+            {"value": 2.7, "unit": "m"},
+            {"value": 2.7, "unit": "m"},
+            {"value": 2.6, "unit": "m"},
+            {"value": 2.5, "unit": "m"}
+          ],
+
+          "outer_breadth_bo": [
+            {"value": 3.0, "unit": "m"},
+            {"value": 3.1, "unit": "m"},
+            {"value": 3.2, "unit": "m"},
+            {"value": 3.2, "unit": "m"},
+            {"value": 3.1, "unit": "m"},
+            {"value": 3.0, "unit": "m"}
+          ],
+
+          "inner_height_hi": [
+            {"value": 1.0, "unit": "m"},
+            {"value": 1.05, "unit": "m"},
+            {"value": 1.1, "unit": "m"},
+            {"value": 1.1, "unit": "m"},
+            {"value": 1.05, "unit": "m"},
+            {"value": 1.0, "unit": "m"},
+            {"value": 0.95, "unit": "m"},
+            {"value": 0.9, "unit": "m"},
+            {"value": 0.95, "unit": "m"},
+            {"value": 1.0, "unit": "m"}
+          ],
+
+          "inner_breadth_bi": [
+            {"value": 2.0, "unit": "m"},
+            {"value": 2.05, "unit": "m"},
+            {"value": 2.1, "unit": "m"},
+            {"value": 2.1, "unit": "m"},
+            {"value": 2.05, "unit": "m"},
+            {"value": 2.0, "unit": "m"},
+            {"value": 1.95, "unit": "m"},
+            {"value": 1.9, "unit": "m"}
+          ]
+        },
+        "offset": "left-center"
+      },
+
+    {
+      "section_id": "f699bd7f-8b4e-46a0-b234-63d7abbac5d4",
+      "name": "tapered_example_1",
+      "section_family": "tapered",
+      "section_type": "angle",
+      "section_start_id": "331ffcb4-4aa8-4d67-9b72-e7428ac99bdf",
+      "section_end_id": "331ffcb4-4aa8-4d67-9b71-e7428ac99bdf",
+      "taper_y_variation": "linear",
+      "taper_z_variation": "linear",
+      "offset": "center-center"
+    },
+
+    {
+      "section_id": "f3793143-149d-41c5-9545-958d57b47cd1",
+      "name": "standard_pipe",
+      "section_family": "standard shape",
+      "section_type": "pipe",
+      "dimensions": {
+        "external_diameter_d": {"value": 0.40, "unit": "m"},
+        "wall_thickness_tw":  {"value": 0.02, "unit": "m"}
+      },
+      "offset": "left-center"
+    }
+  ]
+}

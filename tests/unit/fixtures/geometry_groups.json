@@ -1,0 +1,738 @@
+{
+  "geometry_groups": [
+    {
+      "group_id": "Bridge_group",
+      "structural_component_type": "bridge",
+      "name": "Test Bridge",
+      "material_id": "2",
+      "section_id": "3",
+      "elements": [],
+      "parent_group": null,
+      "properties": {
+        "bridge_type": "Steel Composite",
+        "bridge_idealisation": "grillage",
+        "no_of_spans": 3,
+        "analysis_settings": {
+          "mesh_divisor": 20
+        },
+        "top_deck_level": {
+          "value": 65.5,
+          "unit": "m"
+        }
+      },
+      "nested_groups": []
+    },
+    {
+      "group_id": "Test_superstructure",
+      "structural_component_type": "superstructure",
+      "name": "Superstructure",
+      "material_id": "Steel_S355",
+      "section_id": "girder_I_section",
+      "elements": [],
+      "parent_group": "Bridge_group",
+      "properties": {
+        "total_deck_width": {
+          "value": 12,
+          "unit": "m"
+        },
+        "no_of_girders": 5,
+        "girder_spacing_type": "uniform",
+        "girder_spacing_values": [
+          {
+            "value": 1.25,
+            "unit": "m"
+          }
+        ],
+        "stringcourse_left_barrier_width": {
+          "value": 0.6,
+          "unit": "m"
+        },
+        "stringcourse_right_barrier_width": {
+          "value": 0.6,
+          "unit": "m"
+        },
+        "cantilever_left_width": {
+          "value": 1.55,
+          "unit": "m"
+        },
+        "cantilever_right_width": {
+          "value": 1.45,
+          "unit": "m"
+        }
+      },
+      "nested_groups": []
+    },
+
+
+
+    {
+      "group_id": "group_span_1",
+      "structural_component_type": "span",
+      "name": "Span No. 1",
+      "material_id": null,
+      "section_id": null,
+      "elements": [],
+      "nested_groups": [],
+      "parent_group": "Test_superstructure",
+      "properties": {
+        "span_index": 0,
+        "span_length": {
+          "value": 40.0,
+          "unit": "m"
+        },
+        "no_of_girders": 5,
+        "top_deck_level_at_end": {
+          "value": 67.0,
+          "unit": "m"
+        },
+        "cracked_extents": [
+            {
+                "x_start": {"value": 5.0, "unit": "m"},
+                "x_end": {"value": 15.0, "unit": "m"}
+            },
+            {
+                "x_start": {"value": 25.0, "unit": "m"},
+                "x_end": {"value": 35.0, "unit": "m"}
+            }
+        ],
+        "tapered_details": [
+          {
+            "x_start": {"value": 10.0, "unit": "m"},
+            "x_end": {"value": 20.0, "unit": "m"},
+            "section_id": "tapered_section_1"
+          }
+        ],
+        "splices": [
+          {
+            "x_start": {"value": 10.0, "unit": "m" },
+            "section_id": "splice_section_1"
+          },
+          {
+          "x_start": {"value": 50.0, "unit": "m" },
+            "section_id": "splice_section_2"
+          }
+        ],
+        "construction_sequence_details":
+        {
+          "pouring_orientation": "skewed",
+          "segments": [
+            {
+              "x_start": {
+                "value": 10.0,
+                "unit": "m"
+              }
+            },
+            {
+              "x_start": {
+                "value": 20.0,
+                "unit": "m"
+              }
+            }
+          ]
+        }
+      }
+    },
+
+
+
+    {
+      "group_id": "girder_1",
+      "structural_component_type": "girder",
+      "name": "Girder No. 1",
+      "material_id": "3",
+      "section_id": "4",
+      "elements": [],
+      "nested_groups": [],
+      "parent_group": "group_span_1",
+      "properties": {
+        "girder_index": 1
+      }
+    },
+
+
+
+    {
+      "group_id": "diaphragm_1",
+      "structural_component_type": "diaphragm",
+      "name": "End Diaphragm",
+      "material_id": null,
+      "section_id": null,
+      "elements": [],
+      "nested_groups": [],
+      "parent_group": "group_span_1",
+      "properties": {
+        "support_index": 0,
+        "geometry_details": {
+          "diaphragm_type": "concrete-non-modelled",
+          "diaphragm_thickness": {
+            "value": 0.6,
+            "unit" : "m"
+          }
+        }
+      }
+    },
+
+
+
+    {
+      "group_id": "diaphragm_2",
+      "structural_component_type": "diaphragm",
+      "name": "Start Diaphragm",
+      "material_id": null,
+      "section_id": null,
+      "elements": [],
+      "nested_groups": [],
+      "parent_group": "group_span_1",
+      "properties": {
+        "support_index": 2,
+        "geometry_details": {
+          "diaphragm_type": "steel-girder"
+        }
+      }
+    },
+
+
+
+    {
+      "group_id": "diaphragm_3",
+      "structural_component_type": "diaphragm",
+      "name": "Mid Diaphragm",
+      "material_id": null,
+      "section_id": null,
+      "elements": [],
+      "nested_groups": [],
+      "parent_group": "group_span_1",
+      "properties": {
+        "support_index": 1,
+        "geometry_details": {
+          "diaphragm_type": "bracing-encased"
+        }
+      }
+    },
+
+
+
+    {
+      "group_id": "group_transverse_bracing_1",
+      "structural_component_type": "transverse-bracing",
+      "name": "Transverse Bracing",
+      "material_id": null,
+      "section_id": null,
+      "elements": [],
+      "nested_groups": [],
+      "parent_group": "group_2",
+      "properties": {
+        "bracing_orientation": "orthogonal",
+        "x_position_at_start_girder": {
+          "value": 5.0,
+          "unit": "m"
+        },
+        "spacing_type": "uniform",
+        "spacing_values": [
+          {
+            "value": 10.0,
+            "unit": "m"
+          }
+        ],
+        "no_of_bracings": 2,
+        "left_girder_index": 0,
+        "right_girder_index": 4,
+        "bracing_details": {
+          "horizontal_offset_at_left": {
+            "value": 0.0,
+            "unit": "m"
+          },
+          "horizontal_offset_at_right": {
+            "value": 0.0,
+            "unit": "m"
+          }
+        }
+      }
+    },
+
+
+
+    {
+      "group_id": "group_brace_1",
+      "structural_component_type": "brace",
+      "name": "Brace Element",
+      "material_id": null,
+      "section_id": null,
+      "elements": [],
+      "nested_groups": [],
+      "parent_group": "group_transverse_bracing_1",
+      "properties": {
+          "geometry_details": {
+          "bracing_type": "k-type",
+          "vertical_offset_left_top": {
+            "value": 0.0,
+            "unit": "m"
+          },
+          "vertical_offset_right_top": {
+            "value": 0.1,
+            "unit": "m"
+          },
+          "vertical_offset_left_btm": {
+            "value": 0.0,
+            "unit": "m"
+          },
+          "vertical_offset_right_btm": {
+            "value": 0.1,
+            "unit": "m"
+          },
+          "horizontal_offset_left_brace": {
+            "value": 0.0,
+            "unit": "m"
+          },
+          "horizontal_offset_right_brace": {
+            "value": 0.1,
+            "unit": "m"
+          }
+        }
+      }
+    },
+
+
+
+    {
+      "group_id": "group_chord_1",
+      "structural_component_type": "chord",
+      "name": "Chord",
+      "material_id": null,
+      "section_id": null,
+      "elements": [],
+      "nested_groups": [],
+      "parent_group": "group_plan_bracing_1",
+      "properties": {
+        "vertical_offset_at_left": {
+          "value": 0.0,
+          "unit": "m"
+        },
+        "vertical_offset_at_right": {
+          "value": 0.1,
+          "unit": "m"
+        }
+      }
+    },
+
+
+
+    {
+      "group_id": "group_plan_bracing_1",
+      "structural_component_type": "plan-bracing",
+      "name": "Plan Bracing",
+      "material_id": null,
+      "section_id": null,
+      "elements": [],
+      "nested_groups": [],
+      "parent_group": "group_2",
+      "properties": {
+        "plan_bracing_type": "warren",
+        "left_girder_index": 0,
+        "right_girder_index": 4
+      }
+    },
+
+
+
+    {
+      "group_id": "group_support_1",
+      "structural_component_type": "support",
+      "name": "Pier Support",
+      "material_id": null,
+      "section_id": null,
+      "elements": [],
+      "nested_groups": [],
+      "parent_group": null,
+      "properties": {
+        "support_index": 0,
+        "skew_angle": {
+          "value": 15.0,
+          "unit": "degrees"
+        },
+        "bearing_underside_level": {
+          "value": -5.0,
+          "unit": "m"
+        },
+        "orientation": "orthogonal"
+      }
+    },
+
+
+
+    {
+      "group_id": "group_above_ground_1",
+      "structural_component_type": "above-ground",
+      "name": "above ground",
+      "material_id": null,
+      "section_id": null,
+      "elements": [],
+      "nested_groups": [],
+      "parent_group": "group_support_1",
+      "properties": {
+        "details" : {
+          "support_type": "solid-type",
+          "no_of_walls": 1
+        }
+      }
+    },
+
+
+
+    {
+      "group_id": "pier",
+      "structural_component_type": "pier",
+      "name": "pier",
+      "material_id": null,
+      "section_id": null,
+      "elements": [],
+      "nested_groups": [],
+      "parent_group": "pier",
+      "properties": {
+        "transverse_offset" : {
+          "value": 1.0,
+          "unit": "m"
+        }
+      }
+    },
+
+
+
+    {
+      "group_id": "group_wall_1",
+      "structural_component_type": "wall",
+      "name": "Abutment Wall",
+      "material_id": null,
+      "section_id": null,
+      "elements": [],
+      "nested_groups": [],
+      "parent_group": "group_support_1",
+      "properties": {
+        "element_thickness": {
+          "value": 0.8,
+          "unit": "m"
+        }
+      }
+    },
+
+
+
+    {
+      "group_id": "group_crossbeam_1",
+      "structural_component_type": "crossbeam",
+      "name": "Pier Crossbeam",
+      "material_id": null,
+      "section_id": null,
+      "elements": [],
+      "nested_groups": [],
+      "parent_group": "group_support_1",
+      "properties": {
+        "element_length": {
+          "value": 10.0,
+          "unit": "m"
+        },
+        "tapered_details": []
+      }
+    },
+
+
+
+    {
+      "group_id": "group_below_ground_1",
+      "structural_component_type": "below-ground",
+      "name": "below ground",
+      "material_id": null,
+      "section_id": null,
+      "elements": [],
+      "nested_groups": [],
+      "parent_group": "group_support_1",
+      "properties": {
+        "foundation_details": {
+          "foundation_type" : "deep",
+          "no_of_piles" : 5
+        }
+      }
+    },
+
+
+
+    {
+      "group_id": "group_pile_1",
+      "structural_component_type": "pile",
+      "name": "Pile",
+      "material_id": null,
+      "section_id": null,
+      "elements": [],
+      "nested_groups": [],
+      "parent_group": "pile",
+      "properties": {
+        "pile_index": 0,
+        "pile_length": {
+          "value": 25.0,
+          "unit": "m"
+        },
+        "offset_along_support_line": {
+          "value": 0.0,
+          "unit": "m"
+        },
+        "offset_normal_to_support_line": {
+          "value": 0.0,
+          "unit": "m"
+        },
+        "spring_spacing": [
+          {
+            "value": 1.0,
+            "unit": "m"
+          }
+        ]
+      }
+    },
+
+
+
+    {
+      "group_id": "pile_cap",
+      "structural_component_type": "pile-cap",
+      "name": "Pile cap",
+      "material_id": null,
+      "section_id": null,
+      "elements": [],
+      "nested_groups": [],
+      "parent_group": "group_support_1",
+      "properties": {
+        "top_of_pile_cap_level": {
+          "value" : 10.0,
+          "unit" : "m"
+        },
+        "element_length" : {
+          "value" : 2.0,
+          "unit" : "m"
+        }
+      }
+    },
+
+
+
+    {
+      "group_id": "superstructure_to_substructure_connections_1",
+      "structural_component_type": "superstructure-to-substructure-connections",
+      "name": "superstructure_to_substructure_connections_single",
+      "material_id": null,
+      "section_id": null,
+      "elements": [],
+      "nested_groups": [],
+      "parent_group": "group_support_1",
+      "properties": {
+        "support_index" : 1,
+        "bearing_configuration_details" : {
+          "bearing_configuration_type": "singular",
+          "no_of_bearings" : 1
+        }
+      }
+    },
+
+
+
+    {
+      "group_id": "superstructure_to_substructure_connections_2",
+      "structural_component_type": "superstructure-to-substructure-connections",
+      "name": "superstructure_to_substructure_connections_multiple",
+      "material_id": null,
+      "section_id": null,
+      "elements": [],
+      "nested_groups": [],
+      "parent_group": "group_support_1",
+      "properties": {
+        "support_index" : 3,
+        "bearing_configuration_details" : {
+          "bearing_configuration_type": "multiple",
+          "no_of_bearings" : 5,
+          "bearing_spacing_type" : "uniform",
+          "bearing_spacing" : [
+            {
+              "value": 0.5,
+              "unit" : "m"
+            }
+          ]
+        }
+      }
+    },
+
+
+
+    {
+      "group_id": "group_brace_2",
+      "structural_component_type": "brace",
+      "name": "Brace Element X",
+      "material_id": null,
+      "section_id": null,
+      "elements": [],
+      "nested_groups": [],
+      "parent_group": "group_transverse_bracing_1",
+      "properties": {
+        "geometry_details": {
+          "bracing_type": "x-type",
+          "vertical_offset_left_top": {
+            "value": 0.0,
+            "unit": "m"
+          },
+          "vertical_offset_right_top": {
+            "value": 0.0,
+            "unit": "m"
+          },
+          "vertical_offset_left_btm": {
+            "value": 0.0,
+            "unit": "m"
+          },
+          "vertical_offset_right_btm": {
+            "value": 0.0,
+            "unit": "m"
+          }
+        }
+      }
+    },
+
+
+
+    {
+      "group_id": "group_above_ground_2",
+      "structural_component_type": "above-ground",
+      "name": "above ground column",
+      "material_id": null,
+      "section_id": null,
+      "elements": [],
+      "nested_groups": [],
+      "parent_group": "group_support_1",
+      "properties": {
+        "details": {
+          "support_type": "column-type",
+          "no_of_piers": 2
+        }
+      }
+    },
+
+
+
+    {
+      "group_id": "group_below_ground_2",
+      "structural_component_type": "below-ground",
+      "name": "below ground shallow",
+      "material_id": null,
+      "section_id": null,
+      "elements": [],
+      "nested_groups": [],
+      "parent_group": "group_support_1",
+      "properties": {
+        "foundation_details": {
+          "foundation_type": "shallow"
+        }
+      }
+    },
+
+
+    {
+      "group_id": "nested_Bridge_group",
+      "structural_component_type": "bridge",
+      "name": "Test Bridge",
+      "material_id": "2",
+      "section_id": "3",
+      "elements": [],
+      "parent_group": null,
+      "properties": {
+        "bridge_type": "Steel Composite",
+        "bridge_idealisation": "grillage",
+        "no_of_spans": 3,
+        "analysis_settings": {
+          "mesh_divisor": 20
+        },
+        "top_deck_level": {
+          "value": 65.5,
+          "unit": "m"
+        }
+      },
+      "nested_groups": [
+        {
+          "group_id": "Test_superstructure",
+          "structural_component_type": "superstructure",
+          "name": "Superstructure",
+          "material_id": "Steel_S355",
+          "section_id": "girder_I_section",
+          "elements": [],
+          "parent_group": "Bridge_group",
+          "properties": {
+            "total_deck_width": {
+              "value": 12,
+              "unit": "m"
+            },
+            "no_of_girders": 5,
+            "girder_spacing_type": "uniform",
+            "girder_spacing_values": [
+              {
+                "value": 1.25,
+                "unit": "m"
+              }
+            ],
+            "stringcourse_left_barrier_width": {
+              "value": 0.6,
+              "unit": "m"
+            },
+            "stringcourse_right_barrier_width": {
+              "value": 0.6,
+              "unit": "m"
+            },
+            "cantilever_left_width": {
+              "value": 1.55,
+              "unit": "m"
+            },
+            "cantilever_right_width": {
+              "value": 1.45,
+              "unit": "m"
+            }
+          },
+          "nested_groups": [
+            {
+              "group_id": "group_span_1",
+              "structural_component_type": "span",
+              "name": "Span No. 1",
+              "material_id": null,
+              "section_id": null,
+              "elements": [],
+              "parent_group": "Test_superstructure",
+              "properties": {
+                "span_index": 0,
+                "span_length": {
+                  "value": 40.0,
+                  "unit": "m"
+                },
+                "no_of_girders": 5,
+                "top_deck_level_at_end": {
+                  "value": 67.0,
+                  "unit": "m"
+                },
+                "cracked_extents": [],
+                "tapered_details": [],
+                "splices": [],
+                "construction_sequence_details": null
+              },
+              "nested_groups": [
+                {
+                  "group_id": "girder_1",
+                  "structural_component_type": "girder",
+                  "name": "Girder No. 1",
+                  "material_id": "3",
+                  "section_id": "4",
+                  "elements": [],
+                  "nested_groups": [],
+                  "parent_group": "group_span_1",
+                  "properties": {
+                    "girder_index": 1
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "model_config": {
+    "unit_system": "Metric",
+    "output_software": "MIDAS Civil",
+    "design_code": "AASHTO",
+    "bridge_type": "PSC Box"
+    }
+}

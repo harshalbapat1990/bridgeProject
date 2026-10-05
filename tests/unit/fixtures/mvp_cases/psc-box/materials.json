@@ -1,0 +1,135 @@
+{
+  "materials": [
+    {
+      "material_id": "0a319344-c9e3-45db-b840-24310be69c22",
+      "material_type": "concrete",
+      "material_model_type": "isotropic",
+      "standard_code": "AASHTO",
+      "name": "Concrete_C5000",
+      "general_properties": {
+        "modulus_of_elasticity": {
+          "value": 2.05e10,
+          "unit": "Pa"
+        },
+        "unit_weight": {
+          "value": 25,
+          "unit": "kN/m3"
+        },
+        "poissons_ratio": {
+          "value": 0.2,
+          "unit": null
+        },
+        "thermal_coefficient": {
+          "value": 6.667e-6,
+          "unit": "1/Δ°F"
+        }
+      },
+      "design_parameters": {
+        "specified_minimum_compressive_strength": {
+          "value": 40e6,
+          "unit": "Pa"
+        },
+        "expected_compressive_strength": {
+          "value": 50e6,
+          "unit": "Pa"
+        },
+        "initial_concrete_comp_strength_at_casting": {
+          "value": 10e6,
+          "unit": "Pa"
+        },
+        "friction_factor": {
+          "value": 0.5,
+          "unit": null
+        }
+      }
+    },
+
+    {
+      "material_id": "443913a0-c9e3-45db-b840-24310be69c22",
+      "material_type": "concrete",
+      "material_model_type": "isotropic",
+      "standard_code": "AASHTO",
+      "name": "Concrete_C5000_substructure",
+      "general_properties": {
+        "modulus_of_elasticity": {
+          "value": 2.05e10,
+          "unit": "Pa"
+        },
+        "unit_weight": {
+          "value": 25,
+          "unit": "kN/m3"
+        },
+        "poissons_ratio": {
+          "value": 0.2,
+          "unit": null
+        },
+        "thermal_coefficient": {
+          "value": 6.667e-6,
+          "unit": "1/Δ°F"
+        }
+      },
+      "design_parameters": {
+        "specified_minimum_compressive_strength": {
+          "value": 30e6,
+          "unit": "Pa"
+        },
+        "expected_compressive_strength": {
+          "value": 37e6,
+          "unit": "Pa"
+        },
+        "initial_concrete_comp_strength_at_casting": {
+          "value": 10e6,
+          "unit": "Pa"
+        },
+        "friction_factor": {
+          "value": 0.5,
+          "unit": null
+        }
+      }
+    },
+
+    {
+      "material_id": "443913a0-c9e3-45db-b840-22c96eb01342",
+      "material_type": "concrete",
+      "material_model_type": "isotropic",
+      "standard_code": "AASHTO",
+      "name": "Concrete_C5000_piles",
+      "general_properties": {
+        "modulus_of_elasticity": {
+          "value": 2.05e10,
+          "unit": "Pa"
+        },
+        "unit_weight": {
+          "value": 25,
+          "unit": "kN/m3"
+        },
+        "poissons_ratio": {
+          "value": 0.2,
+          "unit": null
+        },
+        "thermal_coefficient": {
+          "value": 6.667e-6,
+          "unit": "1/Δ°F"
+        }
+      },
+      "design_parameters": {
+        "specified_minimum_compressive_strength": {
+          "value": 30e6,
+          "unit": "Pa"
+        },
+        "expected_compressive_strength": {
+          "value": 37e6,
+          "unit": "Pa"
+        },
+        "initial_concrete_comp_strength_at_casting": {
+          "value": 10e6,
+          "unit": "Pa"
+        },
+        "friction_factor": {
+          "value": 0.5,
+          "unit": null
+        }
+      }
+    }
+  ]
+}

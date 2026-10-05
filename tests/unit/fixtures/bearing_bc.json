@@ -1,0 +1,106 @@
+{
+  "bearing_bc": [
+    {
+      "support_index": 0,
+      "bearings_by_girder": [
+        {
+          "girder_index": 0,
+          "bearing_configuration_type": "singular",
+          "bearing_definition": {
+            "bearing_index": 0,
+            "orientation": "orthogonal",
+            "bearing_stiffness_definition": {
+              "sdx": { "dof_type": "free" },
+              "sdy": { "dof_type": "fixed" },
+              "sdz": { "dof_type": "custom", "stiffness": { "value": 3000000, "unit": "N/m" } },
+              "srx": { "dof_type": "free" },
+              "sry": { "dof_type": "fixed" },
+              "srz": { "dof_type": "custom", "stiffness": { "value": 6000000, "unit": "N*m/rad" } }
+            }
+          }
+        },
+        {
+          "girder_index": 1,
+          "bearing_configuration_type": "singular",
+          "bearing_definition": {
+            "bearing_index": 0,
+            "orientation": "skewed",
+            "bearing_stiffness_definition": {
+              "sdx": { "dof_type": "free" },
+              "sdy": { "dof_type": "fixed" },
+              "sdz": { "dof_type": "custom", "stiffness": { "value": 3000000, "unit": "N/m" } },
+              "srx": { "dof_type": "free" },
+              "sry": { "dof_type": "fixed" },
+              "srz": { "dof_type": "fixed" }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "support_index": 1,
+      "bearings_by_girder": [
+        {
+          "girder_index": 0,
+          "bearing_configuration_type": "multiple",
+          "bearing_definitions": [
+            {
+              "bearing_index": 0,
+              "orientation": "orthogonal",
+              "bearing_stiffness_definition": {
+                "sdx": { "dof_type": "free" },
+                "sdy": { "dof_type": "fixed" },
+                "sdz": { "dof_type": "custom", "stiffness": { "value": 1500000, "unit": "N/m" } },
+                "srx": { "dof_type": "free" },
+                "sry": { "dof_type": "free" },
+                "srz": { "dof_type": "free" }
+              }
+            },
+            {
+              "bearing_index": 1,
+              "orientation": "orthogonal",
+              "bearing_stiffness_definition": {
+                "sdx": { "dof_type": "free" },
+                "sdy": { "dof_type": "fixed" },
+                "sdz": { "dof_type": "custom", "stiffness": { "value": 1500000, "unit": "N/m" } },
+                "srx": { "dof_type": "free" },
+                "sry": { "dof_type": "free" },
+                "srz": { "dof_type": "free" }
+              }
+            }
+          ]
+        },
+        {
+          "girder_index": 1,
+          "bearing_configuration_type": "multiple",
+          "bearing_definitions": [
+            {
+              "bearing_index": 0,
+              "orientation": "orthogonal",
+              "bearing_stiffness_definition": {
+                "sdx": { "dof_type": "free" },
+                "sdy": { "dof_type": "fixed" },
+                "sdz": { "dof_type": "custom", "stiffness": { "value": 2000000, "unit": "N/m" } },
+                "srx": { "dof_type": "free" },
+                "sry": { "dof_type": "free" },
+                "srz": { "dof_type": "free" }
+              }
+            },
+            {
+              "bearing_index": 1,
+              "orientation": "orthogonal",
+              "bearing_stiffness_definition": {
+                "sdx": { "dof_type": "free" },
+                "sdy": { "dof_type": "fixed" },
+                "sdz": { "dof_type": "custom", "stiffness": { "value": 2000000, "unit": "N/m" } },
+                "srx": { "dof_type": "free" },
+                "sry": { "dof_type": "free" },
+                "srz": { "dof_type": "free" }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

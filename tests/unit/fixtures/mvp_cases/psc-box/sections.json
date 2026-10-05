@@ -1,0 +1,724 @@
+{
+  "sections": [
+    {
+      "section_id": "pile_section",
+      "name": "pile_section",
+      "section_family": "standard-shape",
+      "section_type": "solid-round",
+      "offset": "center-center",
+      "dimensions": {
+        "diameter_d": {
+          "value": 1.20,
+          "unit": "m"
+        }
+      }
+    },
+
+
+    {
+      "section_id": "intermediate_girder",
+      "name": "girder_intermediate",
+      "section_family": "composite",
+      "section_type": "steel-i-symmetric",
+      "dimensions": {
+        "slab_width_bc": {
+          "value": 2.00,
+          "unit": "m"
+        },
+        "slab_thickness_tc": {
+          "value": 0.20,
+          "unit": "m"
+        },
+        "slab_girder_spacing_hh": {
+          "value": 0.0,
+          "unit": "m"
+        },
+        "girder_top_flange_width_b1": {
+          "value": 0.50,
+          "unit": "m"
+        },
+        "girder_top_flange_thickness_tf1": {
+          "value": 0.03,
+          "unit": "m"
+        },
+        "girder_bottom_flange_width_b2": {
+          "value": 0.60,
+          "unit": "m"
+        },
+        "girder_bottom_flange_thickness_tf2": {
+          "value": 0.05,
+          "unit": "m"
+        },
+        "girder_web_thickness_tw": {
+          "value": 0.025,
+          "unit": "m"
+        },
+        "girder_web_height_hw": {
+          "value": 2.20,
+          "unit": "m"
+        }
+      },
+      "offset": "center-top"
+    },
+    {
+      "section_id": "intermediate_girder_2",
+      "name": "girder_intermediate_high",
+      "section_family": "composite",
+      "section_type": "steel-i-symmetric",
+      "dimensions": {
+        "slab_width_bc": {
+          "value": 2.00,
+          "unit": "m"
+        },
+        "slab_thickness_tc": {
+          "value": 0.20,
+          "unit": "m"
+        },
+        "slab_girder_spacing_hh": {
+          "value": 0.0,
+          "unit": "m"
+        },
+        "girder_top_flange_width_b1": {
+          "value": 0.50,
+          "unit": "m"
+        },
+        "girder_top_flange_thickness_tf1": {
+          "value": 0.03,
+          "unit": "m"
+        },
+        "girder_bottom_flange_width_b2": {
+          "value": 0.60,
+          "unit": "m"
+        },
+        "girder_bottom_flange_thickness_tf2": {
+          "value": 0.05,
+          "unit": "m"
+        },
+        "girder_web_thickness_tw": {
+          "value": 0.025,
+          "unit": "m"
+        },
+        "girder_web_height_hw": {
+          "value": 3.20,
+          "unit": "m"
+        }
+      },
+      "offset": "center-top"
+    },
+    {
+      "section_id": "edge_girder_left",
+      "name": "girder_edge_left",
+      "section_family": "composite",
+      "section_type": "steel-i-asymmetric",
+      "dimensions": {
+        "slab_distance_rf_sg": {
+          "value": 0.00,
+          "unit": "m"
+        },
+        "top_flange_distance_rf_top": {
+          "value": 1.75,
+          "unit": "m"
+        },
+        "bottom_flange_distance_rf_bot": {
+          "value": 1.70,
+          "unit": "m"
+        },
+        "slab_width_bc": {
+          "value": 3.00,
+          "unit": "m"
+        },
+        "slab_thickness_tc": {
+          "value": 0.20,
+          "unit": "m"
+        },
+        "slab_girder_spacing_hh": {
+          "value": 0.0,
+          "unit": "m"
+        },
+        "girder_top_flange_left_width_b1": {
+          "value": 0.25,
+          "unit": "m"
+        },
+        "girder_top_flange_right_width_b2": {
+          "value": 0.25,
+          "unit": "m"
+        },
+        "girder_top_flange_thickness_t1": {
+          "value": 0.03,
+          "unit": "m"
+        },
+        "girder_bottom_flange_left_width_b3": {
+          "value": 0.30,
+          "unit": "m"
+        },
+        "girder_bottom_flange_right_width_b4": {
+          "value": 0.30,
+          "unit": "m"
+        },
+        "girder_bottom_flange_thickness_t2": {
+          "value": 0.05,
+          "unit": "m"
+        },
+        "girder_web_thickness_tw": {
+          "value": 0.025,
+          "unit": "m"
+        },
+        "girder_web_height_h": {
+          "value": 2.20,
+          "unit": "m"
+        }
+      },
+      "offset": "center-top"
+    },
+    {
+      "section_id": "edge_girder_right",
+      "name": "girder_edge_right",
+      "section_family": "composite",
+      "section_type": "steel-i-asymmetric",
+      "dimensions": {
+        "slab_distance_rf_sg": {
+          "value": 0.00,
+          "unit": "m"
+        },
+        "top_flange_distance_rf_top": {
+          "value": 0.75,
+          "unit": "m"
+        },
+        "bottom_flange_distance_rf_bot": {
+          "value": 0.70,
+          "unit": "m"
+        },
+        "slab_width_bc": {
+          "value": 3.00,
+          "unit": "m"
+        },
+        "slab_thickness_tc": {
+          "value": 0.20,
+          "unit": "m"
+        },
+        "slab_girder_spacing_hh": {
+          "value": 0.0,
+          "unit": "m"
+        },
+        "girder_top_flange_left_width_b1": {
+          "value": 0.25,
+          "unit": "m"
+        },
+        "girder_top_flange_right_width_b2": {
+          "value": 0.25,
+          "unit": "m"
+        },
+        "girder_top_flange_thickness_t1": {
+          "value": 0.03,
+          "unit": "m"
+        },
+        "girder_bottom_flange_left_width_b3": {
+          "value": 0.30,
+          "unit": "m"
+        },
+        "girder_bottom_flange_right_width_b4": {
+          "value": 0.30,
+          "unit": "m"
+        },
+        "girder_bottom_flange_thickness_t2": {
+          "value": 0.05,
+          "unit": "m"
+        },
+        "girder_web_thickness_tw": {
+          "value": 0.025,
+          "unit": "m"
+        },
+        "girder_web_height_h": {
+          "value": 2.20,
+          "unit": "m"
+        }
+      },
+      "offset": "center-top"
+    },
+    {
+      "section_id": "deck-slab-section",
+      "name": "deck slab",
+      "section_family": "standard-shape",
+      "section_type": "solid-rectangle",
+      "dimensions": {
+        "height_h": {
+          "value": 0.20,
+          "unit": "m"
+        },
+        "width_b": {
+          "value": 1.00,
+          "unit": "m"
+        }
+      },
+      "offset": "center-top"
+    },
+    {
+      "section_id": "bracing-brace-section",
+      "name": "standard_angle_1",
+      "section_family": "standard-shape",
+      "section_type": "angle",
+      "dimensions": {
+        "height_h": {
+          "value": 0.203,
+          "unit": "m"
+        },
+        "width_b": {
+          "value": 0.203,
+          "unit": "m"
+        },
+        "thickness_web_tw": {
+          "value": 0.022,
+          "unit": "m"
+        },
+        "thickness_flange_tf": {
+          "value": 0.022,
+          "unit": "m"
+        }
+      },
+      "offset": "center-center"
+    },
+    {
+      "section_id": "bracing-chord-section",
+      "name": "standard_angle_2",
+      "section_family": "standard-shape",
+      "section_type": "channel",
+      "dimensions": {
+        "height_h": {
+          "value": 0.55,
+          "unit": "m"
+        },
+        "top_flange_width_b1": {
+          "value": 0.20,
+          "unit": "m"
+        },
+        "bottom_flange_width_b2": {
+          "value": 0.22,
+          "unit": "m"
+        },
+        "web_thickness_tw": {
+          "value": 0.014,
+          "unit": "m"
+        },
+        "top_flange_thickness_tf1": {
+          "value": 0.018,
+          "unit": "m"
+        },
+        "bottom_flange_thickness_tf2": {
+          "value": 0.02,
+          "unit": "m"
+        },
+        "web_inner_radius_r1": {
+          "value": 0.01,
+          "unit": "m"
+        },
+        "flange_end_radius_r2": {
+          "value": 0.008,
+          "unit": "m"
+        }
+      },
+      "offset": "center-center"
+    },
+    {
+      "section_id": "diaphragm-section",
+      "name": "standard_I_section",
+      "section_family": "standard-shape",
+      "section_type": "i-section",
+      "dimensions": {
+        "total_height_h": {
+          "value": 1.01,
+          "unit": "m"
+        },
+        "top_flange_width_b1": {
+          "value": 0.41,
+          "unit": "m"
+        },
+        "bottom_flange_width_b2": {
+          "value": 0.50,
+          "unit": "m"
+        },
+        "web_thickness_tw": {
+          "value": 0.015,
+          "unit": "m"
+        },
+        "top_flange_thickness_tf1": {
+          "value": 0.02,
+          "unit": "m"
+        },
+        "bottom_flange_thickness_tf2": {
+          "value": 0.05,
+          "unit": "m"
+        },
+        "web_inner_radius_r1": {
+          "value": 0.01,
+          "unit": "m"
+        },
+        "flange_end_radius_r2": {
+          "value": 0.01,
+          "unit": "m"
+        }
+      },
+      "offset": "center-top"
+    },
+    {
+      "section_id": "plan-bracing-section",
+      "name": "standard_solid_round",
+      "section_family": "standard-shape",
+      "section_type": "solid-round",
+      "dimensions": {
+        "diameter_d": {
+          "value": 0.18,
+          "unit": "m"
+        }
+      },
+      "offset": "center-center"
+    },
+
+    {
+      "section_id": "tapered-section-1",
+      "name": "tapered_1",
+      "section_family": "tapered",
+      "section_type": "steel-i-symmetric",
+      "section_start_id": "intermediate_girder",
+      "section_end_id": "intermediate_girder_2",
+      "taper_y_variation": "parabolic",
+      "taper_z_variation": "parabolic",
+      "offset": "center-top"
+    },
+
+    {
+      "section_id": "tapered-section-2",
+      "name": "tapered_2",
+      "section_family": "tapered",
+      "section_type": "steel-i-symmetric",
+      "section_start_id": "intermediate_girder_2",
+      "section_end_id": "intermediate_girder",
+      "taper_y_variation": "parabolic",
+      "taper_z_variation": "parabolic",
+      "offset": "center-top"
+    },
+
+    {
+      "section_id": "psc-box-section",
+      "name": "psc_box",
+      "section_family": "psc",
+      "section_type": "psc-value",
+      "offset": "center-top",
+      "dimensions": {
+        "outer_outline": {
+          "vertices": [
+            {
+              "x": {
+                "value": -6,
+                "unit": "m"
+              },
+              "y": {
+                "value": 2.5,
+                "unit": "m"
+              }
+            },
+            {
+              "x": {
+                "value": 6,
+                "unit": "m"
+              },
+              "y": {
+                "value": 2.5,
+                "unit": "m"
+              }
+            },
+            {
+              "x": {
+                "value": 6,
+                "unit": "m"
+              },
+              "y": {
+                "value": 2.35,
+                "unit": "m"
+              }
+            },
+            {
+              "x": {
+                "value": 5,
+                "unit": "m"
+              },
+              "y": {
+                "value": 2.3,
+                "unit": "m"
+              }
+            },
+            {
+              "x": {
+                "value": 4.5,
+                "unit": "m"
+              },
+              "y": {
+                "value": 2.25,
+                "unit": "m"
+              }
+            },
+            {
+              "x": {
+                "value": 3.6974,
+                "unit": "m"
+              },
+              "y": {
+                "value": 2.1,
+                "unit": "m"
+              }
+            },
+            {
+              "x": {
+                "value": 2.75,
+                "unit": "m"
+              },
+              "y": {
+                "value": 0.3,
+                "unit": "m"
+              }
+            },
+            {
+              "x": {
+                "value": 2.75,
+                "unit": "m"
+              },
+              "y": {
+                "value": 0,
+                "unit": "m"
+              }
+            },
+            {
+              "x": {
+                "value": -2.75,
+                "unit": "m"
+              },
+              "y": {
+                "value": 0,
+                "unit": "m"
+              }
+            },
+            {
+              "x": {
+                "value": -2.75,
+                "unit": "m"
+              },
+              "y": {
+                "value": 0.3,
+                "unit": "m"
+              }
+            },
+            {
+              "x": {
+                "value": -3.6974,
+                "unit": "m"
+              },
+              "y": {
+                "value": 2.1,
+                "unit": "m"
+              }
+            },
+            {
+              "x": {
+                "value": -4.5,
+                "unit": "m"
+              },
+              "y": {
+                "value": 2.25,
+                "unit": "m"
+              }
+            },
+            {
+              "x": {
+                "value": -5,
+                "unit": "m"
+              },
+              "y": {
+                "value": 2.3,
+                "unit": "m"
+              }
+            },
+            {
+              "x": {
+                "value": -6,
+                "unit": "m"
+              },
+              "y": {
+                "value": 2.35,
+                "unit": "m"
+              }
+            }
+          ]
+        },
+        "inner_outlines": [
+          {
+            "vertices": [
+              {
+                "x": {
+                  "value": -0.25,
+                  "unit": "m"
+                },
+                "y": {
+                  "value": 2.2,
+                  "unit": "m"
+                }
+              },
+              {
+                "x": {
+                  "value": -1.8323,
+                  "unit": "m"
+                },
+                "y": {
+                  "value": 2.2,
+                  "unit": "m"
+                }
+              },
+              {
+                "x": {
+                  "value": -2.8323,
+                  "unit": "m"
+                },
+                "y": {
+                  "value": 2.1,
+                  "unit": "m"
+                }
+              },
+              {
+                "x": {
+                  "value": -2.9926,
+                  "unit": "m"
+                },
+                "y": {
+                  "value": 1.8345,
+                  "unit": "m"
+                }
+              },
+              {
+                "x": {
+                  "value": -2.351,
+                  "unit": "m"
+                },
+                "y": {
+                  "value": 0.6155,
+                  "unit": "m"
+                }
+              },
+              {
+                "x": {
+                  "value": -1.9113,
+                  "unit": "m"
+                },
+                "y": {
+                  "value": 0.35,
+                  "unit": "m"
+                }
+              },
+              {
+                "x": {
+                  "value": -1.1613,
+                  "unit": "m"
+                },
+                "y": {
+                  "value": 0.3,
+                  "unit": "m"
+                }
+              },
+              {
+                "x": {
+                  "value": -0.25,
+                  "unit": "m"
+                },
+                "y": {
+                  "value": 0.3,
+                  "unit": "m"
+                }
+              }
+            ]
+          },
+          {
+            "vertices": [
+              {
+                "x": {
+                  "value": 2.8323,
+                  "unit": "m"
+                },
+                "y": {
+                  "value": 2.1,
+                  "unit": "m"
+                }
+              },
+              {
+                "x": {
+                  "value": 1.8323,
+                  "unit": "m"
+                },
+                "y": {
+                  "value": 2.2,
+                  "unit": "m"
+                }
+              },
+              {
+                "x": {
+                  "value": 0.25,
+                  "unit": "m"
+                },
+                "y": {
+                  "value": 2.2,
+                  "unit": "m"
+                }
+              },
+              {
+                "x": {
+                  "value": 0.25,
+                  "unit": "m"
+                },
+                "y": {
+                  "value": 0.3,
+                  "unit": "m"
+                }
+              },
+              {
+                "x": {
+                  "value": 1.1613,
+                  "unit": "m"
+                },
+                "y": {
+                  "value": 0.3,
+                  "unit": "m"
+                }
+              },
+              {
+                "x": {
+                  "value": 1.9113,
+                  "unit": "m"
+                },
+                "y": {
+                  "value": 0.35,
+                  "unit": "m"
+                }
+              },
+              {
+                "x": {
+                  "value": 2.351,
+                  "unit": "m"
+                },
+                "y": {
+                  "value": 0.6155,
+                  "unit": "m"
+                }
+              },
+              {
+                "x": {
+                  "value": 2.9926,
+                  "unit": "m"
+                },
+                "y": {
+                  "value": 1.8345,
+                  "unit": "m"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

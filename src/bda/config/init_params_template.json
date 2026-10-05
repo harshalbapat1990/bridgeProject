@@ -1,0 +1,7 @@
+{
+  "config_json_path": "ABSOLUTE PATH TO APPSETTINGS.JSON FILE",
+  "use_file_data_provider": "TRUE OR FALSE - WHETHER TO USE FILE DATA PROVIDER (TRUE) OR SPECKLE DATA PROVIDER (FALSE)",
+  "data_path": "PATH TO THE FOLDER CONTAINING THE DATA FILES (ONLY USED IF use_file_data_provider IS TRUE)",
+  "speckle_model_url": "https://ldd-emea.jacobs.com/projects/.........",
+  "speckle_authentication_token": "YOUR SPECKLE AUTHENTICATION TOKEN HERE"
+}

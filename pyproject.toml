@@ -1,0 +1,42 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "bridge-automation-and-optimisation"
+version = "0.2.1"
+description = "Bridge Automation and Optimisation MVP"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "comtypes>=1.4.0",
+    "midas-civil==1.6.9",
+    "numpy==2.4.6",
+    "pint==0.25.3",
+    "psutil>=7.2.0",
+    "pydantic>=2.13.4",
+    "requests>=2.34.2",
+    "specklepy==2026.6.0",
+    "xlwings==0.35.3"
+]
+
+[project.optional-dependencies]
+test = [
+    "matplotlib>=3.11.0",
+    "pytest>=9.0.3",
+    "pytest-cov>=5.0.0",
+    "pytest-mock>=3.14.0",
+]
+
+[project.scripts]
+bda = "bda.__main__:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["bda*"]
+
+

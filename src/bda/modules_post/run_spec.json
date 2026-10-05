@@ -1,0 +1,266 @@
+{
+    "bridge_type": "psc_box",
+    "_comment_materials": "Material library — instances keyed by grade name. Properties in SI units [MPa]. Hand-coded until AMM exposes material data; the $ref resolution pattern will remain unchanged when AMM is wired.",
+    "materials": {
+        "A416": {
+            "_type": "prestressing_steel",
+            "_note": "ASTM A416 Grade 270 low-relaxation strand [MPa].",
+            "f_pu": 1861.584471,
+            "f_pe": 1606.4784509,
+            "f_py": 1675.4260239,
+            "E_p": 196500.5831
+        },
+        "C6000 grade": {
+            "_type": "concrete",
+            "_note": "Normal-weight concrete [MPa]. 6000 psi = 41.37 MPa — verify fp_c matches design f'c.",
+            "fp_c": 34.4737865
+        },
+        "A615 Gr60": {
+            "_type": "reinforcing_steel",
+            "_note": "ASTM A615 Grade 60 rebar (f_y = 60 ksi = 413.7 MPa) [MPa].",
+            "f_y": 413.685438,
+            "E_s": 199947.9617
+        }
+    },
+    "groups": [
+        {
+            "id": "Main_span",
+            "element_ids": [
+                1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
+                11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+                21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
+                31, 32, 33, 34, 35, 36, 37, 38, 39, 40,
+                41, 42, 43, 44, 45, 46, 47, 48, 49, 50,
+                51, 52, 53, 54
+            ],
+            "node_ids": [
+                1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
+                11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+                21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
+                31, 32, 33, 34, 35, 36, 37, 38, 39, 40,
+                41, 42, 43, 44, 45, 46, 47, 48, 49, 50,
+                51, 52, 53, 54, 55
+            ]
+        }
+    ],
+    "load_cases": {
+        "force": ["ULS"],
+        "displacement": [],
+        "stress": []
+    },
+    "module_load_cases": {
+        "girder_flexure": {
+            "force": "ULS"
+        },
+        "_parked": {
+            "_note": "Uncomment entries below and move to the top level when re-enabling parked modules.",
+            "girder_shear":          { "force": "ULS" },
+            "girder_temp_stresses":  { "force_stage1": "CS_Stage1", "force_stage2": "CS_Stage2" },
+            "girder_strand_stresses":{ "force": "SLS_Service" }
+        }
+    },
+    "module_07": {
+        "_comment": "Module 07 — PT Box Girder Flexure / Moment Capacity Check.\n'spec' drives the plug-and-play runner (template paths, cell mappings).\n'scalar_inputs' and 'sections' supply the design values resolved at runtime.\nMaterial properties are resolved via $ref: section.<type>.<prop>.\n\nGeometric section dims (h, bw, top_hf, bot_hf) are read from the Midas\nmodel via fetch_section_geometry(). Only design inputs belong here.",
+
+        "spec": {
+            "_comment": "JSON-driven module spec. 'unit' on scalar_inputs may be a pint string (e.g. \"MPa\"), an absolute cell address (e.g. \"C1\"), or a relative reference (e.g. \"right_1\" = one cell to the right of the input cell).",
+            "module_id": "girder_flexure",
+            "template_si":  "pt_box/Module 07 PT Box Flexure v5_SI_test.xlsx",
+            "template_imp": "pt_box/Module 07 PT Box Flexure v5_IMP.xlsx",
+            "worksheet": "Inputs",
+            "scalar_inputs": [
+                { "cell": "B1",  "key": "fpu",              "unit": "MPa" },
+                { "cell": "B2",  "key": "fpe",              "unit": "MPa" },
+                { "cell": "B3",  "key": "fpy",              "unit": "MPa" },
+                { "cell": "B4",  "key": "fck",              "unit": "MPa" },
+                { "cell": "B5",  "key": "fy",               "unit": "MPa" },
+                { "cell": "B6",  "key": "Es",               "unit": "MPa" },
+                { "cell": "B7",  "key": "Ep",               "unit": "MPa" },
+                { "cell": "B8",  "key": "S",                "unit": "m"   },
+                { "cell": "B9",  "key": "SOH",              "unit": "m"   },
+                { "cell": "B10", "key": "h",                "unit": "m"   },
+                { "cell": "B11", "key": "girder_location"                  },
+                { "cell": "B12", "key": "project_name"                     },
+                { "cell": "B13", "key": "project_number"                   },
+                { "cell": "B14", "key": "section_letter"                   },
+                { "cell": "B15", "key": "originator"                       },
+                { "cell": "B16", "key": "origination_date"                 },
+                { "cell": "B17", "key": "checker"                          },
+                { "cell": "B18", "key": "checked_date"                     },
+                { "cell": "B19", "key": "revision"                         }
+            ],
+            "table_columns": [
+                {
+                    "start_cell": "A25", "component": "NODE_ID",
+                    "source": "geometry",
+                    "_comment": "Integer node IDs in span order."
+                },
+                {
+                    "start_cell": "B25", "component": "DISTANCE",
+                    "source": "geometry", "unit": "m",
+                    "_comment": "Cumulative chord distance from first node [m]."
+                },
+                {
+                    "start_cell": "C25", "component": "My",
+                    "source": "result", "load_case_key": "force", "unit": "kN*m",
+                    "_comment": "Governing ULS bending moment per node [kN·m] — max(abs(My_max), abs(My_min))."
+                },
+                {
+                    "start_cell": "D25", "component": "Aps",
+                    "source": "section", "unit": "cm**2",
+                    "_comment": "Area of prestressing steel per section [cm²]."
+                },
+                {
+                    "start_cell": "E25", "component": "bw",
+                    "source": "section", "unit": "m",
+                    "_comment": "Web width per section [m]."
+                },
+                {
+                    "start_cell": "F25", "component": "dp",
+                    "source": "section", "unit": "m",
+                    "_comment": "Depth to tendon CG from top of section [m]."
+                },
+                {
+                    "start_cell": "G25", "component": "bot_As",
+                    "source": "section", "unit": "mm**2",
+                    "_comment": "Bottom flange rebar area [mm²]."
+                },
+                {
+                    "start_cell": "H25", "component": "bot_ds",
+                    "source": "section", "unit": "m",
+                    "_comment": "Bottom flange rebar depth from top [m]."
+                },
+                {
+                    "start_cell": "I25", "component": "bot_hf",
+                    "source": "section", "unit": "m",
+                    "_comment": "Bottom flange thickness [m]."
+                },
+                {
+                    "_comment": "Column J is a formula (bottom flange effective width) — NOT written by automation.",
+                    "start_cell": "K25", "component": "top_As",
+                    "source": "section", "unit": "mm**2",
+                    "_comment2": "Top flange rebar area [mm²]."
+                },
+                {
+                    "start_cell": "L25", "component": "top_ds",
+                    "source": "section", "unit": "m",
+                    "_comment": "Top flange rebar depth from top [m]."
+                },
+                {
+                    "start_cell": "M25", "component": "top_hf",
+                    "source": "section", "unit": "m",
+                    "_comment": "Top flange thickness [m]."
+                },
+                {
+                    "start_cell": "N25", "component": "top_b",
+                    "source": "section", "unit": "m",
+                    "_comment": "Top flange effective width [m]."
+                },
+                {
+                    "start_cell": "O25", "component": "SECTION_NAME",
+                    "source": "section",
+                    "_comment": "Section name at each node location (string)."
+                },
+                {
+                    "start_cell": "P25", "component": "h",
+                    "source": "section", "unit": "m",
+                    "_comment": "Section height at each node [m]. Interpolated for tapered sections (h_start/h_end from Midas model)."
+                }
+            ],
+            "outputs": [
+                { "cell": "Resistance_M.n.Negative", "name": "Resistance_Mn_Negative" },
+                { "cell": "RF_phi",                  "name": "RF_phi"                 }
+            ],
+            "table_outputs": [
+                { "cell": "Table_DC",       "name": "Table_DC",       "columns": ["DC"]          },
+                { "cell": "Table_Location", "name": "Table_Location", "columns": ["Location_m"]  },
+                { "cell": "Table_Mr_neg",   "name": "Table_Mr_neg",   "columns": ["Mr_neg_kNm"]  },
+                { "cell": "Table_Mr_pos",   "name": "Table_Mr_pos",   "columns": ["Mr_pos_kNm"]  },
+                { "cell": "Table_Mu",       "name": "Table_Mu",       "columns": ["Mu_kNm"]      }
+            ]
+        },
+
+        "section_profile": [
+            {
+                "_comment": "Explicit element-to-section mapping. Overrides FEM-derived section names. 'element_range': [first_id, last_id] inclusive. Geometric dims (h, bw, top_hf, bot_hf) are read from the Midas model for each named section. For tapered sections Midas provides h_start/h_end automatically.",
+                "element_range": [1, 4],
+                "section": "PSC2"
+            },
+            {"element_range": [ 5, 24], "section": "TAP-PSC:2"},
+            {"element_range": [25, 30], "section": "PSC1"},
+            {"element_range": [31, 50], "section": "TAP-PSC:1"},
+            {"element_range": [51, 54], "section": "PSC2"}
+        ],
+
+        "scalar_inputs": {
+            "_notes": {
+                "S":               "Girder spacing, center-to-center [m]",
+                "SOH":             "Slab overhang length, from exterior girder CL to slab edge [m]",
+                "girder_location": "Choices: Interior | Exterior",
+                "h":               "Max section height [m] — computed at runtime from per-node heights; this placeholder is overridden by pre_computed[node_h_] max."
+            },
+            "fpu": { "$ref": "section.tendon.f_pu"  },
+            "fpe": { "$ref": "section.tendon.f_pe"  },
+            "fpy": { "$ref": "section.tendon.f_py"  },
+            "fck": { "$ref": "section.concrete.fp_c"},
+            "fy":  { "$ref": "section.rebar.f_y"    },
+            "Es":  { "$ref": "section.rebar.E_s"    },
+            "Ep":  { "$ref": "section.tendon.E_p"   },
+            "S":                2.4384,
+            "SOH":              1.0668,
+            "girder_location":  "Interior",
+            "project_name":     "Test Bridge Project",
+            "project_number":   "TBD",
+            "section_letter":   "X.1",
+            "originator":       "AM",
+            "origination_date": "2026-05-04",
+            "checker":          "CR",
+            "checked_date":     "2026-05-04",
+            "revision":         1
+        },
+
+        "sections": {
+            "_comment": "Keys are section names matching section_profile entries above. 'materials' maps type keys to material instance names in the top-level materials block. Geometric dims (h, bw, top_hf, bot_hf) are intentionally omitted here — they are read from the Midas model via fetch_section_geometry(). Only design inputs that cannot be derived from the model belong in this dict.",
+            "PSC1": {
+                "materials": {"concrete": "C6000 grade", "rebar":    "A615 Gr60","tendon":   "A416"},
+                "Aps":     129.032,
+                "dp":      1.01,
+                "bot_As":  3870.96,
+                "bot_ds":  2.613,
+                "top_As":  16129,
+                "top_ds":  2.613,
+                "top_b":   0.61
+            },
+            "PSC2": {
+                "materials": {"concrete": "C6000 grade", "rebar":    "A615 Gr60","tendon":   "A416"},
+                "Aps":     129.032,
+                "dp":      1.01,
+                "bot_As":  3870.96,
+                "bot_ds":  4.413,
+                "top_As":  16129,
+                "top_ds":  4.413,
+                "top_b":   0.61
+            },
+            "TAP-PSC:1": {
+                "materials": {"concrete": "C6000 grade", "rebar":    "A615 Gr60","tendon":   "A416"},
+                "Aps":     129.032,
+                "dp":      1.01,
+                "bot_As":  3870.96,
+                "bot_ds":  2.613,
+                "top_As":  16129,
+                "top_ds":  2.613,
+                "top_b":   0.61
+            },
+            "TAP-PSC:2": {
+                "materials": {"concrete": "C6000 grade", "rebar":    "A615 Gr60","tendon":   "A416"},
+                "Aps":     129.032,
+                "dp":      1.01,
+                "bot_As":  3870.96,
+                "bot_ds":  2.613,
+                "top_As":  16129,
+                "top_ds":  2.613,
+                "top_b":   0.61
+            }
+        }
+    }
+}

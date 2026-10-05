@@ -1,0 +1,268 @@
+{
+  "foundation_bc": [
+
+    {
+      "support_index": 0,
+      "foundation_model_type": "lumped_foundation_model",
+      "stiffness_definition": {
+        "sdx": {
+          "dof_type": "free",
+          "stiffness": {
+            "value": 1000000,
+            "unit": "N/m"
+          }
+        },
+        "sdy": {
+          "dof_type": "fixed",
+          "stiffness": {
+            "value": 2000000,
+            "unit": "N/m"
+          }
+        },
+        "sdz": {
+          "dof_type": "custom",
+          "stiffness": {
+            "value": 3000000,
+            "unit": "N/m"
+          }
+        },
+        "srx": {
+          "dof_type": "free",
+          "stiffness": {
+            "value": 4000000,
+            "unit": "N*m/rad"
+          }
+        },
+        "sry": {
+          "dof_type": "fixed",
+          "stiffness": {
+            "value": 5000000,
+            "unit": "N*m/rad"
+          }
+        },
+        "srz": {
+          "dof_type": "custom",
+          "stiffness": {
+            "value": 6000000,
+            "unit": "N*m/rad"
+          }
+      }
+    },
+      "orientation": "orthogonal",
+      "application": {
+        "application_type": "bearing_based",
+        "vertical_offset": {
+          "value": 0.5,
+          "unit": "m"
+        }
+      }
+    },
+
+    {
+      "support_index": 1,
+      "foundation_model_type": "lumped_foundation_model",
+      "stiffness_definition": {
+        "sdx": {
+          "dof_type": "free",
+          "stiffness": {
+            "value": 1000000,
+            "unit": "N/m"
+          }
+        },
+        "sdy": {
+          "dof_type": "fixed",
+          "stiffness": {
+            "value": 2000000,
+            "unit": "N/m"
+          }
+        },
+        "sdz": {
+          "dof_type": "custom",
+          "stiffness": {
+            "value": 3000000,
+            "unit": "N/m"
+          }
+        },
+        "srx": {
+          "dof_type": "free",
+          "stiffness": {
+            "value": 4000000,
+            "unit": "N*m/rad"
+          }
+        },
+        "sry": {
+          "dof_type": "fixed",
+          "stiffness": {
+            "value": 5000000,
+            "unit": "N*m/rad"
+          }
+        },
+        "srz": {
+          "dof_type": "custom",
+          "stiffness": {
+            "value": 6000000,
+            "unit": "N*m/rad"
+          }
+      }
+    },
+      "orientation": "orthogonal",
+      "application": {
+      "application_type": "substructure_element_based"}
+    },
+
+    {
+      "support_index": 2,
+      "foundation_model_type": "pile_interaction_model",
+      "pile_springs": [
+        {
+          "soil_profile_type": "uniform",
+          "pile_index": 0,
+          "top_node": {
+            "sdx": {
+              "dof_type": "free",
+              "stiffness": {
+                "value": 1000000,
+                "unit": "N/m"
+              }
+            },
+            "sdy": {
+              "dof_type": "fixed",
+              "stiffness": {
+                "value": 2000000,
+                "unit": "N/m"
+              }
+            },
+            "sdz": {
+              "dof_type": "custom",
+              "stiffness": {
+                "value": 3000000,
+                "unit": "N/m"
+              }
+            }
+          },
+          "bottom_node": {
+            "sdx": {
+              "dof_type": "free",
+              "stiffness": {
+                "value": 1000000,
+                "unit": "N/m"
+              }
+            },
+            "sdy": {
+              "dof_type": "fixed",
+              "stiffness": {
+                "value": 2000000,
+                "unit": "N/m"
+              }
+            },
+            "sdz": {
+              "dof_type": "custom",
+              "stiffness": {
+                "value": 3000000,
+                "unit": "N/m"
+              }
+            }
+          },
+          "intermediate_nodes": {
+            "sdx": {
+              "dof_type": "free",
+              "stiffness": {
+                "value": 1000000,
+                "unit": "N/m"
+              }
+            },
+            "sdy": {
+              "dof_type": "fixed",
+              "stiffness": {
+                "value": 2000000,
+                "unit": "N/m"
+              }
+            },
+            "sdz": {
+              "dof_type": "custom",
+              "stiffness": {
+                "value": 3000000,
+                "unit": "N/m"
+              }
+            }
+          }
+        },
+
+        {
+          "soil_profile_type": "uniform",
+          "pile_index": 1,
+          "top_node": {
+            "sdx": {
+              "dof_type": "free",
+              "stiffness": {
+                "value": 1000000,
+                "unit": "N/m"
+              }
+            },
+            "sdy": {
+              "dof_type": "fixed",
+              "stiffness": {
+                "value": 2000000,
+                "unit": "N/m"
+              }
+            },
+            "sdz": {
+              "dof_type": "custom",
+              "stiffness": {
+                "value": 3000000,
+                "unit": "N/m"
+              }
+            }
+          },
+          "bottom_node": {
+            "sdx": {
+              "dof_type": "free",
+              "stiffness": {
+                "value": 1000000,
+                "unit": "N/m"
+              }
+            },
+            "sdy": {
+              "dof_type": "fixed",
+              "stiffness": {
+                "value": 2000000,
+                "unit": "N/m"
+              }
+            },
+            "sdz": {
+              "dof_type": "custom",
+              "stiffness": {
+                "value": 3000000,
+                "unit": "N/m"
+              }
+            }
+          },
+          "intermediate_nodes": {
+            "sdx": {
+              "dof_type": "free",
+              "stiffness": {
+                "value": 1000000,
+                "unit": "N/m"
+              }
+            },
+            "sdy": {
+              "dof_type": "fixed",
+              "stiffness": {
+                "value": 2000000,
+                "unit": "N/m"
+              }
+            },
+            "sdz": {
+              "dof_type": "custom",
+              "stiffness": {
+                "value": 3000000,
+                "unit": "N/m"
+              }
+            }
+          }
+        }
+      ]
+    }
+
+  ]
+}

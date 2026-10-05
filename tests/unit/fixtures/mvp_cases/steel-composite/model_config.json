@@ -1,0 +1,8 @@
+{
+  "model_config": {
+    "unit_system": "US Customary",
+    "output_software": "CSI Bridge",
+    "design_code": "AASHTO",
+    "bridge_type": "Steel Composite"
+    }
+}
