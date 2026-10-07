@@ -195,14 +195,9 @@ class ModelRootCollection(BridgeCollection):
     COLLECTION_ID_PATTERN: ClassVar[re.Pattern] = re.compile(
         r"^COL-ROOT$"
     )
-    speckle_type: Literal["Objects.Collections.Collection"]
-
     bda_speckle_type: Literal[
-        "Objects.Collections.Collection"
-    ] = Field(
-        ...,
-        frozen=True
-    )
+        "Speckle.Core.Models.Collections.Collection"
+    ] = Field("Speckle.Core.Models.Collections.Collection", frozen=True)
 
     name: Literal["Model Root"] = "Model Root"
 
@@ -378,8 +373,6 @@ class ModelRootCollection(BridgeCollection):
             elements.append(boundary_conditions)
 
         return cls(
-            speckle_type="Objects.Collections.Collection",
-            bda_speckle_type="Objects.Collections.Collection",
             applicationId=application_id,
             elements=elements,
         )

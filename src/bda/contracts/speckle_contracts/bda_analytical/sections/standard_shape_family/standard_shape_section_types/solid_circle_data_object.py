@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from bda.contracts.speckle_contracts.speckle_enums import SpeckleTypes
+
 from typing import Literal, ClassVar
 from pydantic import BaseModel, Field, StrictFloat
 
@@ -78,16 +80,10 @@ class SectionDataObject_SolidCircle(StandardShapeDataObject):
     applicationId: str = Field(
         pattern=APPLICATION_ID_PATTERN,
     )
-    speckle_type: Literal[
-        "Objects.Data.DataObject:BDA_Section:Standard_Shape:Solid Circle"
-    ]
 
     bda_speckle_type: Literal[
-        "Objects.Data.DataObject:BDA_Section:Standard_Shape:Solid Circle"
-    ] = Field(
-        ...,
-        frozen=True
-    )
+        SpeckleTypes.DATA_OBJECT_BDA_SECTION_STANDARD_SHAPE_SOLID_CIRCLE
+    ] = Field(SpeckleTypes.DATA_OBJECT_BDA_SECTION_STANDARD_SHAPE_SOLID_CIRCLE.value, frozen=True)
 
     properties: SolidCircleDataObject_Properties
 
@@ -106,14 +102,6 @@ class SectionDataObject_SolidCircle(StandardShapeDataObject):
             id=None,
             name=name,
             applicationId=application_id,
-            speckle_type=(
-                "Objects.Data.DataObject:"
-                "BDA_Section:Standard_Shape:Solid Circle"
-            ),
-            bda_speckle_type=(
-                "Objects.Data.DataObject:"
-                "BDA_Section:Standard_Shape:Solid Circle"
-            ),
             properties=(
                 SolidCircleDataObject_Properties(
                     **{

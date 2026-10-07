@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from bda.contracts.speckle_contracts.speckle_enums import SpeckleTypes
+
 from typing import Literal, ClassVar
 from pydantic import BaseModel, Field, StrictFloat
 
@@ -143,16 +145,10 @@ class SectionDataObject_Channel(StandardShapeDataObject):
     applicationId: str = Field(
         pattern=APPLICATION_ID_PATTERN,
     )
-    speckle_type: Literal[
-        "Objects.Data.DataObject:BDA_Section:Standard_Shape:Channel"
-    ]
 
     bda_speckle_type: Literal[
-        "Objects.Data.DataObject:BDA_Section:Standard_Shape:Channel"
-    ] = Field(
-        ...,
-        frozen=True
-    )
+        SpeckleTypes.DATA_OBJECT_BDA_SECTION_STANDARD_SHAPE_CHANNEL
+    ] = Field(SpeckleTypes.DATA_OBJECT_BDA_SECTION_STANDARD_SHAPE_CHANNEL.value, frozen=True)
 
     properties: ChannelDataObject_Properties
 
@@ -178,14 +174,6 @@ class SectionDataObject_Channel(StandardShapeDataObject):
             id=None,
             name=name,
             applicationId=application_id,
-            speckle_type=(
-                "Objects.Data.DataObject:"
-                "BDA_Section:Standard_Shape:Channel"
-            ),
-            bda_speckle_type=(
-                "Objects.Data.DataObject:"
-                "BDA_Section:Standard_Shape:Channel"
-            ),
             properties=(
                 ChannelDataObject_Properties(
                     **{

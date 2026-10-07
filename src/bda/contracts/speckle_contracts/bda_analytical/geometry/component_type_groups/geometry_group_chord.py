@@ -1,3 +1,4 @@
+from bda.contracts.speckle_contracts.speckle_enums import SpeckleTypes
 from typing import Annotated, ClassVar, Literal
 
 from pydantic import BaseModel, Field, model_validator
@@ -132,19 +133,9 @@ class GeometryGroupParametersChord(GeometryGroupParameters):
         "Geometry Group Properties"
     ] = "Geometry Group Properties"
 
-    speckle_type: Literal[
-        "Objects.Data.DataObject:BDA_Geometry_Group_Properties_Chord"
-    ] = Field(
-        "Objects.Data.DataObject:BDA_Geometry_Group_Properties_Chord",
-        frozen=True
-    )
-
     bda_speckle_type: Literal[
-        "Objects.Data.DataObject:BDA_Geometry_Group_Properties_Chord"
-    ] = Field(
-        ...,
-        frozen=True
-    )
+        SpeckleTypes.DATA_OBJECT_BDA_GEOMETRY_GROUP_PROPERTIES_CHORD
+    ] = Field(SpeckleTypes.DATA_OBJECT_BDA_GEOMETRY_GROUP_PROPERTIES_CHORD.value, frozen=True)
 
     APPLICATION_ID_PATTERN: ClassVar[str] = r"^GEOMGROUP-PROPS-\d{4}-CHORD$"
     applicationId: str = Field(pattern=APPLICATION_ID_PATTERN)
@@ -164,19 +155,9 @@ ChordGroupElements = Annotated[
 
 
 class GeometryGroupChord(GeometryGroupBase):
-    speckle_type: Literal[
-        "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_Chord"
-    ] = Field(
-        "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_Chord",
-        frozen=True
-    )
-
     bda_speckle_type: Literal[
-        "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_Chord"
-    ] = Field(
-        ...,
-        frozen=True
-    )
+        SpeckleTypes.COLLECTION_BDA_GEOMETRY_GROUP_CHORD
+    ] = Field(SpeckleTypes.COLLECTION_BDA_GEOMETRY_GROUP_CHORD.value, frozen=True)
 
     APPLICATION_ID_PATTERN: ClassVar[str] = r"^COL-GEOMGROUP-\d{4}-CHORD$"
     applicationId: str = Field(pattern=APPLICATION_ID_PATTERN)
@@ -190,14 +171,14 @@ class GeometryGroupChord(GeometryGroupBase):
                     "contains": {
                         "type": "object",
                         "properties": {
-                            "speckle_type": {
+                            "bda_speckle_type": {
                                 "const": (
                                     "Objects.Data.DataObject:"
                                     "BDA_Geometry_Group_Properties_Chord"
                                 )
                             }
                         },
-                        "required": ["speckle_type"],
+                        "required": ["bda_speckle_type"],
                     },
                     "minContains": 1,
                     "maxContains": 1,
@@ -216,7 +197,7 @@ class GeometryGroupChord(GeometryGroupBase):
         chord_properties_count = sum(
             1
             for element in self.elements
-            if element.speckle_type == chord_properties_speckle_type
+            if element.bda_speckle_type == chord_properties_speckle_type
         )
 
         if chord_properties_count != 1:
@@ -245,20 +226,12 @@ class GeometryGroupChord(GeometryGroupBase):
             id=None,
             applicationId=application_id,
             name=name if name is not None else f"Chord", #TODO: Improve Autonaming
-            bda_speckle_type=(
-                "Speckle.Core.Models.Collections.Collection:"
-                "BDA_Geometry_Group_Chord"
-            ),
             elements=[
                 GeometryGroupParametersChord(
                     **{
                         "id": None,
                         "applicationId": application_id.replace(
                             "COL-GEOMGROUP-", "GEOMGROUP-PROPS-", 1
-                        ),
-                        "bda_speckle_type": (
-                            "Objects.Data.DataObject:"
-                            "BDA_Geometry_Group_Properties_Chord"
                         ),
                         "properties": GeometryGroupPropertiesChord(
                             **{

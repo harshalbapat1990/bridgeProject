@@ -1,3 +1,4 @@
+from bda.contracts.speckle_contracts.speckle_enums import SpeckleTypes
 from bda.contracts.speckle_contracts.bda_analytical.geometry.geometry_group_base import (
     GeometryGroupBase,
     GeometryGroupParameters,
@@ -216,19 +217,9 @@ class GeometryGroupParametersBridge(GeometryGroupParameters):
         "Geometry Group Properties"
     ] = "Geometry Group Properties"
 
-    speckle_type: Literal[
-        "Objects.Data.DataObject:BDA_Geometry_Group_Properties_Bridge"
-    ] = Field(
-        "Objects.Data.DataObject:BDA_Geometry_Group_Properties_Bridge",
-        frozen=True
-    )
-
     bda_speckle_type: Literal[
-        "Objects.Data.DataObject:BDA_Geometry_Group_Properties_Bridge"
-    ] = Field(
-        ...,
-        frozen=True
-    )
+        SpeckleTypes.DATA_OBJECT_BDA_GEOMETRY_GROUP_PROPERTIES_BRIDGE
+    ] = Field(SpeckleTypes.DATA_OBJECT_BDA_GEOMETRY_GROUP_PROPERTIES_BRIDGE.value, frozen=True)
 
     APPLICATION_ID_PATTERN: ClassVar[str] = r"^GEOMGROUP-PROPS-\d{4}-BRIDGE$"
     applicationId: str = Field(pattern=APPLICATION_ID_PATTERN)
@@ -247,19 +238,9 @@ BridgeGroupElements = Annotated[
 
 
 class GeometryGroupBridge(GeometryGroupBase):
-    speckle_type: Literal[
-        "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_Bridge"
-    ] = Field(
-        "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_Bridge",
-        frozen=True
-    )
-
     bda_speckle_type: Literal[
-        "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_Bridge"
-    ] = Field(
-        ...,
-        frozen=True
-    )
+        SpeckleTypes.COLLECTION_BDA_GEOMETRY_GROUP_BRIDGE
+    ] = Field(SpeckleTypes.COLLECTION_BDA_GEOMETRY_GROUP_BRIDGE.value, frozen=True)
 
     APPLICATION_ID_PATTERN: ClassVar[str] = r"^COL-GEOMGROUP-\d{4}-BRIDGE$"
     applicationId: str = Field(pattern=APPLICATION_ID_PATTERN)
@@ -276,14 +257,14 @@ class GeometryGroupBridge(GeometryGroupBase):
                     "contains": {
                         "type": "object",
                         "properties": {
-                            "speckle_type": {
+                            "bda_speckle_type": {
                                 "const": (
                                     "Objects.Data.DataObject:"
                                     "BDA_Geometry_Group_Properties_Bridge"
                                 )
                             }
                         },
-                        "required": ["speckle_type"],
+                        "required": ["bda_speckle_type"],
                     },
                     "minContains": 1,
                     "maxContains": 1,
@@ -293,14 +274,14 @@ class GeometryGroupBridge(GeometryGroupBase):
                     "contains": {
                         "type": "object",
                         "properties": {
-                            "speckle_type": {
+                            "bda_speckle_type": {
                                 "const": (
                                     "Speckle.Core.Models.Collections.Collection:"
                                     "BDA_Geometry_Group_Superstructure"
                                 )
                             }
                         },
-                        "required": ["speckle_type"],
+                        "required": ["bda_speckle_type"],
                     },
                     "minContains": 0,
                     "maxContains": 1,
@@ -310,14 +291,14 @@ class GeometryGroupBridge(GeometryGroupBase):
                     "contains": {
                         "type": "object",
                         "properties": {
-                            "speckle_type": {
+                            "bda_speckle_type": {
                                 "const": (
                                     "Speckle.Core.Models.Collections.Collection:"
                                     "BDA_Geometry_Group_Substructure"
                                 )
                             }
                         },
-                        "required": ["speckle_type"],
+                        "required": ["bda_speckle_type"],
                     },
                     "minContains": 0,
                     "maxContains": 1,
@@ -327,14 +308,14 @@ class GeometryGroupBridge(GeometryGroupBase):
                     "contains": {
                         "type": "object",
                         "properties": {
-                            "speckle_type": {
+                            "bda_speckle_type": {
                                 "const": (
                                     "Speckle.Core.Models.Collections.Collection:"
                                     "BDA_Geometry_Group_Linkage"
                                 )
                             }
                         },
-                        "required": ["speckle_type"],
+                        "required": ["bda_speckle_type"],
                     },
                     "minContains": 0,
                     "maxContains": 1,
@@ -349,7 +330,7 @@ class GeometryGroupBridge(GeometryGroupBase):
         bridge_properties_count = sum(
             1
             for element in self.elements
-            if element.speckle_type
+            if element.bda_speckle_type
             == (
                 "Objects.Data.DataObject:"
                 "BDA_Geometry_Group_Properties_Bridge"
@@ -359,7 +340,7 @@ class GeometryGroupBridge(GeometryGroupBase):
         superstructure_count = sum(
             1
             for element in self.elements
-            if element.speckle_type
+            if element.bda_speckle_type
             == (
                 "Speckle.Core.Models.Collections.Collection:"
                 "BDA_Geometry_Group_Superstructure"
@@ -369,7 +350,7 @@ class GeometryGroupBridge(GeometryGroupBase):
         substructure_count = sum(
             1
             for element in self.elements
-            if element.speckle_type
+            if element.bda_speckle_type
             == (
                 "Speckle.Core.Models.Collections.Collection:"
                 "BDA_Geometry_Group_Substructure"
@@ -379,7 +360,7 @@ class GeometryGroupBridge(GeometryGroupBase):
         linkage_count = sum(
             1
             for element in self.elements
-            if element.speckle_type
+            if element.bda_speckle_type
             == (
                 "Speckle.Core.Models.Collections.Collection:"
                 "BDA_Geometry_Group_Linkage"
@@ -439,10 +420,6 @@ class GeometryGroupBridge(GeometryGroupBase):
                     "applicationId": application_id.replace(
                         "COL-GEOMGROUP-", "GEOMGROUP-PROPS-", 1
                     ),
-                    "bda_speckle_type": (
-                        "Objects.Data.DataObject:"
-                        "BDA_Geometry_Group_Properties_Bridge"
-                    ),
                     "properties": GeometryGroupPropertiesBridge(
                         **{
                             "Structural Component Type":
@@ -486,10 +463,6 @@ class GeometryGroupBridge(GeometryGroupBase):
         return cls(
             id=None,
             applicationId=application_id,
-            bda_speckle_type=(
-                "Speckle.Core.Models.Collections.Collection:"
-                "BDA_Geometry_Group_Bridge"
-            ),
             elements=elements,
         )
 

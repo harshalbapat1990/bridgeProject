@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from bda.contracts.speckle_contracts.speckle_enums import SpeckleTypes
+
 from typing import Literal, ClassVar
 from pydantic import Field, StrictFloat, BaseModel
 
@@ -157,16 +159,10 @@ class SectionDataObject_PSCValue(PSCDataObject):
     applicationId: str = Field(
         pattern=APPLICATION_ID_PATTERN,
     )
-    speckle_type: Literal[
-        "Objects.Data.DataObject:BDA_Section:PSC:PSC Value"
-    ]
 
     bda_speckle_type: Literal[
-        "Objects.Data.DataObject:BDA_Section:PSC:PSC Value"
-    ] = Field(
-        ...,
-        frozen=True
-    )
+        SpeckleTypes.DATA_OBJECT_BDA_SECTION_PSC_PSC_VALUE
+    ] = Field(SpeckleTypes.DATA_OBJECT_BDA_SECTION_PSC_PSC_VALUE.value, frozen=True)
 
     properties: PSCValueDataObject_Properties
 
@@ -186,14 +182,6 @@ class SectionDataObject_PSCValue(PSCDataObject):
             id=None,
             name=name,
             applicationId=application_id,
-            speckle_type=(
-                "Objects.Data.DataObject:"
-                "BDA_Section:PSC:PSC Value"
-            ),
-            bda_speckle_type=(
-                "Objects.Data.DataObject:"
-                "BDA_Section:PSC:PSC Value"
-            ),
             properties=(
                 PSCValueDataObject_Properties(
                     **{

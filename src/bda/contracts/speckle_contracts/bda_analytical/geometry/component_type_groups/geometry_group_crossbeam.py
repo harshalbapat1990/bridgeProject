@@ -1,3 +1,4 @@
+from bda.contracts.speckle_contracts.speckle_enums import SpeckleTypes
 from typing import Annotated, ClassVar, Literal
 
 from pydantic import BaseModel, Field, model_validator
@@ -175,19 +176,9 @@ class GeometryGroupParametersCrossbeam(
         "Geometry Group Properties"
     ] = "Geometry Group Properties"
 
-    speckle_type: Literal[
-        "Objects.Data.DataObject:BDA_Geometry_Group_Properties_Crossbeam"
-    ] = Field(
-        "Objects.Data.DataObject:BDA_Geometry_Group_Properties_Crossbeam",
-        frozen=True
-    )
-
     bda_speckle_type: Literal[
-        "Objects.Data.DataObject:BDA_Geometry_Group_Properties_Crossbeam"
-    ] = Field(
-        ...,
-        frozen=True
-    )
+        SpeckleTypes.DATA_OBJECT_BDA_GEOMETRY_GROUP_PROPERTIES_CROSSBEAM
+    ] = Field(SpeckleTypes.DATA_OBJECT_BDA_GEOMETRY_GROUP_PROPERTIES_CROSSBEAM.value, frozen=True)
 
     APPLICATION_ID_PATTERN: ClassVar[str] = r"^GEOMGROUP-PROPS-\d{4}-CROSSBEAM$"
     applicationId: str = Field(pattern=APPLICATION_ID_PATTERN)
@@ -213,20 +204,9 @@ CrossbeamGroupElements = Annotated[
 class GeometryGroupCrossbeam(
     GeometryGroupBase
 ):
-    speckle_type: Literal[
-        "Speckle.Core.Models.Collections.Collection:"
-        "BDA_Geometry_Group_Crossbeam"
-    ] = Field(
-        "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_Crossbeam",
-        frozen=True
-    )
-
     bda_speckle_type: Literal[
-        "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_Crossbeam"
-    ] = Field(
-        ...,
-        frozen=True
-    )
+        SpeckleTypes.COLLECTION_BDA_GEOMETRY_GROUP_CROSSBEAM
+    ] = Field(SpeckleTypes.COLLECTION_BDA_GEOMETRY_GROUP_CROSSBEAM.value, frozen=True)
 
     APPLICATION_ID_PATTERN: ClassVar[str] = r"^COL-GEOMGROUP-\d{4}-CROSSBEAM$"
     applicationId: str = Field(pattern=APPLICATION_ID_PATTERN)
@@ -242,14 +222,14 @@ class GeometryGroupCrossbeam(
                     "contains": {
                         "type": "object",
                         "properties": {
-                            "speckle_type": {
+                            "bda_speckle_type": {
                                 "const": (
                                     "Objects.Data.DataObject:"
                                     "BDA_Geometry_Group_Properties_Crossbeam"
                                 )
                             }
                         },
-                        "required": ["speckle_type"],
+                        "required": ["bda_speckle_type"],
                     },
                     "minContains": 1,
                     "maxContains": 1,
@@ -269,7 +249,7 @@ class GeometryGroupCrossbeam(
         crossbeam_properties_count = sum(
             1
             for element in self.elements
-            if element.speckle_type
+            if element.bda_speckle_type
             == crossbeam_properties_type
         )
 
@@ -309,21 +289,12 @@ class GeometryGroupCrossbeam(
             id=None,
             applicationId=application_id,
             name=name if name is not None else application_id,
-            bda_speckle_type=(
-                "Speckle.Core.Models.Collections.Collection:"
-                "BDA_Geometry_Group_Crossbeam"
-            ),
             elements=[
                 GeometryGroupParametersCrossbeam(
                     **{
                         "id": None,
                         "applicationId": application_id.replace(
                             "COL-GEOMGROUP-", "GEOMGROUP-PROPS-", 1
-                        ),
-
-                        "bda_speckle_type": (
-                            "Objects.Data.DataObject:"
-                            "BDA_Geometry_Group_Properties_Crossbeam"
                         ),
 
                         "properties":

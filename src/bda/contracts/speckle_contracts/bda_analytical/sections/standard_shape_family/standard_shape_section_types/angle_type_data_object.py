@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from bda.contracts.speckle_contracts.speckle_enums import SpeckleTypes
+
 from typing import Literal, ClassVar
 from pydantic import BaseModel, Field, StrictFloat
 
@@ -105,16 +107,10 @@ class SectionDataObject_Angle(StandardShapeDataObject):
     applicationId: str = Field(
         pattern=APPLICATION_ID_PATTERN,
     )
-    speckle_type: Literal[
-        "Objects.Data.DataObject:BDA_Section:Standard_Shape:Angle"
-    ] = "Objects.Data.DataObject:BDA_Section:Standard_Shape:Angle"
-
+    
     bda_speckle_type: Literal[
-        "Objects.Data.DataObject:BDA_Section:Standard_Shape:Angle"
-    ] = Field(
-        ...,
-        frozen=True
-    )
+        SpeckleTypes.DATA_OBJECT_BDA_SECTION_STANDARD_SHAPE_ANGLE
+    ] = Field(SpeckleTypes.DATA_OBJECT_BDA_SECTION_STANDARD_SHAPE_ANGLE.value, frozen=True)
 
     properties: AngleDataObject_Properties
 
@@ -136,14 +132,6 @@ class SectionDataObject_Angle(StandardShapeDataObject):
             id=None,
             name = name,
             applicationId=application_id,
-            speckle_type=(
-                "Objects.Data.DataObject:"
-                "BDA_Section:Standard_Shape:Angle"
-            ),
-            bda_speckle_type=(
-                "Objects.Data.DataObject:"
-                "BDA_Section:Standard_Shape:Angle"
-            ),
             properties=(
                 AngleDataObject_Properties(
                     **{

@@ -9,6 +9,8 @@ from uuid import UUID, uuid4
 from typing_extensions import Literal
 from pydantic import BaseModel, Field, ConfigDict, field_validator, model_validator
 
+from bda.contracts.speckle_contracts.speckle_enums import SpeckleTypes
+
 T = TypeVar("T")
 
 from collections.abc import Sequence
@@ -29,7 +31,6 @@ from typing import Any, Union, get_args, get_origin
 from types import UnionType
 
 from pydantic import BaseModel
-
 
 def validate_parameter_tree(
     value: Any,
@@ -347,24 +348,31 @@ class BridgesBase(BaseModel):
  #Geometry Objects
 # -------------------------
 class GeometryBase(BridgesBase):
+    
     units: Literal["m", "mm", "ft", "in"] = "m"
 
 
 class Point(GeometryBase):
-    speckle_type: Literal["BDA.Point"] = Field("BDA.Point", frozen=True)
+    speckle_type: Literal[
+        SpeckleTypes.GEOMETRY_POINT
+    ] = SpeckleTypes.GEOMETRY_POINT
     x: float
     y: float
     z: float
 
 
 class Line(GeometryBase):
-    speckle_type: Literal["BDA.Line"] = Field("BDA.Line", frozen=True)
+    speckle_type: Literal[
+        SpeckleTypes.GEOMETRY_LINE
+    ] = SpeckleTypes.GEOMETRY_LINE
     start: Point
     end: Point
 
 
 class Mesh(GeometryBase):
-    speckle_type: Literal["BDA.Mesh"] = Field("BDA.Mesh", frozen=True)
+    speckle_type: Literal[
+        SpeckleTypes.GEOMETRY_MESH
+    ] = SpeckleTypes.GEOMETRY_MESH
     vertices: list[float]
     faces: list[int]  # typically int-encoded topology
 
@@ -383,53 +391,26 @@ class BridgeDataObjectProperties(BaseModel):
         validate_parameter_tree(self.__dict__)
         return self
 
-
-DATA_OBJECT_PREFIX = "Objects.Data.DataObject"
-DATA_OBJECT_PATTERN = re.compile(
-    r"^Objects\.Data\.DataObject(:.+)?$"
-)
-
 class BridgeDataObject(BridgesBase):
+    DATA_OBJECT_PREFIX: ClassVar[str] = SpeckleTypes.DATA_OBJECT.value
+    DATA_OBJECT_PATTERN: ClassVar[re.Pattern[str]] = re.compile(
+        rf"^{re.escape(DATA_OBJECT_PREFIX)}(:.+)?$"
+    )
     name: str
-    speckle_type: str  # allow suffix, validated below
 
-    # Mirrors `speckle_type` so the concrete data object type survives specklepy's
-    # send/receive round trip, which silently collapses custom DataObject suffixes
-    # back to the bare "Objects.Data.DataObject". Required (not defaulted) so it is
-    # a mandatory constant in the generated JSON schema, matching `speckle_type`
-    # itself: every concrete subclass must redeclare it as a matching Literal.
+    speckle_type: Literal[
+            SpeckleTypes.DATA_OBJECT
+        ] = SpeckleTypes.DATA_OBJECT
+
     bda_speckle_type: str = Field(
         ...,
+        frozen=True,
+        pattern=DATA_OBJECT_PATTERN.pattern,
         description="Entity speckle type used for creation. This is used for round tripping of objects and persistance of custom speckle object variants that are not persisted in deserialisation of objects",
     )
 
     properties: BridgeDataObjectProperties
     displayValue: list[Geometry] = Field(default_factory=list)
-
-    @model_validator(mode="after")
-    def _validate_speckle_type_contract(self) -> "BridgeDataObject":
-        # 1. Must begin with Objects.Data.DataObject (with optional suffix)
-        for value, source in [
-            (self.speckle_type, "BridgeDataObject.speckle_type"),
-            (self.bda_speckle_type, "BridgeDataObject.bda_speckle_type"),
-        ]:
-            if not value or not DATA_OBJECT_PATTERN.match(value):
-                raise ValueError(
-                    f"{source} must start with "
-                    f"'{DATA_OBJECT_PREFIX}' and may include "
-                    f"an optional suffix after ':' "
-                    f"(got '{value}')"
-                )
-
-        # 2. Must match exactly
-        if self.speckle_type != self.bda_speckle_type:
-            raise ValueError(
-                "BridgeDataObject.speckle_type must match "
-                "BridgeDataObject.bda_speckle_type "
-                f"(got '{self.speckle_type}' vs '{self.bda_speckle_type}')"
-            )
-
-        return self
 
 
 BridgeElement = Annotated[
@@ -441,35 +422,23 @@ BridgeElement = Annotated[
 ]
 
 class BridgeCollection(BridgesBase):
-    speckle_type: Literal[
-        "Speckle.Core.Models.Collections.Collection"
-    ] = Field(
-        "Speckle.Core.Models.Collections.Collection",
-        frozen=True #NOTE we should use this to ensure immutability across the geom group files, i am making the changes, so you can just review them if you agree or revert wherever you dont
+    COLLECTION_PREFIX: ClassVar[str] = SpeckleTypes.COLLECTION.value
+    COLLECTION_PATTERN: ClassVar[re.Pattern[str]]= re.compile(
+        rf"^{re.escape(COLLECTION_PREFIX)}(:.+)?$"
     )
+    speckle_type: Literal[
+        SpeckleTypes.COLLECTION
+    ] = SpeckleTypes.COLLECTION
 
-    # Mirrors `speckle_type` so the concrete collection type survives specklepy's
-    # send/receive round trip, which silently collapses custom Collection suffixes
-    # back to the bare "Speckle.Core.Models.Collections.Collection". Required (not
-    # defaulted) so it is a mandatory constant in the generated JSON schema,
-    # matching `speckle_type` itself: every concrete subclass must redeclare it as
-    # a matching Literal.
     bda_speckle_type: str = Field(
         ...,
+        frozen=True,
+        pattern=COLLECTION_PATTERN.pattern,
         description="Entity speckle type used for creation. This is used for round tripping of objects and persistance of custom speckle object variants that are not persisted in deserialisation of objects",
     )
 
     name: str
     elements: list[BridgeElement] = Field(default_factory=list)
-
-    @model_validator(mode="after")
-    def _validate_bda_speckle_type(self) -> "BridgeCollection":
-        if self.bda_speckle_type != self.speckle_type:
-            raise ValueError(
-                "BridgeCollection.bda_speckle_type must match speckle_type "
-                f"(got '{self.bda_speckle_type}' vs '{self.speckle_type}')"
-            )
-        return self
 
     @model_validator(mode="after")
     def _validate_unique_application_ids(self) -> "BridgeCollection":

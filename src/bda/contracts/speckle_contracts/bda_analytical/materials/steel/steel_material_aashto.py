@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from bda.contracts.speckle_contracts.speckle_enums import SpeckleTypes
+
 from operator import index
 from typing import Literal, ClassVar
 
@@ -158,18 +160,9 @@ class SteelAASHTOMaterialDataObject(
         pattern=APPLICATION_ID_PATTERN
     )
 
-    speckle_type: Literal[
-        "Objects.Data.DataObject:BDA_Steel_Material_AASHTO"
-    ] = (
-        "Objects.Data.DataObject:BDA_Steel_Material_AASHTO"
-    )
-
     bda_speckle_type: Literal[
-        "Objects.Data.DataObject:BDA_Steel_Material_AASHTO"
-    ] = Field(
-        ...,
-        frozen=True
-    )
+        SpeckleTypes.DATA_OBJECT_BDA_STEEL_MATERIAL_AASHTO
+    ] = Field(SpeckleTypes.DATA_OBJECT_BDA_STEEL_MATERIAL_AASHTO.value, frozen=True)
 
     properties: (
         SteelAASHTOMaterialDataObjectProperties
@@ -199,14 +192,6 @@ class SteelAASHTOMaterialDataObject(
             id=None,
             name=name,
             applicationId=application_id,
-            speckle_type=(
-                "Objects.Data.DataObject:"
-                "BDA_Steel_Material_AASHTO"
-            ),
-            bda_speckle_type=(
-                "Objects.Data.DataObject:"
-                "BDA_Steel_Material_AASHTO"
-            ),
             properties=(
                 SteelAASHTOMaterialDataObjectProperties(
                     **{

@@ -1,3 +1,4 @@
+from bda.contracts.speckle_contracts.speckle_enums import SpeckleTypes
 from typing import Annotated, ClassVar, Literal, Union
 
 from pydantic import BaseModel, Field, model_validator
@@ -75,20 +76,9 @@ class GeometryGroupParametersTransverseMembers(
         "Geometry Group Properties"
     ] = "Geometry Group Properties"
 
-    speckle_type: Literal[
-        "Objects.Data.DataObject:"
-        "BDA_Geometry_Group_Properties_Transverse_Members"
-    ] = Field(
-        "Objects.Data.DataObject:BDA_Geometry_Group_Properties_Transverse_Members",
-        frozen=True
-    )
-
     bda_speckle_type: Literal[
-        "Objects.Data.DataObject:BDA_Geometry_Group_Properties_Transverse_Members"
-    ] = Field(
-        ...,
-        frozen=True
-    )
+        SpeckleTypes.DATA_OBJECT_BDA_GEOMETRY_GROUP_PROPERTIES_TRANSVERSE_MEMBERS
+    ] = Field(SpeckleTypes.DATA_OBJECT_BDA_GEOMETRY_GROUP_PROPERTIES_TRANSVERSE_MEMBERS.value, frozen=True)
 
     APPLICATION_ID_PATTERN: ClassVar[str] = r"^GEOMGROUP-PROPS-\d{4}-TRANSVERSE-MEMBERS$"
     applicationId: str = Field(pattern=APPLICATION_ID_PATTERN)
@@ -116,20 +106,9 @@ TransverseMembersGroupElements = Annotated[
 class GeometryGroupTransverseMembers(
     GeometryGroupBase
 ):
-    speckle_type: Literal[
-        "Speckle.Core.Models.Collections.Collection:"
-        "BDA_Geometry_Group_Transverse_Members"
-    ] = Field(
-        "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_Transverse_Members",
-        frozen=True
-    )
-
     bda_speckle_type: Literal[
-        "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_Transverse_Members"
-    ] = Field(
-        ...,
-        frozen=True
-    )
+        SpeckleTypes.COLLECTION_BDA_GEOMETRY_GROUP_TRANSVERSE_MEMBERS
+    ] = Field(SpeckleTypes.COLLECTION_BDA_GEOMETRY_GROUP_TRANSVERSE_MEMBERS.value, frozen=True)
 
     APPLICATION_ID_PATTERN: ClassVar[str] = r"^COL-GEOMGROUP-\d{4}-TRANSVERSE-MEMBERS$"
     applicationId: str = Field(pattern=APPLICATION_ID_PATTERN)
@@ -148,7 +127,7 @@ class GeometryGroupTransverseMembers(
                     "contains": {
                         "type": "object",
                         "properties": {
-                            "speckle_type": {
+                            "bda_speckle_type": {
                                 "const": (
                                     "Objects.Data.DataObject:"
                                     "BDA_Geometry_Group_Properties_"
@@ -156,7 +135,7 @@ class GeometryGroupTransverseMembers(
                                 )
                             }
                         },
-                        "required": ["speckle_type"],
+                        "required": ["bda_speckle_type"],
                     },
                     "minContains": 1,
                     "maxContains": 1,
@@ -166,14 +145,14 @@ class GeometryGroupTransverseMembers(
                     "contains": {
                         "type": "object",
                         "properties": {
-                            "speckle_type": {
+                            "bda_speckle_type": {
                                 "const": (
                                     "Speckle.Core.Models.Collections.Collection:"
                                     "BDA_Geometry_Group_Diaphragm"
                                 )
                             }
                         },
-                        "required": ["speckle_type"],
+                        "required": ["bda_speckle_type"],
                     },
                     "minContains": 0,
                     "maxContains": 2,
@@ -183,14 +162,14 @@ class GeometryGroupTransverseMembers(
                     "contains": {
                         "type": "object",
                         "properties": {
-                            "speckle_type": {
+                            "bda_speckle_type": {
                                 "const": (
                                     "Speckle.Core.Models.Collections.Collection:"
                                     "BDA_Geometry_Group_Transverse_Bracing"
                                 )
                             }
                         },
-                        "required": ["speckle_type"],
+                        "required": ["bda_speckle_type"],
                     },
                     "minContains": 0,
                 },
@@ -199,14 +178,14 @@ class GeometryGroupTransverseMembers(
                     "contains": {
                         "type": "object",
                         "properties": {
-                            "speckle_type": {
+                            "bda_speckle_type": {
                                 "const": (
                                     "Speckle.Core.Models.Collections.Collection:"
                                     "BDA_Geometry_Group_PlanBracing"
                                 )
                             }
                         },
-                        "required": ["speckle_type"],
+                        "required": ["bda_speckle_type"],
                     },
                     "minContains": 0,
                     "maxContains": 1,
@@ -216,14 +195,14 @@ class GeometryGroupTransverseMembers(
                     "contains": {
                         "type": "object",
                         "properties": {
-                            "speckle_type": {
+                            "bda_speckle_type": {
                                 "const": (
                                     "Speckle.Core.Models.Collections.Collection:"
                                     "BDA_Geometry_Group_Deck_Slab"
                                 )
                             }
                         },
-                        "required": ["speckle_type"],
+                        "required": ["bda_speckle_type"],
                     },
                     "minContains": 0,
                     "maxContains": 1,
@@ -258,25 +237,25 @@ class GeometryGroupTransverseMembers(
         properties_count = sum(
             1
             for element in self.elements
-            if element.speckle_type == properties_speckle_type
+            if element.bda_speckle_type == properties_speckle_type
         )
 
         diaphragm_count = sum(
             1
             for element in self.elements
-            if element.speckle_type == diaphragm_speckle_type
+            if element.bda_speckle_type == diaphragm_speckle_type
         )
 
         plan_bracing_count = sum(
             1
             for element in self.elements
-            if element.speckle_type == plan_bracing_speckle_type
+            if element.bda_speckle_type == plan_bracing_speckle_type
         )
 
         deck_slab_count = sum(
             1
             for element in self.elements
-            if element.speckle_type == deck_slab_speckle_type
+            if element.bda_speckle_type == deck_slab_speckle_type
         )
 
         if properties_count != 1:
@@ -337,10 +316,6 @@ class GeometryGroupTransverseMembers(
                 applicationId=application_id.replace(
                     "COL-GEOMGROUP-", "GEOMGROUP-PROPS-", 1
                 ),
-                bda_speckle_type=(
-                    "Objects.Data.DataObject:"
-                    "BDA_Geometry_Group_Properties_Transverse_Members"
-                ),
                 properties=(
                     GeometryGroupPropertiesTransverseMembers(
                         **{
@@ -372,10 +347,6 @@ class GeometryGroupTransverseMembers(
         return cls(
             id=None,
             applicationId=application_id,
-            bda_speckle_type=(
-                "Speckle.Core.Models.Collections.Collection:"
-                "BDA_Geometry_Group_Transverse_Members"
-            ),
             elements=elements,
         )
 

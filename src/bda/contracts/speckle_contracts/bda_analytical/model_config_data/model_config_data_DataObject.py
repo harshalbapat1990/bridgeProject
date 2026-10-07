@@ -1,3 +1,4 @@
+from bda.contracts.speckle_contracts.speckle_enums import SpeckleTypes
 from bda.contracts.speckle_contracts.base_objects import BridgeDataObject, EnumParameter, \
     BridgeDataObjectProperties, Geometry
 from bda.contracts.speckle_contracts.bda_analytical.model_config_data.model_config_data_enums import \
@@ -49,14 +50,10 @@ class ModelConfigDataObjectProperties(BridgeDataObjectProperties):
 
 class BDA_ModelDataDataObject(BridgeDataObject):
     name: Literal["BDA Analytical Model Data"] = "BDA Analytical Model Data"
-    speckle_type: Literal["Objects.Data.DataObject:BDA_Model_Config"]="Objects.Data.DataObject:BDA_Model_Config"
 
     bda_speckle_type: Literal[
-        "Objects.Data.DataObject:BDA_Model_Config"
-    ] = Field(
-        ...,
-        frozen=True
-    )
+        SpeckleTypes.DATA_OBJECT_BDA_MODEL_CONFIG
+    ] = Field(SpeckleTypes.DATA_OBJECT_BDA_MODEL_CONFIG.value, frozen=True)
 
     properties: ModelConfigDataObjectProperties
 
@@ -98,9 +95,6 @@ class BDA_ModelDataDataObject(BridgeDataObject):
     ) -> "BDA_ModelDataDataObject":
         return cls(
             applicationId=application_id,
-            bda_speckle_type=(
-                "Objects.Data.DataObject:BDA_Model_Config"
-            ),
             properties=ModelConfigDataObjectProperties(
                 **{
                     "Model Unit System": BDA_ModelUnitSystem(

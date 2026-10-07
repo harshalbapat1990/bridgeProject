@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from bda.contracts.speckle_contracts.speckle_enums import SpeckleTypes
+
 from typing import Literal, ClassVar
 from pydantic import BaseModel, Field, StrictFloat
 
@@ -88,16 +90,9 @@ class SectionDataObject_Pipe(StandardShapeDataObject):
         pattern=APPLICATION_ID_PATTERN,
     )
 
-    speckle_type: Literal[
-        "Objects.Data.DataObject:BDA_Section:Standard_Shape:Pipe"
-    ]
-
     bda_speckle_type: Literal[
-        "Objects.Data.DataObject:BDA_Section:Standard_Shape:Pipe"
-    ] = Field(
-        ...,
-        frozen=True
-    )
+        SpeckleTypes.DATA_OBJECT_BDA_SECTION_STANDARD_SHAPE_PIPE
+    ] = Field(SpeckleTypes.DATA_OBJECT_BDA_SECTION_STANDARD_SHAPE_PIPE.value, frozen=True)
 
     properties: PipeDataObject_Properties
 
@@ -118,14 +113,6 @@ class SectionDataObject_Pipe(StandardShapeDataObject):
             id=None,
             name=name,
             applicationId=application_id,
-            speckle_type=(
-                "Objects.Data.DataObject:"
-                "BDA_Section:Standard_Shape:Pipe"
-            ),
-            bda_speckle_type=(
-                "Objects.Data.DataObject:"
-                "BDA_Section:Standard_Shape:Pipe"
-            ),
             properties=(
                 PipeDataObject_Properties(
                     **{

@@ -92,7 +92,10 @@ from bda.contracts.paramodel.groups.enums import (
     SupportTypeParaModel,
     FoundationTypeParaModel,
     BearingConfigurationTypeParaModel,
-    DofTypeEnumParaModel,
+)
+
+from bda.contracts.paramodel.foundations.enums import (
+    DofTypeEnumParaModel
 )
 from bda.contracts.paramodel.sections.sections_para_models import (
     SectionTypeParaModel,

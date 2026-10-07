@@ -4,6 +4,7 @@ import re
 from typing import Annotated, ClassVar, Literal, Union
 from pydantic import Field, field_validator, model_validator
 
+from bda.contracts.paramodel.groups.enums import ElementOrientationParaModel
 from bda.contracts.speckle_contracts.base_objects import BridgeCollection
 from bda.contracts.speckle_contracts.bda_analytical.boundary_conditions.foundations.lumped_foundation_data_object import LumpedFoundationDataObject
 from bda.contracts.speckle_contracts.bda_analytical.boundary_conditions.foundations.pile_interaction_foundation_data_object import (
@@ -47,18 +48,9 @@ class FoundationBCCollection(
         "Foundation Boundary Conditions"
     )
 
-    speckle_type: Literal[
-        "Speckle.Core.Models.Collections.Collection"
-    ] = (
-        "Speckle.Core.Models.Collections.Collection"
-    )
-
     bda_speckle_type: Literal[
         "Speckle.Core.Models.Collections.Collection"
-    ] = Field(
-        ...,
-        frozen=True
-    )
+    ] = Field("Speckle.Core.Models.Collections.Collection", frozen=True)
 
     elements: list[FoundationBCObject] = Field(
         default_factory=list
@@ -75,9 +67,6 @@ class FoundationBCCollection(
 
         return cls(
             applicationId=application_id,
-            bda_speckle_type=(
-                "Speckle.Core.Models.Collections.Collection"
-            ),
             elements=(
                 foundations or []
             ),
@@ -224,12 +213,12 @@ class FoundationBCCollection(
 
 if __name__ == "__main__":
     spring_definition = BoundaryConditionSpringParameterGroup.create(
-        sdx_dof_type="free",
-        sdy_dof_type="free",
-        sdz_dof_type="fixed",
-        srx_dof_type="free",
-        sry_dof_type="free",
-        srz_dof_type="fixed",
+        sdx_dof_type=DofTypeEnumParaModel.FREE,
+        sdy_dof_type=DofTypeEnumParaModel.FREE,
+        sdz_dof_type=DofTypeEnumParaModel.FIXED,
+        srx_dof_type=DofTypeEnumParaModel.FREE,
+        sry_dof_type=DofTypeEnumParaModel.FREE,
+        srz_dof_type=DofTypeEnumParaModel.FIXED,
     )
 
     translational_spring_definition = BoundaryConditionTranslationalSpringParameterGroup.create(
@@ -244,7 +233,7 @@ if __name__ == "__main__":
         support_index=1,
         foundation_model_type=FoundationModelTypeParaModel.LUMPED_FOUNDATION_MODEL,
         foundation_application_type=FoundationApplicationTypeEnumParaModel.BEARING_BASED,
-        orientation="orthogonal",
+        orientation=ElementOrientationParaModel.ORTHOGONAL,
         vertical_offset=0.5,
         vertical_offset_unit="m",
         spring_definition=spring_definition,

@@ -1,3 +1,4 @@
+from bda.contracts.speckle_contracts.speckle_enums import SpeckleTypes
 from typing import Annotated, ClassVar, Literal, Union
 
 from pydantic import BaseModel, Field, model_validator
@@ -99,20 +100,9 @@ class GeometryGroupParametersLinkage(
         "Geometry Group Properties"
     ] = "Geometry Group Properties"
 
-    speckle_type: Literal[
-        "Objects.Data.DataObject:"
-        "BDA_Geometry_Group_Properties_Linkage"
-    ] = Field(
-        "Objects.Data.DataObject:BDA_Geometry_Group_Properties_Linkage",
-        frozen=True
-    )
-
     bda_speckle_type: Literal[
-        "Objects.Data.DataObject:BDA_Geometry_Group_Properties_Linkage"
-    ] = Field(
-        ...,
-        frozen=True
-    )
+        SpeckleTypes.DATA_OBJECT_BDA_GEOMETRY_GROUP_PROPERTIES_LINKAGE
+    ] = Field(SpeckleTypes.DATA_OBJECT_BDA_GEOMETRY_GROUP_PROPERTIES_LINKAGE.value, frozen=True)
 
     APPLICATION_ID_PATTERN: ClassVar[str] = r"^GEOMGROUP-PROPS-\d{4}-LINKAGE$"
     applicationId: str = Field(pattern=APPLICATION_ID_PATTERN)
@@ -138,20 +128,9 @@ LinkageGroupElements = Annotated[
 class GeometryGroupLinkage(
     GeometryGroupBase
 ):
-    speckle_type: Literal[
-        "Speckle.Core.Models.Collections.Collection:"
-        "BDA_Geometry_Group_Linkage"
-    ] = Field(
-        "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_Linkage",
-        frozen=True
-    )
-
     bda_speckle_type: Literal[
-        "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_Linkage"
-    ] = Field(
-        ...,
-        frozen=True
-    )
+        SpeckleTypes.COLLECTION_BDA_GEOMETRY_GROUP_LINKAGE
+    ] = Field(SpeckleTypes.COLLECTION_BDA_GEOMETRY_GROUP_LINKAGE.value, frozen=True)
 
     APPLICATION_ID_PATTERN: ClassVar[str] = r"^COL-GEOMGROUP-\d{4}-LINKAGE$"
     applicationId: str = Field(pattern=APPLICATION_ID_PATTERN)
@@ -171,14 +150,14 @@ class GeometryGroupLinkage(
                     "contains": {
                         "type": "object",
                         "properties": {
-                            "speckle_type": {
+                            "bda_speckle_type": {
                                 "const": (
                                     "Objects.Data.DataObject:"
                                     "BDA_Geometry_Group_Properties_Linkage"
                                 )
                             }
                         },
-                        "required": ["speckle_type"],
+                        "required": ["bda_speckle_type"],
                     },
                     "minContains": 1,
                     "maxContains": 1,
@@ -198,7 +177,7 @@ class GeometryGroupLinkage(
         properties_count = sum(
             1
             for element in self.elements
-            if element.speckle_type
+            if element.bda_speckle_type
             == properties_speckle_type
         )
 
@@ -230,10 +209,6 @@ class GeometryGroupLinkage(
                 applicationId=application_id.replace(
                     "COL-GEOMGROUP-", "GEOMGROUP-PROPS-", 1
                 ),
-                bda_speckle_type=(
-                    "Objects.Data.DataObject:"
-                    "BDA_Geometry_Group_Properties_Linkage"
-                ),
                 properties=(
                     GeometryGroupPropertiesLinkage(
                         **{
@@ -259,10 +234,6 @@ class GeometryGroupLinkage(
         return cls(
             id=None,
             applicationId=application_id,
-            bda_speckle_type=(
-                "Speckle.Core.Models.Collections.Collection:"
-                "BDA_Geometry_Group_Linkage"
-            ),
             elements=elements,
         )
 

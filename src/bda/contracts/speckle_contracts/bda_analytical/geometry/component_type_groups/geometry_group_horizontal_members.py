@@ -1,3 +1,4 @@
+from bda.contracts.speckle_contracts.speckle_enums import SpeckleTypes
 from typing import Annotated, ClassVar, Literal, Union
 
 from pydantic import BaseModel, Field, model_validator
@@ -53,15 +54,10 @@ class GeometryGroupPropertiesHorizontalMembers(GeometryGroupProperties):
 
 class GeometryGroupParametersHorizontalMembers(GeometryGroupParameters):
     name: Literal["Geometry Group Properties"] = "Geometry Group Properties"
-    speckle_type: Literal[
-        "Objects.Data.DataObject:BDA_Geometry_Group_Properties_Horizontal_Members"
-    ] = Field(
-        "Objects.Data.DataObject:BDA_Geometry_Group_Properties_Horizontal_Members",
-        frozen=True,
-    )
+
     bda_speckle_type: Literal[
-        "Objects.Data.DataObject:BDA_Geometry_Group_Properties_Horizontal_Members"
-    ] = Field(..., frozen=True)
+        SpeckleTypes.DATA_OBJECT_BDA_GEOMETRY_GROUP_PROPERTIES_HORIZONTAL_MEMBERS
+    ] = Field(SpeckleTypes.DATA_OBJECT_BDA_GEOMETRY_GROUP_PROPERTIES_HORIZONTAL_MEMBERS.value, frozen=True)
     APPLICATION_ID_PATTERN: ClassVar[str] = (
         r"^GEOMGROUP-PROPS-\d{4}-HORIZONTAL-MEMBERS$"
     )
@@ -72,17 +68,9 @@ class GeometryGroupParametersHorizontalMembers(GeometryGroupParameters):
 class GeometryGroupHorizontalMembers(GeometryGroupBase):
     """Shared metadata for above-ground and below-ground horizontal members."""
 
-    speckle_type: Literal[
-        "Speckle.Core.Models.Collections.Collection:"
-        "BDA_Geometry_Group_Horizontal_Members"
-    ] = Field(
-        "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_Horizontal_Members",
-        frozen=True,
-    )
     bda_speckle_type: Literal[
-        "Speckle.Core.Models.Collections.Collection:"
-        "BDA_Geometry_Group_Horizontal_Members"
-    ] = Field(..., frozen=True)
+        SpeckleTypes.COLLECTION_BDA_GEOMETRY_GROUP_HORIZONTAL_MEMBERS
+    ] = Field(SpeckleTypes.COLLECTION_BDA_GEOMETRY_GROUP_HORIZONTAL_MEMBERS.value, frozen=True)
     APPLICATION_ID_PATTERN: ClassVar[str] = (
         r"^COL-GEOMGROUP-\d{4}-HORIZONTAL-MEMBERS$"
     )
@@ -98,10 +86,6 @@ def _create_horizontal_members_properties(
         id=None,
         applicationId=application_id.replace(
             "COL-GEOMGROUP-", "GEOMGROUP-PROPS-", 1
-        ),
-        bda_speckle_type=(
-            "Objects.Data.DataObject:"
-            "BDA_Geometry_Group_Properties_Horizontal_Members"
         ),
         properties=GeometryGroupPropertiesHorizontalMembers(
             **{
@@ -133,7 +117,7 @@ class GeometryGroupHorizontalMembersAboveGround(GeometryGroupHorizontalMembers):
                     "contains": {
                         "type": "object",
                         "properties": {
-                            "speckle_type": {
+                            "bda_speckle_type": {
                                 "const": (
                                     "Objects.Data.DataObject:"
                                     "BDA_Geometry_Group_Properties_"
@@ -141,7 +125,7 @@ class GeometryGroupHorizontalMembersAboveGround(GeometryGroupHorizontalMembers):
                                 )
                             }
                         },
-                        "required": ["speckle_type"],
+                        "required": ["bda_speckle_type"],
                     },
                     "minContains": 1,
                     "maxContains": 1,
@@ -158,7 +142,7 @@ class GeometryGroupHorizontalMembersAboveGround(GeometryGroupHorizontalMembers):
             "Objects.Data.DataObject:"
             "BDA_Geometry_Group_Properties_Horizontal_Members"
         )
-        if sum(element.speckle_type == properties_type for element in self.elements) != 1:
+        if sum(element.bda_speckle_type == properties_type for element in self.elements) != 1:
             raise ValueError(
                 "GeometryGroupHorizontalMembersAboveGround.elements must "
                 "contain exactly one properties object."
@@ -175,10 +159,6 @@ class GeometryGroupHorizontalMembersAboveGround(GeometryGroupHorizontalMembers):
         return cls(
             id=None,
             applicationId=application_id,
-            bda_speckle_type=(
-                "Speckle.Core.Models.Collections.Collection:"
-                "BDA_Geometry_Group_Horizontal_Members"
-            ),
             elements=[
                 _create_horizontal_members_properties(application_id, isUser),
                 *([crossbeam] if crossbeam is not None else []),
@@ -205,7 +185,7 @@ class GeometryGroupHorizontalMembersBelowGround(GeometryGroupHorizontalMembers):
                     "contains": {
                         "type": "object",
                         "properties": {
-                            "speckle_type": {
+                            "bda_speckle_type": {
                                 "const": (
                                     "Objects.Data.DataObject:"
                                     "BDA_Geometry_Group_Properties_"
@@ -213,7 +193,7 @@ class GeometryGroupHorizontalMembersBelowGround(GeometryGroupHorizontalMembers):
                                 )
                             }
                         },
-                        "required": ["speckle_type"],
+                        "required": ["bda_speckle_type"],
                     },
                     "minContains": 1,
                     "maxContains": 1,
@@ -230,7 +210,7 @@ class GeometryGroupHorizontalMembersBelowGround(GeometryGroupHorizontalMembers):
             "Objects.Data.DataObject:"
             "BDA_Geometry_Group_Properties_Horizontal_Members"
         )
-        if sum(element.speckle_type == properties_type for element in self.elements) != 1:
+        if sum(element.bda_speckle_type == properties_type for element in self.elements) != 1:
             raise ValueError(
                 "GeometryGroupHorizontalMembersBelowGround.elements must "
                 "contain exactly one properties object."
@@ -247,10 +227,6 @@ class GeometryGroupHorizontalMembersBelowGround(GeometryGroupHorizontalMembers):
         return cls(
             id=None,
             applicationId=application_id,
-            bda_speckle_type=(
-                "Speckle.Core.Models.Collections.Collection:"
-                "BDA_Geometry_Group_Horizontal_Members"
-            ),
             elements=[
                 _create_horizontal_members_properties(application_id, isUser),
                 *([pile_cap] if pile_cap is not None else []),
