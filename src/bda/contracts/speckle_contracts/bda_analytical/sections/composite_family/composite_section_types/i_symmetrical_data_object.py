@@ -1,5 +1,6 @@
-from bda.contracts.speckle_contracts.speckle_enums import SpeckleTypes
 from __future__ import annotations
+
+from bda.contracts.speckle_contracts.speckle_enums import SpeckleTypes
 
 from typing import Literal, ClassVar
 from pydantic import BaseModel, Field, StrictFloat
