@@ -61,6 +61,7 @@ class WindInServiceLoad(
 
     exposure_category: WindExposureCategoryEnum
     reference_superstructure_height: QuantityParaModel
+    reference_substructure_height: QuantityParaModel
     wind_speed_3s_gust_strength_iii: QuantityParaModel
     wind_speed_3s_gust_service_iv: QuantityParaModel
     wind_speed_3s_gust_service_i: QuantityParaModel

@@ -32,7 +32,7 @@ class ExecutionLoad(
 
     load_fixed_material_udl: QuantityParaModel | None = None
     load_variable_material_udl: QuantityParaModel | None = None
-    load_personel_and_eqp_udl: QuantityParaModel | None = None
+    load_personnel_and_eqp_udl: QuantityParaModel | None = None
 
 
 # DISCRIMINATED UNIONS

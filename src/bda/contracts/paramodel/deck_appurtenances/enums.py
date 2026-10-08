@@ -20,6 +20,7 @@ class DeckAppurtenanceTypeParaModel(CaseInsensitiveEnum):
     RAISED_VERGE_FOOTWAY = "RAISED VERGE / FOOTWAY"
     RAISED_CENTRAL_RESERVE = "RAISED CENTRAL RESERVE"
     SURFACING = "SURFACING"
+    OTHER = "OTHER"
 
 
 class BridgeDeckLayoutTypeParaModel(CaseInsensitiveEnum):

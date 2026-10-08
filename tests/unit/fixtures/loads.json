@@ -80,7 +80,7 @@
       "load_nature": "CS",
       "load_fixed_material_udl": { "value": 1.0, "unit": "kN/m2" },
       "load_variable_material_udl": { "value": 1.5, "unit": "kN/m2" },
-      "load_personel_and_eqp_udl": { "value": 2.4, "unit": "kN/m2" }
+      "load_personnel_and_eqp_udl": { "value": 2.4, "unit": "kN/m2" }
     },
 
     {
@@ -92,7 +92,7 @@
       "load_nature": "CS",
       "load_fixed_material_udl": { "value": 0.5, "unit": "kN/m2" },
       "load_variable_material_udl": null,
-      "load_personel_and_eqp_udl": null
+      "load_personnel_and_eqp_udl": null
     },
 
     {
@@ -105,6 +105,7 @@
       "env_load_type": "wind",
       "exposure_category": "Category B",
       "reference_superstructure_height": { "value": 6.5, "unit": "m" },
+      "reference_substructure_height": { "value": 4.0, "unit": "m" },
       "wind_speed_3s_gust_strength_iii": { "value": 45.0, "unit": "m/s" },
       "wind_speed_3s_gust_service_iv": { "value": 38.0, "unit": "m/s" },
       "wind_speed_3s_gust_service_i": { "value": 35.0, "unit": "m/s" },
