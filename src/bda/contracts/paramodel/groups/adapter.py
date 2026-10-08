@@ -3,7 +3,19 @@ from typing import List
 from pydantic import TypeAdapter
 
 from bda.contracts.paramodel.groups import GeometryGroupParaModel
+from bda.contracts.speckle_contracts.speckle_enums import SpeckleTypes
 
+
+_GEOMETRY_GROUP_COLLECTION_TYPES = {
+    speckle_type.value
+    for speckle_type in SpeckleTypes
+    if speckle_type.name.startswith("COLLECTION_BDA_GEOMETRY_GROUP")
+}
+_GEOMETRY_GROUP_PROPERTY_TYPES = {
+    speckle_type.value
+    for speckle_type in SpeckleTypes
+    if speckle_type.name.startswith("DATA_OBJECT_BDA_GEOMETRY_GROUP_PROPERTIES")
+}
 
 
 class GroupsParaModelAdapter:
@@ -11,11 +23,16 @@ class GroupsParaModelAdapter:
     @staticmethod
     def parse_list(raw_list: List) -> List[GeometryGroupParaModel]:
         if isinstance(raw_list, dict):
-            if str(raw_list.get("bda_speckle_type", "")).startswith("Speckle.Core.Models.Collections.Collection:"):
+            if raw_list.get("bda_speckle_type") in _GEOMETRY_GROUP_COLLECTION_TYPES:
                 raw_list = [raw_list]
             else:
                 raw_list = raw_list.get("elements", [raw_list])
-        if raw_list and isinstance(raw_list[0], dict) and str(raw_list[0].get("bda_speckle_type", "")).startswith("Speckle.Core.Models.Collections.Collection:"):
+        if (
+            raw_list
+            and isinstance(raw_list[0], dict)
+            and raw_list[0].get("bda_speckle_type")
+            in _GEOMETRY_GROUP_COLLECTION_TYPES
+        ):
             raw_list = [GroupsParaModelAdapter._from_speckle(group) for group in raw_list]
         adapter = TypeAdapter(List[GeometryGroupParaModel])
         return adapter.validate_python(raw_list)
@@ -26,6 +43,33 @@ class GroupsParaModelAdapter:
         unit = parameter.get("provided_unit")
         if unit is not None:
             return {"value": value, "unit": unit}
+        return value
+
+    @staticmethod
+    def _normalize_unit_lists(value):
+        """Convert nested unit-bearing numeric lists to quantity objects."""
+        if isinstance(value, dict):
+            normalized = {
+                key: GroupsParaModelAdapter._normalize_unit_lists(item)
+                for key, item in value.items()
+            }
+            provided_values = normalized.get("provided_value")
+            provided_unit = normalized.get("provided_unit")
+            if isinstance(provided_values, list) and provided_unit is not None:
+                normalized["provided_value"] = [
+                    item
+                    if isinstance(item, dict)
+                    else {"value": item, "unit": provided_unit}
+                    for item in provided_values
+                ]
+            return normalized
+
+        if isinstance(value, list):
+            return [
+                GroupsParaModelAdapter._normalize_unit_lists(item)
+                for item in value
+            ]
+
         return value
 
     @staticmethod
@@ -46,8 +90,7 @@ class GroupsParaModelAdapter:
         children = group.get("elements", [])
         property_objects = [
             element for element in children
-            if str(element.get("bda_speckle_type", "")).startswith("Objects.Data.DataObject:")
-            and "Geometry_Group_Properties" in element.get("bda_speckle_type", "")
+            if element.get("bda_speckle_type") in _GEOMETRY_GROUP_PROPERTY_TYPES
         ]
         if len(property_objects) != 1:
             raise ValueError(f"Expected one geometry-group properties object in {group.get('name')!r}")
@@ -112,6 +155,7 @@ class GroupsParaModelAdapter:
                         parameters.pop(parameter_name, None)
         # Parameter contracts carry units alongside provided values. Convert
         # unit parameters to the existing QuantityParaModel input shape.
+        properties = GroupsParaModelAdapter._normalize_unit_lists(properties)
         for parameter_name, parameter in list(properties.items()):
             if not isinstance(parameter, dict) or "provided_value" not in parameter:
                 continue
@@ -119,15 +163,15 @@ class GroupsParaModelAdapter:
             unit = parameter.get("provided_unit")
             if unit is not None:
                 if isinstance(value, list):
-                    normalized = dict(parameter)
-                    normalized["provided_value"] = [{"value": item, "unit": unit} for item in value]
-                    properties[parameter_name] = normalized
+                    # Nested and top-level unit-bearing lists were normalized
+                    # recursively above, preserving the Speckle parameter shape.
+                    continue
                 else:
                     properties[parameter_name] = {"value": value, "unit": unit}
         nested = [
             GroupsParaModelAdapter._from_speckle(element)
             for element in children
-            if str(element.get("bda_speckle_type", "")).startswith("Speckle.Core.Models.Collections.Collection:")
+            if element.get("bda_speckle_type") in _GEOMETRY_GROUP_COLLECTION_TYPES
         ]
         return {
             "group_id": group.get("applicationId"),

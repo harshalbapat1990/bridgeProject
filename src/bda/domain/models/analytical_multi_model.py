@@ -14,6 +14,7 @@ from bda.domain.models.submodels.material import Material
 from bda.domain.models.submodels.node import Node
 from bda.domain.models.submodels.section_base import Section
 from bda.domain.models.submodels.sections import SectionCompositeBase, SectionTapered
+from bda.domain.models.submodels.loads import Loads
 from bda.domain.managers import NodesManager, ElementsManager
 
 
@@ -122,6 +123,7 @@ class AnalyticalMultiModel:
 
     _initial_materials: List[Material]
     _initial_sections: List[Section]
+    loads: Loads
 
     def __init__(self, unit_system: UnitSystem,
                  project_id: int|None = None,
@@ -135,6 +137,7 @@ class AnalyticalMultiModel:
         self.description = description
         self._initial_materials = []
         self._initial_sections = []
+        self.loads = Loads()
         self.geometry_group = None
 
         self._nodes_manager: NodesManager = NodesManager()

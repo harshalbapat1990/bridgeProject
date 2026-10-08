@@ -31,7 +31,7 @@ jobs:
 
       - name: Run unit tests with coverage
         run: |
-          pytest tests/unit/ -vv -m "not integration" --cov=infrastructure --cov=application --cov=domain --cov-report=term-missing --cov-report=xml
+          pytest tests/unit/ -vv -m "not integration" --cov=bda.infrastructure --cov=bda.application --cov=bda.domain --cov-report=term-missing --cov-report=xml
 
       - name: Upload coverage reports to Codecov (optional)
         if: matrix.python-version == '3.14'

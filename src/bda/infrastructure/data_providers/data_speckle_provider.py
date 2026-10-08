@@ -22,6 +22,7 @@ from bda.contracts.speckle_contracts.bda_analytical.model_config_data.model_conf
     BDA_ModelDataDataObject
 from bda.contracts.speckle_contracts.bda_analytical.model_root import ModelRootCollection
 from bda.contracts.speckle_contracts.bda_analytical.sections.section_collection import SectionsCollection
+from bda.contracts.speckle_contracts.bda_analytical.boundary_conditions.boundary_conditions_collection import BoundaryConditionsCollection
 from bda.contracts.speckle_contracts.bda_analytical.boundary_conditions.bearings.bearing_bc_collection import BearingBCCollection
 from bda.contracts.speckle_contracts.bda_analytical.boundary_conditions.foundations.foundation_bc_collection import FoundationBCCollection
 
@@ -214,19 +215,30 @@ class DataSpeckleProvider(IDataStoreProvider):
 
         Returns:
             List of foundation boundary conditions objects.
-
-        Raises:
-            FileNotFoundError: If foundation boundary conditions not found
-            ValueError: If foundation boundary conditions data is invalid
         """
+        AppLogger().info(
+            f"Parsing foundation boundary conditions from {self.SpeckleModelUrl}..."
+        )
+        boundary_conditions = next(
+            (
+                element for element in self.ModelDataValidated.elements
+                if isinstance(element, BoundaryConditionsCollection)
+            ),
+            None,
+        )
         collection = next(
-            (e for e in self.ModelDataValidated.elements if isinstance(e, FoundationBCCollection)),
+            (
+                element for element in boundary_conditions.elements
+                if isinstance(element, FoundationBCCollection)
+            ) if boundary_conditions is not None else (),
             None,
         )
         if collection is None:
-            raise ValueError(f"No valid foundation boundary conditions found in {self.SpeckleModelUrl}.")
-        raw_data = collection.model_dump(mode="json", by_alias=True)
-        results = FoundationBCsParaModelAdapter.parse_list(raw_data)
+            AppLogger().info("No foundation boundary conditions collection found.")
+            results = []
+        else:
+            raw_data = collection.model_dump(mode="json", by_alias=True)
+            results = FoundationBCsParaModelAdapter.parse_list(raw_data)
         AppLogger().info(f"Successfully extracted {len(results)} foundation boundary conditions.")
         return results
 
@@ -235,18 +247,30 @@ class DataSpeckleProvider(IDataStoreProvider):
 
         Returns:
             List of bearing boundary conditions objects.
-
-        Raises:
-            NotImplementedError: Not yet implemented for Speckle provider
         """
+        AppLogger().info(
+            f"Parsing bearing boundary conditions from {self.SpeckleModelUrl}..."
+        )
+        boundary_conditions = next(
+            (
+                element for element in self.ModelDataValidated.elements
+                if isinstance(element, BoundaryConditionsCollection)
+            ),
+            None,
+        )
         collection = next(
-            (e for e in self.ModelDataValidated.elements if isinstance(e, BearingBCCollection)),
+            (
+                element for element in boundary_conditions.elements
+                if isinstance(element, BearingBCCollection)
+            ) if boundary_conditions is not None else (),
             None,
         )
         if collection is None:
-            raise ValueError(f"No valid bearing boundary conditions found in {self.SpeckleModelUrl}.")
-        raw_data = collection.model_dump(mode="json", by_alias=True)
-        results = BearingBCsParaModelAdapter.parse_list(raw_data)
+            AppLogger().info("No bearing boundary conditions collection found.")
+            results = []
+        else:
+            raw_data = collection.model_dump(mode="json", by_alias=True)
+            results = BearingBCsParaModelAdapter.parse_list(raw_data)
         AppLogger().info(f"Successfully extracted {len(results)} bearing supports.")
         return results
 

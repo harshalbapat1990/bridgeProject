@@ -14,6 +14,9 @@ from bda.contracts.paramodel.foundations.enums import (
 from bda.contracts.speckle_contracts.bda_analytical.boundary_conditions.bearings.bearing_bc_collection import (
     BearingBCCollection,
 )
+from bda.contracts.speckle_contracts.bda_analytical.boundary_conditions.boundary_conditions_collection import (
+    BoundaryConditionsCollection,
+)
 from bda.contracts.speckle_contracts.bda_analytical.boundary_conditions.bearings.bearing_bc_data_object import (
     BearingBCDataObject,
 )
@@ -77,6 +80,28 @@ from bda.contracts.paramodel.groups.enums import (
     BridgeIdealisationParaModel,
     BridgeTypeParaModel,
 )
+
+
+def test_groups_adapter_normalizes_nested_unit_bearing_lists():
+    properties = {
+        "Bearing Configuration Details": {
+            "group_parameters": {
+                "Bearing Spacing": {
+                    "provided_value": [5.0, 2.0],
+                    "provided_unit": "m",
+                }
+            }
+        }
+    }
+
+    normalized = GroupsParaModelAdapter._normalize_unit_lists(properties)
+
+    assert normalized["Bearing Configuration Details"]["group_parameters"][
+        "Bearing Spacing"
+    ]["provided_value"] == [
+        {"value": 5.0, "unit": "m"},
+        {"value": 2.0, "unit": "m"},
+    ]
 
 
 def test_lumped_foundation_speckle_dump_parses_through_adapter():
@@ -444,6 +469,10 @@ def test_speckle_provider_uses_foundation_and_bearing_adapters(monkeypatch):
         orientation=ElementOrientationParaModel.ORTHOGONAL,
     )
     bearing_collection = BearingBCCollection.create([bearing])
+    boundary_conditions = BoundaryConditionsCollection.create(
+        bearing_conditions=bearing_collection,
+        foundation_conditions=foundation_collection,
+    )
 
     class SilentLogger:
         @staticmethod
@@ -456,7 +485,7 @@ def test_speckle_provider_uses_foundation_and_bearing_adapters(monkeypatch):
     )
     provider = object.__new__(DataSpeckleProvider)
     provider.ModelDataValidated = type(
-        "Validated", (), {"elements": [foundation_collection, bearing_collection]}
+        "Validated", (), {"elements": [boundary_conditions]}
     )()
     provider.SpeckleModelUrl = "test-speckle-url"
 
@@ -466,3 +495,36 @@ def test_speckle_provider_uses_foundation_and_bearing_adapters(monkeypatch):
     assert foundations[0].support_index == 5
     assert bearings[0].support_index == 5
     assert bearings[0].bearings_by_girder[0].girder_index == 1
+
+
+def test_speckle_provider_returns_empty_lists_for_missing_boundary_condition_type(monkeypatch):
+    bearing = BearingBCDataObject.create_free(
+        name="Bearing",
+        application_id="BC-BEARING-0041",
+        support_index=6,
+        girder_index=0,
+        bearing_index=0,
+        configuration_type=BearingConfigurationTypeParaModel.SINGULAR,
+        orientation=ElementOrientationParaModel.ORTHOGONAL,
+    )
+    boundary_conditions = BoundaryConditionsCollection.create(
+        bearing_conditions=BearingBCCollection.create([bearing])
+    )
+
+    class SilentLogger:
+        @staticmethod
+        def info(_message):
+            pass
+
+    monkeypatch.setattr(
+        "bda.infrastructure.data_providers.data_speckle_provider.AppLogger",
+        lambda: SilentLogger(),
+    )
+    provider = object.__new__(DataSpeckleProvider)
+    provider.ModelDataValidated = type(
+        "Validated", (), {"elements": [boundary_conditions]}
+    )()
+    provider.SpeckleModelUrl = "test-speckle-url"
+
+    assert provider.get_foundation_boundary_conditions_for_project() == []
+    assert len(provider.get_bearing_boundary_conditions_for_project()) == 1
