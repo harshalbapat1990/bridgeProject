@@ -2,7 +2,7 @@
     "id": "e1418ea1-7bcf-4a9d-9259-cd1b515ef4e4",
     "applicationId": "MAT-0001-CONC-AASHTO",
     "name": "Concrete",
-    "speckle_type": "Objects.Data.DataObject",
+    "speckle_type": "Objects.Data.DataObject:BDA_Concrete_Material_AASHTO",
     "bda_speckle_type": "Objects.Data.DataObject:BDA_Concrete_Material_AASHTO",
     "properties": {
         "General Material Properties": {

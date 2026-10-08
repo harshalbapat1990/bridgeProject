@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-from bda.contracts.speckle_contracts.speckle_enums import SpeckleTypes
-
 from typing import Literal, ClassVar
 from pydantic import BaseModel, Field, StrictFloat
 
@@ -89,10 +87,16 @@ class SectionDataObject_SolidRectangle(StandardShapeDataObject):
     applicationId: str = Field(
         pattern=APPLICATION_ID_PATTERN,
     )
+    speckle_type: Literal[
+        "Objects.Data.DataObject:BDA_Section:Standard_Shape:Solid Rectangle"
+    ] = "Objects.Data.DataObject:BDA_Section:Standard_Shape:Solid Rectangle"
 
     bda_speckle_type: Literal[
-        SpeckleTypes.DATA_OBJECT_BDA_SECTION_STANDARD_SHAPE_SOLID_RECTANGLE
-    ] = Field(SpeckleTypes.DATA_OBJECT_BDA_SECTION_STANDARD_SHAPE_SOLID_RECTANGLE.value, frozen=True)
+        "Objects.Data.DataObject:BDA_Section:Standard_Shape:Solid Rectangle"
+    ] = Field(
+        ...,
+        frozen=True
+    )
 
     properties: SolidRectangleDataObject_Properties
 
@@ -112,6 +116,14 @@ class SectionDataObject_SolidRectangle(StandardShapeDataObject):
             id=None,
             name=name,
             applicationId=application_id,
+            speckle_type=(
+                "Objects.Data.DataObject:"
+                "BDA_Section:Standard_Shape:Solid Rectangle"
+            ),
+            bda_speckle_type=(
+                "Objects.Data.DataObject:"
+                "BDA_Section:Standard_Shape:Solid Rectangle"
+            ),
             properties=(
                 SolidRectangleDataObject_Properties(
                     **{

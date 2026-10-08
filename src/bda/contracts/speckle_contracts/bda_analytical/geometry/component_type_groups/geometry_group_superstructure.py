@@ -1,4 +1,3 @@
-from bda.contracts.speckle_contracts.speckle_enums import SpeckleTypes
 from typing import Annotated, ClassVar, Literal, Union
 
 from pydantic import Field, BaseModel, model_validator
@@ -335,9 +334,19 @@ class GeometryGroupParametersSuperstructure(
         "Geometry Group Properties"
     ] = "Geometry Group Properties"
 
+    speckle_type: Literal[
+        "Objects.Data.DataObject:BDA_Geometry_Group_Properties_Superstructure"
+    ] = Field(
+        "Objects.Data.DataObject:BDA_Geometry_Group_Properties_Superstructure",
+        frozen=True
+    )
+
     bda_speckle_type: Literal[
-        SpeckleTypes.DATA_OBJECT_BDA_GEOMETRY_GROUP_PROPERTIES_SUPERSTRUCTURE
-    ] = Field(SpeckleTypes.DATA_OBJECT_BDA_GEOMETRY_GROUP_PROPERTIES_SUPERSTRUCTURE.value, frozen=True)
+        "Objects.Data.DataObject:BDA_Geometry_Group_Properties_Superstructure"
+    ] = Field(
+        ...,
+        frozen=True
+    )
 
     APPLICATION_ID_PATTERN: ClassVar[str] = r"^GEOMGROUP-PROPS-\d{4}-SUPERSTRUCTURE$"
     applicationId: str = Field(pattern=APPLICATION_ID_PATTERN)
@@ -364,9 +373,19 @@ SuperstructureGroupElements = Annotated[
 class GeometryGroupSuperstructure(
     GeometryGroupBase
 ):
+    speckle_type: Literal[
+        "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_Superstructure"
+    ] = Field(
+        "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_Superstructure",
+        frozen=True
+    )
+
     bda_speckle_type: Literal[
-        SpeckleTypes.COLLECTION_BDA_GEOMETRY_GROUP_SUPERSTRUCTURE
-    ] = Field(SpeckleTypes.COLLECTION_BDA_GEOMETRY_GROUP_SUPERSTRUCTURE.value, frozen=True)
+        "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_Superstructure"
+    ] = Field(
+        ...,
+        frozen=True
+    )
 
     APPLICATION_ID_PATTERN: ClassVar[str] = r"^COL-GEOMGROUP-\d{4}-SUPERSTRUCTURE$"
     applicationId: str = Field(pattern=APPLICATION_ID_PATTERN)
@@ -380,13 +399,13 @@ class GeometryGroupSuperstructure(
                     "contains": {
                         "type": "object",
                         "properties": {
-                            "bda_speckle_type": {
+                            "speckle_type": {
                                 "const":
                                 "Objects.Data.DataObject:"
                                 "BDA_Geometry_Group_Properties_Superstructure"
                             }
                         },
-                        "required": ["bda_speckle_type"],
+                        "required": ["speckle_type"],
                     },
                     "minContains": 1,
                     "maxContains": 1,
@@ -401,7 +420,7 @@ class GeometryGroupSuperstructure(
         properties_count = sum(
             1
             for element in self.elements
-            if element.bda_speckle_type
+            if element.speckle_type
             == (
                 "Objects.Data.DataObject:"
                 "BDA_Geometry_Group_Properties_Superstructure"
@@ -445,12 +464,20 @@ class GeometryGroupSuperstructure(
             id=None,
             applicationId=application_id,
             name=name,
+            bda_speckle_type=(
+                "Speckle.Core.Models.Collections.Collection:"
+                "BDA_Geometry_Group_Superstructure"
+            ),
             elements=[
                 GeometryGroupParametersSuperstructure(
                     **{
                         "id": None,
                         "applicationId": application_id.replace(
                             "COL-GEOMGROUP-", "GEOMGROUP-PROPS-", 1
+                        ),
+                        "bda_speckle_type": (
+                            "Objects.Data.DataObject:"
+                            "BDA_Geometry_Group_Properties_Superstructure"
                         ),
                         "properties": (
                             GeometryGroupPropertiesSuperstructure(
@@ -513,4 +540,5 @@ if __name__ == "__main__":
     application_id="COL-GEOMGROUP-0001-SUPERSTRUCTURE"
     )
     print(superstructure.model_dump_json(indent=4))
-
+        
+    

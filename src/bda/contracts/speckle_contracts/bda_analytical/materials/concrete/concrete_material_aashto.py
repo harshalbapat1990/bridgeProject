@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-from bda.contracts.speckle_contracts.speckle_enums import SpeckleTypes
-
 from typing import Literal, ClassVar
 from pydantic import Field, StrictFloat, BaseModel
 
@@ -155,9 +153,19 @@ class ConcreteAASHTOMaterialDataObject(
         pattern=APPLICATION_ID_PATTERN
     )
 
+    speckle_type: Literal[
+        "Objects.Data.DataObject:BDA_Concrete_Material_AASHTO"
+    ] = (
+        "Objects.Data.DataObject:"
+        "BDA_Concrete_Material_AASHTO"
+    )
+
     bda_speckle_type: Literal[
-        SpeckleTypes.DATA_OBJECT_BDA_CONCRETE_MATERIAL_AASHTO
-    ] = Field(SpeckleTypes.DATA_OBJECT_BDA_CONCRETE_MATERIAL_AASHTO.value, frozen=True)
+        "Objects.Data.DataObject:BDA_Concrete_Material_AASHTO"
+    ] = Field(
+        ...,
+        frozen=True
+    )
 
     properties: (
         ConcreteAASHTOMaterialDataObjectProperties
@@ -185,6 +193,14 @@ class ConcreteAASHTOMaterialDataObject(
             id=None,
             name=name,
             applicationId=application_id,
+            speckle_type=(
+                "Objects.Data.DataObject:"
+                "BDA_Concrete_Material_AASHTO"
+            ),
+            bda_speckle_type=(
+                "Objects.Data.DataObject:"
+                "BDA_Concrete_Material_AASHTO"
+            ),
             properties=(
                 ConcreteAASHTOMaterialDataObjectProperties(
                     **{

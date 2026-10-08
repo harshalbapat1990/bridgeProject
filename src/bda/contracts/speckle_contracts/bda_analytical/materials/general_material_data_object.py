@@ -1,6 +1,4 @@
 from __future__ import annotations
-
-from bda.contracts.speckle_contracts.speckle_enums import SpeckleTypes
 import re
 from bda.contracts.speckle_contracts.base_objects import Parameter, BridgeDataObject, ParameterGroup, Geometry
 from bda.contracts.speckle_contracts.bda_analytical.materials.general_material_parameters import (
@@ -23,9 +21,19 @@ class GeneralMaterialDataObject(BridgeDataObject):
         r"^MAT-\d+-[A-Z]+-[A-Z0-9]+$"
     )
 
+    speckle_type: Literal[
+        "Objects.Data.DataObject:BDA_General_Material"
+    ] = Field(
+        "Objects.Data.DataObject:BDA_General_Material",
+        frozen=True,
+    )
+
     bda_speckle_type: Literal[
-        SpeckleTypes.DATA_OBJECT_BDA_GENERAL_MATERIAL
-    ] = Field(SpeckleTypes.DATA_OBJECT_BDA_GENERAL_MATERIAL.value, frozen=True)
+        "Objects.Data.DataObject:BDA_General_Material"
+    ] = Field(
+        ...,
+        frozen=True
+    )
 
     properties: GeneralMaterialDataObject_Properties
     

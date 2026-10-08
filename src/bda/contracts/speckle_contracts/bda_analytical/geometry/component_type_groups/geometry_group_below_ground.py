@@ -1,4 +1,3 @@
-from bda.contracts.speckle_contracts.speckle_enums import SpeckleTypes
 from typing import Annotated, ClassVar, Literal, Union
 
 from pydantic import BaseModel, Field, model_validator
@@ -275,9 +274,20 @@ class GeometryGroupParametersBelowGround(
         "Geometry Group Properties"
     ] = "Geometry Group Properties"
 
+    speckle_type: Literal[
+        "Objects.Data.DataObject:"
+        "BDA_Geometry_Group_Properties_BelowGround"
+    ] = Field(
+        "Objects.Data.DataObject:BDA_Geometry_Group_Properties_BelowGround",
+        frozen=True
+    )
+
     bda_speckle_type: Literal[
-        SpeckleTypes.DATA_OBJECT_BDA_GEOMETRY_GROUP_PROPERTIES_BELOWGROUND
-    ] = Field(SpeckleTypes.DATA_OBJECT_BDA_GEOMETRY_GROUP_PROPERTIES_BELOWGROUND.value, frozen=True)
+        "Objects.Data.DataObject:BDA_Geometry_Group_Properties_BelowGround"
+    ] = Field(
+        ...,
+        frozen=True
+    )
 
     APPLICATION_ID_PATTERN: ClassVar[str] = r"^GEOMGROUP-PROPS-\d{4}-BELOW-GROUND$"
     applicationId: str = Field(pattern=APPLICATION_ID_PATTERN)
@@ -307,9 +317,19 @@ BelowGroundGroupElements = Annotated[
 class GeometryGroupBelowGround(
     GeometryGroupBase
 ):
+    speckle_type: Literal[
+        "Speckle.Core.Models.Collections.Collection:"
+        "BDA_Geometry_Group_BelowGround"
+    ] = Field(
+        "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_BelowGround",
+        frozen=True
+    )
     bda_speckle_type: Literal[
-        SpeckleTypes.COLLECTION_BDA_GEOMETRY_GROUP_BELOWGROUND
-    ] = Field(SpeckleTypes.COLLECTION_BDA_GEOMETRY_GROUP_BELOWGROUND.value, frozen=True)
+        "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_BelowGround"
+    ] = Field(
+        ...,
+        frozen=True
+    )
 
     APPLICATION_ID_PATTERN: ClassVar[str] = r"^COL-GEOMGROUP-\d{4}-BELOW-GROUND$"
     applicationId: str = Field(pattern=APPLICATION_ID_PATTERN)
@@ -330,14 +350,14 @@ class GeometryGroupBelowGround(
                     "contains": {
                         "type": "object",
                         "properties": {
-                            "bda_speckle_type": {
+                            "speckle_type": {
                                 "const": (
                                     "Objects.Data.DataObject:"
                                     "BDA_Geometry_Group_Properties_BelowGround"
                                 )
                             }
                         },
-                        "required": ["bda_speckle_type"],
+                        "required": ["speckle_type"],
                     },
                     "minContains": 1,
                     "maxContains": 1,
@@ -377,52 +397,18 @@ class GeometryGroupBelowGround(
                     "maxContains": 1,
                 },
                 {
-                    # Optional vertical members (0..1)
-                    "contains": {
-                        "type": "object",
-                        "properties": {
-                            "bda_speckle_type": {
-                                "const": (
-                                    "Speckle.Core.Models.Collections.Collection:"
-                                    "BDA_Geometry_Group_Vertical_Members"
-                                )
-                            }
-                        },
-                        "required": ["bda_speckle_type"],
-                    },
-                    "minContains": 0,
-                    "maxContains": 1,
-                },
-                {
-                    # Optional horizontal members (0..1)
-                    "contains": {
-                        "type": "object",
-                        "properties": {
-                            "bda_speckle_type": {
-                                "const": (
-                                    "Speckle.Core.Models.Collections.Collection:"
-                                    "BDA_Geometry_Group_Horizontal_Members"
-                                )
-                            }
-                        },
-                        "required": ["bda_speckle_type"],
-                    },
-                    "minContains": 0,
-                    "maxContains": 1,
-                },
-                {
                     # Optional piles (0..N)
                     "contains": {
                         "type": "object",
                         "properties": {
-                            "bda_speckle_type": {
+                            "speckle_type": {
                                 "const": (
                                     "Speckle.Core.Models.Collections.Collection:"
                                     "BDA_Geometry_Group_Pile"
                                 )
                             }
                         },
-                        "required": ["bda_speckle_type"],
+                        "required": ["speckle_type"],
                     },
                     "minContains": 0,
                 },
@@ -431,14 +417,14 @@ class GeometryGroupBelowGround(
                     "contains": {
                         "type": "object",
                         "properties": {
-                            "bda_speckle_type": {
+                            "speckle_type": {
                                 "const": (
                                     "Speckle.Core.Models.Collections.Collection:"
                                     "BDA_Geometry_Group_Pile_Cap"
                                 )
                             }
                         },
-                        "required": ["bda_speckle_type"],
+                        "required": ["speckle_type"],
                     },
                     "minContains": 0,
                     "maxContains": 1,
@@ -477,6 +463,10 @@ class GeometryGroupBelowGround(
                 id=None,
                 applicationId=application_id.replace(
                     "COL-GEOMGROUP-", "GEOMGROUP-PROPS-", 1
+                ),
+                bda_speckle_type=(
+                    "Objects.Data.DataObject:"
+                    "BDA_Geometry_Group_Properties_BelowGround"
                 ),
                 properties=
                 GeometryGroupPropertiesBelowGround(
@@ -518,6 +508,10 @@ class GeometryGroupBelowGround(
         return cls(
             id=None,
             applicationId=application_id,
+            bda_speckle_type=(
+                "Speckle.Core.Models.Collections.Collection:"
+                "BDA_Geometry_Group_BelowGround"
+            ),
             elements=elements,
         )
 
@@ -527,7 +521,7 @@ class GeometryGroupBelowGround(
         properties_count = sum(
             1
             for element in self.elements
-            if element.bda_speckle_type
+            if element.speckle_type
             == (
                 "Objects.Data.DataObject:"
                 "BDA_Geometry_Group_Properties_BelowGround"
@@ -537,7 +531,7 @@ class GeometryGroupBelowGround(
         pile_cap_count = sum(
             1
             for element in self.elements
-            if element.bda_speckle_type
+            if element.speckle_type
             == (
                 "Speckle.Core.Models.Collections.Collection:"
                 "BDA_Geometry_Group_Pile_Cap"

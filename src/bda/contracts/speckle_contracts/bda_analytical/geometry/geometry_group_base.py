@@ -1,4 +1,3 @@
-from bda.contracts.speckle_contracts.speckle_enums import SpeckleTypes
 import re
 from typing import Annotated, ClassVar, Literal, Union
 
@@ -354,9 +353,16 @@ class GeometryGroupParameters(BridgeDataObject):
         "Geometry Group Properties"
     ] = "Geometry Group Properties"
 
+    speckle_type: Literal[
+        "Objects.Data.DataObject:BDA_Geometry_Group_Properties"
+    ] = "Objects.Data.DataObject:BDA_Geometry_Group_Properties"
+
     bda_speckle_type: Literal[
-        SpeckleTypes.DATA_OBJECT_BDA_GEOMETRY_GROUP_PROPERTIES
-    ] = Field(SpeckleTypes.DATA_OBJECT_BDA_GEOMETRY_GROUP_PROPERTIES.value, frozen=True)
+        "Objects.Data.DataObject:BDA_Geometry_Group_Properties"
+    ] = Field(
+        ...,
+        frozen=True
+    )
 
     properties: GeometryGroupProperties
 
@@ -424,9 +430,16 @@ class GeometryGroupBase(BridgeCollection):
         r"^COL-GEOMGROUP-\d{4}-[A-Z0-9]+(?:-[A-Z0-9]+)*$"
     )
 
+    speckle_type: Literal[
+        "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group"
+    ] = "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group"
+
     bda_speckle_type: Literal[
-        SpeckleTypes.COLLECTION_BDA_GEOMETRY_GROUP
-    ] = Field(SpeckleTypes.COLLECTION_BDA_GEOMETRY_GROUP.value, frozen=True)
+        "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group"
+    ] = Field(
+        ...,
+        frozen=True
+    )
 
     name: str
     

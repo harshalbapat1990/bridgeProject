@@ -2,7 +2,7 @@
     "id": "e1c752ee-d9fc-4ffc-996a-eb9f08cd8b42",
     "applicationId": "MAT-0001-TENDON-AASHTO",
     "name": "Tendon",
-    "speckle_type": "Objects.Data.DataObject",
+    "speckle_type": "Objects.Data.DataObject:BDA_Tendon_Material_AASHTO",
     "bda_speckle_type": "Objects.Data.DataObject:BDA_Tendon_Material_AASHTO",
     "properties": {
         "General Material Properties": {

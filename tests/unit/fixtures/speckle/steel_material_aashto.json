@@ -2,7 +2,7 @@
     "id": "5a0f55b7-87cd-4a4b-911a-b31427b3b6c8",
     "applicationId": "MAT-0001-STEEL-AASHTO",
     "name": "Steel",
-    "speckle_type": "Objects.Data.DataObject",
+    "speckle_type": "Objects.Data.DataObject:BDA_Steel_Material_AASHTO",
     "bda_speckle_type": "Objects.Data.DataObject:BDA_Steel_Material_AASHTO",
     "properties": {
         "General Material Properties": {

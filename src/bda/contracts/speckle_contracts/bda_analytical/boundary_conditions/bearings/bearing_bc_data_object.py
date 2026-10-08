@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-from bda.contracts.speckle_contracts.speckle_enums import SpeckleTypes
-
 from typing import Annotated, Literal, ClassVar, TypeAlias
 
 from pydantic import BaseModel, Field, StringConstraints, TypeAdapter
@@ -169,9 +167,19 @@ class BearingBCDataObject(
     )
     name: str
 
+    speckle_type: Literal[
+        "Objects.Data.DataObject:BDA_Bearing_Boundary_Condition"
+    ] = (
+        "Objects.Data.DataObject:"
+        "BDA_Bearing_Boundary_Condition"
+    )
+
     bda_speckle_type: Literal[
-        SpeckleTypes.DATA_OBJECT_BDA_BEARING_BOUNDARY_CONDITION
-    ] = Field(SpeckleTypes.DATA_OBJECT_BDA_BEARING_BOUNDARY_CONDITION.value, frozen=True)
+        "Objects.Data.DataObject:BDA_Bearing_Boundary_Condition"
+    ] = Field(
+        ...,
+        frozen=True
+    )
 
     properties: (
         BearingBCDataObjectProperties
@@ -406,6 +414,9 @@ class BearingBCDataObject(
         return cls(
             applicationId=application_id,
             name=name,
+            bda_speckle_type=(
+                "Objects.Data.DataObject:BDA_Bearing_Boundary_Condition"
+            ),
             properties=(
                 BearingBCDataObjectProperties(
                     **{

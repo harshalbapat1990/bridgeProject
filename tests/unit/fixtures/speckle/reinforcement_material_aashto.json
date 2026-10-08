@@ -2,7 +2,7 @@
     "id": "2cb89f9b-60fb-4693-be2b-b464044a9afc",
     "applicationId": "MAT-0001-REBAR-AASHTO",
     "name": "Rebar",
-    "speckle_type": "Objects.Data.DataObject",
+    "speckle_type": "Objects.Data.DataObject:BDA_Reinforcement_Material_AASHTO",
     "bda_speckle_type": "Objects.Data.DataObject:BDA_Reinforcement_Material_AASHTO",
     "properties": {
         "General Material Properties": {

@@ -62,10 +62,16 @@ class SectionsCollection(BridgeCollection):
     elements: list[SectionObjectUnion] = Field(
         default_factory=list
     )
-    
+    speckle_type: Literal[
+        "Speckle.Core.Models.Collections.Collection"
+    ] = "Speckle.Core.Models.Collections.Collection"
+
     bda_speckle_type: Literal[
         "Speckle.Core.Models.Collections.Collection"
-    ] = Field("Speckle.Core.Models.Collections.Collection", frozen=True)
+    ] = Field(
+        ...,
+        frozen=True
+    )
 
     @classmethod
     def create(
@@ -77,6 +83,9 @@ class SectionsCollection(BridgeCollection):
         return cls(
             id=None,
             applicationId=application_id,
+            bda_speckle_type=(
+                "Speckle.Core.Models.Collections.Collection"
+            ),
             elements=sections or [],
         )
     

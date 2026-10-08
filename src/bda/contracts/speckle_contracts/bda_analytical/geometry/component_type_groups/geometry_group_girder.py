@@ -1,4 +1,3 @@
-from bda.contracts.speckle_contracts.speckle_enums import SpeckleTypes
 from typing import Annotated, ClassVar, Literal, Union
 
 from pydantic import BaseModel, Field, model_validator
@@ -129,9 +128,19 @@ class GeometryGroupParametersGirder(
         "Geometry Group Properties"
     ] = "Geometry Group Properties"
 
+    speckle_type: Literal[
+        "Objects.Data.DataObject:BDA_Geometry_Group_Properties_Girder"
+    ] = Field(
+        "Objects.Data.DataObject:BDA_Geometry_Group_Properties_Girder",
+        frozen=True
+    )
+
     bda_speckle_type: Literal[
-        SpeckleTypes.DATA_OBJECT_BDA_GEOMETRY_GROUP_PROPERTIES_GIRDER
-    ] = Field(SpeckleTypes.DATA_OBJECT_BDA_GEOMETRY_GROUP_PROPERTIES_GIRDER.value, frozen=True)
+        "Objects.Data.DataObject:BDA_Geometry_Group_Properties_Girder"
+    ] = Field(
+        ...,
+        frozen=True
+    )
 
     APPLICATION_ID_PATTERN: ClassVar[str] = r"^GEOMGROUP-PROPS-\d{4}-GIRDER$"
     applicationId: str = Field(pattern=APPLICATION_ID_PATTERN)
@@ -156,9 +165,19 @@ GirderGroupElements = Annotated[
 class GeometryGroupGirder(
     GeometryGroupBase
 ):
+    speckle_type: Literal[
+        "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_Girder"
+    ] = Field(
+        "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_Girder",
+        frozen=True
+    )
+
     bda_speckle_type: Literal[
-        SpeckleTypes.COLLECTION_BDA_GEOMETRY_GROUP_GIRDER
-    ] = Field(SpeckleTypes.COLLECTION_BDA_GEOMETRY_GROUP_GIRDER.value, frozen=True)
+        "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_Girder"
+    ] = Field(
+        ...,
+        frozen=True
+    )
 
     APPLICATION_ID_PATTERN: ClassVar[str] = r"^COL-GEOMGROUP-\d{4}-GIRDER$"
     applicationId: str = Field(pattern=APPLICATION_ID_PATTERN)
@@ -172,14 +191,14 @@ class GeometryGroupGirder(
                     "contains": {
                         "type": "object",
                         "properties": {
-                            "bda_speckle_type": {
+                            "speckle_type": {
                                 "const": (
                                     "Objects.Data.DataObject:"
                                     "BDA_Geometry_Group_Properties_Girder"
                                 )
                             }
                         },
-                        "required": ["bda_speckle_type"],
+                        "required": ["speckle_type"],
                     },
                     "minContains": 1,
                     "maxContains": 1,
@@ -189,14 +208,14 @@ class GeometryGroupGirder(
                     "contains": {
                         "type": "object",
                         "properties": {
-                            "bda_speckle_type": {
+                            "speckle_type": {
                                 "const": (
                                     "Speckle.Core.Models.Collections.Collection:"
                                     "BDA_Geometry_Group_Tendon_Group"
                                 )
                             }
                         },
-                        "required": ["bda_speckle_type"],
+                        "required": ["speckle_type"],
                     },
                     "minContains": 0,
                 },
@@ -214,7 +233,7 @@ class GeometryGroupGirder(
         girder_properties_count = sum(
             1
             for element in self.elements
-            if element.bda_speckle_type
+            if element.speckle_type
             == girder_properties_speckle_type
         )
 
@@ -285,6 +304,10 @@ class GeometryGroupGirder(
             id=None,
             applicationId=application_id,
             name=name if name is not None else f"girder_{girder_index}",
+            bda_speckle_type=(
+                "Speckle.Core.Models.Collections.Collection:"
+                "BDA_Geometry_Group_Girder"
+            ),
             elements=elements,
         )
 

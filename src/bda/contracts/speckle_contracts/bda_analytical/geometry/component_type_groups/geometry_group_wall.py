@@ -1,4 +1,3 @@
-from bda.contracts.speckle_contracts.speckle_enums import SpeckleTypes
 from typing import Annotated, ClassVar, Literal
 
 from pydantic import BaseModel, Field, model_validator
@@ -156,9 +155,19 @@ class GeometryGroupParametersWall(
         "Geometry Group Properties"
     ] = "Geometry Group Properties"
 
+    speckle_type: Literal[
+        "Objects.Data.DataObject:BDA_Geometry_Group_Properties_Wall"
+    ] = Field(
+        "Objects.Data.DataObject:BDA_Geometry_Group_Properties_Wall",
+        frozen=True
+    )
+
     bda_speckle_type: Literal[
-        SpeckleTypes.DATA_OBJECT_BDA_GEOMETRY_GROUP_PROPERTIES_WALL
-    ] = Field(SpeckleTypes.DATA_OBJECT_BDA_GEOMETRY_GROUP_PROPERTIES_WALL.value, frozen=True)
+        "Objects.Data.DataObject:BDA_Geometry_Group_Properties_Wall"
+    ] = Field(
+        ...,
+        frozen=True
+    )
 
     APPLICATION_ID_PATTERN: ClassVar[str] = r"^GEOMGROUP-PROPS-\d{4}-WALL$"
     applicationId: str = Field(pattern=APPLICATION_ID_PATTERN)
@@ -182,9 +191,19 @@ WallGroupElements = Annotated[
 class GeometryGroupWall(
     GeometryGroupBase
 ):
+    speckle_type: Literal[
+        "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_Wall"
+    ] = Field(
+        "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_Wall",
+        frozen=True
+    )
+
     bda_speckle_type: Literal[
-        SpeckleTypes.COLLECTION_BDA_GEOMETRY_GROUP_WALL
-    ] = Field(SpeckleTypes.COLLECTION_BDA_GEOMETRY_GROUP_WALL.value, frozen=True)
+        "Speckle.Core.Models.Collections.Collection:BDA_Geometry_Group_Wall"
+    ] = Field(
+        ...,
+        frozen=True
+    )
 
     APPLICATION_ID_PATTERN: ClassVar[str] = r"^COL-GEOMGROUP-\d{4}-WALL$"
     applicationId: str = Field(pattern=APPLICATION_ID_PATTERN)
@@ -200,14 +219,14 @@ class GeometryGroupWall(
                     "contains": {
                         "type": "object",
                         "properties": {
-                            "bda_speckle_type": {
+                            "speckle_type": {
                                 "const": (
                                     "Objects.Data.DataObject:"
                                     "BDA_Geometry_Group_Properties_Wall"
                                 )
                             }
                         },
-                        "required": ["bda_speckle_type"],
+                        "required": ["speckle_type"],
                     },
                     "minContains": 1,
                     "maxContains": 1,
@@ -227,7 +246,7 @@ class GeometryGroupWall(
         wall_properties_count = sum(
             1
             for element in self.elements
-            if element.bda_speckle_type
+            if element.speckle_type
             == wall_properties_speckle_type
         )
 
@@ -260,12 +279,20 @@ class GeometryGroupWall(
             id=None,
             applicationId=application_id,
             name=name if name is not None else application_id,
+            bda_speckle_type=(
+                "Speckle.Core.Models.Collections.Collection:"
+                "BDA_Geometry_Group_Wall"
+            ),
             elements=[
                 GeometryGroupParametersWall(
                     **{
                         "id": None,
                         "applicationId": application_id.replace(
                             "COL-GEOMGROUP-", "GEOMGROUP-PROPS-", 1
+                        ),
+                        "bda_speckle_type": (
+                            "Objects.Data.DataObject:"
+                            "BDA_Geometry_Group_Properties_Wall"
                         ),
                         "properties":
                             GeometryGroupPropertiesWall(
