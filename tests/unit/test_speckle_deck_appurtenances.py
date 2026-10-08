@@ -96,6 +96,8 @@ def test_deck_layout_collection_round_trips_through_root_and_adapter():
     )
 
     root = ModelRootCollection.create(config, deck_layouts=collection)
+    assert root.speckle_type == "Speckle.Core.Models.Collections.Collection"
+    assert root.bda_speckle_type == root.speckle_type
     validated = ModelRootCollection.model_validate(
         root.model_dump(mode="json", by_alias=True)
     )

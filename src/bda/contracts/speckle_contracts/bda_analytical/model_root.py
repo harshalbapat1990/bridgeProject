@@ -20,6 +20,7 @@ from bda.contracts.speckle_contracts.bda_analytical.geometry.component_type_grou
 from bda.contracts.speckle_contracts.bda_analytical.boundary_conditions.boundary_conditions_collection import BoundaryConditionsCollection
 from bda.contracts.speckle_contracts.bda_analytical.deck_arrangement.deck_layout_collection import DeckLayoutCollection
 from bda.contracts.speckle_contracts.bda_analytical.loading.loading_base import LoadingCollection
+from bda.contracts.speckle_contracts.speckle_enums import SpeckleTypes
 
 
 from pydantic import BaseModel, Field, field_validator, model_validator
@@ -199,13 +200,16 @@ class ModelRootCollection(BridgeCollection):
     COLLECTION_ID_PATTERN: ClassVar[re.Pattern] = re.compile(
         r"^COL-ROOT$"
     )
-    speckle_type: Literal["Objects.Collections.Collection"]
+    speckle_type: Literal[SpeckleTypes.COLLECTION.value] = Field(
+        SpeckleTypes.COLLECTION.value,
+        frozen=True,
+    )
 
     bda_speckle_type: Literal[
-        "Objects.Collections.Collection"
+        SpeckleTypes.COLLECTION.value
     ] = Field(
-        ...,
-        frozen=True
+        SpeckleTypes.COLLECTION.value,
+        frozen=True,
     )
 
     name: Literal["Model Root"] = "Model Root"
@@ -418,8 +422,8 @@ class ModelRootCollection(BridgeCollection):
             elements.append(loading)
 
         return cls(
-            speckle_type="Objects.Collections.Collection",
-            bda_speckle_type="Objects.Collections.Collection",
+            speckle_type=SpeckleTypes.COLLECTION.value,
+            bda_speckle_type=SpeckleTypes.COLLECTION.value,
             applicationId=application_id,
             elements=elements,
         )
