@@ -22,6 +22,9 @@ from bda.contracts.paramodel.deck_appurtenances.deck_appurtenances_para_model im
     BridgeDeckLayoutParaModel,
     BridgeDeckLayoutParaModelAdapter,
 )
+from bda.contracts.paramodel.deck_appurtenances.speckle_adapter import (
+    DeckLayoutSpeckleAdapter,
+)
 
 __all__ = [
     "BridgeDeckLayoutTypeParaModel",
@@ -44,4 +47,5 @@ __all__ = [
     "DualCarriagewayBridgeDeckLayoutParaModel",
     "BridgeDeckLayoutParaModel",
     "BridgeDeckLayoutParaModelAdapter",
+    "DeckLayoutSpeckleAdapter",
 ]

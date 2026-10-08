@@ -12,6 +12,7 @@ from bda.contracts.speckle_contracts.bda_analytical.deck_arrangement.deck_layout
 )
 from typing import Annotated, ClassVar, Literal, Union
 from pydantic import Field, field_validator, model_validator
+from bda.contracts.speckle_contracts.speckle_enums import SpeckleTypes
 
 # Deck Properties Parameters
 
@@ -50,6 +51,14 @@ class DeckLayoutDataObjectPropertiesBase(BridgeDataObjectProperties):
 
     deck_layout_type: DeckLayoutType = Field(alias="Deck Layout Type")
     layout_index: LayoutIndex = Field(alias="Layout Index")
+    start_x_point: StartXPoint = Field(
+        default_factory=lambda: StartXPoint(
+            isUser=False,
+            provided_value=0.0,
+            provided_unit="m",
+        ),
+        alias="Start X Point",
+    )
 
 class DeckLayoutPropertiesBase(BridgeDataObject):
     """Shared metadata for deck layout properties."""
@@ -57,18 +66,48 @@ class DeckLayoutPropertiesBase(BridgeDataObject):
     name: Literal["Deck Layout Properties"] = "Deck Layout Properties"
 
     speckle_type: Literal[
-        "Objects.Data.DataObject:BDA_Deck_Layout_Properties"
-    ] = "Objects.Data.DataObject:BDA_Deck_Layout_Properties"
+        SpeckleTypes.DATA_OBJECT_BDA_DECK_LAYOUT_PROPERTIES.value
+    ] = SpeckleTypes.DATA_OBJECT_BDA_DECK_LAYOUT_PROPERTIES.value
 
     bda_speckle_type: Literal[
-        "Objects.Data.DataObject:BDA_Deck_Layout_Properties"
-    ] = Field(..., frozen=True)
+        SpeckleTypes.DATA_OBJECT_BDA_DECK_LAYOUT_PROPERTIES.value
+    ] = Field(SpeckleTypes.DATA_OBJECT_BDA_DECK_LAYOUT_PROPERTIES.value, frozen=True)
 
     APPLICATION_ID_PATTERN: ClassVar[str] = (
         r"^PROP-DECK-LAYOUT-\d{4}-[A-Z0-9]+(?:-[A-Z0-9]+)*$"
     )
     applicationId: str = Field(pattern=APPLICATION_ID_PATTERN)
     properties: DeckLayoutDataObjectPropertiesBase
+
+    @classmethod
+    def create(
+        cls,
+        application_id: str,
+        deck_layout_type: BridgeDeckLayoutTypeParaModel,
+        layout_index: int = 0,
+        start_x_point: float = 0.0,
+        start_x_point_unit: str = "m",
+    ) -> "DeckLayoutPropertiesBase":
+        return cls(
+            applicationId=application_id,
+            speckle_type=SpeckleTypes.DATA_OBJECT_BDA_DECK_LAYOUT_PROPERTIES.value,
+            bda_speckle_type=SpeckleTypes.DATA_OBJECT_BDA_DECK_LAYOUT_PROPERTIES.value,
+            properties=DeckLayoutDataObjectPropertiesBase(
+                **{
+                    "Deck Layout Type": DeckLayoutType(
+                        isUser=True, provided_value=deck_layout_type
+                    ),
+                    "Layout Index": LayoutIndex(
+                        isUser=True, provided_value=layout_index
+                    ),
+                    "Start X Point": StartXPoint(
+                        isUser=True,
+                        provided_value=start_x_point,
+                        provided_unit=start_x_point_unit,
+                    ),
+                }
+            ),
+        )
 
 
 class StandardLayoutAppurtenancesCollection(BridgeCollection):

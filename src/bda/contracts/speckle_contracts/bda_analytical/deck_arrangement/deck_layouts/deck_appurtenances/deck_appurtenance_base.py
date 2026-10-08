@@ -10,6 +10,7 @@ from bda.contracts.speckle_contracts.base_objects import (
     EnumParameter,
     Parameter,
 )
+from bda.contracts.speckle_contracts.speckle_enums import SpeckleTypes
 from bda.contracts.paramodel.deck_appurtenances.enums import (
     DeckAppurtenanceTypeParaModel,
     GeometryTypeParaModel,
@@ -186,18 +187,10 @@ class SurfaceByOffsetDeckAppurtenanceProperties(DeckAppurtenanceBaseProperties):
 # Data objects
 # ---------------------------------------------------------------------------
 
-_BDA_TYPE_LINEAR_FIXED = (
-    "Objects.Data.DataObject:BDA_Linear_Fixed_Deck_Appurtenance"
-)
-_BDA_TYPE_SURFACE_FIXED = (
-    "Objects.Data.DataObject:BDA_Surface_Fixed_Deck_Appurtenance"
-)
-_BDA_TYPE_LINEAR_BY_OFFSET = (
-    "Objects.Data.DataObject:BDA_Linear_By_Offset_Deck_Appurtenance"
-)
-_BDA_TYPE_SURFACE_BY_OFFSET = (
-    "Objects.Data.DataObject:BDA_Surface_By_Offset_Deck_Appurtenance"
-)
+_BDA_TYPE_LINEAR_FIXED = SpeckleTypes.DATA_OBJECT_BDA_DECK_APPURTENANCE_LINEAR_FIXED.value
+_BDA_TYPE_SURFACE_FIXED = SpeckleTypes.DATA_OBJECT_BDA_DECK_APPURTENANCE_SURFACE_FIXED.value
+_BDA_TYPE_LINEAR_BY_OFFSET = SpeckleTypes.DATA_OBJECT_BDA_DECK_APPURTENANCE_LINEAR_BY_OFFSET.value
+_BDA_TYPE_SURFACE_BY_OFFSET = SpeckleTypes.DATA_OBJECT_BDA_DECK_APPURTENANCE_SURFACE_BY_OFFSET.value
 
 
 class LinearFixedDeckAppurtenance(BridgeDataObject):
@@ -227,7 +220,8 @@ class LinearFixedDeckAppurtenance(BridgeDataObject):
         return cls(
             applicationId=application_id,
             name=name,
-            bda_speckle_type=_BDA_TYPE_LINEAR_FIXED,
+            speckle_type=cls.model_fields["bda_speckle_type"].default,
+            bda_speckle_type=cls.model_fields["bda_speckle_type"].default,
             properties=LinearFixedDeckAppurtenanceProperties(
                 **{
                     "Appurtenance ID": AppurtenanceIdParameter(isUser=True, provided_value=appurtenance_id),
@@ -271,7 +265,8 @@ class SurfaceFixedDeckAppurtenance(BridgeDataObject):
         return cls(
             applicationId=application_id,
             name=name,
-            bda_speckle_type=_BDA_TYPE_SURFACE_FIXED,
+            speckle_type=cls.model_fields["bda_speckle_type"].default,
+            bda_speckle_type=cls.model_fields["bda_speckle_type"].default,
             properties=SurfaceFixedDeckAppurtenanceProperties(
                 **{
                     "Appurtenance ID": AppurtenanceIdParameter(isUser=True, provided_value=appurtenance_id),
@@ -316,7 +311,8 @@ class LinearByOffsetDeckAppurtenance(BridgeDataObject):
         return cls(
             applicationId=application_id,
             name=name,
-            bda_speckle_type=_BDA_TYPE_LINEAR_BY_OFFSET,
+            speckle_type=cls.model_fields["bda_speckle_type"].default,
+            bda_speckle_type=cls.model_fields["bda_speckle_type"].default,
             properties=LinearByOffsetDeckAppurtenanceProperties(
                 **{
                     "Appurtenance ID": AppurtenanceIdParameter(isUser=True, provided_value=appurtenance_id),
@@ -362,7 +358,8 @@ class SurfaceByOffsetDeckAppurtenance(BridgeDataObject):
         return cls(
             applicationId=application_id,
             name=name,
-            bda_speckle_type=_BDA_TYPE_SURFACE_BY_OFFSET,
+            speckle_type=cls.model_fields["bda_speckle_type"].default,
+            bda_speckle_type=cls.model_fields["bda_speckle_type"].default,
             properties=SurfaceByOffsetDeckAppurtenanceProperties(
                 **{
                     "Appurtenance ID": AppurtenanceIdParameter(isUser=True, provided_value=appurtenance_id),

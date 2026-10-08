@@ -18,6 +18,8 @@ from bda.contracts.speckle_contracts.bda_analytical.geometry.component_type_grou
     GeometryGroupBridge,
 )
 from bda.contracts.speckle_contracts.bda_analytical.boundary_conditions.boundary_conditions_collection import BoundaryConditionsCollection
+from bda.contracts.speckle_contracts.bda_analytical.deck_arrangement.deck_layout_collection import DeckLayoutCollection
+from bda.contracts.speckle_contracts.bda_analytical.loading.loading_base import LoadingCollection
 
 
 from pydantic import BaseModel, Field, field_validator, model_validator
@@ -186,6 +188,8 @@ RootObjects = Annotated[
         SectionsCollection,
         GeometryGroupBridge,
         BoundaryConditionsCollection,
+        DeckLayoutCollection,
+        LoadingCollection,
     ],
     Field(discriminator="name"),
 ]
@@ -210,7 +214,7 @@ class ModelRootCollection(BridgeCollection):
         default_factory=list,
         json_schema_extra={
             "minItems": 1,
-            "maxItems": 5,
+            "maxItems": 7,
             "allOf": [
                 # Materials (optional)
                 {
@@ -292,6 +296,34 @@ class ModelRootCollection(BridgeCollection):
                     "minContains": 0,
                     "maxContains": 1,
                 },
+                # Deck layouts (optional)
+                {
+                    "contains": {
+                        "type": "object",
+                        "properties": {
+                            "name": {
+                                "const": DeckLayoutCollection.model_fields["name"].default
+                            }
+                        },
+                        "required": ["name"],
+                    },
+                    "minContains": 0,
+                    "maxContains": 1,
+                },
+                # Loading (optional)
+                {
+                    "contains": {
+                        "type": "object",
+                        "properties": {
+                            "name": {
+                                "const": LoadingCollection.model_fields["name"].default
+                            }
+                        },
+                        "required": ["name"],
+                    },
+                    "minContains": 0,
+                    "maxContains": 1,
+                },
             ],
         },
     )
@@ -362,6 +394,8 @@ class ModelRootCollection(BridgeCollection):
         geometry: Optional[GeometryGroupBridge] = None,
         boundary_conditions: Optional[BoundaryConditionsCollection] = None,
         application_id: str = "COL-ROOT",
+        deck_layouts: Optional[DeckLayoutCollection] = None,
+        loading: Optional[LoadingCollection] = None,
     ) -> "ModelRootCollection":
         elements: list[RootObjects] = [model_config]
 
@@ -376,6 +410,12 @@ class ModelRootCollection(BridgeCollection):
             
         if boundary_conditions is not None:
             elements.append(boundary_conditions)
+
+        if deck_layouts is not None:
+            elements.append(deck_layouts)
+
+        if loading is not None:
+            elements.append(loading)
 
         return cls(
             speckle_type="Objects.Collections.Collection",

@@ -4,9 +4,13 @@ from typing import List, Type
 from pydantic import BaseModel
 
 from bda.contracts.paramodel.bearings.bearing_bc_para_model import BearingBCsSupportParaModel
-from bda.contracts.paramodel.deck_appurtenances import BridgeDeckLayoutBaseParaModel
+from bda.contracts.paramodel.deck_appurtenances import (
+    BridgeDeckLayoutBaseParaModel,
+    DeckLayoutSpeckleAdapter,
+)
 from bda.contracts.paramodel.foundations.foundation_bc_para_model import FoundationBCsParaModel
 from bda.contracts.paramodel.loadings.load_model_base_para_models import LoadModelBaseParaModel
+from bda.contracts.paramodel.loadings.speckle_adapter import LoadingSpeckleAdapter
 from bda.contracts.paramodel.materials.materials_para_model import MaterialBaseParaModel
 from bda.contracts.shared.bda_model_config import BdaModelConfig
 
@@ -18,6 +22,8 @@ from bda.contracts.speckle_contracts.bda_analytical.materials.materials_collecti
 from bda.contracts.speckle_contracts.bda_analytical.model_config_data.model_config_data_DataObject import \
     BDA_ModelDataDataObject
 from bda.contracts.speckle_contracts.bda_analytical.model_root import ModelRootCollection
+from bda.contracts.speckle_contracts.bda_analytical.deck_arrangement.deck_layout_collection import DeckLayoutCollection
+from bda.contracts.speckle_contracts.bda_analytical.loading.loading_base import LoadingCollection
 from bda.contracts.speckle_contracts.bda_analytical.sections.section_collection import SectionsCollection
 
 from bda.application.interfaces.data_provider.i_data_store_provider import IDataStoreProvider
@@ -240,12 +246,24 @@ class DataSpeckleProvider(IDataStoreProvider):
         Returns:
             List of BridgeDeckLayoutBaseParaModel objects.
 
-        Raises:
-            FileNotFoundError: If deck appurtenances not found
-            ValueError: If deck appurtenances data is invalid
         """
-        raise NotImplementedError("The method get_deck_appurtenances_for_project "
-                                  "not yet implemented for data Speckle provider.")
+        AppLogger().info(
+            f"Parsing deck appurtenances from {self.SpeckleModelUrl}..."
+        )
+        collection = next(
+            (
+                element for element in self.ModelDataValidated.elements
+                if isinstance(element, DeckLayoutCollection)
+            ),
+            None,
+        )
+        if collection is None:
+            AppLogger().info("No deck layouts collection found.")
+            return []
+
+        layouts = DeckLayoutSpeckleAdapter.parse_list(collection)
+        AppLogger().info(f"Successfully extracted {len(layouts)} deck layouts.")
+        return layouts
 
     def get_loads_for_project(self) -> List[LoadModelBaseParaModel]:
         """Load loads definitions for the project.
@@ -253,12 +271,22 @@ class DataSpeckleProvider(IDataStoreProvider):
         Returns:
             List of LoadModelBaseParaModel objects.
 
-        Raises:
-            FileNotFoundError: If loads file not found
-            ValueError: If loads data is invalid
         """
-        raise NotImplementedError("The method get_loads_for_project "
-                                  "not yet implemented for data Speckle provider.")
+        AppLogger().info(f"Parsing loads from {self.SpeckleModelUrl}...")
+        collection = next(
+            (
+                element for element in self.ModelDataValidated.elements
+                if isinstance(element, LoadingCollection)
+            ),
+            None,
+        )
+        if collection is None:
+            AppLogger().info("No loading collection found.")
+            return []
+
+        loads = LoadingSpeckleAdapter.parse_list(collection)
+        AppLogger().info(f"Successfully extracted {len(loads)} loads.")
+        return loads
 
 
 if __name__ == "__main__":

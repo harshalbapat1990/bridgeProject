@@ -1,14 +1,23 @@
 from bda.contracts.speckle_contracts.base_objects import BridgeCollection
-from bda.contracts.speckle_contracts.bda_analytical.deck_arrangement.deck_layouts.deck_layout_base import DeckLayoutCollectionBase
+from bda.contracts.speckle_contracts.bda_analytical.deck_arrangement.deck_layouts.deck_layout_base import (
+    DeckLayoutCollectionBase,
+)
+from bda.contracts.speckle_contracts.bda_analytical.deck_arrangement.deck_layouts.deck_layout_types.deck_layout_dual_carriageway import (
+    DualCarriagewayDeckLayoutCollection,
+)
+from bda.contracts.speckle_contracts.bda_analytical.deck_arrangement.deck_layouts.deck_layout_types.deck_layout_single_carriageway import (
+    SingleCarriagewayDeckLayoutCollection,
+)
 from typing import Annotated, ClassVar, Literal, Union
 import re
 from pydantic  import Field, field_validator
 
 DeckLayouts = Annotated[
     Union[
-        DeckLayoutCollectionBase,
+        SingleCarriagewayDeckLayoutCollection,
+        DualCarriagewayDeckLayoutCollection,
     ],
-    Field(discriminator="bda_speckle_type"),
+    Field(discriminator="name"),
 ]
 
 class DeckLayoutCollection(BridgeCollection):
@@ -17,7 +26,9 @@ class DeckLayoutCollection(BridgeCollection):
         )
     applicationId: Literal["COL-DECK-LAYOUTS"] = "COL-DECK-LAYOUTS"
     name: Literal["Deck Layouts"] = "Deck Layouts"
-    bda_speckle_type: str = "Speckle.Core.Models.Collections.Collection:Deck_Layout"
+    bda_speckle_type: Literal[
+        "Speckle.Core.Models.Collections.Collection"
+    ] = Field("Speckle.Core.Models.Collections.Collection", frozen=True)
 
     elements: list[DeckLayouts] = Field(
             default_factory=list
@@ -29,6 +40,7 @@ class DeckLayoutCollection(BridgeCollection):
         deck_layouts: list[DeckLayouts] | None = None,
     ) -> "DeckLayoutCollection":
         return cls(
+            bda_speckle_type="Speckle.Core.Models.Collections.Collection",
             elements=deck_layouts or [],
         )
 

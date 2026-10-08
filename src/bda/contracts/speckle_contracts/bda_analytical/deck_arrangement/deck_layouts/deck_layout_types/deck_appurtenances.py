@@ -5,14 +5,15 @@ from bda.contracts.speckle_contracts.bda_analytical.deck_arrangement.deck_layout
 
 from pydantic import Field
 from typing import ClassVar, Literal
+from bda.contracts.speckle_contracts.speckle_enums import SpeckleTypes
 
 class EdgeBarrier(LinearFixedDeckAppurtenance):
     NAME_PATTERN: ClassVar[str] = r"^EdgeBarrier ([1-9]\d*)$"
     name: str = Field("EdgeBarrier 1", pattern=NAME_PATTERN)
     bda_speckle_type: Literal[
-        "Objects.Data.DataObject:BDA_Deck_Appurtenance_Edge_Barrier"
+        SpeckleTypes.DATA_OBJECT_BDA_DECK_APPURTENANCE_EDGE_BARRIER.value
     ] = Field(
-        "Objects.Data.DataObject:BDA_Deck_Appurtenance_Edge_Barrier",
+        SpeckleTypes.DATA_OBJECT_BDA_DECK_APPURTENANCE_EDGE_BARRIER.value,
         frozen=True,
     )
 
@@ -20,9 +21,9 @@ class VergeFootway(SurfaceFixedDeckAppurtenance):
     NAME_PATTERN: ClassVar[str] = r"^Verge ([1-9]\d*)$"
     name: str = Field("Verge 1", pattern=NAME_PATTERN)
     bda_speckle_type: Literal[
-        "Objects.Data.DataObject:BDA_Deck_Appurtenance_Verge_Footway"
+        SpeckleTypes.DATA_OBJECT_BDA_DECK_APPURTENANCE_VERGE_FOOTWAY.value
     ] = Field(
-        "Objects.Data.DataObject:BDA_Deck_Appurtenance_Verge_Footway",
+        SpeckleTypes.DATA_OBJECT_BDA_DECK_APPURTENANCE_VERGE_FOOTWAY.value,
         frozen=True,
     )
 
@@ -30,9 +31,9 @@ class Carriageway(SurfaceFixedDeckAppurtenance):
     NAME_PATTERN: ClassVar[str] = r"^Carriageway ([1-9]\d*)$"
     name: str = Field("Carriageway 1", pattern=NAME_PATTERN)
     bda_speckle_type: Literal[
-        "Objects.Data.DataObject:BDA_Deck_Appurtenance_Carriageway"
+        SpeckleTypes.DATA_OBJECT_BDA_DECK_APPURTENANCE_CARRIAGEWAY.value
     ] = Field(
-        "Objects.Data.DataObject:BDA_Deck_Appurtenance_Carriageway",
+        SpeckleTypes.DATA_OBJECT_BDA_DECK_APPURTENANCE_CARRIAGEWAY.value,
         frozen=True,
     )
 
@@ -40,8 +41,8 @@ class CentralReserve(SurfaceFixedDeckAppurtenance):
     NAME_PATTERN: ClassVar[str] = r"^CentralReserve ([1-9]\d*)$"
     name: str = Field("Central Reserve 1", pattern=NAME_PATTERN)
     bda_speckle_type: Literal[
-        "Objects.Data.DataObject:BDA_Deck_Appurtenance_Central_Reserve"
+        SpeckleTypes.DATA_OBJECT_BDA_DECK_APPURTENANCE_CENTRAL_RESERVE.value
     ] = Field(
-        "Objects.Data.DataObject:BDA_Deck_Appurtenance_Central_Reserve",
+        SpeckleTypes.DATA_OBJECT_BDA_DECK_APPURTENANCE_CENTRAL_RESERVE.value,
         frozen=True,
     )
