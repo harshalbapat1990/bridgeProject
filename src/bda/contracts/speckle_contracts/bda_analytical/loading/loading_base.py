@@ -259,6 +259,7 @@ WindInServiceLoadDataObject = _load_object(
     {AashtoLoadNatureEnum.WS},
     {
         "exposure_category", "reference_superstructure_height",
+        "reference_substructure_height",
         "wind_speed_3s_gust_strength_iii", "wind_speed_3s_gust_service_iv",
         "wind_speed_3s_gust_service_i", "wind_speed_3s_gust_strength_v",
     },

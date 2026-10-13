@@ -11,6 +11,7 @@ from bda.contracts.paramodel.loadings.design.aashto.live_loads import (
 )
 from bda.contracts.paramodel.loadings.design.aashto.environment_loads import (
     SettlementLoad,
+    WindInServiceLoad,
 )
 from bda.contracts.paramodel.loadings.enums import (
     DeadLoadingMethodEnum,
@@ -40,6 +41,7 @@ from bda.contracts.speckle_contracts.bda_analytical.loading.loading_base import 
     SettlementLoadDataObject,
     LiveLoadsCollection,
     EnvironmentalLoadsCollection,
+    WindInServiceLoadDataObject,
 )
 from bda.contracts.speckle_contracts.bda_analytical.loading.loading_base import (
     LoadingCollection,
@@ -327,3 +329,31 @@ def test_lifecycle_collections_can_be_subset_of_standard_states():
         ],
     )
     assert len(collection.elements) == 1
+
+
+def test_wind_speckle_load_includes_new_substructure_height():
+    from bda.contracts.paramodel.loadings.design.aashto.enums import (
+        AashtoLoadNatureEnum,
+        WindExposureCategoryEnum,
+    )
+
+    wind = _load_object(
+        WindInServiceLoadDataObject,
+        "LOAD-WIND-IN-SERVICE-0001",
+        LoadApplicationDomainEnum.ENVIRONMENT,
+        AashtoLoadNatureEnum.WS,
+        {
+            "exposure_category": WindExposureCategoryEnum.CATEGORY_B,
+            "reference_superstructure_height": {"value": 6.5, "unit": "m"},
+            "reference_substructure_height": {"value": 4.0, "unit": "m"},
+            "wind_speed_3s_gust_strength_iii": {"value": 45.0, "unit": "m/s"},
+            "wind_speed_3s_gust_service_iv": {"value": 38.0, "unit": "m/s"},
+            "wind_speed_3s_gust_service_i": {"value": 35.0, "unit": "m/s"},
+            "wind_speed_3s_gust_strength_v": {"value": 50.0, "unit": "m/s"},
+        },
+    )
+
+    parsed = LoadingSpeckleAdapter.parse(wind)
+
+    assert isinstance(parsed, WindInServiceLoad)
+    assert parsed.reference_substructure_height.value == 4.0

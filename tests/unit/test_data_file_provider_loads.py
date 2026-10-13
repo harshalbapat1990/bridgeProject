@@ -321,8 +321,8 @@ class TestDataFileProvider_Loads:
     def test_execution_full_variable_material_udl(self, execution_load_full):
         assert_quantity(execution_load_full.load_variable_material_udl, 1.5, "kN/m2")
 
-    def test_execution_full_personel_and_eqp_udl(self, execution_load_full):
-        assert_quantity(execution_load_full.load_personel_and_eqp_udl, 2.4, "kN/m2")
+    def test_execution_full_personnel_and_eqp_udl(self, execution_load_full):
+        assert_quantity(execution_load_full.load_personnel_and_eqp_udl, 2.4, "kN/m2")
 
     # ------------------------------------------------------------------
     # Execution load — only fixed UDL defined (index 5)
@@ -337,8 +337,22 @@ class TestDataFileProvider_Loads:
     def test_execution_partial_variable_material_udl_is_none(self, execution_load_partial):
         assert execution_load_partial.load_variable_material_udl is None
 
-    def test_execution_partial_personel_and_eqp_udl_is_none(self, execution_load_partial):
-        assert execution_load_partial.load_personel_and_eqp_udl is None
+    def test_execution_partial_personnel_and_eqp_udl_is_none(self, execution_load_partial):
+        assert execution_load_partial.load_personnel_and_eqp_udl is None
+
+    def test_execution_load_accepts_legacy_personnel_field_spelling(self):
+        legacy_payload = {
+            "load_context": LoadContextEnum.DESIGN,
+            "main_code": MainCodeEnum.AASHTO,
+            "load_application_domain": LoadApplicationDomainEnum.CONSTRUCTION,
+            "load_service_state": LoadServiceStateEnum.CONSTRUCTION,
+            "load_nature": AashtoLoadNatureEnum.CS,
+            "load_personel_and_eqp_udl": {"value": 2.4, "unit": "kN/m2"},
+        }
+
+        parsed = ExecutionLoad.model_validate(legacy_payload)
+
+        assert_quantity(parsed.load_personnel_and_eqp_udl, 2.4, "kN/m2")
 
     # ------------------------------------------------------------------
     # Wind in-service load (index 6)
@@ -364,6 +378,9 @@ class TestDataFileProvider_Loads:
 
     def test_wind_in_service_reference_superstructure_height(self, wind_in_service):
         assert_quantity(wind_in_service.reference_superstructure_height, 6.5, "m")
+
+    def test_wind_in_service_reference_substructure_height(self, wind_in_service):
+        assert_quantity(wind_in_service.reference_substructure_height, 4.0, "m")
 
     def test_wind_in_service_gust_strength_iii(self, wind_in_service):
         assert_quantity(wind_in_service.wind_speed_3s_gust_strength_iii, 45.0, "m/s")
@@ -979,6 +996,7 @@ class TestDataFileProvider_Loads:
                     "env_load_type": "wind",
                     "exposure_category": "Category_Z",
                     "reference_superstructure_height": {"value": 5.0, "unit": "m"},
+                    "reference_substructure_height": {"value": 2.0, "unit": "m"},
                     "wind_speed_3s_gust_strength_iii": {"value": 45.0, "unit": "m/s"},
                     "wind_speed_3s_gust_service_iv": {"value": 38.0, "unit": "m/s"},
                     "wind_speed_3s_gust_service_i": {"value": 35.0, "unit": "m/s"},
