@@ -587,3 +587,40 @@ def test_speckle_provider_rejects_invalid_present_boundary_collections(monkeypat
 
         with pytest.raises(ValidationError):
             getattr(provider, method_name)()
+
+
+def test_bearing_adapter_preserves_all_records_for_same_support_and_girder():
+    bearings = [
+        BearingBCDataObject.create_free(
+            name=f"Bearing {support}-{girder}-{bearing_index}",
+            application_id=f"BC-BEARING-{record_index:04d}",
+            support_index=support,
+            girder_index=girder,
+            bearing_index=bearing_index,
+            configuration_type=BearingConfigurationTypeParaModel.SINGULAR,
+            orientation=ElementOrientationParaModel.ORTHOGONAL,
+        )
+        for record_index, (support, girder, bearing_index) in enumerate(
+            ((1, 0, 0), (1, 0, 1), (1, 1, 0), (2, 0, 0)),
+            start=1,
+        )
+    ]
+    collection = BearingBCCollection.create(bearings)
+
+    parsed = BearingBCsParaModelAdapter.parse_list(
+        collection.model_dump(mode="json", by_alias=True)
+    )
+
+    assert len(parsed) == 2
+    support_one = next(item for item in parsed if item.support_index == 1)
+    assert len(support_one.bearings_by_girder) == 2
+    combined = next(item for item in support_one.bearings_by_girder if item.girder_index == 0)
+    assert combined.bearing_configuration_type == BearingConfigurationTypeParaModel.MULTIPLE
+    assert [item.bearing_index for item in combined.bearing_definitions] == [0, 1]
+    assert sum(
+        len(item.bearing_definitions)
+        if hasattr(item, "bearing_definitions")
+        else 1
+        for support in parsed
+        for item in support.bearings_by_girder
+    ) == 4
