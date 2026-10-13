@@ -19,8 +19,8 @@ class FoundationsBCsModule(IModule):
         )
 
         if not foundations_bcs_dto:
-            self.logger.error("No Foundations Boundary Conditions found.")
-            return False
+            self.logger.info("No Foundations Boundary Conditions found; skipping module.")
+            return True
 
         # --- Mapping ---
         foundations = FoundationMapper.to_domain(foundations_bcs_dto)

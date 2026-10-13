@@ -4,10 +4,12 @@ from typing import List, Type
 from pydantic import BaseModel
 
 from bda.contracts.paramodel.bearings.bearing_bc_para_model import BearingBCsSupportParaModel
+from bda.contracts.paramodel.bearings.adapter import BearingBCsParaModelAdapter
 from bda.contracts.paramodel.deck_appurtenances import BridgeDeckLayoutBaseParaModel
 from bda.contracts.paramodel.foundations.foundation_bc_para_model import FoundationBCsParaModel
 from bda.contracts.paramodel.foundations.adapter import FoundationBCsParaModelAdapter
 from bda.contracts.paramodel.bearings.adapter import BearingBCsParaModelAdapter
+from bda.contracts.paramodel.foundations.adapter import FoundationBCsParaModelAdapter
 from bda.contracts.paramodel.loadings.load_model_base_para_models import LoadModelBaseParaModel
 from bda.contracts.paramodel.materials.materials_para_model import MaterialBaseParaModel
 from bda.contracts.shared.bda_model_config import BdaModelConfig
@@ -22,6 +24,9 @@ from bda.contracts.speckle_contracts.bda_analytical.model_config_data.model_conf
     BDA_ModelDataDataObject
 from bda.contracts.speckle_contracts.bda_analytical.model_root import ModelRootCollection
 from bda.contracts.speckle_contracts.bda_analytical.sections.section_collection import SectionsCollection
+from bda.contracts.speckle_contracts.bda_analytical.boundary_conditions.boundary_conditions_collection import BoundaryConditionsCollection
+from bda.contracts.speckle_contracts.bda_analytical.boundary_conditions.bearings.bearing_bc_collection import BearingBCCollection
+from bda.contracts.speckle_contracts.bda_analytical.boundary_conditions.foundations.foundation_bc_collection import FoundationBCCollection
 from bda.contracts.speckle_contracts.bda_analytical.boundary_conditions.boundary_conditions_collection import BoundaryConditionsCollection
 from bda.contracts.speckle_contracts.bda_analytical.boundary_conditions.bearings.bearing_bc_collection import BearingBCCollection
 from bda.contracts.speckle_contracts.bda_analytical.boundary_conditions.foundations.foundation_bc_collection import FoundationBCCollection
@@ -215,6 +220,9 @@ class DataSpeckleProvider(IDataStoreProvider):
 
         Returns:
             List of foundation boundary conditions objects.
+
+        Raises:
+            ValueError: If foundation boundary conditions data is invalid.
         """
         AppLogger().info(
             f"Parsing foundation boundary conditions from {self.SpeckleModelUrl}..."
@@ -226,19 +234,20 @@ class DataSpeckleProvider(IDataStoreProvider):
             ),
             None,
         )
-        collection = next(
-            (
-                element for element in boundary_conditions.elements
-                if isinstance(element, FoundationBCCollection)
-            ) if boundary_conditions is not None else (),
-            None,
-        )
+        collection = None
+        if boundary_conditions is not None:
+            collection = next(
+                (
+                    element for element in boundary_conditions.elements
+                    if isinstance(element, FoundationBCCollection)
+                ),
+                None,
+            )
         if collection is None:
-            AppLogger().info("No foundation boundary conditions collection found.")
-            results = []
-        else:
-            raw_data = collection.model_dump(mode="json", by_alias=True)
-            results = FoundationBCsParaModelAdapter.parse_list(raw_data)
+            AppLogger().info("No foundation boundary conditions found; skipping.")
+            return []
+        raw_data = collection.model_dump(mode="json", by_alias=True)
+        results = FoundationBCsParaModelAdapter.parse_list(raw_data)
         AppLogger().info(f"Successfully extracted {len(results)} foundation boundary conditions.")
         return results
 
@@ -247,6 +256,9 @@ class DataSpeckleProvider(IDataStoreProvider):
 
         Returns:
             List of bearing boundary conditions objects.
+
+        Raises:
+            ValueError: If bearing boundary conditions data is invalid.
         """
         AppLogger().info(
             f"Parsing bearing boundary conditions from {self.SpeckleModelUrl}..."
@@ -258,19 +270,20 @@ class DataSpeckleProvider(IDataStoreProvider):
             ),
             None,
         )
-        collection = next(
-            (
-                element for element in boundary_conditions.elements
-                if isinstance(element, BearingBCCollection)
-            ) if boundary_conditions is not None else (),
-            None,
-        )
+        collection = None
+        if boundary_conditions is not None:
+            collection = next(
+                (
+                    element for element in boundary_conditions.elements
+                    if isinstance(element, BearingBCCollection)
+                ),
+                None,
+            )
         if collection is None:
-            AppLogger().info("No bearing boundary conditions collection found.")
-            results = []
-        else:
-            raw_data = collection.model_dump(mode="json", by_alias=True)
-            results = BearingBCsParaModelAdapter.parse_list(raw_data)
+            AppLogger().info("No bearing boundary conditions found; skipping.")
+            return []
+        raw_data = collection.model_dump(mode="json", by_alias=True)
+        results = BearingBCsParaModelAdapter.parse_list(raw_data)
         AppLogger().info(f"Successfully extracted {len(results)} bearing supports.")
         return results
 

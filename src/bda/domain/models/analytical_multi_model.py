@@ -6,6 +6,7 @@ from pint.registry import Quantity
 
 from bda.domain.enums import UnitSystem
 from bda.domain.models.submodels.geometry_group import GeometryGroup
+from bda.domain.models.submodels.loads import Loads
 from bda.domain.models.analytical_typology import BearingKey, BearingNodes
 from bda.domain.models.submodels.boundary_conditions.beam_end_release import BeamEndRelease
 from bda.domain.models.submodels.boundary_conditions.supports import NodeBoundaryBase
@@ -14,7 +15,6 @@ from bda.domain.models.submodels.material import Material
 from bda.domain.models.submodels.node import Node
 from bda.domain.models.submodels.section_base import Section
 from bda.domain.models.submodels.sections import SectionCompositeBase, SectionTapered
-from bda.domain.models.submodels.loads import Loads
 from bda.domain.managers import NodesManager, ElementsManager
 
 
@@ -120,10 +120,10 @@ class AnalyticalMultiModel:
     description: str|None
 
     geometry_group: GeometryGroup | None
+    loads: Loads
 
     _initial_materials: List[Material]
     _initial_sections: List[Section]
-    loads: Loads
 
     def __init__(self, unit_system: UnitSystem,
                  project_id: int|None = None,
@@ -137,8 +137,8 @@ class AnalyticalMultiModel:
         self.description = description
         self._initial_materials = []
         self._initial_sections = []
-        self.loads = Loads()
         self.geometry_group = None
+        self.loads = Loads()
 
         self._nodes_manager: NodesManager = NodesManager()
         self._elements_manager: ElementsManager = ElementsManager()

@@ -17,6 +17,9 @@ from bda.contracts.speckle_contracts.bda_analytical.boundary_conditions.bearings
 from bda.contracts.speckle_contracts.bda_analytical.boundary_conditions.boundary_conditions_collection import (
     BoundaryConditionsCollection,
 )
+from bda.contracts.speckle_contracts.bda_analytical.boundary_conditions.boundary_conditions_collection import (
+    BoundaryConditionsCollection,
+)
 from bda.contracts.speckle_contracts.bda_analytical.boundary_conditions.bearings.bearing_bc_data_object import (
     BearingBCDataObject,
 )
@@ -496,21 +499,7 @@ def test_speckle_provider_uses_foundation_and_bearing_adapters(monkeypatch):
     assert bearings[0].support_index == 5
     assert bearings[0].bearings_by_girder[0].girder_index == 1
 
-
-def test_speckle_provider_returns_empty_lists_for_missing_boundary_condition_type(monkeypatch):
-    bearing = BearingBCDataObject.create_free(
-        name="Bearing",
-        application_id="BC-BEARING-0041",
-        support_index=6,
-        girder_index=0,
-        bearing_index=0,
-        configuration_type=BearingConfigurationTypeParaModel.SINGULAR,
-        orientation=ElementOrientationParaModel.ORTHOGONAL,
-    )
-    boundary_conditions = BoundaryConditionsCollection.create(
-        bearing_conditions=BearingBCCollection.create([bearing])
-    )
-
+def test_speckle_provider_returns_empty_for_absent_optional_boundary_groups(monkeypatch):
     class SilentLogger:
         @staticmethod
         def info(_message):
@@ -521,10 +510,80 @@ def test_speckle_provider_returns_empty_lists_for_missing_boundary_condition_typ
         lambda: SilentLogger(),
     )
     provider = object.__new__(DataSpeckleProvider)
-    provider.ModelDataValidated = type(
-        "Validated", (), {"elements": [boundary_conditions]}
-    )()
     provider.SpeckleModelUrl = "test-speckle-url"
 
-    assert provider.get_foundation_boundary_conditions_for_project() == []
-    assert len(provider.get_bearing_boundary_conditions_for_project()) == 1
+    for elements in ([], [BoundaryConditionsCollection.create()]):
+        provider.ModelDataValidated = type("Validated", (), {"elements": elements})()
+        assert provider.get_foundation_boundary_conditions_for_project() == []
+        assert provider.get_bearing_boundary_conditions_for_project() == []
+
+
+def test_boundary_condition_modules_skip_empty_optional_groups(monkeypatch):
+    from bda.modules_pre.m4_foundations.module_foundations import FoundationsBCsModule
+    from bda.modules_pre.m5_bearings.module_bearings import BearingsBCsModule
+
+    class EmptyProvider:
+        @staticmethod
+        def get_foundation_boundary_conditions_for_project():
+            return []
+
+        @staticmethod
+        def get_bearing_boundary_conditions_for_project():
+            return []
+
+    class SilentLogger:
+        @staticmethod
+        def info(*_args):
+            pass
+
+        @staticmethod
+        def error(*_args):
+            pass
+
+    def unexpected_builder(*_args, **_kwargs):
+        raise AssertionError("Builder should not run for an absent optional group")
+
+    monkeypatch.setattr(
+        "bda.modules_pre.m4_foundations.module_foundations.FoundationsBCsBuilder",
+        unexpected_builder,
+    )
+    monkeypatch.setattr(
+        "bda.modules_pre.m5_bearings.module_bearings.BearingsBCsBuilder",
+        unexpected_builder,
+    )
+
+    assert FoundationsBCsModule(None, EmptyProvider(), SilentLogger()).run() is True
+    assert BearingsBCsModule(None, EmptyProvider(), SilentLogger()).run() is True
+
+
+def test_speckle_provider_rejects_invalid_present_boundary_collections(monkeypatch):
+    import pytest
+    from pydantic import ValidationError
+
+    class SilentLogger:
+        @staticmethod
+        def info(_message):
+            pass
+
+    monkeypatch.setattr(
+        "bda.infrastructure.data_providers.data_speckle_provider.AppLogger",
+        lambda: SilentLogger(),
+    )
+
+    provider = object.__new__(DataSpeckleProvider)
+    provider.SpeckleModelUrl = "test-speckle-url"
+
+    for collection_type, method_name in (
+        (FoundationBCCollection, "get_foundation_boundary_conditions_for_project"),
+        (BearingBCCollection, "get_bearing_boundary_conditions_for_project"),
+    ):
+        invalid_collection = collection_type.model_construct(elements=[{}])
+        boundary_conditions = BoundaryConditionsCollection.model_construct(
+            elements=[invalid_collection]
+        )
+        provider.ModelDataValidated = type(
+            "Validated", (), {"elements": [boundary_conditions]}
+        )()
+
+        with pytest.raises(ValidationError):
+            getattr(provider, method_name)()

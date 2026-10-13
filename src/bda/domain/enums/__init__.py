@@ -16,7 +16,7 @@ from bda.domain.enums.load_enums import (
     LoadDistribution,
     LoadTargetType,
     LoadType,
-    LocalAxis,
+    LocalAxis
 )
 from bda.domain.enums.response_enums import (
     DisplacementComponent,
@@ -43,9 +43,9 @@ __all__ = [
     "DisplacementComponent",
     "ElementEnd",
     "DesignCode",
-    "CoordinateSystem",
-    "LoadDistribution",
-    "LoadTargetType",
     "LoadType",
+    "LoadTargetType",
+    "LoadDistribution",
     "LocalAxis",
+    "CoordinateSystem",
 ]

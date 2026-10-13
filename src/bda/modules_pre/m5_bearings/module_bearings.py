@@ -13,7 +13,10 @@ class BearingsBCsModule(IModule):
 
     def _run(self) -> bool:
         bearings = self._load_bearings()
-
+        if not bearings:
+            self.logger.info("No Bearings Boundary Conditions found; skipping module.")
+            return True
+        
         builder = BearingsBCsBuilder(
             amm= self.amm,
             logger= self.logger,
@@ -31,7 +34,7 @@ class BearingsBCsModule(IModule):
         )
 
         if not dto:
-            raise ValueError("No Bearings Boundary Conditions found.")
+            return []
 
         return BearingMapper.to_domain(dto)
 
